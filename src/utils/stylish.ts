@@ -1,6 +1,6 @@
 import classnames from 'classnames'
-import { NodeExtraClassNames, getCompiledClassNames } from '../hooks/useExtraClassName';
-import { NodeExtraStyles, getCompiledStyles } from '../hooks/useExtraStyle';
+import { NodeExtraClassNames, getCompiledClassNames } from './extraClassName';
+import { NodeExtraStyles, getCompiledStyles } from './extraStyle';
 
 function compileNodeName(nodeNames: (string | undefined)[], options?: {
   prefix?: string,
@@ -25,13 +25,17 @@ export function initStylish<T extends string>(
     separator?: string,
   }
 ) {
-  return (nodeName: string, classNames: (string | undefined)[] = []) => {
+  return (
+    nodeName: string,
+    classNames: (string | undefined)[] = [],
+    style: React.CSSProperties = {},
+  ) => {
     return {
       className: getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), classnames(classNames), props),
-      style: getCompiledStyles<T>(nodeName, props)
+      style: getCompiledStyles<T>(nodeName, style, props)
     }
   }
 }
 
-export { ExtraClassNameProps } from '../hooks/useExtraClassName';;
-export { ExtraStyleProps } from '../hooks/useExtraStyle';;
+export { ExtraClassNameProps } from './extraClassName';;
+export { ExtraStyleProps } from './extraStyle';;

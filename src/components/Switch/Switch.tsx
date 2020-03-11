@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylishHelper';
+import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish';
 import RcSwitch from 'rc-switch';
 import { omit } from 'lodash';
 import classnames from 'classnames';

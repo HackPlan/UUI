@@ -9,15 +9,15 @@ export interface ExtraStyleProps<T extends string> {
 
 export function getCompiledStyles<T extends string>(
   nodeName: string,
-  styles?: {
+  initialStyle?: React.CSSProperties,
+  options?: {
     overrideStyle?: NodeExtraStyles<T>,
     extendStyle?: NodeExtraStyles<T>,
-    initialStyle?: NodeExtraStyles<T>,
   },
 ) {
   const keyName = nodeName === '' ? 'root' : nodeName;
-  const override = (styles && styles.overrideStyle && (styles.overrideStyle as any)[keyName]) || null
-  const initial = (styles && styles.initialStyle && (styles.initialStyle as any)[keyName]) || null
-  const extend = (styles && styles.extendStyle && (styles.extendStyle as any)[keyName]) || null
+  const override = (options && options.overrideStyle && (options.overrideStyle as any)[keyName]) || null
+  const initial = initialStyle || null
+  const extend = (options && options.extendStyle && (options.extendStyle as any)[keyName]) || null
   return override ? override : Object.assign(initial || {}, extend || {})
 }

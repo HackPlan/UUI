@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylishHelper'
+import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
 import './Page.scss'
 import { PageAnnotatedSection } from './AnnotatedSection'
 import { PageHeader } from './Header'

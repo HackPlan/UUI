@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylishHelper'
+import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
 
 export enum PageSectionNodeName {
   Root = "page-section",

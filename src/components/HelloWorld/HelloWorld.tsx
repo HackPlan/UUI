@@ -1,6 +1,6 @@
 import React from 'react'
 import './HelloWorld.scss'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylishHelper'
+import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
 
 export enum HelloWorldNodeName {
   Root = "hello-world",
