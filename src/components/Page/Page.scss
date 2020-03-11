@@ -1,0 +1,28 @@
+.uui-page {
+  max-width: 1000px;
+  margin: auto;
+
+  &-annotated-section {
+
+    &-header {
+      max-width: 40%;
+    }
+
+    &-content {
+      min-width: 60%;
+    }
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+    }
+
+  }
+
+  &-annotated-section, &-section {
+    border-bottom: 1px solid #dfe3e8;
+
+    &:last-child:not(:first-child):not(:nth-child(2)) {
+      border-bottom: none;
+    }
+  }
+}

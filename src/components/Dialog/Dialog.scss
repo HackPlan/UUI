@@ -1,0 +1,85 @@
+@import '../../styles/common/colors';
+@import '../../styles/common/motion';
+@import '../../styles/common/components';
+
+.uui-dialog {
+  @extend .uui-overlay;
+}
+
+.uui-dialog.is-visible .uui-dialog-container {
+  transition: transform $duration--moderate-02 uui--motion(entrance, expressive);
+  transform: translate3d(0, 0, 0);
+}
+
+.uui-dialog-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  max-height: 84%;
+  overflow: hidden;
+  transform-origin: top center;
+  transform: translate3d(0, -24px, 0);
+  transition: transform $duration--moderate-02 uui--motion(exit, expressive);
+}
+
+.uui-dialog-header,
+.uui-dialog-content {
+  width: 75%;
+  padding-left: 1rem;
+}
+
+.uui-dialog-header,
+.uui-dialog-footer {
+  flex-shrink: 0;
+}
+
+.uui-dialog-header {
+  padding-top: 1rem;
+}
+
+.uui-dialog-content {
+  overflow-y: auto;
+  font-weight: 400;
+}
+
+.uui-dialog-footer {
+  display: flex;
+  margin-top: auto;
+  height: 4rem;
+
+  button.uui-btn {
+    max-width: none;
+    width: 50%;
+    height: 4rem;
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.uui-dialog-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 3rem;
+  width: 3rem;
+  padding: rem(12px);
+  border: 2px solid transparent;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: transparent;
+
+  &:hover {
+    background-color: #e5e5e5;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.uui-dialog-close__icon {
+  height: rem(20px);
+  width: rem(20px);
+}

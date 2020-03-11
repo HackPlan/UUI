@@ -1,0 +1,37 @@
+{
+  "rootDirs": ["src", "stories"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "uuikit": ["index"],
+    },
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "jsx": "react",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "stories/**/*.tsx"
+  ],
+  "exclude": [
+    "lib"
+  ]
+}

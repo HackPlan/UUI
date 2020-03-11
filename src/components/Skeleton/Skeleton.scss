@@ -1,0 +1,41 @@
+.uui-skeleton {
+  margin: 8px;
+
+  @keyframes SkeletonAnimation {
+    0% {
+      opacity: 0.45;
+    }
+    100% {
+      opacity: 0.9;
+    }
+  }
+
+
+  &-paragraph-line, &-title, &-picture {
+    margin-bottom: 16px;
+    width: 100%;
+    background: #dfe3e8;
+    animation: SkeletonAnimation 1s linear infinite alternate;
+  }
+
+  &-title {
+    width: 44%;
+    height: 26px;
+  }
+
+  &-paragraph {
+    &-line {
+      height: 16px;
+
+      &:last-child:not(:first-child):not(:nth-child(2)) {
+        width: 80%;
+        margin-bottom: none;
+      }
+    }
+  }
+
+  &-picture {
+    width: 360px;
+    height: 270px;
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "rootDirs": ["src"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "uui": ["index"],
+    },
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "jsx": "react",
+    "outDir": "lib",
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
+  ]
+}
