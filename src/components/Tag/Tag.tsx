@@ -1,10 +1,12 @@
 import React from 'react';
-import { StylishProps, initStylish } from '../../utils/stylish';
+import { StylishProps, initStylished } from '../../utils/stylish';
 
 import './Tag.scss'
+import classNames from 'classnames';
 
 export enum TagNodeName {
-  Root = "tag",
+  Tag = "tag",
+  Root = "root",
   Content = "content",
 }
 
@@ -14,25 +16,21 @@ export interface TagProps extends StylishProps<TagNodeName> {
 }
 
 export function Tag(props: TagProps) {
-  const getStylishProps = initStylish<TagNodeName>(TagNodeName.Root, props, { prefix: "uui" })
+  const stylished = initStylished<TagNodeName>(TagNodeName.Tag, props, { prefix: "uui" })
+  const Root = stylished.element('div', TagNodeName.Root)
+  const Content = stylished.element('span', TagNodeName.Content)
   return (
-    <span
+    <Root
+      className={classNames([
+        'u-inline-flex u-justify-center u-items-center u-content-center u-bg-gray-600',
+        'u-m-1 u-px-2 u-rounded',
+        props.onClick ? 'u-cursor-pointer interactive u-select-none' : '',
+      ])}
       onClick={props.onClick ? (() => {
         props.onClick && props.onClick()
       }) : undefined}
-      {...getStylishProps('',
-        [
-          'u-inline-flex u-justify-center u-items-center u-content-center u-bg-gray-600',
-          'u-m-1 u-px-2 u-rounded',
-          props.onClick ? 'u-cursor-pointer interactive u-select-none' : '',
-        ],
-        {},
-        (
-          <span
-            {...getStylishProps(TagNodeName.Content, ['u-text-white'])}
-          >{props.children}</span>
-        )
-      )}
-    />
+    >
+      <Content className={classNames(['u-text-white'])}>{props.children}</Content>
+    </Root>
   )
 }
