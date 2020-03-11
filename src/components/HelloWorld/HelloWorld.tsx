@@ -1,12 +1,12 @@
 import React from 'react'
 import './HelloWorld.scss'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
+import { StylishProps, initStylish } from '../../utils/stylish'
 
 export enum HelloWorldNodeName {
   Root = "hello-world",
 }
 
-export interface HelloWorldProps extends ExtraClassNameProps<HelloWorldNodeName>, ExtraStyleProps<HelloWorldNodeName> {
+export interface HelloWorldProps extends StylishProps<HelloWorldNodeName> {
 }
 
 export function HelloWorld(props: HelloWorldProps) {

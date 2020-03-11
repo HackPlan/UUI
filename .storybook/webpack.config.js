@@ -6,13 +6,13 @@ module.exports = ({ config }) => {
         loader: require.resolve('awesome-typescript-loader'),
         options: {
           noUnusedLocals: false,
-          ignoreDiagnostics: [7005],
+          ignoreDiagnostics: [7005, 2347],
         },
       },
     ],
   });
   config.module.rules.push({
-    test: /\.(tsx)$/,
+    test: /\.stories\.(tsx)$/,
     loaders: [
       {
         loader: require.resolve('@storybook/source-loader'),

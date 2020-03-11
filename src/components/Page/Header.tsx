@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
+import { StylishProps, initStylish } from '../../utils/stylish'
 
 export enum PageHeaderNodeName {
   Root = "page-annotated-header",
@@ -10,7 +10,7 @@ export enum PageHeaderNodeName {
   PrimaryAction = "primary-action",
 }
 
-export interface PageHeaderProps extends ExtraClassNameProps<PageHeaderNodeName>, ExtraStyleProps<PageHeaderNodeName> {
+export interface PageHeaderProps extends StylishProps<PageHeaderNodeName> {
   title?: string | React.ReactNode
   subTitle?: string | React.ReactNode
   primaryAction?: React.ReactNode

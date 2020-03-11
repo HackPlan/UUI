@@ -1,12 +1,12 @@
 import React from 'react';
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from "../../utils/stylish"
+import { StylishProps, initStylish } from "../../utils/stylish"
 
 export enum SkeletonParagraphNodeName {
   Root = "skeleton-paragraph",
   Line = "line",
 }
 
-export interface SkeletonParagraphProps extends ExtraClassNameProps<SkeletonParagraphNodeName>, ExtraStyleProps<SkeletonParagraphNodeName> {
+export interface SkeletonParagraphProps extends StylishProps<SkeletonParagraphNodeName> {
   lines?: number
 }
 

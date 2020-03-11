@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish';
+import { StylishProps, initStylish } from '../../utils/stylish';
 import { useFocusTrap, useLockBodyScroll } from '../../hooks'
 
 import './Dialog.scss'
@@ -10,7 +10,7 @@ export enum DialogNodeName {
   Content = "content",
 }
 
-export interface DialogProps extends ExtraClassNameProps<DialogNodeName>, ExtraStyleProps<DialogNodeName> {
+export interface DialogProps extends StylishProps<DialogNodeName> {
   open: boolean,
   focusTrap?: boolean,
   lockBodyScroll?: boolean,

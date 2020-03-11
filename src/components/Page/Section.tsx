@@ -1,11 +1,11 @@
 import React from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
+import { StylishProps, initStylish } from '../../utils/stylish'
 
 export enum PageSectionNodeName {
   Root = "page-section",
 }
 
-export interface PageSectionProps extends ExtraClassNameProps<PageSectionNodeName>, ExtraStyleProps<PageSectionNodeName> {
+export interface PageSectionProps extends StylishProps<PageSectionNodeName> {
   children?: React.ReactNode
 }
 

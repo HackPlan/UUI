@@ -18,7 +18,7 @@ export function getCompiledClassNames<T extends string>(
     overrideClassName?: NodeExtraClassNames<T>,
     extendClassName?: NodeExtraClassNames<T>,
   },
-) {
+): string {
   const keyName = nodeName === '' ? 'root' : nodeName;
   const override = (options && options.overrideClassName && (options.overrideClassName as any)[keyName]) || null
   const extend = (options && options.extendClassName && (options.extendClassName as any)[keyName]) || null

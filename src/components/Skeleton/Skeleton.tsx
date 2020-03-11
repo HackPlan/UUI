@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish';
+import { initStylish, StylishProps } from '../../utils/stylish';
 import { SkeletonParagraph } from './Paragraph';
 import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
@@ -10,7 +10,7 @@ export enum SkeletonNodeName {
   Root = "skeleton",
 }
 
-export interface SkeletonProps extends ExtraClassNameProps<SkeletonNodeName>, ExtraStyleProps<SkeletonNodeName> {
+export interface SkeletonProps extends StylishProps<SkeletonNodeName> {
   animated?: boolean
   children?: React.ReactNode | string
 }
@@ -18,9 +18,7 @@ export interface SkeletonProps extends ExtraClassNameProps<SkeletonNodeName>, Ex
 function Skeleton(props: SkeletonProps) {
   const getStylishProps = initStylish<SkeletonNodeName>(SkeletonNodeName.Root, props, { prefix: "uui" })
   return (
-    <div {...getStylishProps('', [])}>
-      {props.children}
-    </div>
+    <div {...getStylishProps('', [], {}, props.children)} />
   )
 }
 

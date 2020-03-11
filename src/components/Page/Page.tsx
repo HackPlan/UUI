@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
+import { StylishProps, initStylish } from '../../utils/stylish'
 import './Page.scss'
 import { PageAnnotatedSection } from './AnnotatedSection'
 import { PageHeader } from './Header'
@@ -10,7 +10,7 @@ export enum PageNodeName {
   Header = "header",
 }
 
-export interface PageProps extends ExtraClassNameProps<PageNodeName>, ExtraStyleProps<PageNodeName> {
+export interface PageProps extends StylishProps<PageNodeName> {
   children?: React.ReactNode
 }
 

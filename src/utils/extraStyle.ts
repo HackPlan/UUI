@@ -14,7 +14,7 @@ export function getCompiledStyles<T extends string>(
     overrideStyle?: NodeExtraStyles<T>,
     extendStyle?: NodeExtraStyles<T>,
   },
-) {
+): React.CSSProperties {
   const keyName = nodeName === '' ? 'root' : nodeName;
   const override = (options && options.overrideStyle && (options.overrideStyle as any)[keyName]) || null
   const initial = initialStyle || null

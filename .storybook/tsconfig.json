@@ -2,9 +2,6 @@
   "rootDirs": ["src", "stories"],
   "compilerOptions": {
     "baseUrl": "src",
-    "paths": {
-      "uuikit": ["index"],
-    },
     "target": "es5",
     "lib": [
       "dom",

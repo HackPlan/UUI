@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish';
+import { StylishProps, initStylish } from '../../utils/stylish';
 import { useFocusTrap, useLockBodyScroll } from '../../hooks'
 
 import './Drawer.scss'
@@ -10,7 +10,7 @@ export enum DrawerNodeName {
   Content = "content",
 }
 
-export interface DrawerProps extends ExtraClassNameProps<DrawerNodeName>, ExtraStyleProps<DrawerNodeName> {
+export interface DrawerProps extends StylishProps<DrawerNodeName> {
   open: boolean,
   focusTrap?: boolean,
   lockBodyScroll?: boolean,

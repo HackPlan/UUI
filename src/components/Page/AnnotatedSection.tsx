@@ -1,5 +1,5 @@
 import React from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish'
+import { StylishProps, initStylish } from '../../utils/stylish'
 
 export enum PageAnnotatedSectionNodeName {
   Root = "page-annotated-section",
@@ -9,7 +9,7 @@ export enum PageAnnotatedSectionNodeName {
   Content = "content",
 }
 
-export interface PageAnnotatedSectionProps extends ExtraClassNameProps<PageAnnotatedSectionNodeName>, ExtraStyleProps<PageAnnotatedSectionNodeName> {
+export interface PageAnnotatedSectionProps extends StylishProps<PageAnnotatedSectionNodeName> {
   title?: string | React.ReactNode
   description?: string | React.ReactNode
   children?: React.ReactNode

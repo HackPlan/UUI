@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { ExtraClassNameProps, ExtraStyleProps, initStylish } from '../../utils/stylish';
+import { StylishProps, initStylish } from '../../utils/stylish';
 import RcSwitch from 'rc-switch';
 import { omit } from 'lodash';
 import classnames from 'classnames';
@@ -14,7 +14,7 @@ export enum SwitchNodeName {
 
 export type SwitchSize = 'small' | 'default';
 
-export interface SwitchProps extends ExtraClassNameProps<SwitchNodeName>, ExtraStyleProps<SwitchNodeName> {
+export interface SwitchProps extends StylishProps<SwitchNodeName> {
   size?: SwitchSize;
   disabled?: boolean;
   loading?: boolean;
