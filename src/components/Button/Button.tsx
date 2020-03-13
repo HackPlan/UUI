@@ -1,18 +1,36 @@
 import React from 'react';
-import { StylishProps, initStylished, initStylishedProxy } from '../../utils/stylish';
+import { initStylishedProxy } from '../../utils/stylish';
 import { BaseButtonProps, BaseButton } from '../../base/BaseButton';
+import classNames from 'classnames';
+
+import './Button.scss';
+import { omit } from 'lodash';
 
 export interface ButtonProps extends BaseButtonProps {
+  intent?: 'primary' | 'link' | 'info' | 'success' | 'warning' | 'danger'
+  size?: 'small' | 'normal' | 'medium' | 'large'
+  light?: boolean
+  outlined?: boolean
+  inverted?: boolean
+  loading?: boolean
 }
 
-export function Button(props: BaseButtonProps) {
+export function Button(props: ButtonProps) {
   const ButtonProxy = initStylishedProxy(BaseButton, props)
   return (
     <ButtonProxy
-      {...props}
-      extendClassName={{ root: 'test1' }}
-      extendStyle={{ root: { backgroundColor: 'red', borderRadius: 2 }}}
-      extendChildrenBefore={{ root: <div>extend1</div>}}
+      {...omit(props, 'intent', 'size', 'light', 'loading')}
+      extendClassName={{
+        root: classNames([
+          'button',
+          props.intent ? `is-${props.intent}` : '',
+          props.size ? `is-${props.size}` : '',
+          props.loading ? 'is-loading' : '',
+          props.light ? `is-${props.light}` : '',
+          props.outlined ? `is-${props.outlined}` : '',
+          props.inverted ? `is-${props.inverted}` : '',
+        ])
+      }}
     />
   )
 }
