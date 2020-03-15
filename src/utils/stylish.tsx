@@ -140,6 +140,10 @@ export function initStylishedProxy<T extends string, P extends StylishProps<T>>(
       }
     }
 
+    if (props['prefixClassName']) {
+      finalProps['prefixClassName'] = props['prefixClassName']
+    }
+
     return finalProps
   }
 
