@@ -66,9 +66,15 @@ export function initStylished<T extends string>(
   }
 ) {
   return {
-    element: (tagName: string, nodeName: string) => {
+    element: <T extends keyof JSX.IntrinsicElements>(tagName: T, nodeName: string) => {
       const Tag = tagName as 'div'
-      return (_props: React.HTMLAttributes<HTMLOrSVGElement>) => {
+      const isInput = ['input'].includes(tagName)
+      type PropsTypes = {
+        input: React.InputHTMLAttributes<HTMLInputElement>
+        textarea: React.TextareaHTMLAttributes<HTMLInputElement>
+        [key: string]: React.HTMLAttributes<HTMLOrSVGElement>
+      }
+      return (_props: PropsTypes[T]) => {
         return (
           <Tag
             {...omit(_props, [
@@ -76,9 +82,9 @@ export function initStylished<T extends string>(
               'overrideStyle', 'extendStyle',
               'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
             ])}
-            className={getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props)}
-            style={getCompiledStyles<T>(nodeName, _props.style, props)}
-            children={getCompiledChildren<T>(nodeName, _props.children, props)}
+            className={getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props as any)}
+            style={getCompiledStyles<T>(nodeName, _props.style, props as any)}
+            children={isInput ? undefined : getCompiledChildren<T>(nodeName, _props.children, props as any)}
           />
         )
       }
