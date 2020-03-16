@@ -1,43 +1,69 @@
-import React, { useState } from 'react';
-import { BaseInput } from '../src/base/BaseInput';
-import { Input } from '../src/components/Input';
+import React, { useState, useEffect } from 'react';
+import { BaseTextField } from '../src/base/BaseInput';
+import { BaseNumberField } from '../src/base/BaseInput';
 import { withKnobs } from "@storybook/addon-knobs";
+import { PreviewBox } from './utils/PreviewBox';
 
 export default {
   title: 'Input',
   decorators: [withKnobs]
 };
 
-export const toBaseInputStory = () => {
+export const toBaseTextFieldStory = () => {
   const [name, setName] = useState('')
   return (
-    <div className="u-m-4">
-      <BaseInput
-        value={name}
-        onChange={(value) => { setName(value) }}
-        placeholder={'Input something...'}
-      />
+    <div>
+      <PreviewBox title="Default BaseTextField">
+        <BaseTextField
+          type='text'
+          value={name}
+          onChange={(value) => { setName(value) }}
+          placeholder={'Input text...'}
+        />
+      </PreviewBox>
     </div>
   )
 }
 
-toBaseInputStory.story = {
-  name: 'BaseInput',
+toBaseTextFieldStory.story = {
+  name: 'BaseTextField',
 };
 
-export const toInputStory = () => {
-  const [name, setName] = useState('')
+export const toBaseNumberField = () => {
+  const [age, setAge] = useState<number | null>(null)
+  const [age2, setAge2] = useState<number | null>(null)
   return (
-    <div className="u-m-4">
-      <Input
-        value={name}
-        onChange={(value) => { setName(value) }}
-        placeholder={'Input something...'}
-      />
+    <div>
+      <PreviewBox title="Default BaseNumberField">
+        <BaseNumberField
+          value={age}
+          onChange={(value) => { setAge(value) }}
+          placeholder={'Input number...'}
+        />
+      </PreviewBox>
+      <PreviewBox
+        title="BaseNumberField with range limit control"
+        description={
+          <div>
+            <div>you can set property min, max, fixed and step to limit input number.</div>
+            <div>eg. min=-10 max=999 fixed=1</div>
+          </div>
+        }
+      >
+        <BaseNumberField
+          value={age2}
+          onChange={(value) => { setAge2(value) }}
+          min={-10}
+          max={999}
+          step={0.01}
+          fixed={0}
+          placeholder={'Input integer number...'}
+        />
+      </PreviewBox>
     </div>
   )
 }
 
-toInputStory.story = {
-  name: 'Input',
+toBaseNumberField.story = {
+  name: 'BaseNumberField',
 };
