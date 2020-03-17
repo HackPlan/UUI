@@ -51,7 +51,7 @@ type PropsTypes = {
   input: React.InputHTMLAttributes<HTMLInputElement>
   textarea: React.TextareaHTMLAttributes<HTMLInputElement>
   th: React.ThHTMLAttributes<HTMLTableHeaderCellElement>
-  // tr: React.TdHTMLAttributes<HTMLTable
+  td: React.TdHTMLAttributes<HTMLTableDataCellElement>
   [key: string]: React.HTMLAttributes<HTMLOrSVGElement>
 }
 export function initStylished<T extends string>(

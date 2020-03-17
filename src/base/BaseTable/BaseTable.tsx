@@ -29,6 +29,7 @@ export interface BaseTableProps extends React.HTMLAttributes<HTMLTableElement>, 
   onSelected?: (indexes: number[]) => void
 
   hideHeader?: boolean
+  emptyView?: React.ReactNode
 }
 
 export function BaseTable(props: BaseTableProps) {
@@ -86,41 +87,58 @@ export function BaseTable(props: BaseTableProps) {
 
   return (
     <Root
-      {...omit(props, 'columns', 'rows', 'selectedIndexes', 'onSelected')}
+      {...omit(props,
+        'columns', 'rows',
+        'selectedIndexes', 'onSelected',
+        'hideHeader', 'emptyView',
+      )}
       className={"u-border u-border-black u-py-1 u-px-2"}
     >
-      <Head>
-        {/* Selection Head Cell */}
-        {props.selectedIndexes && (
-          <Row>
-            <HeadCell rowSpan={9999}>
-              <BaseCheckbox
-                value={props.selectedIndexes.length === props.rows.length}
-                onChange={(value) => {
-                  props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
-                }}
-              />
-            </HeadCell>
-          </Row>
-        )}
-
-        {/* Grouping Head Cells */}
-        {groupColumns.map((row, rowIndex) => (
-          <Row key={`column-row-${rowIndex}`}>
-            {row.map((cell, cellIndex) => (
-              <HeadCell
-                key={`column-row${rowIndex}-cell-${cellIndex}`}
-                colSpan={cell.colspan}
-                rowSpan={cell.rowspan}
-              >
-                {cell.title}
+      {!props.hideHeader && (
+        <Head>
+          {/* Selection Head Cell */}
+          {props.selectedIndexes && (
+            <Row>
+              <HeadCell rowSpan={9999}>
+                <BaseCheckbox
+                  value={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
+                  onChange={(value) => {
+                    if (props.rows.length > 0) {
+                      props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
+                    }
+                  }}
+                />
               </HeadCell>
-            ))}
-          </Row>
-        ))}
-      </Head>
+            </Row>
+          )}
+
+          {/* Grouping Head Cells */}
+          {groupColumns.map((row, rowIndex) => (
+            <Row key={`column-row-${rowIndex}`}>
+              {row.map((cell, cellIndex) => (
+                <HeadCell
+                  key={`column-row${rowIndex}-cell-${cellIndex}`}
+                  colSpan={cell.colspan}
+                  rowSpan={cell.rowspan}
+                >
+                  {cell.title}
+                </HeadCell>
+              ))}
+            </Row>
+          ))}
+        </Head>
+      )}
+
       <Body>
-        {props.rows.map((row, index) => {
+        {props.rows.length === 0 ? (
+          <Row>
+            <DataCell colSpan={9999}>
+              {props.emptyView || (
+                <div className="u-h-40 u-flex u-items-center u-justify-center">No Data</div>
+              )}
+            </DataCell>
+          </Row>
+        ) : props.rows.map((row, index) => {
           return (
             <Row key={`row-${index}`}>
 

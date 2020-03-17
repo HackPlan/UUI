@@ -64,6 +64,23 @@ export const toBaseTableStory = () => {
           rows={rows}
         ></BaseTable>
       </PreviewBox>
+
+      <PreviewBox title="Table with empty data">
+        <BaseTable
+          columns={columns1}
+          rows={[]}
+          selectedIndexes={selectedIndexes}
+          onSelected={(indexes) => { setSelectedIndexes(indexes) }}
+        ></BaseTable>
+      </PreviewBox>
+
+      <PreviewBox title="Table hide header">
+        <BaseTable
+          columns={columns1}
+          rows={rows}
+          hideHeader
+        ></BaseTable>
+      </PreviewBox>
     </div>
   )
 }
