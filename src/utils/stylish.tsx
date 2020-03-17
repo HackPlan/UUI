@@ -47,6 +47,11 @@ export function initStylish<T extends string>(
   }
 }
 
+type PropsTypes = {
+  input: React.InputHTMLAttributes<HTMLInputElement>
+  textarea: React.TextareaHTMLAttributes<HTMLInputElement>
+  [key: string]: React.HTMLAttributes<HTMLOrSVGElement>
+}
 export function initStylished<T extends string>(
   rootNodeName: string,
   props?: {
@@ -65,15 +70,11 @@ export function initStylished<T extends string>(
     separator?: string,
   }
 ) {
+
   return {
     element: <T extends keyof JSX.IntrinsicElements>(tagName: T, nodeName: string) => {
       const Tag = tagName as 'div'
       const isInput = ['input'].includes(tagName)
-      type PropsTypes = {
-        input: React.InputHTMLAttributes<HTMLInputElement>
-        textarea: React.TextareaHTMLAttributes<HTMLInputElement>
-        [key: string]: React.HTMLAttributes<HTMLOrSVGElement>
-      }
       return (_props: PropsTypes[T]) => {
         return (
           <Tag
