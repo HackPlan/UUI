@@ -9,11 +9,33 @@ export default {
 };
 
 export const toBaseTableStory = () => {
-  const columns = ["Name", "Mobile", "Age", "Gender"]
+  const columns1 = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
+  const columns2 = [{
+    title: 'Person',
+    children: [{
+      title: 'Info',
+      children: [{
+        title: 'Name',
+      }, {
+        title: 'Age',
+      }, {
+        title: 'Gender',
+      }]
+    }, {
+      title: 'Contact',
+      children: [{
+        title: 'Mobile',
+      }, {
+        title: 'Email',
+      }]
+    }]
+  }, {
+    title: 'Profession'
+  }]
   const rows = [
-    ["Bobby P. Morton", "785-481-2375", "63", "male"],
-    ["Levi R. Oglesby", "631-285-1780", "35", "female"],
-    ["John S. Cassidy", "719-328-5475", "19", "male"],
+    ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+    ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+    ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
   ]
 
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
@@ -22,17 +44,24 @@ export const toBaseTableStory = () => {
     <div>
       <PreviewBox title="Default Table">
         <BaseTable
-          columns={columns}
+          columns={columns1}
           rows={rows}
         ></BaseTable>
       </PreviewBox>
 
       <PreviewBox title="Table with selection">
         <BaseTable
-          columns={columns}
+          columns={columns1}
           rows={rows}
           selectedIndexes={selectedIndexes}
           onSelected={(indexes) => { setSelectedIndexes(indexes) }}
+        ></BaseTable>
+      </PreviewBox>
+
+      <PreviewBox title="Table with grouping column">
+        <BaseTable
+          columns={columns2}
+          rows={rows}
         ></BaseTable>
       </PreviewBox>
     </div>
