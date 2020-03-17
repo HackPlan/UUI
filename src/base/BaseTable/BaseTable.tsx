@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
 
 import './BaseTable.scss';
+import { BaseCheckbox } from '../BaseCheckbox';
+import { range, omit } from 'lodash';
 
 export enum BaseTableNodeName {
   BaseTable = "table",
@@ -16,6 +18,9 @@ export enum BaseTableNodeName {
 export interface BaseTableProps extends React.HTMLAttributes<HTMLTableElement>, StylishProps<BaseTableNodeName> {
   columns: (React.ReactNode | string)[]
   rows: (React.ReactNode | string)[][]
+
+  selectedIndexes?: number[]
+  onSelected?: (indexes: number[]) => void
 
   hideHeader?: boolean
 }
@@ -44,9 +49,22 @@ export function BaseTable(props: BaseTableProps) {
   }, [])
 
   return (
-    <Root {...props} className={"u-border u-border-black u-py-1 u-px-2"}>
+    <Root
+      {...omit(props, 'columns', 'rows', 'selectedIndexes', 'onSelected')}
+      className={"u-border u-border-black u-py-1 u-px-2"}
+    >
       <Head>
         <Row>
+          {props.selectedIndexes && (
+            <HeadCell>
+              <BaseCheckbox
+                value={props.selectedIndexes.length === props.rows.length}
+                onChange={(value) => {
+                  props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
+                }}
+              />
+            </HeadCell>
+          )}
           {props.columns.map((column, index) => {
             return (<HeadCell key={`column-${index}`}>{column}</HeadCell>)
           })}
@@ -56,6 +74,19 @@ export function BaseTable(props: BaseTableProps) {
         {props.rows.map((row, index) => {
           return (
             <Row key={`row-${index}`}>
+              {props.selectedIndexes && (
+                <DataCell>
+                  <BaseCheckbox
+                    value={props.selectedIndexes.includes(index)}
+                    onChange={(value) => {
+                      const indexesSet = new Set(props.selectedIndexes)
+                      if (value)  indexesSet.add(index)
+                      else        indexesSet.delete(index)
+                      props.onSelected && props.onSelected(Array.from(indexesSet))
+                    }}
+                  />
+                </DataCell>
+              )}
               {row.map((cell, index) => {
                 return (
                   <DataCell key={`cell-${index}`}>{cell}</DataCell>

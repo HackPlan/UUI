@@ -15,12 +15,24 @@ export const toBaseTableStory = () => {
     ["Levi R. Oglesby", "631-285-1780", "35", "female"],
     ["John S. Cassidy", "719-328-5475", "19", "male"],
   ]
+
+  const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
+
   return (
     <div>
       <PreviewBox title="Default Table">
         <BaseTable
           columns={columns}
           rows={rows}
+        ></BaseTable>
+      </PreviewBox>
+
+      <PreviewBox title="Table with selection">
+        <BaseTable
+          columns={columns}
+          rows={rows}
+          selectedIndexes={selectedIndexes}
+          onSelected={(indexes) => { setSelectedIndexes(indexes) }}
         ></BaseTable>
       </PreviewBox>
     </div>
