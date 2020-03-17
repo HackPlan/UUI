@@ -81,6 +81,23 @@ export const toBaseTableStory = () => {
           hideHeader
         ></BaseTable>
       </PreviewBox>
+
+      <PreviewBox title="Table with custom style">
+        <BaseTable
+          columns={columns2}
+          rows={rows}
+          extendClassName={{
+            headcell: 'u-bg-green-400 u-',
+            datacell: 'u-bg-red-400',
+          }}
+          extendStyle={{
+            datacell: {
+              fontStyle: 'italic',
+              padding: 20
+            }
+          }}
+        ></BaseTable>
+      </PreviewBox>
     </div>
   )
 }
