@@ -1,0 +1,36 @@
+.uui-base-radio-input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.uui-base-radio-indicator {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  border-collapse: separate;
+  border-radius: 50%;
+
+  &.checked {
+    background-color: white;
+    border-color: black;
+  }
+  &.checked:after {
+    position: absolute;
+    content: '';
+    width: 9px;
+    height: 9px;
+    background-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+  }
+}
