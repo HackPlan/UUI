@@ -2,31 +2,31 @@ import React, { useMemo } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
 import classNames from 'classnames';
 
-export enum BaseRadioGroupNodeName {
-  BaseRadioGroup = "base-radio-group",
+export enum RadioGroupNodeName {
+  RadioGroup = "radiogroup",
   Root = "root",
   Radio = "radio"
 }
 
-export interface BaseRadioGroupOptions {
+export interface RadioGroupOptions {
   label: string
   value: string
 }
-export interface BaseRadioGroupProps extends StylishProps<BaseRadioGroupNodeName> {
+export interface RadioGroupProps extends StylishProps<RadioGroupNodeName> {
   value: string
   onChange: (value: string) => void
   children: React.ReactNode
 }
 
-export function BaseRadioGroup(props: BaseRadioGroupProps) {
+export function RadioGroup(props: RadioGroupProps) {
 
   // Initial Nodes
   const [
     Root,
   ] = useMemo(() => {
-    const stylished = initStylished(BaseRadioGroupNodeName.BaseRadioGroup, props, { prefix: "uui" })
+    const stylished = initStylished(RadioGroupNodeName.RadioGroup, props, { prefix: "uui" })
     return [
-      stylished.element('div', BaseRadioGroupNodeName.Root),
+      stylished.element('div', RadioGroupNodeName.Root),
     ]
   }, [])
 

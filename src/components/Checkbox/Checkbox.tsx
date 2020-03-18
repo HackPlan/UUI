@@ -3,10 +3,10 @@ import { StylishProps, initStylished } from '../../utils/stylish';
 import { omit } from 'lodash';
 import classNames from 'classnames';
 
-import './BaseRadio.scss';
+import './Checkbox.scss';
 
-export enum BaseRadioNodeName {
-  BaseRadio = "base-radio",
+export enum CheckboxNodeName {
+  Checkbox = "checkbox",
   Root = "root",
   Input = "input",
   Indicator = "indicator",
@@ -15,13 +15,15 @@ export enum BaseRadioNodeName {
 
 type InputHTMLAttributes = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  'type'
+  'type' | 'value' | 'onChange'
 >
-export interface BaseRadioProps extends InputHTMLAttributes, StylishProps<BaseRadioNodeName> {
+export interface CheckboxProps extends InputHTMLAttributes, StylishProps<CheckboxNodeName> {
   label?: string | React.ReactNode
+  value: boolean
+  onChange: (value: boolean) => void
 }
 
-export function BaseRadio(props: BaseRadioProps) {
+export function Checkbox(props: CheckboxProps) {
 
   // Initial Nodes
   const [
@@ -30,12 +32,12 @@ export function BaseRadio(props: BaseRadioProps) {
     Indicator,
     Label,
   ] = useMemo(() => {
-    const stylished = initStylished(BaseRadioNodeName.BaseRadio, props, { prefix: "uui" })
+    const stylished = initStylished(CheckboxNodeName.Checkbox, props, { prefix: "uui" })
     return [
-      stylished.element('label', BaseRadioNodeName.Root),
-      stylished.element('input', BaseRadioNodeName.Input),
-      stylished.element('span', BaseRadioNodeName.Indicator),
-      stylished.element('span', BaseRadioNodeName.Label),
+      stylished.element('label', CheckboxNodeName.Root),
+      stylished.element('input', CheckboxNodeName.Input),
+      stylished.element('span', CheckboxNodeName.Indicator),
+      stylished.element('span', CheckboxNodeName.Label),
     ]
   }, [])
   return (
@@ -46,11 +48,15 @@ export function BaseRadio(props: BaseRadioProps) {
       })}
     >
       <Input
-        {...omit(props, 'type')}
-        type='radio'
+        {...omit(props, 'type', 'value', 'onChange')}
+        type='checkbox'
+        checked={props.value}
+        onChange={(event) => {
+          props.onChange(event.target.checked)
+        }}
       />
       <Indicator className={classNames([
-        props.checked ? 'checked' : ''
+        props.value ? 'checked' : ''
       ])}></Indicator>
       <Label className="u-pl-2">{props.label}</Label>
     </Root>

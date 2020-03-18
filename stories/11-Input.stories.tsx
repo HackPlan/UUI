@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { BaseTextField } from '../src/base/BaseInput';
-import { BaseNumberField } from '../src/base/BaseInput';
+import { TextField } from '../src/components/Input';
+import { NumberField } from '../src/components/Input';
 import { withKnobs } from "@storybook/addon-knobs";
 import { PreviewBox } from './utils/PreviewBox';
 
@@ -9,12 +9,12 @@ export default {
   decorators: [withKnobs]
 };
 
-export const toBaseTextFieldStory = () => {
+export const toTextFieldStory = () => {
   const [name, setName] = useState('')
   return (
     <div>
-      <PreviewBox title="Default BaseTextField">
-        <BaseTextField
+      <PreviewBox title="Default TextField">
+        <TextField
           type='text'
           value={name}
           onChange={(value) => { setName(value) }}
@@ -25,24 +25,24 @@ export const toBaseTextFieldStory = () => {
   )
 }
 
-toBaseTextFieldStory.story = {
-  name: 'BaseTextField',
+toTextFieldStory.story = {
+  name: 'TextField',
 };
 
-export const toBaseNumberField = () => {
+export const toNumberField = () => {
   const [age, setAge] = useState<number | null>(null)
   const [age2, setAge2] = useState<number | null>(null)
   return (
     <div>
-      <PreviewBox title="Default BaseNumberField">
-        <BaseNumberField
+      <PreviewBox title="Default NumberField">
+        <NumberField
           value={age}
           onChange={(value) => { setAge(value) }}
           placeholder={'Input number...'}
         />
       </PreviewBox>
       <PreviewBox
-        title="BaseNumberField with range limit control"
+        title="NumberField with range limit control"
         description={
           <div>
             <div>you can set property min, max, fixed and step to limit input number.</div>
@@ -50,7 +50,7 @@ export const toBaseNumberField = () => {
           </div>
         }
       >
-        <BaseNumberField
+        <NumberField
           value={age2}
           onChange={(value) => { setAge2(value) }}
           min={-10}
@@ -64,6 +64,6 @@ export const toBaseNumberField = () => {
   )
 }
 
-toBaseNumberField.story = {
-  name: 'BaseNumberField',
+toNumberField.story = {
+  name: 'NumberField',
 };

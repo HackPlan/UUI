@@ -2,30 +2,30 @@ import React, { useMemo } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
 import { omit } from 'lodash';
 
-export enum BaseTextFieldNodeName {
-  BaseTextField = "base-text-field",
+export enum TextFieldNodeName {
+  TextField = "textfield",
   Root = "root",
   Input = "input",
-  LeftElement = "left-element",
-  RightElement = "right-element",
+  LeftElement = "leftelement",
+  RightElement = "rightelement",
 }
 
 type InputHTMLAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange'>
-export interface BaseTextFieldProps extends InputHTMLAttributes, StylishProps<BaseTextFieldNodeName> {
+export interface TextFieldProps extends InputHTMLAttributes, StylishProps<TextFieldNodeName> {
   type?: 'text' | 'tel' | 'url' | 'email' | 'password'
   value: string
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export function BaseTextField(props: BaseTextFieldProps) {
+export function TextField(props: TextFieldProps) {
 
   // Initial Nodes
   const [
     Root,
   ] = useMemo(() => {
-    const stylished = initStylished(BaseTextFieldNodeName.BaseTextField, props, { prefix: "uui" })
+    const stylished = initStylished(TextFieldNodeName.TextField, props, { prefix: "uui" })
     return [
-      stylished.element('input', BaseTextFieldNodeName.Root),
+      stylished.element('input', TextFieldNodeName.Root),
     ]
   }, [])
   return (

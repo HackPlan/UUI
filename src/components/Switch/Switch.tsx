@@ -9,7 +9,7 @@ import './Switch.less'
 export enum SwitchNodeName {
   Root = "switch",
   Checkbox = "checkbox",
-  Indicator = "indicator",
+  Inner = "inner",
 }
 
 export type SwitchSize = 'small' | 'default';

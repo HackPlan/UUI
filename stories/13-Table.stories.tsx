@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BaseTable } from '../src/base/BaseTable';
+import { Table } from '../src/components/Table';
 import { withKnobs } from "@storybook/addon-knobs";
 import { PreviewBox } from './utils/PreviewBox';
 
@@ -8,7 +8,7 @@ export default {
   decorators: [withKnobs]
 };
 
-export const toBaseTableStory = () => {
+export const toTableStory = () => {
   const columns1 = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
   const columns2 = [{
     title: 'Person',
@@ -43,47 +43,47 @@ export const toBaseTableStory = () => {
   return (
     <div>
       <PreviewBox title="Default Table">
-        <BaseTable
+        <Table
           columns={columns1}
           rows={rows}
-        ></BaseTable>
+        ></Table>
       </PreviewBox>
 
       <PreviewBox title="Table with selection">
-        <BaseTable
+        <Table
           columns={columns1}
           rows={rows}
           selectedIndexes={selectedIndexes}
           onSelected={(indexes) => { setSelectedIndexes(indexes) }}
-        ></BaseTable>
+        ></Table>
       </PreviewBox>
 
       <PreviewBox title="Table with grouping column">
-        <BaseTable
+        <Table
           columns={columns2}
           rows={rows}
-        ></BaseTable>
+        ></Table>
       </PreviewBox>
 
       <PreviewBox title="Table with empty data">
-        <BaseTable
+        <Table
           columns={columns1}
           rows={[]}
           selectedIndexes={selectedIndexes}
           onSelected={(indexes) => { setSelectedIndexes(indexes) }}
-        ></BaseTable>
+        ></Table>
       </PreviewBox>
 
       <PreviewBox title="Table hide header">
-        <BaseTable
+        <Table
           columns={columns1}
           rows={rows}
           hideHeader
-        ></BaseTable>
+        ></Table>
       </PreviewBox>
 
       <PreviewBox title="Table with custom style">
-        <BaseTable
+        <Table
           columns={columns2}
           rows={rows}
           extendClassName={{
@@ -96,12 +96,12 @@ export const toBaseTableStory = () => {
               padding: 20
             }
           }}
-        ></BaseTable>
+        ></Table>
       </PreviewBox>
     </div>
   )
 }
 
-toBaseTableStory.story = {
-  name: 'BaseTable',
+toTableStory.story = {
+  name: 'Table',
 };

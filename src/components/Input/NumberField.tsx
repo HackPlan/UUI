@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
 import { omit } from 'lodash';
 
-export enum BaseNumberFieldNodeName {
-  BaseNumberField = "base-number-field",
+export enum NumberFieldNodeName {
+  NumberField = "numberfield",
   Root = "root",
 }
 
@@ -12,7 +12,7 @@ type InputHTMLAttributes = Omit<
   'min' | 'max' | 'type' |
   'value' | 'onChange'
 >
-export interface BaseNumberFieldProps extends InputHTMLAttributes, StylishProps<BaseNumberFieldNodeName> {
+export interface NumberFieldProps extends InputHTMLAttributes, StylishProps<NumberFieldNodeName> {
   min?: number
   max?: number
   fixed?: number
@@ -20,15 +20,15 @@ export interface BaseNumberFieldProps extends InputHTMLAttributes, StylishProps<
   onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export function BaseNumberField(props: BaseNumberFieldProps) {
+export function NumberField(props: NumberFieldProps) {
 
   // Initial Nodes
   const [
     Root,
   ] = useMemo(() => {
-    const stylished = initStylished(BaseNumberFieldNodeName.BaseNumberField, props, { prefix: "uui" })
+    const stylished = initStylished(NumberFieldNodeName.NumberField, props, { prefix: "uui" })
     return [
-      stylished.element('input', BaseNumberFieldNodeName.Root),
+      stylished.element('input', NumberFieldNodeName.Root),
     ]
   }, [])
 

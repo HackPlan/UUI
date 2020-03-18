@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BaseRadio, BaseRadioGroup } from '../src/base/BaseRadio';
+import { Radio, RadioGroup } from '../src/components/Radio';
 import { withKnobs } from "@storybook/addon-knobs";
 import { PreviewBox } from './utils/PreviewBox';
 
@@ -8,30 +8,30 @@ export default {
   decorators: [withKnobs]
 };
 
-export const toBaseRadioStory = () => {
+export const toRadioStory = () => {
   const [n, setN] = useState("a")
   return (
     <div>
-      <PreviewBox title="BaseRadio">
-        <BaseRadio
+      <PreviewBox title="Radio">
+        <Radio
           label={'Radio'}
         />
-        <BaseRadio
+        <Radio
           label={'Disabled'}
           disabled
         />
       </PreviewBox>
       <PreviewBox title="Group of Radio">
-        <BaseRadioGroup value={n} onChange={(value) => { console.log('onchange ' + value + ' ' + typeof value); setN(value) }}>
-          <BaseRadio name="radio1" label={'Apple'} value={'a'} extendClassName={{ root: 'u-mr-4 '}}></BaseRadio>
-          <BaseRadio name="radio1" label={'Banana'} value={'b'} extendClassName={{ root: 'u-mr-4 '}}></BaseRadio>
-          <BaseRadio name="radio1" label={'Cherry'} value={'c'} extendClassName={{ root: 'u-mr-4 '}}></BaseRadio>
-        </BaseRadioGroup>
+        <RadioGroup value={n} onChange={(value) => { console.log('onchange ' + value + ' ' + typeof value); setN(value) }}>
+          <Radio name="radio1" label={'Apple'} value={'a'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
+          <Radio name="radio1" label={'Banana'} value={'b'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
+          <Radio name="radio1" label={'Cherry'} value={'c'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
+        </RadioGroup>
       </PreviewBox>
     </div>
   )
 }
 
-toBaseRadioStory.story = {
-  name: 'BaseRadio',
+toRadioStory.story = {
+  name: 'Radio',
 };

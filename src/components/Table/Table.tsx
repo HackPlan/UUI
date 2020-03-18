@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
 
-import './BaseTable.scss';
-import { BaseCheckbox } from '../BaseCheckbox';
+import './Table.scss';
+import { Checkbox } from '../Checkbox';
 import { range, omit } from 'lodash';
 
-export enum BaseTableNodeName {
-  BaseTable = "table",
+export enum TableNodeName {
+  Table = "table",
   Root = "root",
   Head = "head",
   Body = "body",
@@ -15,15 +15,15 @@ export enum BaseTableNodeName {
   DataCell = "datacell",
 }
 
-export type BaseTableCell = React.ReactNode | string
-export interface BaseTableColumn {
-  title: BaseTableCell
-  children?: BaseTableColumn[]
+export type TableCell = React.ReactNode | string
+export interface TableColumn {
+  title: TableCell
+  children?: TableColumn[]
 }
 
-export interface BaseTableProps extends React.HTMLAttributes<HTMLTableElement>, StylishProps<BaseTableNodeName> {
-  columns: BaseTableColumn[]
-  rows: BaseTableCell[][]
+export interface TableProps extends React.HTMLAttributes<HTMLTableElement>, StylishProps<TableNodeName> {
+  columns: TableColumn[]
+  rows: TableCell[][]
 
   selectedIndexes?: number[]
   onSelected?: (indexes: number[]) => void
@@ -32,7 +32,7 @@ export interface BaseTableProps extends React.HTMLAttributes<HTMLTableElement>, 
   emptyView?: React.ReactNode
 }
 
-export function BaseTable(props: BaseTableProps) {
+export function Table(props: TableProps) {
 
   // Initial Nodes
   const [
@@ -43,21 +43,21 @@ export function BaseTable(props: BaseTableProps) {
     HeadCell,
     DataCell,
   ] = useMemo(() => {
-    const stylished = initStylished(BaseTableNodeName.BaseTable, props, { prefix: "uui" })
+    const stylished = initStylished(TableNodeName.Table, props, { prefix: "uui" })
     return [
-      stylished.element('table', BaseTableNodeName.Root),
-      stylished.element('thead', BaseTableNodeName.Head),
-      stylished.element('tbody', BaseTableNodeName.Body),
-      stylished.element('tr', BaseTableNodeName.Row),
-      stylished.element('th', BaseTableNodeName.HeadCell),
-      stylished.element('td', BaseTableNodeName.DataCell),
+      stylished.element('table', TableNodeName.Root),
+      stylished.element('thead', TableNodeName.Head),
+      stylished.element('tbody', TableNodeName.Body),
+      stylished.element('tr', TableNodeName.Row),
+      stylished.element('th', TableNodeName.HeadCell),
+      stylished.element('td', TableNodeName.DataCell),
     ]
   }, [])
 
   const groupColumns = useMemo(() => {
-    const groupCells: (BaseTableColumn & { colspan?: number; rowspan?: number; })[][] = []
+    const groupCells: (TableColumn & { colspan?: number; rowspan?: number; })[][] = []
     let maxDepth = 0;
-    const dfs = (column: BaseTableColumn, depth: number): { colspan: number; rowspan: number; } => {
+    const dfs = (column: TableColumn, depth: number): { colspan: number; rowspan: number; } => {
       let colspan = 0, rowspan = 0;
       maxDepth = Math.max(maxDepth, depth);
       if (column.children) {
@@ -100,7 +100,7 @@ export function BaseTable(props: BaseTableProps) {
           {props.selectedIndexes && (
             <Row>
               <HeadCell rowSpan={9999}>
-                <BaseCheckbox
+                <Checkbox
                   value={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
                   onChange={(value) => {
                     if (props.rows.length > 0) {
@@ -145,7 +145,7 @@ export function BaseTable(props: BaseTableProps) {
               {/* Selection Head Cell */}
               {props.selectedIndexes && (
                 <DataCell>
-                  <BaseCheckbox
+                  <Checkbox
                     value={props.selectedIndexes.includes(index)}
                     onChange={(value) => {
                       const indexesSet = new Set(props.selectedIndexes)

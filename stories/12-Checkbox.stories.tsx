@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BaseCheckbox } from '../src/base/BaseCheckbox';
+import { Checkbox } from '../src/components/Checkbox';
 import { withKnobs } from "@storybook/addon-knobs";
 import { PreviewBox } from './utils/PreviewBox';
 
@@ -8,17 +8,17 @@ export default {
   decorators: [withKnobs]
 };
 
-export const toBaseCheckboxStory = () => {
+export const toCheckboxStory = () => {
   const [flag, setFlag] = useState(false)
   return (
     <div>
-      <PreviewBox title="BaseCheckbox">
-        <BaseCheckbox
+      <PreviewBox title="Checkbox">
+        <Checkbox
           label={'Checkbox'}
           value={flag}
           onChange={(value) => { console.log(value); setFlag(value) }}
         />
-        <BaseCheckbox
+        <Checkbox
           label={'Disabled'}
           value={flag}
           onChange={(value) => { console.log(value); setFlag(value) }}
@@ -29,6 +29,6 @@ export const toBaseCheckboxStory = () => {
   )
 }
 
-toBaseCheckboxStory.story = {
-  name: 'BaseCheckbox',
+toCheckboxStory.story = {
+  name: 'Checkbox',
 };

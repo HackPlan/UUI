@@ -1,9 +1,12 @@
 import './styles/tailwind.css'
 import './index.scss'
 
-export * from './components/HelloWorld'
-export * from './components/Switch'
-export * from './components/Tag'
+export * from './components/Button'
+export * from './components/Checkbox'
+export * from './components/Dialog'
+export * from './components/Input'
+export * from './components/Radio'
 export * from './components/Skeleton'
-export * from './components/Page'
-
+export * from './components/Switch'
+export * from './components/Table'
+export * from './components/Tag'

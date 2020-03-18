@@ -1,5 +1,4 @@
 import React from 'react';
-import { HelloWorld } from '../src';
 
 export default {
   title: 'Welcome',
@@ -7,7 +6,7 @@ export default {
 
 export const toStorybook = () => {
   return (
-    <HelloWorld></HelloWorld>
+    <div>UUI</div>
   )
 }
 
