@@ -37,6 +37,11 @@ export const toTableStory = () => {
     ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
     ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
   ]
+  const [rows2, setRow2] = useState([
+    ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+    ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+    ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+  ])
 
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
 
@@ -95,6 +100,20 @@ export const toTableStory = () => {
               fontStyle: 'italic',
               padding: 20
             }
+          }}
+        ></Table>
+      </PreviewBox>
+
+      <PreviewBox title="Table with drag and drop">
+        <Table
+          columns={columns1}
+          rows={rows2}
+          onDragged={(from, to) => {
+            setRow2((value) => {
+              const newValue = Array.from(value)
+              newValue.splice(to, 0, newValue.splice(from, 1)[0])
+              return newValue
+            })
           }}
         ></Table>
       </PreviewBox>

@@ -6,7 +6,7 @@ export enum ButtonNodeName {
   Root = "root",
 }
 
-export interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, StylishProps<ButtonNodeName> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>, StylishProps<ButtonNodeName> {
 }
 
 export function Button(props: ButtonProps) {

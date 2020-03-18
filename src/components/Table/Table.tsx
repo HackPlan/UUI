@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
-
-import './Table.scss';
-import { Checkbox } from '../Checkbox';
 import { range, omit } from 'lodash';
+import { DragDropContext, Droppable, Draggable, DragStart, DropResult, ResponderProvided } from 'react-beautiful-dnd';
+
+import { Checkbox } from '../Checkbox';
+import './Table.scss';
 
 export enum TableNodeName {
   Table = "table",
@@ -30,6 +31,8 @@ export interface TableProps extends React.HTMLAttributes<HTMLTableElement>, Styl
 
   hideHeader?: boolean
   emptyView?: React.ReactNode
+
+  onDragged?: (fromIndex: number, toIndex: number) => void
 }
 
 export function Table(props: TableProps) {
@@ -85,12 +88,41 @@ export function Table(props: TableProps) {
     }))
   }, [props.columns])
 
+  /**
+   * Drag and Drop
+   */
+  const onBeforeDragStart = useCallback((initial: DragStart) => {
+    const elements = Array.from(document.getElementsByTagName('td'))
+    for (const element of elements) {
+      element.setAttribute('UUI_TABLE_FIXED_WIDTH', 'yes')
+      element.setAttribute('UUI_TABLE_FIXED_HEIGHT', 'yes')
+      element.style.width = `${element.offsetWidth}px`
+      element.style.height = `${element.offsetHeight}px`
+    }
+  }, [])
+  const onDragEnd = useCallback((result: DropResult) => {
+    props.onDragged && result.destination && props.onDragged(result.source.index, result.destination.index)
+
+    const elements = Array.from(document.getElementsByTagName('td'))
+    for (const element of elements) {
+      if (element.getAttribute('UUI_TABLE_FIXED_WIDTH')) {
+        element.style.width = 'undefined'
+        element.removeAttribute('UUI_TABLE_FIXED_WIDTH')
+      }
+      if (element.getAttribute('UUI_TABLE_FIXED_HEIGHT')) {
+        element.style.height = 'undefined'
+        element.removeAttribute('UUI_TABLE_FIXED_HEIGHT')
+      }
+    }
+  }, [])
+
   return (
     <Root
       {...omit(props,
         'columns', 'rows',
         'selectedIndexes', 'onSelected',
         'hideHeader', 'emptyView',
+        'onDragged',
       )}
       className={"u-border u-border-black u-py-1 u-px-2"}
     >
@@ -129,45 +161,83 @@ export function Table(props: TableProps) {
         </Head>
       )}
 
-      <Body>
-        {props.rows.length === 0 ? (
-          <Row>
-            <DataCell colSpan={9999}>
-              {props.emptyView || (
-                <div className="u-h-40 u-flex u-items-center u-justify-center">No Data</div>
-              )}
-            </DataCell>
-          </Row>
-        ) : props.rows.map((row, index) => {
-          return (
-            <Row key={`row-${index}`}>
-
-              {/* Selection Head Cell */}
-              {props.selectedIndexes && (
-                <DataCell>
-                  <Checkbox
-                    value={props.selectedIndexes.indexOf(index) !== -1}
-                    onChange={(value) => {
-                      const indexesSet = new Set(props.selectedIndexes)
-                      if (value)  indexesSet.add(index)
-                      else        indexesSet.delete(index)
-                      props.onSelected && props.onSelected(Array.from(indexesSet))
-                    }}
-                  />
+      <DragDropContext
+        onBeforeDragStart={onBeforeDragStart}
+        onDragEnd={onDragEnd}
+      >
+      <Droppable droppableId="RowDroppable" type="ROW">
+        {(provided, snapshot) => (
+          <Body ref={provided.innerRef} {...provided.droppableProps}>
+            {props.rows.length === 0 ? (
+              <Row>
+                <DataCell colSpan={9999}>
+                  {props.emptyView || (
+                    <div className="u-h-40 u-flex u-items-center u-justify-center">No Data</div>
+                  )}
                 </DataCell>
-              )}
+              </Row>
+            ) : props.rows.map((row, rowIndex) => {
+              const draggableId = `RowDraggable-${rowIndex}`
+              return (
+                <Draggable
+                  key={`row-${rowIndex}`}
+                  draggableId={draggableId}
+                  index={rowIndex}
+                  isDragDisabled={!props.onDragged}
+                >
+                  {(provided, snapshot) => {
+                    const draggableStyle = provided.draggableProps.style;
+                    const transform = draggableStyle ? draggableStyle.transform : null;
 
-              {/* Data Cell */}
-              {row.map((cell, index) => {
-                return (
-                  <DataCell key={`cell-${index}`}>{cell}</DataCell>
-                )
-              })}
+                    return (
+                      <Row ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={{
+                          ...provided.draggableProps.style,
+                          ...(transform && {
+                            transform: `translate(0, ${transform.substring(
+                              transform.indexOf(',') + 1,
+                              transform.indexOf(')'),
+                            )})`,
+                          }),
+                          width: 1000,
+                        }}
+                      >
 
-            </Row>
-          )
-        })}
-      </Body>
+                      {/* Selection Head Cell */}
+                      {props.selectedIndexes && (
+                        <DataCell>
+                          <Checkbox
+                            value={props.selectedIndexes.indexOf(rowIndex) !== -1}
+                            onChange={(value) => {
+                              const indexesSet = new Set(props.selectedIndexes)
+                              if (value)  indexesSet.add(rowIndex)
+                              else        indexesSet.delete(rowIndex)
+                              props.onSelected && props.onSelected(Array.from(indexesSet))
+                            }}
+                          />
+                        </DataCell>
+                      )}
+
+                      {/* Data Cell */}
+                      {row.map((cell, index) => {
+                        return (
+                          <DataCell key={`cell-${index}`}>{cell}</DataCell>
+                        )
+                      })}
+
+                      </Row>
+                    )
+                  }}
+                </Draggable>
+              )
+            })}
+            {provided.placeholder}
+          </Body>
+        )}
+      </Droppable>
+      </DragDropContext>
     </Root>
   )
 }
