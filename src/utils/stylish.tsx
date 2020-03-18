@@ -48,10 +48,11 @@ export function initStylish<T extends string>(
 }
 
 type PropsTypes = {
-  input: React.InputHTMLAttributes<HTMLInputElement>
-  textarea: React.TextareaHTMLAttributes<HTMLInputElement>
-  th: React.ThHTMLAttributes<HTMLTableHeaderCellElement>
-  td: React.TdHTMLAttributes<HTMLTableDataCellElement>
+  div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+  input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+  th: React.DetailedHTMLProps<React.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>
+  td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>
   [key: string]: React.HTMLAttributes<HTMLOrSVGElement>
 }
 export function initStylished<T extends string>(
