@@ -8,16 +8,22 @@ export default {
 };
 
 export const toStorybook = () => {
+  const [opened, setOpened] = useState(true)
   return (
-    <div className="">
+    <div className="u-bg-gray-300" style={{ height: '100vh' }}>
+      <button
+        className="u-bg-blue-400 u-p-2 u-text-white"
+        onClick={() => { setOpened((value) => { return !value })}}
+      >toggle dialog</button>
       <Dialog
-        open={boolean("Open", true)}
+        open={opened}
         focusTrap={boolean("focusTrap", true)}
       >
-        <h1 className="u-text-xl">Dialog Title</h1>
-        <p className="u-my-4 u-text-gray-600">Dialog Content</p>
-        <input className="u-bg-gray-300 u-p-2" type="text" />
-        <button className="u-bg-red-400 u-p-2 u-text-white">OK</button>
+        <div className=" u-w-64 u-h-40"></div>
+        <button
+          className="u-bg-red-400 u-p-2 u-text-white"
+          onClick={() => { setOpened((value) => { return !value })}}
+        >close</button>
       </Dialog>
 
     </div>
