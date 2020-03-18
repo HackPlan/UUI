@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dialog } from '../src';
+import { Dialog } from '../src/base/Dialog';
 import { withKnobs, boolean } from "@storybook/addon-knobs";
 
 export default {
