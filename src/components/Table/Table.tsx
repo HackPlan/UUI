@@ -146,7 +146,7 @@ export function Table(props: TableProps) {
               {props.selectedIndexes && (
                 <DataCell>
                   <Checkbox
-                    value={props.selectedIndexes.includes(index)}
+                    value={props.selectedIndexes.indexOf(index) !== -1}
                     onChange={(value) => {
                       const indexesSet = new Set(props.selectedIndexes)
                       if (value)  indexesSet.add(index)

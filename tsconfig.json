@@ -2,31 +2,23 @@
   "rootDirs": ["src"],
   "compilerOptions": {
     "baseUrl": "src",
-    "paths": {
-      "uui": ["index"],
-    },
+    "module": "es6",
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["es2015", "dom"],
+    "outDir": "lib",
+    "sourceMap": true,
+    "declaration": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "jsx": "react",
-    "outDir": "lib",
-    "declaration": true,
-    "declarationMap": true,
-    "noEmit": true,
-    "sourceMap": true
+    "declarationMap": true
   },
   "include": [
     "src/**/*.ts",

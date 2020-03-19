@@ -77,7 +77,7 @@ export function initStylished<T extends string>(
   return {
     element: <T extends keyof JSX.IntrinsicElements>(tagName: T, nodeName: string) => {
       const Tag = tagName as 'div'
-      const isInput = ['input'].includes(tagName)
+      const isInput = ['input'].indexOf(tagName) !== -1
       return (_props: PropsTypes[T]) => {
         return (
           <Tag
