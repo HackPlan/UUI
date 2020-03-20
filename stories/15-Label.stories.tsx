@@ -1,7 +1,8 @@
 import React from 'react';
-import { MoneyLabel, DateLabel } from '../src/components/Label';
+import { MoneyLabel, DateLabel, TimeLabel } from '../src/components/Label';
 import { withKnobs } from "@storybook/addon-knobs";
 import { PreviewBox } from './utils/PreviewBox';
+import { DateTime } from 'luxon';
 
 export default {
   title: 'Label',
@@ -76,4 +77,46 @@ export const toDateLabelStory = () => {
 
 toDateLabelStory.story = {
   name: 'DateLabel',
+};
+
+export const toTimeLabelStory = () => {
+  const now = new Date()
+  return (
+    <div>
+      <PreviewBox title="TimeLabel" description={'zh-CN'}>
+        <div className="u-flex u-flex-col">
+          <TimeLabel value={now} locale={'zh-CN'} kind={'13时30分'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-CN'} kind={'13时30分55秒'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-CN'} kind={'下午 1:30:55'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-CN'} kind={'下午1时30分'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-CN'} kind={'下午1时30分55秒'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-CN'} kind={'下午一时三十分'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-CN'} kind={'十三时三十分'}></TimeLabel>
+        </div>
+      </PreviewBox>
+      <PreviewBox title="TimeLabel" description={'zh-TW'}>
+        <div className="u-flex u-flex-col">
+          <TimeLabel value={now} locale={'zh-TW'} kind={'13時30分'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-TW'} kind={'13時30分55秒'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-TW'} kind={'下午 1:30:55'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-TW'} kind={'下午1時30分'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-TW'} kind={'下午1時30分55秒'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-TW'} kind={'下午一時三十分'}></TimeLabel>
+          <TimeLabel value={now} locale={'zh-TW'} kind={'十三時三十分'}></TimeLabel>
+        </div>
+      </PreviewBox>
+      <PreviewBox title="TimeLabel" description={'en-US'}>
+        <div className="u-flex u-flex-col">
+          <TimeLabel value={now} locale={'en-US'} kind={'13:30'}></TimeLabel>
+          <TimeLabel value={now} locale={'en-US'} kind={'13:30:55'}></TimeLabel>
+          <TimeLabel value={now} locale={'en-US'} kind={'1:30 PM'}></TimeLabel>
+          <TimeLabel value={now} locale={'en-US'} kind={'1:30:55 PM'}></TimeLabel>
+        </div>
+      </PreviewBox>
+    </div>
+  )
+}
+
+toTimeLabelStory.story = {
+  name: 'TimeLabel',
 };
