@@ -22,10 +22,10 @@ export const toRadioStory = () => {
         />
       </PreviewBox>
       <PreviewBox title="Group of Radio">
-        <RadioGroup value={n} onChange={(value) => { console.log('onchange ' + value + ' ' + typeof value); setN(value) }}>
-          <Radio name="radio1" label={'Apple'} value={'a'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
-          <Radio name="radio1" label={'Banana'} value={'b'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
-          <Radio name="radio1" label={'Cherry'} value={'c'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
+        <RadioGroup name="radio1" value={n} onChange={(value) => { setN(value) }}>
+          <Radio label={'Apple'} value={'a'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
+          <Radio label={'Banana'} value={'b'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
+          <Radio label={'Cherry'} value={'c'} extendClassName={{ root: 'u-mr-4 '}}></Radio>
         </RadioGroup>
       </PreviewBox>
     </div>

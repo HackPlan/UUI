@@ -15,13 +15,14 @@ export enum RadioNodeName {
 
 type InputHTMLAttributes = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  'type'
+  'type' | 'value'
 >
-export interface RadioProps extends InputHTMLAttributes, StylishProps<RadioNodeName> {
+export interface RadioProps<T extends string | number> extends InputHTMLAttributes, StylishProps<RadioNodeName> {
+  value?: T
   label?: string | React.ReactNode
 }
 
-export function Radio(props: RadioProps) {
+export function Radio<T extends string | number>(props: RadioProps<T>) {
 
   // Initial Nodes
   const [

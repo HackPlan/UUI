@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
 import classNames from 'classnames';
+import { RadioProps } from './Radio';
 
 export enum RadioGroupNodeName {
   RadioGroup = "radiogroup",
@@ -12,13 +13,14 @@ export interface RadioGroupOptions {
   label: string
   value: string
 }
-export interface RadioGroupProps extends StylishProps<RadioGroupNodeName> {
-  value: string
-  onChange: (value: string) => void
-  children: React.ReactNode
+export interface RadioGroupProps<T extends string | number> extends StylishProps<RadioGroupNodeName> {
+  name?: string
+  value: T
+  onChange: (value: T) => void
+  children: React.ReactElement<RadioProps<T>>[] | React.ReactElement<RadioProps<T>>
 }
 
-export function RadioGroup(props: RadioGroupProps) {
+export function RadioGroup<T extends string | number>(props: RadioGroupProps<T>) {
 
   // Initial Nodes
   const [
@@ -35,15 +37,14 @@ export function RadioGroup(props: RadioGroupProps) {
       className={classNames("u-flex u-flex-row u-items-center u-block")}
     >
       {React.Children.map(props.children, (child: any) => {
-        return (
-          <child.type
-            {...child.props}
-            checked={child.props.value === props.value}
-            onChange={(event: any) => {
-              props.onChange(event.target.value)
-            }}
-          />
-        )
+        return React.cloneElement<RadioProps<T>>(child, {
+          ...child.props,
+          ...(props.name ? { name: props.name } : {}),
+          checked: child.props.value === props.value,
+          onChange: (event) => {
+            props.onChange(child.props.value)
+          },
+        })
       })}
     </Root>
   )
