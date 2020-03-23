@@ -47,14 +47,6 @@ export function initStylish<T extends string>(
   }
 }
 
-type PropsTypes = {
-  div: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-  input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-  textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-  th: React.DetailedHTMLProps<React.ThHTMLAttributes<HTMLTableHeaderCellElement>, HTMLTableHeaderCellElement>
-  td: React.DetailedHTMLProps<React.TdHTMLAttributes<HTMLTableDataCellElement>, HTMLTableDataCellElement>
-  [key: string]: React.HTMLAttributes<HTMLOrSVGElement>
-}
 export function initStylished<T extends string>(
   rootNodeName: string,
   props?: {
@@ -76,9 +68,9 @@ export function initStylished<T extends string>(
 
   return {
     element: <T extends keyof JSX.IntrinsicElements>(tagName: T, nodeName: string) => {
-      const Tag = tagName as 'div'
+      const Tag = tagName as any
       const isInput = ['input'].indexOf(tagName) !== -1
-      return (_props: PropsTypes[T]) => {
+      return React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
         return (
           <Tag
             {...omit(_props, [
@@ -86,15 +78,16 @@ export function initStylished<T extends string>(
               'overrideStyle', 'extendStyle',
               'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
             ])}
+            ref={ref}
             className={getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props as any)}
             style={getCompiledStyles<T>(nodeName, _props.style, props as any)}
             children={isInput ? undefined : getCompiledChildren<T>(nodeName, _props.children, props as any)}
           />
         )
-      }
+      })
     },
     component: <P extends any>(Target: React.ComponentType<P>, nodeName: string) => {
-      return (_props: P) => {
+      return React.forwardRef((_props: P, ref) => {
         return (
           <Target
             {...omit(_props, [
@@ -102,12 +95,13 @@ export function initStylished<T extends string>(
               'overrideStyle', 'extendStyle',
               'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
             ]) as any}
+            ref={ref}
             className={getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props)}
             style={getCompiledStyles<T>(nodeName, _props.style, props)}
             children={getCompiledChildren<T>(nodeName, _props.children, props)}
           />
         )
-      }
+      })
     },
   }
 }
