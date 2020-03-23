@@ -2,6 +2,8 @@
 
 # project
 lib
+storybook-static
+.netlify
 
 .vscode
 
