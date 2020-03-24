@@ -2,7 +2,15 @@
 
 # project
 lib
+storybook-static
+.netlify
 
+#npm
+.npmrc
+hackplan-uui-*.tgz
+package
+
+#vs code
 .vscode
 
 # dependencies

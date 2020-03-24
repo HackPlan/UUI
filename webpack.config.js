@@ -1,5 +1,7 @@
 const path = require('path');
+const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   entry: './src/index.ts',
@@ -31,7 +33,16 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader
         },
         'css-loader',
-        'sass-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            // Prefer `dart-sass`
+            implementation: require('sass'),
+            sassOptions: {
+              fiber: require('fibers'),
+            },
+          }
+        },
       ],
     }, {
       test: /\.less$/,
@@ -56,6 +67,19 @@ module.exports = {
       filename: 'index.css',
     }),
   ],
+  optimization: {
+    minimizer: [
+      new TerserJSPlugin({}),
+      new OptimizeCSSAssetsPlugin({
+        cssProcessorOptions: {
+          map: {
+            inline: false,
+            annotation: true,
+          }
+        }
+      }),
+    ],
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },

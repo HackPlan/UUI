@@ -3,6 +3,11 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
     './src/**/*.html',
     './src/**/*.jsx',
     './src/**/*.tsx',
+    ...(process.env.STORYBOOK_BUILD === 'yes' ? [
+      './stories/**/*.jsx',
+      './stories/**/*.tsx',
+      './stories/**/*.ts',
+    ] : []),
   ],
   defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
 })
