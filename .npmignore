@@ -7,3 +7,8 @@ postcss.config.js
 storybook-static
 .nvmrc
 .storybook
+.vscode
+package
+.netlify
+yarn-error.log
+hackplan-uui-*.tgz

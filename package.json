@@ -9,7 +9,6 @@
   "main": "lib/index.js",
   "module": "lib/index.es.js",
   "type": "lib/index.d.ts",
-  "files": ["lib"],
   "dependencies": {
     "@charlietango/use-focus-trap": "^1.2.6",
     "accounting": "^0.4.1",
@@ -48,6 +47,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "netlify-cli": "^2.40.0",
     "node-sass": "^4.13.0",
+    "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-import": "^12.0.1",
     "postcss-less": "^3.1.4",
@@ -55,6 +55,7 @@
     "react": "^16.12.0",
     "react-docgen-typescript-loader": "^3.6.0",
     "react-dom": "^16.12.0",
+    "rimraf": "^3.0.2",
     "sass-loader": "^8.0.0",
     "tailwindcss": "^1.1.4",
     "terser-webpack-plugin": "^2.3.5",
@@ -72,9 +73,14 @@
   "scripts": {
     "dev": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
+    "cleanbuild": "rimraf lib && yarn build",
+    "pack": "yarn cleanbuild && yarn pack",
+    "publish": "yarn publish",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "deploy:storybook-netlify": "STORYBOOK_BUILD=yes build-storybook && netlify deploy --dir=storybook-static --functions=uui"
+    "build:storybook": "build-storybook",
+    "cleanbuild:storybook": "rimraf lib && build:storybook",
+    "deploy:storybook": "STORYBOOK_BUILD=yes build-storybook && netlify deploy --dir=storybook-static --functions=uui"
+
   },
   "eslintConfig": {
     "extends": "react-app"

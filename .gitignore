@@ -8,6 +8,7 @@ storybook-static
 #npm
 .npmrc
 hackplan-uui-*.tgz
+package
 
 #vs code
 .vscode
