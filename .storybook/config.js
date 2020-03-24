@@ -1,10 +1,12 @@
 import { addParameters, configure } from '@storybook/react';
 import { create } from '@storybook/theming/create';
 
+const uuiPackage = require('../package.json')
+
 const uuiTheme = create({
   base: 'light',
 
-  brandTitle: 'UUI Storybook',
+  brandTitle: `UUI (v${uuiPackage.version})`,
 });
 
 addParameters({
