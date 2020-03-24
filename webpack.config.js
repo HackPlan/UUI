@@ -33,7 +33,16 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader
         },
         'css-loader',
-        'sass-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            // Prefer `dart-sass`
+            implementation: require('sass'),
+            sassOptions: {
+              fiber: require('fibers'),
+            },
+          }
+        },
       ],
     }, {
       test: /\.less$/,

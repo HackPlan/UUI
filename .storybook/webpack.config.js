@@ -46,7 +46,16 @@ module.exports = ({ config }) => {
     use: [
       'style-loader',
       'css-loader',
-      'sass-loader',
+      {
+        loader: 'sass-loader',
+        options: {
+          // Prefer `dart-sass`
+          implementation: require('sass'),
+          sassOptions: {
+            fiber: require('fibers'),
+          },
+        }
+      },
     ],
   })
   config.module.rules.push({
