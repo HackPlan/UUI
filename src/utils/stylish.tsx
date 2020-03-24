@@ -70,7 +70,19 @@ export function initStylished<T extends string>(
     element: <T extends keyof JSX.IntrinsicElements>(tagName: T, nodeName: string) => {
       const Tag = tagName as any
       const isInput = ['input'].indexOf(tagName) !== -1
+      const isSelectOption = tagName === 'option'
+
       return React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
+        // input tag do not support to pass children props
+        let children: string | React.ReactNode | undefined = undefined
+        if (isSelectOption) {
+          // select option tag only support string type children,
+          // if pass Fragments to children, it will show [Object Object] in html.
+          children = _props.children
+        } else if (!isInput) {
+          children = getCompiledChildren<T>(nodeName, _props.children, props as any)
+        }
+
         return (
           <Tag
             {...omit(_props, [
@@ -81,7 +93,7 @@ export function initStylished<T extends string>(
             ref={ref}
             className={getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props as any)}
             style={getCompiledStyles<T>(nodeName, _props.style, props as any)}
-            children={isInput ? undefined : getCompiledChildren<T>(nodeName, _props.children, props as any)}
+            children={children}
           />
         )
       })
