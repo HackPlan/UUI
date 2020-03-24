@@ -5,6 +5,11 @@ lib
 storybook-static
 .netlify
 
+#npm
+.npmrc
+hackplan-uui-*.tgz
+
+#vs code
 .vscode
 
 # dependencies

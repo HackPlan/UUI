@@ -1,7 +1,11 @@
 {
-  "name": "uui",
+  "name": "@hackplan/uui",
   "version": "0.1.0",
-  "private": true,
+  "description": "UUI Framework",
+  "repository": "git@lab.hackplan.com:tinyapps/uui.git",
+  "author": "HackPlan <npm@hackplan.com>",
+  "license": "MIT",
+  "private": false,
   "main": "lib/index.js",
   "module": "lib/index.es.js",
   "type": "lib/index.d.ts",
