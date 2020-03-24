@@ -1,0 +1,53 @@
+.uui-toaster-portal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.uui-toaster-root {
+  pointer-events: none;
+  z-index: 999;
+
+  &.position-top {
+    align-items: center;
+  }
+  &.position-top_left {
+    align-items: flex-start;
+  }
+  &.position-top_right {
+    align-items: flex-end;
+  }
+  &.position-bottom {
+    align-items: center;
+    justify-content: flex-end;
+  }
+  &.position-bottom_left {
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  &.position-bottom_right {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  &.position-center_left {
+    align-items: flex-start;
+    justify-content: center;
+  }
+  &.position-center_right {
+    align-items: flex-end;
+    justify-content: center;
+  }
+  &.position-center {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.uui-toast-root {
+  width: fit-content;
+  pointer-events: all;
+}
