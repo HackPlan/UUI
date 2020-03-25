@@ -20,7 +20,7 @@ type InputHTMLAttributes = Omit<
 export interface CheckboxProps extends InputHTMLAttributes, StylishProps<CheckboxNodeName> {
   label?: string | React.ReactNode
   value: boolean
-  onChange: (value: boolean) => void
+  onChange: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export function Checkbox(props: CheckboxProps) {
@@ -52,7 +52,7 @@ export function Checkbox(props: CheckboxProps) {
         type='checkbox'
         checked={props.value}
         onChange={(event) => {
-          props.onChange(event.target.checked)
+          props.onChange(event.target.checked, event)
         }}
       />
       <Indicator className={classNames([
