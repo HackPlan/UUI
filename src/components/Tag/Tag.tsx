@@ -1,24 +1,22 @@
 import React from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
 
 import './Tag.scss'
 import classNames from 'classnames';
+import { UUI } from '../../utils/uui';
 
-export enum TagNodeName {
-  Tag = "tag",
-  Root = "root",
-  Content = "content",
-}
-
-export interface TagProps extends StylishProps<TagNodeName> {
+export interface TagProps {
   children?: React.ReactNode | string
   onClick?: () => void
 }
 
-export function Tag(props: TagProps) {
-  const stylished = initStylished<TagNodeName>(TagNodeName.Tag, props, { prefix: "uui" })
-  const Root = stylished.element('div', TagNodeName.Root)
-  const Content = stylished.element('span', TagNodeName.Content)
+export const Tag = UUI.FunctionComponent({
+  name: 'Tag',
+  nodes: {
+    Root: 'div',
+    Content: 'span',
+  },
+}, (props: TagProps, nodes) => {
+  const { Root, Content } = nodes
   return (
     <Root
       className={classNames([
@@ -33,4 +31,4 @@ export function Tag(props: TagProps) {
       <Content className={classNames(['u-text-white'])}>{props.children}</Content>
     </Root>
   )
-}
+})
