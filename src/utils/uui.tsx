@@ -4,23 +4,23 @@ import { mapValues, pick, isString } from 'lodash';
 
 
 
-interface NodeCustomizeClassNameProps {
+export interface NodeCustomizeClassNameProps {
   className?: string
   overrideClassName?: string
   extendClassName?: string
 }
-interface NodeCustomizeStyleProps {
+export interface NodeCustomizeStyleProps {
   style?: React.CSSProperties
   overrideStyle?: React.CSSProperties
   extendStyle?: React.CSSProperties
 }
-interface NodeCustomizeChildrenProps {
+export interface NodeCustomizeChildrenProps {
   children?: React.ReactNode
   overrideChildren?: React.ReactNode
   extendChildrenBefore?: React.ReactNode
   extendChildrenAfter?: React.ReactNode
 }
-type NodeCustomizeProps =
+export type NodeCustomizeProps =
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
@@ -30,13 +30,13 @@ type NodeCustomizeProps =
 function compileNodeName(nodeName: string, options?: { prefix?: string; separator?: string }) {
   return [options?.prefix, nodeName].filter((i) => i && i.length > 0).join(options?.separator || '-')
 }
-export function getCompiledClassNames(nodeClassName: string, props?: NodeCustomizeClassNameProps): string {
+function getCompiledClassNames(nodeClassName: string, props?: NodeCustomizeClassNameProps): string {
   return props?.overrideClassName ? props?.overrideClassName : classnames(nodeClassName, props?.className || '', props?.extendClassName || '')
 }
-export function getCompiledStyles(props?: NodeCustomizeStyleProps): React.CSSProperties {
+function getCompiledStyles(props?: NodeCustomizeStyleProps): React.CSSProperties {
   return props?.overrideStyle ? props?.overrideStyle : Object.assign(props?.style || {}, props?.extendStyle || {})
 }
-export function getCompiledChildren(
+function getCompiledChildren(
   props?: NodeCustomizeChildrenProps,
 ): JSX.Element | null {
   if (props?.overrideChildren) {

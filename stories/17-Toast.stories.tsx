@@ -37,8 +37,12 @@ export const toToastStory = () => {
       <PreviewBox title={"Custom Toast"}>
         <Button onClick={() => {
           const id = AppToaster2.show({
-            extendClassName: { root: "u-bg-green-400 u-rounded u-border-none u-text-white" },
-            extendStyle: { root: { padding: 12 }},
+            customize: {
+              Root: {
+                extendClassName: "u-bg-green-400 u-rounded u-border-none u-text-white",
+                extendStyle: { padding: 12 },
+              }
+            },
             message: Math.random(),
           })
         }}>

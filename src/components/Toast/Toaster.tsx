@@ -1,11 +1,11 @@
 import { IToast, Toast, ToastProps } from './Toast';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { StylishProps, initStylished } from '../../utils/stylish';
 import { v4 as uuidv4 } from 'uuid';
 
 import './Toaster.scss'
 import classNames from 'classnames';
+import { UUI } from '../../utils/uui';
 
 export enum ToasterPosition {
   Top = "top",
@@ -24,7 +24,9 @@ export enum ToasterNodeName {
   Root = "root",
 }
 
-export interface ToasterProps extends StylishProps<ToasterNodeName> {
+type ToastCustomizeProps = Pick<Parameters<typeof Toast>[0], 'customize'>
+
+export interface ToasterProps {
   /**
    * Position of `Toaster` within its container.
    * @default ToasterPosition.Top
@@ -44,17 +46,17 @@ export interface ToasterState {
 }
 
 
-export class Toaster extends React.Component<ToasterProps, ToasterState> {
+const ToasterPortalClassName = "UUI-Toaster-Portal"
+export class Toaster extends UUI.ClassComponent({
+  prefix: 'UUI',
+  name: 'Toaster',
+  nodes: {
+    Root: 'div',
+  },
+})<ToasterProps, ToasterState> {
   constructor(props: ToasterProps) {
     super(props)
-
-    const stylished = initStylished(ToasterNodeName.Toaster, props, { prefix: "uui" })
-    this.Nodes = [
-      stylished.element('div', ToasterNodeName.Root),
-    ] as any
   }
-
-  private Nodes: ReturnType<ReturnType<typeof initStylished>['element']>[]
 
   public state = {
     toasts: [] as IToast[],
@@ -62,7 +64,7 @@ export class Toaster extends React.Component<ToasterProps, ToasterState> {
 
   static create(props: ToasterProps, container = document.body) {
     const containerElement = document.createElement("div");
-    containerElement.className = "uui-toaster-portal"
+    containerElement.className = ToasterPortalClassName
     container.appendChild(containerElement);
     const toaster = ReactDOM.render<ToasterProps>(
       <Toaster {...props} />,
@@ -74,7 +76,7 @@ export class Toaster extends React.Component<ToasterProps, ToasterState> {
     return toaster;
   }
 
-  show(props: ToastProps, id?: string): string | undefined {
+  show(props: ToastProps & ToastCustomizeProps, id?: string): string | undefined {
     if (this.props.maxToasts) {
       // check if active number of toasts are at the maxToasts limit
       this.dismissIfAtLimit();
@@ -116,7 +118,7 @@ export class Toaster extends React.Component<ToasterProps, ToasterState> {
 
 
   render() {
-    const [Root] = this.Nodes
+    const { Root } = this.nodes
 
     return (
       <Root className={classNames("u-p-4 u-h-full u-flex u-flex-col", `position-${this.props.position || ToasterPosition.Top}`)}>
