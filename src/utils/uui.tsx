@@ -1,6 +1,6 @@
 import React from 'react';
 import classnames from 'classnames'
-import { mapValues, pick, isString } from 'lodash';
+import { mapValues, pick, isString, omit } from 'lodash';
 
 
 
@@ -42,7 +42,7 @@ function getCompiledChildren(
   if (props?.overrideChildren) {
     return <>{props?.overrideChildren}</>
   } else {
-    return <>{props?.extendChildrenBefore} {props?.children} {props?.extendChildrenAfter}</>
+    return <>{props?.extendChildrenBefore}{props?.children}{props?.extendChildrenAfter}</>
   }
 }
 
@@ -62,7 +62,7 @@ type IntrinsicNodeCustomizeOptions =
 type IntrinsicNodeT = JSX.IntrinsicElements
 type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
 function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
-  return (_props: JSX.IntrinsicElements[T]) => {
+  return React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
 
     const className = (() => {
       return getCompiledClassNames(compileNodeName(nodeName, pick(options, ['prefix', 'separator'])), {
@@ -95,25 +95,32 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     })()
 
     return React.createElement(tagName, {
-      ..._props,
+      ...omit(_props,
+        'overrideClassName', 'extendClassName',
+        'overrideStyle', 'extendStyle',
+        'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
+      ),
+      ref,
       className, style, children,
     })
-  }
+  })
 }
 
-type ComponentNodeCustomizeProps<M extends string> = {
+type ComponentNodeCustomizeProps<M extends string | number | symbol> = {
   [key in M]: IntrinsicNodeCustomizeProps
 }
 
 type ComponentNodeT = (props: any, ...args: any) => any
-type ComponentNode<P extends any, N extends string | number | symbol, M extends string> = (Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) => (props: P) => JSX.Element
+type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) => (props: P) => JSX.Element
 function ComponentNode<P extends any, N extends string, M extends string>(Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) {
-  return (_props: P) => (
-    <Target
-      {..._props}
+  const _Target = Target as any
+  return React.forwardRef((_props: P, ref) => (
+    <_Target
+      {...omit(_props, 'customize')}
+      ref={ref as any}
       customize={customizeProps}
     />
-  )
+  ))
 }
 
 export class UUI {
@@ -135,7 +142,7 @@ export class UUI {
     }
   >(
     options: {
-      prefix: string
+      prefix?: string
       name: string
       separator?: string
       nodes: X
@@ -143,7 +150,7 @@ export class UUI {
     WrappedComponent: (props: P, nodes: {
       [key in keyof X]: X[key] extends keyof IntrinsicNodeT
         ? ReturnType<IntrinsicNode<X[key], key>>
-        : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, any>> : never)
+        : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, keyof Parameters<X[key]>[0]['customize']>> : never)
     }) => React.ReactElement,
   ) {
     return (props: P & Z) => {
@@ -169,7 +176,7 @@ export class UUI {
     }
   >(
     options: {
-      prefix: string
+      prefix?: string
       name: string
       separator?: string
       nodes: X
@@ -192,7 +199,7 @@ export class UUI {
 }
 
 function compileNodes(props: any, options: any): any {
-  const prefix = `${options.prefix}-${options.name}`
+  const prefix = `${options.prefix || 'UUI'}-${options.name}`
   return mapValues(options.nodes, (value, key) => {
     const customizeProps = props.customize && (props.customize as any)[key]
     if (isString(value)) {

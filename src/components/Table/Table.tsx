@@ -1,20 +1,11 @@
-import React, { useMemo, useCallback, useState } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React, { useMemo, useCallback } from 'react';
 import { range, omit } from 'lodash';
-import { DragDropContext, Droppable, Draggable, DragStart, DropResult, ResponderProvided } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DragStart, DropResult } from 'react-beautiful-dnd';
 
-import { Checkbox } from '../Checkbox';
+import { UUI } from '../../utils/uui';
+import { Checkbox as UUICheckbox } from '../Checkbox';
 import './Table.scss';
 
-export enum TableNodeName {
-  Table = "table",
-  Root = "root",
-  Head = "head",
-  Body = "body",
-  Row = "row",
-  HeadCell = "headcell",
-  DataCell = "datacell",
-}
 
 export type TableCell = React.ReactNode | string
 export interface TableColumn {
@@ -22,7 +13,7 @@ export interface TableColumn {
   children?: TableColumn[]
 }
 
-export interface TableProps extends React.HTMLAttributes<HTMLTableElement>, StylishProps<TableNodeName> {
+export interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
   columns: TableColumn[]
   rows: TableCell[][]
 
@@ -35,27 +26,19 @@ export interface TableProps extends React.HTMLAttributes<HTMLTableElement>, Styl
   onDragged?: (fromIndex: number, toIndex: number) => void
 }
 
-export function Table(props: TableProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-    Head,
-    Body,
-    Row,
-    HeadCell,
-    DataCell,
-  ] = useMemo(() => {
-    const stylished = initStylished(TableNodeName.Table, props, { prefix: "uui" })
-    return [
-      stylished.element('table', TableNodeName.Root),
-      stylished.element('thead', TableNodeName.Head),
-      stylished.element('tbody', TableNodeName.Body),
-      stylished.element('tr', TableNodeName.Row),
-      stylished.element('th', TableNodeName.HeadCell),
-      stylished.element('td', TableNodeName.DataCell),
-    ]
-  }, [])
+export const Table = UUI.FunctionComponent({
+  name: 'Table',
+  nodes: {
+    Root: 'table',
+    Head: 'thead',
+    Body: 'tbody',
+    Row: 'tr',
+    HeadCell: 'th',
+    DataCell: 'td',
+    Checkbox: UUICheckbox,
+  }
+}, (props: TableProps, nodes) => {
+  const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox } = nodes
 
   const groupColumns = useMemo(() => {
     const groupCells: (TableColumn & { colspan?: number; rowspan?: number; })[][] = []
@@ -240,4 +223,4 @@ export function Table(props: TableProps) {
       </DragDropContext>
     </Root>
   )
-}
+})

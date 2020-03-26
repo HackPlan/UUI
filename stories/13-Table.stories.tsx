@@ -91,16 +91,24 @@ export const toTableStory = () => {
         <Table
           columns={columns2}
           rows={rows}
-          extendClassName={{
-            headcell: 'u-bg-green-400 u-',
-            datacell: 'u-bg-red-400',
-          }}
-          extendStyle={{
-            datacell: {
-              fontStyle: 'italic',
-              padding: 20
+          customize={{
+            HeadCell: {
+              extendClassName: 'u-bg-green-400',
+            },
+            DataCell: {
+              extendClassName: 'u-bg-red-400',
+              extendStyle: {
+                fontStyle: 'italic',
+                padding: 20
+              },
+            },
+            Checkbox: {
+              Root: {
+              }
             }
           }}
+          selectedIndexes={selectedIndexes}
+          onSelected={(indexes) => { setSelectedIndexes(indexes) }}
         ></Table>
       </PreviewBox>
 
