@@ -28,7 +28,8 @@
     "luxon": "^1.22.0",
     "rc-switch": "^1.9.0",
     "react-beautiful-dnd": "^13.0.0",
-    "react-use": "^13.12.2"
+    "react-use": "^13.12.2",
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
@@ -49,6 +50,7 @@
     "@types/react": "^16.9.15",
     "@types/react-beautiful-dnd": "^12.1.2",
     "@types/react-dom": "^16.9.4",
+    "@types/uuid": "^7.0.2",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "cra-template-typescript": "1.0.0",
