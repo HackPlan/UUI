@@ -53,7 +53,9 @@ export function Dialog(props: DialogProps) {
       >
         <Container
           role="dialog"
-          className={classNames(['u-bg-white u-rounded u-p-4'])}
+          className={classNames(['u-bg-white u-rounded u-p-4'], {
+            'is-visible': props.open
+          })}
         >
           <Content>{props.children}</Content>
         </Container>
