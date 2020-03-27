@@ -1,14 +1,9 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { omit } from 'lodash';
 import accounting from 'accounting';
+import { UUI } from '../../utils/uui';
 
-export enum MoneyLabelNodeName {
-  MoneyLabel = "moneylabel",
-  Root = "root",
-}
-
-export interface MoneyLabelProps extends React.HTMLAttributes<HTMLOrSVGElement>, StylishProps<MoneyLabelNodeName> {
+export interface MoneyLabelProps extends React.HTMLAttributes<HTMLOrSVGElement> {
   children: string
   symbol?: string
   precision?: number
@@ -17,22 +12,17 @@ export interface MoneyLabelProps extends React.HTMLAttributes<HTMLOrSVGElement>,
   format?: string
 }
 
-export function MoneyLabel(props: MoneyLabelProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(MoneyLabelNodeName.MoneyLabel, props, { prefix: "uui" })
-    return [
-      stylished.element('label', MoneyLabelNodeName.Root),
-    ]
-  }, [])
+export const MoneyLabel = UUI.FunctionComponent({
+  name: 'MoneyLabel',
+  nodes: {
+    Root: 'label',
+  }
+}, (props: MoneyLabelProps, nodes) => {
+  const { Root } = nodes
 
   const text = accounting.formatMoney(props.children, omit(props, 'children'))
-
   return (
     <Root>{text}</Root>
   )
-}
+})
 
