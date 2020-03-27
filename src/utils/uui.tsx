@@ -152,10 +152,10 @@ export class UUI {
         : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, keyof Parameters<X[key]>[0]['customize']>> : never)
     }) => React.ReactElement,
   ) {
-    return (props: P & Z) => {
+    return React.forwardRef((props: P & Z, ref) => {
       const nodes = useMemo(() => compileNodes(props, options), [])
-      return WrappedComponent(props, nodes)
-    }
+      return WrappedComponent({ ...props, ref }, nodes)
+    })
   }
 
   /**
