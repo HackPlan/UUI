@@ -1,28 +1,24 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
+import { UUI } from '../../utils/uui';
 
 export enum PageInfoNodeName {
   PageInfo = "pageinfo",
   Root = "root",
 }
 
-export interface PageInfoProps extends StylishProps<PageInfoNodeName> {
+export interface PageInfoProps {
   page: number
   pageSize: number
   totalItem: number
 }
 
-export function PageInfo(props: PageInfoProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(PageInfoNodeName.PageInfo, props, { prefix: "uui" })
-    return [
-      stylished.element('div', PageInfoNodeName.Root),
-    ]
-  }, [])
+export const PageInfo = UUI.FunctionComponent({
+  name: 'PageInfo',
+  nodes: {
+    Root: 'div',
+  }
+}, (props: PageInfoProps, nodes) => {
+  const { Root } = nodes
 
   const startItem = Math.max((props.page - 1) * props.pageSize + 1, 1)
   const endItem = Math.min(startItem + props.pageSize - 1, props.totalItem)
@@ -33,4 +29,4 @@ export function PageInfo(props: PageInfoProps) {
       {text}
     </Root>
   )
-}
+})

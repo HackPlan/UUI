@@ -1,30 +1,20 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
+import { UUI } from '../../utils/uui';
 
-export enum PaginationNodeName {
-  Pagination = "pagination",
-  Root = "root",
-}
-
-export interface PaginationProps extends StylishProps<PaginationNodeName> {
+export interface PaginationProps {
   children: React.ReactNode
 }
 
-export function Pagination(props: PaginationProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(PaginationNodeName.Pagination, props, { prefix: "uui" })
-    return [
-      stylished.element('div', PaginationNodeName.Root),
-    ]
-  }, [])
-
+export const Pagination = UUI.FunctionComponent({
+  name: 'Pagination',
+  nodes: {
+    Root: 'div'
+  }
+}, (props: PaginationProps, nodes) => {
+  const { Root } = nodes
   return (
     <Root className={"u-flex u-flex-row u-items-center"}>
       {props.children}
     </Root>
   )
-}
+})
