@@ -1,44 +1,30 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
+import { UUI } from '../../utils/uui';
 
 import './Radio.scss';
-
-export enum RadioNodeName {
-  Radio = "radio",
-  Root = "root",
-  Input = "input",
-  Indicator = "indicator",
-  Label = "label",
-}
 
 type InputHTMLAttributes = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'type' | 'value'
 >
-export interface RadioProps<T extends string | number> extends InputHTMLAttributes, StylishProps<RadioNodeName> {
+export interface RadioProps<T extends string | number> extends InputHTMLAttributes {
   value?: T
   label?: string | React.ReactNode
 }
 
-export function Radio<T extends string | number>(props: RadioProps<T>) {
+export const Radio = UUI.FunctionComponent({
+  name: "Radio",
+  nodes: {
+    Root: 'label',
+    Input: 'input',
+    Indicator: 'span',
+    Label: 'span',
+  }
+}, (props: RadioProps<string | number>, nodes) => {
+  const { Root, Input, Indicator, Label } = nodes
 
-  // Initial Nodes
-  const [
-    Root,
-    Input,
-    Indicator,
-    Label,
-  ] = useMemo(() => {
-    const stylished = initStylished(RadioNodeName.Radio, props, { prefix: "uui" })
-    return [
-      stylished.element('label', RadioNodeName.Root),
-      stylished.element('input', RadioNodeName.Input),
-      stylished.element('span', RadioNodeName.Indicator),
-      stylished.element('span', RadioNodeName.Label),
-    ]
-  }, [])
   return (
     <Root
       className={classNames("u-flex u-flex-row u-items-center u-block", {
@@ -56,5 +42,4 @@ export function Radio<T extends string | number>(props: RadioProps<T>) {
       <Label className="u-pl-2">{props.label}</Label>
     </Root>
   )
-}
-
+})

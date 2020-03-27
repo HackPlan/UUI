@@ -1,52 +1,43 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
-import classNames from 'classnames';
+import React from 'react';
 import { RadioProps } from './Radio';
-
-export enum RadioGroupNodeName {
-  RadioGroup = "radiogroup",
-  Root = "root",
-  Radio = "radio"
-}
+import { UUI } from '../../utils/uui';
 
 export interface RadioGroupOptions {
   label: string
   value: string
 }
-export interface RadioGroupProps<T extends string | number> extends StylishProps<RadioGroupNodeName> {
+export interface RadioGroupProps<T extends string | number> {
   name?: string
   value: T
   onChange: (value: T) => void
   children: React.ReactElement<RadioProps<T>>[] | React.ReactElement<RadioProps<T>>
 }
 
-export function RadioGroup<T extends string | number>(props: RadioGroupProps<T>) {
+// TODO: enhance UUI function component props generic
+export const RadioGroup = <K extends string | number>(props: RadioGroupProps<K>) => {
+  return UUI.FunctionComponent({
+    name: "RadioGroup",
+    nodes: {
+      Root: 'div'
+    }
+  }, (props: RadioGroupProps<K>, nodes) => {
+    const { Root } = nodes
 
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(RadioGroupNodeName.RadioGroup, props, { prefix: "uui" })
-    return [
-      stylished.element('div', RadioGroupNodeName.Root),
-    ]
-  }, [])
-
-  return (
-    <Root
-      className={classNames("u-flex u-flex-row u-items-center u-block")}
-    >
-      {React.Children.map(props.children, (child: any) => {
-        return React.cloneElement<RadioProps<T>>(child, {
-          ...child.props,
-          ...(props.name ? { name: props.name } : {}),
-          checked: child.props.value === props.value,
-          onChange: (event) => {
-            props.onChange(child.props.value)
-          },
-        })
-      })}
-    </Root>
-  )
+    return (
+      <Root
+        className={"u-flex u-flex-row u-items-center u-block"}
+      >
+        {React.Children.map(props.children, (child: any) => {
+          return React.cloneElement<RadioProps<string | number>>(child, {
+            ...child.props,
+            ...(props.name ? { name: props.name } : {}),
+            checked: child.props.value === props.value,
+            onChange: (event) => {
+              props.onChange(child.props.value)
+            },
+          })
+        })}
+      </Root>
+    )
+  })(props)
 }
-
