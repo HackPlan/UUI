@@ -1,4 +1,4 @@
-.uui-dialog-backdrop {
+.UUI-Dialog-Backdrop {
   position: fixed;
   top: 0;
   right: 0;
@@ -17,7 +17,7 @@
   }
 }
 
-.uui-dialog-container {
+.UUI-Dialog-Container {
   visibility: hidden;
 
   &.is-visible {
