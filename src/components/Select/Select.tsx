@@ -18,8 +18,8 @@ export interface SelectProps<T extends string | number> extends SelectHTMLAttrib
 }
 
 // TODO: enhance UUI function component props generic
-export const Select = <K extends string | number>(props: SelectProps<K>) => {
-  return UUI.FunctionComponent({
+export const Select = <K extends string | number>(...args: Parameters<typeof BaseSelect>) => {
+  const BaseSelect = UUI.FunctionComponent({
     name: "Select",
     nodes: {
       Root: 'div',
@@ -46,5 +46,6 @@ export const Select = <K extends string | number>(props: SelectProps<K>) => {
         </Select>
       </Root>
     )
-  })(props)
+  })
+  return BaseSelect(...args)
 }

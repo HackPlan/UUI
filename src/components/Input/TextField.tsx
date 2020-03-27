@@ -1,18 +1,9 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { omit } from 'lodash';
 import { UUI } from '../../utils/uui';
 
-export enum TextFieldNodeName {
-  TextField = "textfield",
-  Root = "root",
-  Input = "input",
-  LeftElement = "leftelement",
-  RightElement = "rightelement",
-}
-
 type InputHTMLAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange'>
-export interface TextFieldProps extends InputHTMLAttributes, StylishProps<TextFieldNodeName> {
+export interface TextFieldProps extends InputHTMLAttributes {
   type?: 'text' | 'tel' | 'url' | 'email' | 'password'
   value: string | null | undefined
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
