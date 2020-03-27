@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import classnames from 'classnames'
-import { mapValues, pick, isString, omit } from 'lodash';
-
+import { mapValues, pick, isString, omit, merge } from 'lodash';
 
 
 export interface NodeCustomizeClassNameProps {
@@ -114,11 +113,11 @@ type ComponentNodeT = (props: any, ...args: any) => any
 type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) => (props: P) => JSX.Element
 function ComponentNode<P extends any, N extends string, M extends string>(Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) {
   const _Target = Target as any
-  return React.forwardRef((_props: P, ref) => (
+  return React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => (
     <_Target
       {...omit(_props, 'customize')}
       ref={ref as any}
-      customize={customizeProps}
+      customize={merge(_props.customize, customizeProps)}
     />
   ))
 }
@@ -154,7 +153,7 @@ export class UUI {
     }) => React.ReactElement,
   ) {
     return (props: P & Z) => {
-      const nodes = compileNodes(props, options)
+      const nodes = useMemo(() => compileNodes(props, options), [])
       return WrappedComponent(props, nodes)
     }
   }
