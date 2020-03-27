@@ -1,28 +1,35 @@
 import React from 'react';
-import { initStylish, StylishProps } from '../../utils/stylish';
 import { SkeletonParagraph } from './Paragraph';
 import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
+import { UUI } from '../../utils/uui';
 
 import './Skeleton.scss';
 
-export enum SkeletonNodeName {
-  Root = "skeleton",
-}
 
-export interface SkeletonProps extends StylishProps<SkeletonNodeName> {
-  animated?: boolean
+export interface SkeletonProps {
   children?: React.ReactNode | string
 }
 
-function Skeleton(props: SkeletonProps) {
-  const getStylishProps = initStylish<SkeletonNodeName>(SkeletonNodeName.Root, props, { prefix: "uui" })
+const _Skeleton = UUI.FunctionComponent({
+  name: 'Skeleton',
+  nodes: {
+    Root: 'div'
+  }
+}, (props: SkeletonProps, nodes) => {
+  const { Root } = nodes
   return (
-    <div {...getStylishProps('', [], {}, props.children)} />
+    <Root>{props.children}</Root>
   )
-}
+})
 
-Skeleton.Paragraph = SkeletonParagraph;
-Skeleton.Title = SkeletonTitle;
-Skeleton.Picture = SkeletonPicture;
-export { Skeleton };
+const Skeleton = _Skeleton as typeof _Skeleton & {
+  Paragraph: typeof SkeletonParagraph,
+  Title: typeof SkeletonTitle,
+  Picture: typeof SkeletonPicture,
+}
+Skeleton.Paragraph = SkeletonParagraph
+Skeleton.Title = SkeletonTitle
+Skeleton.Picture = SkeletonPicture
+
+export { Skeleton }

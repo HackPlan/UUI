@@ -1,16 +1,17 @@
 import React from 'react';
-import { StylishProps, initStylish } from "../../utils/stylish"
+import { UUI } from '../../utils/uui';
 
-export enum SkeletonPictureNodeName {
-  Root = "skeleton-picture",
+export interface SkeletonPictureProps {
 }
 
-export interface SkeletonPictureProps extends StylishProps<SkeletonPictureNodeName> {
-}
-
-export function SkeletonPicture(props: SkeletonPictureProps) {
-  const getStylishProps = initStylish<SkeletonPictureNodeName>(SkeletonPictureNodeName.Root, props, { prefix: "uui" })
+export const SkeletonPicture = UUI.FunctionComponent({
+  name: 'SkeletonPicture',
+  nodes: {
+    Root: 'div'
+  }
+}, (props: SkeletonPictureProps, nodes) => {
+  const { Root } = nodes
   return (
-    <div {...getStylishProps('', [])}></div>
+    <Root></Root>
   )
-}
+})

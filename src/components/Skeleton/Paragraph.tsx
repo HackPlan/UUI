@@ -1,25 +1,26 @@
 import React from 'react';
-import { StylishProps, initStylish } from "../../utils/stylish"
+import { UUI } from '../../utils/uui';
 
-export enum SkeletonParagraphNodeName {
-  Root = "skeleton-paragraph",
-  Line = "line",
-}
-
-export interface SkeletonParagraphProps extends StylishProps<SkeletonParagraphNodeName> {
+export interface SkeletonParagraphProps {
   lines?: number
 }
 
-export function SkeletonParagraph(props: SkeletonParagraphProps) {
-  const getStylishProps = initStylish<SkeletonParagraphNodeName>(SkeletonParagraphNodeName.Root, props, { prefix: "uui" })
+export const SkeletonParagraph = UUI.FunctionComponent({
+  name: 'SkeletonParagraph',
+  nodes: {
+    Root: 'div',
+    Line: 'p',
+  }
+}, (props: SkeletonParagraphProps, nodes) => {
+  const { Root, Line } = nodes
   const lines = props.lines || 3
   return (
-    <div {...getStylishProps(SkeletonParagraphNodeName.Root, [])}>
+    <Root>
       {(new Array(lines)).fill(1).map(() => {
         return (
-          <p {...getStylishProps(SkeletonParagraphNodeName.Line, [])}></p>
+          <Line></Line>
         )
       })}
-    </div>
+    </Root>
   )
-}
+})

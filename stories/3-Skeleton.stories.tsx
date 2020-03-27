@@ -12,9 +12,9 @@ export const toStorybook = () => {
         <Skeleton.Title></Skeleton.Title>
         <Skeleton.Paragraph lines={2}></Skeleton.Paragraph>
         <div className="u-flex u-flex-row">
-          <Skeleton.Picture extendClassName={{ 'root': 'u-mr-4' }} extendStyle={{ 'root': { width: 200, height: 150 } }}></Skeleton.Picture>
-          <Skeleton.Picture extendClassName={{ 'root': 'u-mr-4' }} extendStyle={{ 'root': { width: 200, height: 150 } }}></Skeleton.Picture>
-          <Skeleton.Picture extendClassName={{ 'root': 'u-mr-4' }} extendStyle={{ 'root': { width: 200, height: 150 } }}></Skeleton.Picture>
+          <Skeleton.Picture customize={{ Root: { extendClassName: "u-mr-4", extendStyle: { width: 200, height: 150 } } }}></Skeleton.Picture>
+          <Skeleton.Picture customize={{ Root: { extendClassName: "u-mr-4", extendStyle: { width: 200, height: 150 } } }}></Skeleton.Picture>
+          <Skeleton.Picture customize={{ Root: { extendClassName: "u-mr-4", extendStyle: { width: 200, height: 150 } } }}></Skeleton.Picture>
         </div>
         <Skeleton.Paragraph lines={4}></Skeleton.Paragraph>
       </Skeleton>
