@@ -16,7 +16,7 @@ export interface NumberFieldProps extends InputHTMLAttributes, StylishProps<Numb
   min?: number
   max?: number
   fixed?: number
-  value: number | null
+  value: number | null | undefined
   onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
