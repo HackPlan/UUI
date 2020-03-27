@@ -123,7 +123,7 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
   ))
 }
 
-type UUIConvenienceProps = {
+export type UUIConvenienceProps = {
   className?: string
   style?: React.CSSProperties
 }

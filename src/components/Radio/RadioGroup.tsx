@@ -14,7 +14,7 @@ export interface RadioGroupProps<T extends string | number> {
 }
 
 // TODO: enhance UUI function component props generic
-export const RadioGroup = <K extends string | number>(...args: Parameters<typeof BaseRadioGroup>) => {
+export const RadioGroup = <K extends string | number>(props: RadioGroupProps<K> & Parameters<typeof BaseRadioGroup>[0]) => {
   const BaseRadioGroup = UUI.FunctionComponent({
     name: "RadioGroup",
     nodes: {
@@ -40,5 +40,5 @@ export const RadioGroup = <K extends string | number>(...args: Parameters<typeof
       </Root>
     )
   })
-  return BaseRadioGroup(...args)
+  return <><BaseRadioGroup {...props}></BaseRadioGroup></>
 }

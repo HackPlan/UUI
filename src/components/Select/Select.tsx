@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI, UUIConvenienceProps } from '../../utils/uui';
 
 
 export interface SelectOption<T> {
@@ -18,7 +18,7 @@ export interface SelectProps<T extends string | number> extends SelectHTMLAttrib
 }
 
 // TODO: enhance UUI function component props generic
-export const Select = <K extends string | number>(...args: Parameters<typeof BaseSelect>) => {
+export const Select = <K extends string | number>(props: Parameters<typeof BaseSelect>[0] & SelectProps<K>) => {
   const BaseSelect = UUI.FunctionComponent({
     name: "Select",
     nodes: {
@@ -47,5 +47,5 @@ export const Select = <K extends string | number>(...args: Parameters<typeof Bas
       </Root>
     )
   })
-  return BaseSelect(...args)
+  return <><BaseSelect {...props}></BaseSelect></>
 }
