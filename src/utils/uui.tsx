@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import classnames from 'classnames'
-import { mapValues, pick, isString, omit, merge } from 'lodash';
+import { mapValues, pick, isString, omit, merge, cloneDeep } from 'lodash';
+import classNames from 'classnames';
 
 
 export interface NodeCustomizeClassNameProps {
@@ -94,7 +95,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     })()
 
     return React.createElement(tagName, {
-      ...omit(_props,
+      ...omit(_props, 'customize',
         'overrideClassName', 'extendClassName',
         'overrideStyle', 'extendStyle',
         'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
@@ -122,6 +123,10 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
   ))
 }
 
+type UUIConvenienceProps = {
+  className?: string
+  style?: React.CSSProperties
+}
 export class UUI {
   /**
    * UUI Advanced Component for Function Component
@@ -152,9 +157,10 @@ export class UUI {
         : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, keyof Parameters<X[key]>[0]['customize']>> : never)
     }) => React.ReactElement,
   ) {
-    return React.forwardRef((props: P & Z, ref) => {
-      const nodes = useMemo(() => compileNodes(props, options), [])
-      return WrappedComponent({ ...props, ref }, nodes)
+    return React.forwardRef((props: P & Z & UUIConvenienceProps, ref) => {
+      const compiledProps = compileProps(props, options, ref)
+      const nodes = useMemo(() => compileNodes(compiledProps, options), [])
+      return WrappedComponent(compiledProps, nodes)
     })
   }
 
@@ -191,10 +197,35 @@ export class UUI {
 
       constructor(props: P & Z) {
         super(props)
-        this.nodes = compileNodes(props, options)
+        const compiledProps = compileProps(props, options, (props as any).innerRef || undefined)
+        this.nodes = compileNodes(compiledProps, options)
       }
     }
   }
+}
+
+function compileProps(props: any, options: any, ref: any): any {
+  /**
+   * Convenience props: className, style
+   * className will be injected into customize.Root { extendClassName: ... }
+   * style will be injected into customize.Root { extendStyle: ... }
+   */
+  const compiledProps = cloneDeep(props)
+  if (
+    (options.nodes as any)['Root'] && isString((options.nodes as any)['Root']) &&
+    (compiledProps.className || compiledProps.style)
+  ) {
+    if (!compiledProps.customize) {
+      compiledProps.customize = {}
+    }
+    const rootCustomizeProps: NodeCustomizeProps = {}
+    if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(rootCustomizeProps.extendClassName, compiledProps.className)
+    if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle) as any
+    (compiledProps.customize as any)['Root'] = rootCustomizeProps
+  }
+  compiledProps.ref = ref
+
+  return  compiledProps
 }
 
 function compileNodes(props: any, options: any): any {
