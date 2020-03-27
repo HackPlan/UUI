@@ -1,6 +1,6 @@
 {
   "name": "@hackplan/uui",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "UUI Framework",
   "repository": "git@lab.hackplan.com:tinyapps/uui.git",
   "author": "HackPlan <npm@hackplan.com>",
@@ -11,7 +11,7 @@
   "type": "lib/index.d.ts",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production",
+    "build": "NODE_ENV=production webpack --mode production",
     "cleanbuild": "rimraf lib && yarn build",
     "pack:uui": "yarn cleanbuild && yarn pack",
     "publish:uui": "yarn cleanbuild && yarn publish",
