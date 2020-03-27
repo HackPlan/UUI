@@ -32,7 +32,11 @@ export function PageJumper(props: PageJumperProps) {
     <Root className={"u-flex u-flex-row u-mx-2 u-items-center"}>
       <div className={"u-flex-no-wrap u-pr-1"}>Jump to</div>
       <NumberField
-        extendStyle={{ root: { height: 34, width: 80 }}}
+        customize={{
+          Root: {
+            extendStyle: { height: 34, width: 80 }
+          }
+        }}
         value={props.jumpPage}
         onChange={(value) => { props.onJumpPageChange(value) }}
         onKeyDown={(event) => {

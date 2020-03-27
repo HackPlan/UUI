@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { StylishProps, initStylished } from '../../utils/stylish';
 import { omit } from 'lodash';
+import { UUI } from '../../utils/uui';
 
 export enum TextFieldNodeName {
   TextField = "textfield",
@@ -17,17 +18,13 @@ export interface TextFieldProps extends InputHTMLAttributes, StylishProps<TextFi
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export function TextField(props: TextFieldProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(TextFieldNodeName.TextField, props, { prefix: "uui" })
-    return [
-      stylished.element('input', TextFieldNodeName.Root),
-    ]
-  }, [])
+export const TextField = UUI.FunctionComponent({
+  name: 'TextField',
+  nodes: {
+    Root: 'input'
+  }
+}, (props: TextFieldProps, nodes) => {
+  const { Root } = nodes
   return (
     <Root
       {...omit(props, 'leftNode', 'rightNode', 'value', 'onChange')}
@@ -38,4 +35,4 @@ export function TextField(props: TextFieldProps) {
       }}
     />
   )
-}
+})
