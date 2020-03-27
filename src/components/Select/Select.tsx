@@ -1,13 +1,6 @@
-import React, { useMemo } from 'react';
-import { initStylished, StylishProps } from '../../utils/stylish';
+import React from 'react';
+import { UUI } from '../../utils/uui';
 
-
-export enum SelectNodeName {
-  Root = "root",
-  Select = "select",
-  Option = "option",
-
-}
 
 export interface SelectOption<T> {
   label: string
@@ -18,44 +11,40 @@ type SelectHTMLAttributes = Omit<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   'value' | 'onChange'
 >
-export interface SelectProps<T extends string | number> extends SelectHTMLAttributes, StylishProps<SelectNodeName> {
+export interface SelectProps<T extends string | number> extends SelectHTMLAttributes {
   options: SelectOption<T>[]
   value: T
   onChange: (value: T) => void
 }
 
+// TODO: enhance UUI function component props generic
+export const Select = <K extends string | number>(props: SelectProps<K>) => {
+  return UUI.FunctionComponent({
+    name: "Select",
+    nodes: {
+      Root: 'div',
+      Select: 'select',
+      Option: 'option',
+    }
+  }, (props: SelectProps<K>, nodes) => {
+    const { Root, Select, Option } = nodes
 
-export function Select<T extends string | number>(props: SelectProps<T>) {
-
-  // Initial Nodes
-  const [
-    Root,
-    Select,
-    Option,
-  ] = useMemo(() => {
-    const stylished = initStylished(SelectNodeName.Select, props, { prefix: "uui" })
-    return [
-      stylished.element('div', SelectNodeName.Root),
-      stylished.element('select', SelectNodeName.Select),
-      stylished.element('option', SelectNodeName.Option),
-    ]
-  }, [])
-
-  return (
-    <Root className="u-p-2 u-border u-border-black">
-      <Select
-        className="u-bg-white u-w-full"
-        value={props.value}
-        onChange={(event) => {
-          props.onChange(event.target.value as any)
-        }}
-      >
-        {props.options.map((i) => {
-          return (
-            <Option key={i.value} value={i.value}>{i.label}</Option>
-          )
-        })}
-      </Select>
-    </Root>
-  )
+    return (
+      <Root className="u-p-2 u-border u-border-black">
+        <Select
+          className="u-bg-white u-w-full"
+          value={props.value}
+          onChange={(event) => {
+            props.onChange(event.target.value as any)
+          }}
+        >
+          {props.options.map((i) => {
+            return (
+              <Option key={i.value} value={i.value}>{i.label}</Option>
+            )
+          })}
+        </Select>
+      </Root>
+    )
+  })(props)
 }
