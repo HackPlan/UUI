@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
 
-export interface SkeletonParagraphProps {
+export interface BaseSkeletonParagraphProps {
   lines?: number
 }
 
@@ -11,7 +11,7 @@ export const SkeletonParagraph = UUI.FunctionComponent({
     Root: 'div',
     Line: 'p',
   }
-}, (props: SkeletonParagraphProps, nodes) => {
+}, (props: BaseSkeletonParagraphProps, nodes) => {
   const { Root, Line } = nodes
   const lines = props.lines || 3
   return (
@@ -24,3 +24,5 @@ export const SkeletonParagraph = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type SkeletonParagraphProps = Parameters<typeof SkeletonParagraph>[0]

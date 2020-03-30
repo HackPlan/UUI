@@ -1,26 +1,29 @@
 import React from 'react';
-import { RadioProps } from './Radio';
-import { UUI } from '../../utils/uui';
+import { BaseRadioProps } from './Radio';
+import { UUI, UUIFunctionComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
 
 export interface RadioGroupOptions {
   label: string
   value: string
 }
-export interface RadioGroupProps<T extends string | number> {
+export interface BaseRadioGroupProps<T extends string | number> {
   name?: string
   value: T
   onChange: (value: T) => void
-  children: React.ReactElement<RadioProps<T>>[] | React.ReactElement<RadioProps<T>>
+  children: React.ReactElement<BaseRadioProps<T>>[] | React.ReactElement<BaseRadioProps<T>>
 }
 
+const RadioGroupNodes = {
+  Root: 'div'
+} as const
+type RadioGroupCustomizeProps = UUIFunctionComponentCustomizeProps<typeof RadioGroupNodes>
+
 // TODO: enhance UUI function component props generic
-export const RadioGroup = <K extends string | number>(props: RadioGroupProps<K> & Parameters<typeof BaseRadioGroup>[0]) => {
+export const RadioGroup = <K extends string | number>(props: BaseRadioGroupProps<K> & RadioGroupCustomizeProps & UUIConvenienceProps) => {
   const BaseRadioGroup = UUI.FunctionComponent({
     name: "RadioGroup",
-    nodes: {
-      Root: 'div'
-    }
-  }, (props: RadioGroupProps<K>, nodes) => {
+    nodes: RadioGroupNodes,
+  }, (props: BaseRadioGroupProps<K>, nodes) => {
     const { Root } = nodes
 
     return (
@@ -28,7 +31,7 @@ export const RadioGroup = <K extends string | number>(props: RadioGroupProps<K> 
         className={"u-flex u-flex-row u-items-center u-block"}
       >
         {React.Children.map(props.children, (child: any) => {
-          return React.cloneElement<RadioProps<string | number>>(child, {
+          return React.cloneElement<BaseRadioProps<string | number>>(child, {
             ...child.props,
             ...(props.name ? { name: props.name } : {}),
             checked: child.props.value === props.value,
@@ -42,3 +45,5 @@ export const RadioGroup = <K extends string | number>(props: RadioGroupProps<K> 
   })
   return <><BaseRadioGroup {...props}></BaseRadioGroup></>
 }
+
+export type RadioGroupProps = Parameters<typeof RadioGroup>[0]

@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import { UUI } from '../../utils/uui';
 
 type InputHTMLAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange'>
-export interface TextFieldProps extends InputHTMLAttributes {
+export interface BaseTextFieldProps extends InputHTMLAttributes {
   type?: 'text' | 'tel' | 'url' | 'email' | 'password'
   value: string | null | undefined
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
@@ -14,7 +14,7 @@ export const TextField = UUI.FunctionComponent({
   nodes: {
     Root: 'input'
   }
-}, (props: TextFieldProps, nodes) => {
+}, (props: BaseTextFieldProps, nodes) => {
   const { Root } = nodes
   return (
     <Root
@@ -27,3 +27,5 @@ export const TextField = UUI.FunctionComponent({
     />
   )
 })
+
+export type TextFieldProps = Parameters<typeof TextField>[0]

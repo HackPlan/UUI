@@ -10,7 +10,7 @@ type InputHTMLAttributes = Omit<
   'type' | 'value' | 'onChange'
 >
 
-export interface CheckboxProps extends InputHTMLAttributes {
+export interface BaseCheckboxProps extends InputHTMLAttributes {
   label?: string | React.ReactNode
   value: boolean
   onChange: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void
@@ -24,7 +24,7 @@ export const Checkbox = UUI.FunctionComponent({
     Indicator: 'span',
     Label: 'span',
   }
-}, (props: CheckboxProps, nodes) => {
+}, (props: BaseCheckboxProps, nodes) => {
   const { Root, Input, Indicator, Label } = nodes
 
   return (
@@ -49,3 +49,5 @@ export const Checkbox = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type CheckboxProps = Parameters<typeof Checkbox>[0]

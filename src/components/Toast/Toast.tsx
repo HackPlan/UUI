@@ -8,7 +8,7 @@ export enum ToastNodeName {
 }
 
 
-export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BaseToastProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Message to display in the body of the toast. */
   message: React.ReactNode;
   /**
@@ -24,7 +24,7 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   timeout?: number;
 }
-export type IToast = ToastProps & { id: string }
+export type IToast = BaseToastProps & { id: string }
 
 export const Toast = UUI.FunctionComponent({
   prefix: 'UUI',
@@ -65,3 +65,5 @@ export const Toast = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type ToastProps = Parameters<typeof Toast>[0]

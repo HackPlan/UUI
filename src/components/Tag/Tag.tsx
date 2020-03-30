@@ -4,7 +4,7 @@ import './Tag.scss'
 import classNames from 'classnames';
 import { UUI } from '../../utils/uui';
 
-export interface TagProps {
+export interface BaseTagProps {
   children?: React.ReactNode | string
   onClick?: () => void
 }
@@ -15,7 +15,7 @@ export const Tag = UUI.FunctionComponent({
     Root: 'div',
     Content: 'span',
   },
-}, (props: TagProps, nodes) => {
+}, (props: BaseTagProps, nodes) => {
   const { Root, Content } = nodes
   return (
     <Root
@@ -32,3 +32,5 @@ export const Tag = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type TagProps = Parameters<typeof Tag>[0]

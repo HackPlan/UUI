@@ -2,7 +2,7 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = UUI.FunctionComponent({
@@ -10,7 +10,7 @@ export const Button = UUI.FunctionComponent({
   nodes: {
     Root: 'button',
   }
-}, (props: ButtonProps, nodes) => {
+}, (props: BaseButtonProps, nodes) => {
   const { Root } = nodes
 
   return (
@@ -19,3 +19,5 @@ export const Button = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type ButtonProps = Parameters<typeof Button>[0]

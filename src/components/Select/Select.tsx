@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI, UUIConvenienceProps } from '../../utils/uui';
+import { UUI, UUIConvenienceProps, UUIFunctionComponentCustomizeProps } from '../../utils/uui';
 
 
 export interface SelectOption<T> {
@@ -11,14 +11,22 @@ type SelectHTMLAttributes = Omit<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   'value' | 'onChange'
 >
-export interface SelectProps<T extends string | number> extends SelectHTMLAttributes {
+export interface BaseSelectProps<T extends string | number> extends SelectHTMLAttributes {
   options: SelectOption<T>[]
   value: T
   onChange: (value: T) => void
 }
 
+const SelectNodes = {
+  Root: 'label',
+  Input: 'input',
+  Indicator: 'span',
+  Label: 'span',
+} as const
+type SelectCustomizeProps = UUIFunctionComponentCustomizeProps<typeof SelectNodes>
+
 // TODO: enhance UUI function component props generic
-export const Select = <K extends string | number>(props: Parameters<typeof BaseSelect>[0] & SelectProps<K>) => {
+export const Select = <K extends string | number>(props: SelectCustomizeProps & UUIConvenienceProps & BaseSelectProps<K>) => {
   const BaseSelect = UUI.FunctionComponent({
     name: "Select",
     nodes: {
@@ -26,7 +34,7 @@ export const Select = <K extends string | number>(props: Parameters<typeof BaseS
       Select: 'select',
       Option: 'option',
     }
-  }, (props: SelectProps<K>, nodes) => {
+  }, (props: BaseSelectProps<K>, nodes) => {
     const { Root, Select, Option } = nodes
 
     return (
@@ -49,3 +57,5 @@ export const Select = <K extends string | number>(props: Parameters<typeof BaseS
   })
   return <><BaseSelect {...props}></BaseSelect></>
 }
+
+export type SelectProps = Parameters<typeof Select>[0]

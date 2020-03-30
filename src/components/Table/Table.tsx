@@ -13,7 +13,7 @@ export interface TableColumn {
   children?: TableColumn[]
 }
 
-export interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+export interface BaseTableProps extends React.HTMLAttributes<HTMLTableElement> {
   columns: TableColumn[]
   rows: TableCell[][]
 
@@ -37,7 +37,7 @@ export const Table = UUI.FunctionComponent({
     DataCell: 'td',
     Checkbox: UUICheckbox,
   }
-}, (props: TableProps, nodes) => {
+}, (props: BaseTableProps, nodes) => {
   const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox } = nodes
 
   const groupColumns = useMemo(() => {
@@ -224,3 +224,5 @@ export const Table = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type TableProps = Parameters<typeof Table>[0]

@@ -3,7 +3,7 @@ import { NumberField as UUINumberField } from '../Input';
 import { UUI } from '../../utils/uui';
 
 
-export interface PageJumperProps {
+export interface BasePageJumperProps {
   jumpPage: number | null
   onJumpPageChange: (page: number | null) => void
   onJumped: (page: number) => void
@@ -15,7 +15,7 @@ export const PageJumper = UUI.FunctionComponent({
     Root: 'div',
     NumberField: UUINumberField,
   }
-}, (props: PageJumperProps, nodes) => {
+}, (props: BasePageJumperProps, nodes) => {
   const { Root, NumberField } = nodes
   return (
     <Root className={"u-flex u-flex-row u-mx-2 u-items-center"}>
@@ -37,3 +37,5 @@ export const PageJumper = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type PageJumperProps = Parameters<typeof PageJumper>[0]

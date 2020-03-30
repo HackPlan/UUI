@@ -19,11 +19,6 @@ export enum ToasterPosition {
   Center = "center",
 }
 
-export enum ToasterNodeName {
-  Toaster = "toaster",
-  Root = "root",
-}
-
 type ToastCustomizeProps = Pick<Parameters<typeof Toast>[0], 'customize'>
 
 export interface ToasterProps {
@@ -76,7 +71,7 @@ export class Toaster extends UUI.ClassComponent({
     return toaster;
   }
 
-  show(props: ToastProps & ToastCustomizeProps, id?: string): string | undefined {
+  show(props: ToastProps, id?: string): string | undefined {
     if (this.props.maxToasts) {
       // check if active number of toasts are at the maxToasts limit
       this.dismissIfAtLimit();

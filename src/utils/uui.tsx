@@ -123,6 +123,17 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
   ))
 }
 
+
+export type UUIFunctionComponentCustomizeProps<
+  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
+> = {
+  customize?: {
+    [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
+      ? NodeCustomizeProps
+      : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
+  }
+}
+
 export type UUIConvenienceProps = {
   className?: string
   style?: React.CSSProperties

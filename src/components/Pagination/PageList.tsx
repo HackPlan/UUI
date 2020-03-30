@@ -4,7 +4,7 @@ import { Button as UUIButton } from '../Button';
 import { UUI } from '../../utils/uui';
 
 
-export interface PageListProps {
+export interface BasePageListProps {
   page: number
   totalPage: number
   onPageChange: (page: number) => void
@@ -20,7 +20,7 @@ export const PageList = UUI.FunctionComponent({
     ActivePageButton: UUIButton,
     NextButton: UUIButton,
   }
-}, (props: PageListProps, nodes) => {
+}, (props: BasePageListProps, nodes) => {
   const { Root, PrevButton, PageButton, ActivePageButton, NextButton } = nodes
 
   const pageListData = useMemo(() => {
@@ -108,3 +108,5 @@ export const PageList = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type PageListProps = Parameters<typeof PageList>[0]

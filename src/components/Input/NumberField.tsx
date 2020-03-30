@@ -7,7 +7,7 @@ type InputHTMLAttributes = Omit<
   'min' | 'max' | 'type' |
   'value' | 'onChange'
 >
-export interface NumberFieldProps extends InputHTMLAttributes {
+export interface BaseNumberFieldProps extends InputHTMLAttributes {
   min?: number
   max?: number
   fixed?: number
@@ -20,7 +20,7 @@ export const NumberField = UUI.FunctionComponent({
   nodes: {
     Root: 'input'
   }
-}, (props: NumberFieldProps, nodes) => {
+}, (props: BaseNumberFieldProps, nodes) => {
   const { Root } = nodes
   return (
     <Root
@@ -42,6 +42,8 @@ export const NumberField = UUI.FunctionComponent({
     />
   )
 })
+
+export type NumberFieldProps = Parameters<typeof NumberField>[0]
 
 
 function limitFixed(value: string, fixed?: number) {

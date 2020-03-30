@@ -1,12 +1,7 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
 
-export enum PageInfoNodeName {
-  PageInfo = "pageinfo",
-  Root = "root",
-}
-
-export interface PageInfoProps {
+export interface BasePageInfoProps {
   page: number
   pageSize: number
   totalItem: number
@@ -17,7 +12,7 @@ export const PageInfo = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
   }
-}, (props: PageInfoProps, nodes) => {
+}, (props: BasePageInfoProps, nodes) => {
   const { Root } = nodes
 
   const startItem = Math.max((props.page - 1) * props.pageSize + 1, 1)
@@ -30,3 +25,5 @@ export const PageInfo = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type PageInfoProps = Parameters<typeof PageInfo>[0]

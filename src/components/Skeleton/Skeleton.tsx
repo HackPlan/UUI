@@ -7,7 +7,7 @@ import { UUI } from '../../utils/uui';
 import './Skeleton.scss';
 
 
-export interface SkeletonProps {
+export interface BaseSkeletonProps {
   children?: React.ReactNode | string
 }
 
@@ -16,7 +16,7 @@ const _Skeleton = UUI.FunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: SkeletonProps, nodes) => {
+}, (props: BaseSkeletonProps, nodes) => {
   const { Root } = nodes
   return (
     <Root>{props.children}</Root>
@@ -33,3 +33,5 @@ Skeleton.Title = SkeletonTitle
 Skeleton.Picture = SkeletonPicture
 
 export { Skeleton }
+
+export type SkeletonProps = Parameters<typeof Skeleton>[0]

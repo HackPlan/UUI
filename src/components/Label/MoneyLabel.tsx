@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import accounting from 'accounting';
 import { UUI } from '../../utils/uui';
 
-export interface MoneyLabelProps extends React.HTMLAttributes<HTMLOrSVGElement> {
+export interface BaseMoneyLabelProps extends React.HTMLAttributes<HTMLOrSVGElement> {
   children: string
   symbol?: string
   precision?: number
@@ -17,7 +17,7 @@ export const MoneyLabel = UUI.FunctionComponent({
   nodes: {
     Root: 'label',
   }
-}, (props: MoneyLabelProps, nodes) => {
+}, (props: BaseMoneyLabelProps, nodes) => {
   const { Root } = nodes
 
   const text = accounting.formatMoney(props.children, omit(props, 'children'))
@@ -26,3 +26,4 @@ export const MoneyLabel = UUI.FunctionComponent({
   )
 })
 
+export type MoneyLabelProps = Parameters<typeof MoneyLabel>[0]

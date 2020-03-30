@@ -5,7 +5,7 @@ import './Dialog.scss'
 import classNames from 'classnames';
 import { UUI } from '../../utils/uui';
 
-export interface DialogProps {
+export interface BaseDialogProps {
   open: boolean,
   focusTrap?: boolean,
   lockBodyScroll?: boolean,
@@ -21,7 +21,7 @@ export const Dialog = UUI.FunctionComponent({
     Container: 'div',
     Content: 'div',
   }
-}, (props: DialogProps, nodes) => {
+}, (props: BaseDialogProps, nodes) => {
   const { Root, Backdrop, Container, Content } = nodes
 
   useLockBodyScroll(props.open && !!props.lockBodyScroll)
@@ -48,3 +48,5 @@ export const Dialog = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type DialogProps = Parameters<typeof Dialog>[0]
