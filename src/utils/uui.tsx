@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import classnames from 'classnames'
 import { mapValues, pick, isString, omit, merge, cloneDeep } from 'lodash';
 import classNames from 'classnames';
 
@@ -31,7 +30,7 @@ function compileNodeName(nodeName: string, options?: { prefix?: string; separato
   return [options?.prefix, nodeName].filter((i) => i && i.length > 0).join(options?.separator || '-')
 }
 function getCompiledClassNames(nodeClassName: string, props?: NodeCustomizeClassNameProps): string {
-  return props?.overrideClassName ? props?.overrideClassName : classnames(nodeClassName, props?.className || '', props?.extendClassName || '')
+  return props?.overrideClassName ? props?.overrideClassName : classNames(nodeClassName, props?.className || '', props?.extendClassName || '')
 }
 function getCompiledStyles(props?: NodeCustomizeStyleProps): React.CSSProperties {
   return props?.overrideStyle ? props?.overrideStyle : Object.assign(props?.style || {}, props?.extendStyle || {})
