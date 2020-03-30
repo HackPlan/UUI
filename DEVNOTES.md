@@ -10,11 +10,11 @@ UUI 提供了一个基础的构建 UUI 风格的组件的工具类：
 
 ```typescript
 class UUI {
-	static FunctionComponent(options, WrappedComponent) => 
-		(props) => JSX.Element
+  static FunctionComponent(options, WrappedComponent) =>
+    (props) => JSX.Element
 
-	static ClassComponent(options) => 
-		class WrappedComponent extends React.Component { /* ... */ }
+  static ClassComponent(options) =>
+    class WrappedComponent extends React.Component { /* ... */ }
 }
 ```
 
@@ -24,7 +24,7 @@ class UUI {
 
 ```tsx
 Function EmptyDemo(props: {}) {
-	return <div>empty</div>
+  return <div>empty</div>
 }
 
 interface DemoAProps {
@@ -42,7 +42,7 @@ export const DemoA = UUI.FunctionComponent({
   }
 }, (props: DemoAProps, nodes) => {
   const { Root, Content, Empty } = nodes
-  
+
   // ... Component Feature Code
 
   return (
@@ -86,7 +86,7 @@ export class DemoB extends UUI.ClassComponent({
   constructor(props: ToasterProps) {
     super(props)
   }
-  
+
   // ... Component Feature Code
 
   render() {
@@ -107,9 +107,9 @@ export class DemoB extends UUI.ClassComponent({
 
 ```tsx
 function DemoC() {
-	return (
-  	<DemoB
-    	customize={{
+  return (
+    <DemoB
+      customize={{
         Root: {
           extendClassName: "extend-class-a"
         },

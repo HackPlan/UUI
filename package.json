@@ -56,6 +56,7 @@
     "cra-template-typescript": "1.0.0",
     "fibers": "^4.0.2",
     "github-markdown-css": "^4.0.0",
+    "highlight.js": "^9.18.1",
     "jest": "^24.9.0",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
