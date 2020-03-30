@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI, UUIConvenienceProps, UUIFunctionComponentCustomizeProps } from '../../utils/uui';
+import { UUI, UUIConvenienceProps, UUIComponentCustomizeProps } from '../../utils/uui';
 
 
 export interface SelectOption<T> {
@@ -23,9 +23,17 @@ const SelectNodes = {
   Indicator: 'span',
   Label: 'span',
 } as const
-type SelectCustomizeProps = UUIFunctionComponentCustomizeProps<typeof SelectNodes>
+type SelectCustomizeProps = UUIComponentCustomizeProps<typeof SelectNodes>
 
-// TODO: enhance UUI function component props generic
+/**
+ * Notes: The base props of Select compoent is a generic type,
+ * due to `Partial<Pick<Parameters<BaseSelect>[0]>>` infer to `never`,
+ * This component we use UUIComponentCustomizeProps to get customize props.
+ *
+ * Currently UUI Component Util un-support generic props type.
+ * TODO: enhance UUI function component props generic
+ */
+
 export const Select = <K extends string | number>(props: SelectCustomizeProps & UUIConvenienceProps & BaseSelectProps<K>) => {
   const BaseSelect = UUI.FunctionComponent({
     name: "Select",

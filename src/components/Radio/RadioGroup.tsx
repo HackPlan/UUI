@@ -1,6 +1,6 @@
 import React from 'react';
 import { BaseRadioProps } from './Radio';
-import { UUI, UUIFunctionComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
+import { UUI, UUIComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
 
 export interface RadioGroupOptions {
   label: string
@@ -16,7 +16,7 @@ export interface BaseRadioGroupProps<T extends string | number> {
 const RadioGroupNodes = {
   Root: 'div'
 } as const
-type RadioGroupCustomizeProps = UUIFunctionComponentCustomizeProps<typeof RadioGroupNodes>
+type RadioGroupCustomizeProps = UUIComponentCustomizeProps<typeof RadioGroupNodes>
 
 // TODO: enhance UUI function component props generic
 export const RadioGroup = <K extends string | number>(props: BaseRadioGroupProps<K> & RadioGroupCustomizeProps & UUIConvenienceProps) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
-import { UUI, UUIFunctionComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
+import { UUI, UUIComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
 
 import './Radio.scss';
 
@@ -20,7 +20,7 @@ const RadioNodes = {
   Indicator: 'span',
   Label: 'span',
 } as const
-type RadioCustomizeProps = UUIFunctionComponentCustomizeProps<typeof RadioNodes>
+type RadioCustomizeProps = UUIComponentCustomizeProps<typeof RadioNodes>
 
 export const Radio = <K extends string | number>(props: RadioCustomizeProps & BaseRadioProps<K> & UUIConvenienceProps) => {
   const BaseRadio = UUI.FunctionComponent({

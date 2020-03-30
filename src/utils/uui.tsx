@@ -123,15 +123,22 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
   ))
 }
 
-
-export type UUIFunctionComponentCustomizeProps<
-  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
+export type UUIComponentCustomizeProps<
+  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT }
 > = {
   customize?: {
     [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
       ? NodeCustomizeProps
       : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
   }
+}
+
+export type UUIComponentNodes<
+  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
+> = {
+  [key in keyof X]: X[key] extends keyof IntrinsicNodeT
+    ? ReturnType<IntrinsicNode<X[key], key>>
+    : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, any>> : never)
 }
 
 export type UUIConvenienceProps = {
@@ -148,6 +155,10 @@ export class UUI {
     P, N extends string,
     T extends keyof IntrinsicNodeT | ComponentNodeT,
     X extends { [key in N]: T },
+    /**
+     * Do not replace these content with UUIComponentCustomizeProps<X>,
+     * this is to allow developers to see detailed node type information when using this kind of component.
+     */
     Z extends {
       customize?: {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
@@ -162,11 +173,7 @@ export class UUI {
       separator?: string
       nodes: X
     },
-    WrappedComponent: (props: P, nodes: {
-      [key in keyof X]: X[key] extends keyof IntrinsicNodeT
-        ? ReturnType<IntrinsicNode<X[key], key>>
-        : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, keyof Parameters<X[key]>[0]['customize']>> : never)
-    }) => React.ReactElement,
+    WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
     return React.forwardRef((props: P & Z & UUIConvenienceProps, ref) => {
       const compiledProps = compileProps(props, options, ref)
@@ -183,6 +190,10 @@ export class UUI {
     N extends string,
     T extends keyof IntrinsicNodeT | ComponentNodeT,
     X extends { [key in N]: T },
+    /**
+     * Do not replace these content with UUIComponentCustomizeProps<X>,
+     * this is to allow developers to see detailed node type information when using this kind of component.
+     */
     Z extends {
       customize?: {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
@@ -200,11 +211,7 @@ export class UUI {
   ) {
 
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P, S> {
-      nodes: {
-        [key in keyof X]: X[key] extends keyof IntrinsicNodeT
-          ? ReturnType<IntrinsicNode<X[key], key>>
-          : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, any>> : never)
-      }
+      nodes: UUIComponentNodes<X>
 
       constructor(props: P & Z) {
         super(props)
