@@ -12,28 +12,6 @@ module.exports = ({ config }) => {
     ],
   });
   config.module.rules.push({
-    test: /\.stories\.(tsx)$/,
-    loaders: [
-      {
-        loader: require.resolve('@storybook/source-loader'),
-        options: {
-          parser: 'typescript',
-          prettierConfig: {
-            semi: true,
-            singleQuote: true,
-            jsxSingleQuote: false,
-            useTabs: false,
-            tabWidth: 2,
-            trailingComma: 'all',
-            printWidth: 80,
-            arrowParens: 'always',
-          },
-        },
-      },
-    ],
-    enforce: 'pre',
-  });
-  config.module.rules.push({
     test: /\.css$/,
     use: [
       {
@@ -76,8 +54,5 @@ module.exports = ({ config }) => {
     ],
   })
   config.resolve.extensions.push('.ts', '.tsx');
-  config.resolve.alias = {
-    'uuikit': "../src/index"
-  }
   return config;
 };
