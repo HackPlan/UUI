@@ -140,24 +140,39 @@ customize 的 type 同样是根据 `options.nodes` 提供的信息生成的。�
 
 `UUIComponentCustomizeProps` 和 `UUIComponentNodes` 是两个类型工具，分别用来根据 options.nodes 获取 customize props 和 nodes 的类型。
 
+##### 存在的一些问题
+
+* UUI.FunctionComponent 和 UUI.ClassComponent 目前还不能很好的支持 Generic Props，所以目前采用了一种很别扭的方式实现，具体可以看 Select 和 RadioGroup 组件。
+* UUI Component Util 的类型定义存在一些不正确不准确的地方，需要改进。
+
+#### 旧版工具
+
+UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylish` 和 `initStylished` 两个方法。
+
+`initStylish` 是项目创建初始第一个版本的工具，主要的实现思路是根据提供的 NodeName 和组件 root props 里的 extendClassName extendStyle...等等属性来生成适合当前这个 Node 的 props，这个工具调用之后会直接返回一个 props object，需要我们自己手动的管理如何传入 node element props。
+
+`initStylished` 是在前一个方法的基础上做的一个优化升级。相比前一个方法返回 props，这个方法直接返回了一个生成 component 的工具，可以直接使用 `stylished.element` 和 `stylished.component` 生成我们需要的 node component，再在 jsx 里直接使用。
+
+
+
 ## 目前已有的组件
 
-| 组件名             | 描述               | 备注                             |
-| ------------------ | ------------------ | -------------------------------- |
-| Button             | 按钮               |                                  |
-| Checkbox           | 多选框             |                                  |
-| Dialog             | 对话框             |                                  |
-| NumberField        | 数字输入框         | 优化数字输入                     |
-| TextField          | 文本输入框         | 针对文本输入                     |
-| DateLabel          | 日期格式化显示     | 提供 Excel 推荐的格式化          |
-| TimeLabel          | 时间格式化显示     | 提供 Excel 推荐的格式化          |
-| MoneyLabel         | 货币金额格式化显示 | 提供 Excel 推荐的格式化          |
-| Pagination         | 分页控制           |                                  |
-| Radio / RadioGroup | 单选框             |                                  |
-| Select             | 选择框             |                                  |
-| Skeleton           | 骨架               |                                  |
-| Switch             | 开关               |                                  |
-| Table              | 表格               | 有基础功能，部分高级功能还未实现 |
-| Tag                | 标签               |                                  |
-| Toast              | 提示弹框           |                                  |
+| 组件名             | 描述               | 备注                                          |
+| ------------------ | ------------------ | --------------------------------------------- |
+| Button             | 按钮               |                                               |
+| Checkbox           | 多选框             |                                               |
+| Dialog             | 对话框             |                                               |
+| NumberField        | 数字输入框         | 优化数字输入                                  |
+| TextField          | 文本输入框         | 针对文本输入                                  |
+| DateLabel          | 日期格式化显示     | 提供 Excel 推荐的格式化                       |
+| TimeLabel          | 时间格式化显示     | 提供 Excel 推荐的格式化                       |
+| MoneyLabel         | 货币金额格式化显示 | 提供 Excel 推荐的格式化                       |
+| Pagination         | 分页控制           |                                               |
+| Radio / RadioGroup | 单选框             |                                               |
+| Select             | 选择框             |                                               |
+| Skeleton           | 骨架               |                                               |
+| Switch             | 开关               | 基于 rc-switch 实现，暂不支持 customize props |
+| Table              | 表格               | 有基础功能，部分高级功能还未实现              |
+| Tag                | 标签               |                                               |
+| Toast              | 提示弹框           |                                               |
 

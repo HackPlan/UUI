@@ -1,3 +1,12 @@
+/**
+ * UUI Core Component Util
+ *
+ * this file provides multiple utils for building powerful uui components.
+ * Any component built using this tool supports custom styles,
+ * which means you can modify className, style and even children of nodes in the component.
+ */
+
+
 import React, { useMemo } from 'react';
 import { mapValues, pick, isString, omit, merge, cloneDeep } from 'lodash';
 import classNames from 'classnames';
@@ -144,17 +153,32 @@ export type UUIConvenienceProps = {
   className?: string
   style?: React.CSSProperties
 }
-export class UUI {
+export abstract class UUI {
   /**
    * UUI Advanced Component for Function Component
    * @param options setup options
    * @param WrappedComponent wrapped function component
    */
   static FunctionComponent<
-    P, N extends string,
+    /**
+     * Generic type P for target component props
+     */
+    P,
+    /**
+     * Generic type N for component node name
+     */
+    N extends string,
+    /**
+     * Generic type T for options.nodes value
+     */
     T extends keyof IntrinsicNodeT | ComponentNodeT,
+    /**
+     * Generic type X for WrappedComponent generated nodes
+     */
     X extends { [key in N]: T },
     /**
+     * Generic type Z for component props.customize
+     *
      * Do not replace these content with UUIComponentCustomizeProps<X>,
      * this is to allow developers to see detailed node type information when using this kind of component.
      */
@@ -186,10 +210,21 @@ export class UUI {
    * @param options setup options
    */
   static ClassComponent<
+    /**
+     * Generic type N for component node name
+     */
     N extends string,
+    /**
+     * Generic type T for options.nodes value
+     */
     T extends keyof IntrinsicNodeT | ComponentNodeT,
+    /**
+     * Generic type X for WrappedComponent generated nodes
+     */
     X extends { [key in N]: T },
     /**
+     * Generic type Z for component props.customize
+     *
      * Do not replace these content with UUIComponentCustomizeProps<X>,
      * this is to allow developers to see detailed node type information when using this kind of component.
      */
@@ -208,10 +243,8 @@ export class UUI {
       nodes: X
     },
   ) {
-
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P, S> {
       nodes: UUIComponentNodes<X>
-
       constructor(props: P & Z) {
         super(props)
         const compiledProps = compileProps(props, options, (props as any).innerRef || undefined)
