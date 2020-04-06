@@ -40,17 +40,19 @@ export interface BaseTableProps {
   onDragged?: (fromIndex: number, toIndex: number) => void
 }
 
+export const TableNodes = {
+  Root: 'table',
+  Head: 'thead',
+  Body: 'tbody',
+  Row: 'tr',
+  HeadCell: 'th',
+  DataCell: 'td',
+  Checkbox: UUICheckbox,
+} as const
+
 export const Table = UUI.FunctionComponent({
   name: 'Table',
-  nodes: {
-    Root: 'table',
-    Head: 'thead',
-    Body: 'tbody',
-    Row: 'tr',
-    HeadCell: 'th',
-    DataCell: 'td',
-    Checkbox: UUICheckbox,
-  }
+  nodes: TableNodes,
 }, (props: BaseTableProps, nodes) => {
   const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox } = nodes
 

@@ -67,7 +67,7 @@ type IntrinsicNodeCustomizeOptions =
     separator?: string
   }
 
-type IntrinsicNodeT = JSX.IntrinsicElements
+export type IntrinsicNodeT = JSX.IntrinsicElements
 type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
 function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
   return React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
@@ -118,15 +118,16 @@ type ComponentNodeCustomizeProps<M extends string | number | symbol> = {
   [key in M]: IntrinsicNodeCustomizeProps
 }
 
-type ComponentNodeT = (props: any, ...args: any) => any
+export type ComponentNodeT = (props: any, ...args: any) => any
 type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) => (props: P) => JSX.Element
-function ComponentNode<P extends any, N extends string, M extends string>(Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) {
+function ComponentNode<P extends any, N extends string, M extends string>(Target: React.ComponentType<P>, nodeName: N, customizeProps: { customize?: ComponentNodeCustomizeProps<M> } & UUIConvenienceProps) {
   const _Target = Target as any
   return React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => (
     <_Target
       {...omit(_props, 'customize')}
       ref={ref as any}
-      customize={merge(_props.customize, customizeProps)}
+      className={classNames(_props.className, customizeProps.className)}
+      customize={merge(_props.customize, customizeProps.customize)}
     />
   ))
 }
@@ -289,7 +290,8 @@ function compileNodes(props: any, options: any): any {
       })
     } else {
       return ComponentNode(value as any, key, {
-        ...customizeProps,
+        customize: customizeProps,
+        className: `${prefix}-${key}`
       })
     }
   })

@@ -9,12 +9,14 @@ export interface BaseTagProps {
   onClick?: () => void
 }
 
+export const TagNodes = {
+  Root: 'div',
+  Content: 'span',
+} as const
+
 export const Tag = UUI.FunctionComponent({
   name: 'Tag',
-  nodes: {
-    Root: 'div',
-    Content: 'span',
-  },
+  nodes: TagNodes,
 }, (props: BaseTagProps, nodes) => {
   const { Root, Content } = nodes
   return (

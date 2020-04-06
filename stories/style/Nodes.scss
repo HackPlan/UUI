@@ -1,0 +1,28 @@
+.nodes-container {
+  box-shadow: rgba(0,0,0,0.10) 0 1px 3px 0;
+  border: 1px solid rgba(0,0,0,.1);
+
+  // *[class*="UUI"] {
+  //   position: relative;
+  //   visibility: hidden;
+  //   margin: 2px;
+  //   &::after {
+  //     content: '';
+  //     position: absolute;
+  //     left: 2px;
+  //     right: 2px;
+  //     top: 2px;
+  //     bottom: 2px;
+  //     background-color: var(--background-color);
+  //     visibility: visible;
+  //   }
+  // }
+  *[class*="UUI"] {
+    color: transparent;
+    position: relative;
+    border: 2px solid var(--background-color);
+    background-color: var(--background-color);
+    border-collapse: separate;
+    border-radius: 4px;
+  }
+}

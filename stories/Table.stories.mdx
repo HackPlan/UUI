@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Table } from '../src';
+import { Table, TableNodes } from '../src';
 import { useState } from 'react';
+import { Nodes } from './utils/Nodes';
 
 <Meta title="Table" component={Table} />
 
@@ -220,6 +221,29 @@ import { useState } from 'react';
     }}
   </Story>
 </Preview>
+
+### Nodes
+
+<Nodes
+  name={'Table'}
+  nodes={TableNodes}
+  render={(props) => {
+    const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
+    const rows = [
+      ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+      ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+      ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+    ]
+    return (
+      <Table
+        columns={columns}
+        rows={rows}
+        selectedIndexes={[]}
+        {...props}
+      ></Table>
+    )
+  }}
+/>
 
 ### Table Types
 

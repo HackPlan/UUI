@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Tag } from '../src';
+import { Tag, TagNodes } from '../src';
 import { useState } from 'react';
+import { Nodes } from './utils/Nodes';
 
 <Meta title="Tag" component={Tag} />
 
@@ -44,5 +45,20 @@ import { useState } from 'react';
     >ABC</Tag>
   </Story>
 </Preview>
+
+### Nodes
+
+<Nodes
+  name={'Tag'}
+  nodes={TagNodes}
+  render={(props) => {
+    console.log(props)
+    return (
+      <Tag {...props}>Tag</Tag>
+    )
+  }}
+/>
+
+### Props
 
 <Props components={{ Tag }} />
