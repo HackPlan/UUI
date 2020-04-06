@@ -198,11 +198,11 @@ export abstract class UUI {
     },
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
-    return React.forwardRef((props: P & Z & UUIConvenienceProps, ref) => {
-      const compiledProps = compileProps(props, options, ref)
+    return (props: P & Z & UUIConvenienceProps) => {
+      const compiledProps = compileProps(props, options, undefined)
       const nodes = useMemo(() => compileNodes(compiledProps, options), [])
       return WrappedComponent(compiledProps, nodes)
-    })
+    }
   }
 
   /**

@@ -3,6 +3,7 @@ import { UUI } from '../../utils/uui';
 
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  title?: string
 }
 
 export const Button = UUI.FunctionComponent({
@@ -19,5 +20,10 @@ export const Button = UUI.FunctionComponent({
     </Root>
   )
 })
+
+export type UUIConvenienceProps = {
+  className?: string
+  style?: React.CSSProperties
+}
 
 export type ButtonProps = Parameters<typeof Button>[0]

@@ -1,12 +1,21 @@
+const path = require('path');
+
 module.exports = ({ config }) => {
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
-    loaders: [
+    use: [
       {
-        loader: require.resolve('awesome-typescript-loader'),
+        loader: require.resolve('ts-loader'),
         options: {
-          noUnusedLocals: false,
-          ignoreDiagnostics: [7005, 2347],
+          ignoreDiagnostics: [1005]
+        }
+      },
+      {
+        loader: require.resolve('react-docgen-typescript-loader'),
+        options: {
+          // Provide the path to your tsconfig.json so that your stories can
+          // display types from outside each individual story.
+          tsconfigPath: path.resolve(__dirname, "../tsconfig.json"),
         },
       },
     ],
