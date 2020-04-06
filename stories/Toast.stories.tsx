@@ -1,6 +1,6 @@
 import React from 'react';
-import { Toaster, ToasterPosition } from '../src/components/Toast';
-import { Button } from '../src/components/Button';
+import { Toaster, ToasterPosition } from '../src';
+import { Button } from '../src';
 import { withKnobs } from "@storybook/addon-knobs";
 
 export default {
