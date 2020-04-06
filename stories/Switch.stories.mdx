@@ -1,0 +1,38 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Switch } from '../src/components/Switch';
+import { useState } from 'react';
+
+<Meta title="Switch" component={Switch} />
+
+# 开关 Switch
+
+> 注意：目前 Switch 是由 rc-switch 实现，所以暂时不支持 UUI 的 customize props。
+
+
+### Switch
+
+<Preview>
+  <Story name="Switch">
+    {() => {
+      const [checked, setChecked] = useState(false)
+      return (
+        <Switch
+          value={checked}
+          onChange={(value) => { setChecked(value); console.log('onChange', value) }}
+          extendClassName={{
+            root: 'w-full'
+          }}
+          extendStyle={{
+            root: {
+              fontSize: 30,
+            }
+          }}
+        >
+          {checked ? 'on' : 'off'}
+        </Switch>
+      )
+    }}
+  </Story>
+</Preview>
+
+<Props components={{ Switch }} />

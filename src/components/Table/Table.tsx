@@ -6,23 +6,37 @@ import { UUI } from '../../utils/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
 import './Table.scss';
 
-
-export type TableCell = React.ReactNode | string
 export interface TableColumn {
-  title: TableCell
+  title: React.ReactNode
   children?: TableColumn[]
 }
 
-export interface BaseTableProps extends React.HTMLAttributes<HTMLTableElement> {
+export interface BaseTableProps {
   columns: TableColumn[]
-  rows: TableCell[][]
+  rows: React.ReactNode[][]
 
+  /**
+   * Indicate which rows are selected, if this props passed,
+   * table will show a selection column in first of all.
+   */
   selectedIndexes?: number[]
+  /**
+   * Callback of selection, it will trigger when user select or unselect some row.
+   */
   onSelected?: (indexes: number[]) => void
 
+  /**
+   * Table will hide header if this props set true
+   */
   hideHeader?: boolean
+  /**
+   * Customize table empty view.
+   */
   emptyView?: React.ReactNode
 
+  /**
+   * Callback of drag and drop, if 
+   */
   onDragged?: (fromIndex: number, toIndex: number) => void
 }
 

@@ -31,11 +31,11 @@ export const RadioGroup = <K extends string | number>(props: BaseRadioGroupProps
         className={"u-flex u-flex-row u-items-center u-block"}
       >
         {React.Children.map(props.children, (child: any) => {
-          return React.cloneElement<BaseRadioProps<string | number>>(child, {
+          return React.cloneElement<BaseRadioProps<K>>(child, {
             ...child.props,
             ...(props.name ? { name: props.name } : {}),
             checked: child.props.value === props.value,
-            onChange: (event) => {
+            onChange: () => {
               props.onChange(child.props.value)
             },
           })

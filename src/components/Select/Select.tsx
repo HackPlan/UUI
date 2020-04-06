@@ -7,11 +7,7 @@ export interface SelectOption<T> {
   value: T
 }
 
-type SelectHTMLAttributes = Omit<
-  React.SelectHTMLAttributes<HTMLSelectElement>,
-  'value' | 'onChange'
->
-export interface BaseSelectProps<T extends string | number> extends SelectHTMLAttributes {
+export interface BaseSelectProps<T extends string | number> {
   options: SelectOption<T>[]
   value: T
   onChange: (value: T) => void
@@ -34,7 +30,7 @@ type SelectCustomizeProps = UUIComponentCustomizeProps<typeof SelectNodes>
  * TODO: enhance UUI function component props generic
  */
 
-export const Select = <K extends string | number>(props: SelectCustomizeProps & UUIConvenienceProps & BaseSelectProps<K>) => {
+export const Select = <K extends string | number>(props: UUIConvenienceProps & BaseSelectProps<K> & SelectCustomizeProps) => {
   const BaseSelect = UUI.FunctionComponent({
     name: "Select",
     nodes: {

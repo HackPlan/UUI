@@ -1,0 +1,235 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Table } from '../src/components/Table';
+import { useState } from 'react';
+
+<Meta title="Table" component={Table} />
+
+# 表格 Table
+
+### Table
+
+<Preview>
+  <Story name="Table">
+    {() => {
+      const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
+      const rows = [
+        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+      ]
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+        ></Table>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Table with selection
+
+<Preview>
+  <Story name="Table with selection">
+    {() => {
+      const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
+      const rows = [
+        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+      ]
+      const [selectedIndexes, setSelectedIndexes] = useState([])
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          selectedIndexes={selectedIndexes}
+          onSelected={(indexes) => { setSelectedIndexes(indexes) }}
+        ></Table>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Table with grouping column
+
+<Preview>
+  <Story name="Table with grouping column">
+    {() => {
+      const columns = [{
+        title: 'Person',
+        children: [{
+          title: 'Info',
+          children: [{
+            title: 'Name',
+          }, {
+            title: 'Age',
+          }, {
+            title: 'Gender',
+          }]
+        }, {
+          title: 'Contact',
+          children: [{
+            title: 'Mobile',
+          }, {
+            title: 'Email',
+          }]
+        }]
+      }, {
+        title: 'Profession'
+      }]
+      const rows = [
+        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+      ]
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+        ></Table>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Table with empty data
+
+<Preview>
+  <Story name="Table with empty data">
+    {() => {
+      const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
+      const rows = []
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+        ></Table>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Table hide header
+
+<Preview>
+  <Story name="Table hide header">
+    {() => {
+      const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
+      const rows = [
+        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+      ]
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          hideHeader
+        ></Table>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Table with drag and drop
+
+<Preview>
+  <Story name="Table with drag and drop">
+    {() => {
+      const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
+      const [rows, setRow] = useState([
+        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+      ])
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          onDragged={(from, to) => {
+            setRow((value) => {
+              const newValue = Array.from(value)
+              newValue.splice(to, 0, newValue.splice(from, 1)[0])
+              return newValue
+            })
+          }}
+        ></Table>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Table with custom style
+
+<Preview>
+  <Story name="Table with custom style">
+    {() => {
+      const columns = [{
+        title: 'Person',
+        children: [{
+          title: 'Info',
+          children: [{
+            title: 'Name',
+          }, {
+            title: 'Age',
+          }, {
+            title: 'Gender',
+          }]
+        }, {
+          title: 'Contact',
+          children: [{
+            title: 'Mobile',
+          }, {
+            title: 'Email',
+          }]
+        }]
+      }, {
+        title: 'Profession'
+      }]
+      const rows = [
+        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
+        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
+        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
+      ]
+      const [selectedIndexes, setSelectedIndexes] = useState([])
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          customize={{
+            HeadCell: {
+              extendClassName: 'u-bg-green-400',
+            },
+            DataCell: {
+              extendClassName: 'u-bg-red-400',
+              extendStyle: {
+                fontStyle: 'italic',
+                padding: 20
+              },
+            },
+            Checkbox: {
+              Root: {
+              }
+            }
+          }}
+          selectedIndexes={selectedIndexes}
+          onSelected={(indexes) => { setSelectedIndexes(indexes) }}
+        ></Table>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Table Types
+
+```typescript
+interface TableColumn {
+  title: React.ReactNode
+  children?: TableColumn[]
+}
+```
+
+### Props
+
+<Props components={{ Table }} />

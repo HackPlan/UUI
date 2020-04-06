@@ -16,9 +16,9 @@ export const SkeletonParagraph = UUI.FunctionComponent({
   const lines = props.lines || 3
   return (
     <Root>
-      {(new Array(lines)).fill(1).map(() => {
+      {(new Array(lines)).fill(1).map((i, index) => {
         return (
-          <Line></Line>
+          <Line key={index}></Line>
         )
       })}
     </Root>

@@ -2,7 +2,7 @@ import React from 'react';
 import { DateFormatterLocale, DateFormatterLocaleKinds, dateFormat } from '../../utils/dateFormatter';
 import { UUI } from '../../utils/uui';
 
-export interface BaseDateLabelProps<T extends DateFormatterLocale> extends React.HTMLAttributes<HTMLOrSVGElement> {
+export interface BaseDateLabelProps<T extends DateFormatterLocale> {
   value: Date
   locale: T
   kind: DateFormatterLocaleKinds[T][number]

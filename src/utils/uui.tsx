@@ -198,7 +198,7 @@ export abstract class UUI {
     },
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
-    return (props: P & Z & UUIConvenienceProps) => {
+    return (props: P & UUIConvenienceProps & Z) => {
       const compiledProps = compileProps(props, options, undefined)
       const nodes = useMemo(() => compileNodes(compiledProps, options), [])
       return WrappedComponent(compiledProps, nodes)
@@ -245,7 +245,7 @@ export abstract class UUI {
   ) {
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P, S> {
       nodes: UUIComponentNodes<X>
-      constructor(props: P & Z) {
+      constructor(props: P & UUIConvenienceProps & Z) {
         super(props)
         const compiledProps = compileProps(props, options, (props as any).innerRef || undefined)
         this.nodes = compileNodes(compiledProps, options)

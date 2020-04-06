@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import accounting from 'accounting';
 import { UUI } from '../../utils/uui';
 
-export interface BaseMoneyLabelProps extends React.HTMLAttributes<HTMLOrSVGElement> {
+export interface BaseMoneyLabelProps {
   children: string
   symbol?: string
   precision?: number

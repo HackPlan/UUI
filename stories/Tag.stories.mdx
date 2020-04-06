@@ -1,0 +1,48 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Tag } from '../src/components/Tag';
+import { useState } from 'react';
+
+<Meta title="Tag" component={Tag} />
+
+# 标签 Tag
+
+### Tag
+
+<Preview>
+  <Story name="Tag">
+    <Tag>Tag</Tag>
+  </Story>
+</Preview>
+
+### 自定义样式
+
+<Preview>
+  <Story name="Custom Style 1">
+    <Tag
+      customize={{
+        Root: {
+          extendClassName: 'u-flex u-flex-col',
+          extendStyle: {
+            background: '#CCC'
+          },
+          extendChildrenAfter: <div>append element</div>
+        },
+        Content: {
+          extendClassName: 'u-text-green-800'
+        },
+      }}
+    >ABC</Tag>
+  </Story>
+  <Story name="Custom Style 2">
+    <Tag
+      onClick={() => {}}
+      customize={{
+        Root: {
+          overrideClassName: 'uui-tag u-inline-block u-p-6 u-rounded-full u-bg-gray-600',
+        }
+      }}
+    >ABC</Tag>
+  </Story>
+</Preview>
+
+<Props components={{ Tag }} />

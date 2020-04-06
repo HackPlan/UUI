@@ -5,9 +5,9 @@ import { UUI, UUIComponentCustomizeProps, UUIConvenienceProps } from '../../util
 
 import './Radio.scss';
 
-type InputHTMLAttributes = Omit<
+type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,
-  'type' | 'value'
+  'checked' | 'disabled' | 'onChange'
 >
 export interface BaseRadioProps<T extends string | number> extends InputHTMLAttributes {
   value?: T

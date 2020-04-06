@@ -8,9 +8,9 @@ export enum ToastNodeName {
 }
 
 
-export interface BaseToastProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BaseToastProps {
   /** Message to display in the body of the toast. */
-  message: React.ReactNode;
+  message: React.ReactNode | string | number;
   /**
    * Callback invoked when the toast is dismissed, either by the user or by the timeout.
    * The value of the argument indicates whether the toast was closed because the timeout expired.

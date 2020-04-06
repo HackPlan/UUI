@@ -1,0 +1,23 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Toast, Toaster, ToasterPosition } from '../src/components/Toast';
+import { useState, useRef } from 'react';
+
+<Meta title="Toast" component={Toast} />
+
+# 全局提示 Toast
+
+### Toast
+
+<Preview>
+  <Story name="Toast1" id="toast--toast" />
+</Preview>
+
+### Custom Style Toast
+
+<Preview>
+   <Story name="Custom Style Toast" id="toast--toast-custom-style" />
+</Preview>
+
+### Props
+
+<Props components={{ Toast, Toaster }} />

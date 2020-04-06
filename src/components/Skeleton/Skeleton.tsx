@@ -11,7 +11,7 @@ export interface BaseSkeletonProps {
   children?: React.ReactNode | string
 }
 
-const _Skeleton = UUI.FunctionComponent({
+export const _Skeleton = UUI.FunctionComponent({
   name: 'Skeleton',
   nodes: {
     Root: 'div'
@@ -34,4 +34,3 @@ Skeleton.Picture = SkeletonPicture
 
 export { Skeleton }
 
-export type SkeletonProps = Parameters<typeof Skeleton>[0]

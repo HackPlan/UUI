@@ -5,15 +5,11 @@ import classNames from 'classnames';
 import './Checkbox.scss';
 import { UUI } from '../../utils/uui';
 
-type InputHTMLAttributes = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'type' | 'value' | 'onChange'
->
-
-export interface BaseCheckboxProps extends InputHTMLAttributes {
+export interface BaseCheckboxProps {
   label?: string | React.ReactNode
   value: boolean
   onChange: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void
+  disabled?: boolean
 }
 
 export const Checkbox = UUI.FunctionComponent({

@@ -1,0 +1,47 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Checkbox } from '../src/components/Checkbox';
+import { useState } from 'react';
+
+<Meta title="Checkbox" component={Checkbox} />
+
+# 多选框 Checkbox
+
+
+### Checkbox
+
+<Preview>
+  <Story name="Checkbox">
+    {() => {
+      const [flag, setFlag] = useState(false)
+      return (
+        <Checkbox
+          label={'Checkbox'}
+          value={flag}
+          onChange={(value) => { console.log(value); setFlag(value) }}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Disabled Checkbox
+
+<Preview>
+  <Story name="Disabled Checkbox">
+    {() => {
+      const [flag, setFlag] = useState(false)
+      return (
+        <Checkbox
+          label={'Disabled'}
+          value={flag}
+          onChange={(value) => { console.log(value); setFlag(value) }}
+          disabled
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Checkbox }} />

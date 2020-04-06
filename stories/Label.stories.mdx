@@ -1,0 +1,117 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { MoneyLabel, DateLabel, TimeLabel } from '../src/components/Label';
+import { useState } from 'react';
+
+<Meta title="Label" components={{ MoneyLabel, DateLabel, TimeLabel }} />
+
+# 文本标签 Label
+
+### 货币标签 MoneyLabel
+
+<Preview>
+  <Story name="MoneyLabel">
+    <div className="u-flex u-flex-col">
+      <MoneyLabel symbol={'¥'}>
+        100100100.0000
+      </MoneyLabel>
+      <MoneyLabel thousand={' '}>
+        100100100.0000
+      </MoneyLabel>
+      <MoneyLabel symbol={'IDR'} thousand={'.'} decimal={','}>
+        100100100.0000
+      </MoneyLabel>
+    </div>
+  </Story>
+</Preview>
+
+### 日期标签 DateLabel
+
+<Preview>
+  <Story name="DateLabel">
+    {() => {
+      const now = new Date()
+      return (
+        <div>
+          {now.toJSON()}
+          <h3 className="u-font-bold u-my-4">简体中文（中国）</h3>
+          <div className="u-flex u-flex-col">
+            <DateLabel value={now} locale={'zh-CN'} kind={'2012-03-14'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'2012/3/14'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'2012年3月'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'2012年3月14日'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'3月14日'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'三月十四日'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'二○一二年三月'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'二○一二年三月十四日'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'周三'}></DateLabel>
+            <DateLabel value={now} locale={'zh-CN'} kind={'星期三'}></DateLabel>
+          </div>
+          <h3 className="u-font-bold u-my-4">繁体中文（台湾）</h3>
+          <div className="u-flex u-flex-col">
+            <DateLabel value={now} locale={'zh-TW'} kind={'週三'}></DateLabel>
+          </div>
+          <h3 className="u-font-bold u-my-4">英文（美国）</h3>
+          <div className="u-flex u-flex-col">
+            <DateLabel value={now} locale={'en-US'} kind={'2012-03-14'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'2012/3/14'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'14-Mar-12'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'14-Mar-2012'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'2012-03-14'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'2012/3/14'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'3/14'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'3/14/12'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'Mar-12'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'March 14, 2012'}></DateLabel>
+            <DateLabel value={now} locale={'en-US'} kind={'March-12'}></DateLabel>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### 时间标签 TimeLabel
+
+<Preview>
+  <Story name="TimeLabel">
+    {() => {
+      const now = new Date()
+      return (
+        <div>
+          {now.toJSON()}
+          <h3 className="u-font-bold u-my-4">简体中文（中国）</h3>
+          <div className="u-flex u-flex-col">
+            <TimeLabel value={now} locale={'zh-CN'} kind={'13时30分'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-CN'} kind={'13时30分55秒'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-CN'} kind={'下午 1:30:55'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-CN'} kind={'下午1时30分'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-CN'} kind={'下午1时30分55秒'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-CN'} kind={'下午一时三十分'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-CN'} kind={'十三时三十分'}></TimeLabel>
+          </div>
+          <h3 className="u-font-bold u-my-4">繁体中文（台湾）</h3>
+          <div className="u-flex u-flex-col">
+            <TimeLabel value={now} locale={'zh-TW'} kind={'13時30分'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-TW'} kind={'13時30分55秒'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-TW'} kind={'下午 1:30:55'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-TW'} kind={'下午1時30分'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-TW'} kind={'下午1時30分55秒'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-TW'} kind={'下午一時三十分'}></TimeLabel>
+            <TimeLabel value={now} locale={'zh-TW'} kind={'十三時三十分'}></TimeLabel>
+          </div>
+          <h3 className="u-font-bold u-my-4">英文（美国）</h3>
+          <div className="u-flex u-flex-col">
+            <TimeLabel value={now} locale={'en-US'} kind={'13:30'}></TimeLabel>
+            <TimeLabel value={now} locale={'en-US'} kind={'13:30:55'}></TimeLabel>
+            <TimeLabel value={now} locale={'en-US'} kind={'1:30 PM'}></TimeLabel>
+            <TimeLabel value={now} locale={'en-US'} kind={'1:30:55 PM'}></TimeLabel>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ MoneyLabel, DateLabel, TimeLabel }} />
