@@ -3,8 +3,22 @@ import { DateFormatterLocale, DateFormatterLocaleKinds, dateFormat } from '../..
 import { UUI } from '../../utils/uui';
 
 export interface BaseDateLabelProps<T extends DateFormatterLocale> {
+  /**
+   * Date value to be displayed.
+   *
+   * Only the part of date (year, month, day, week) is valid for this Component
+   */
   value: Date
+  /**
+   * The locale of display format.
+   */
   locale: T
+  /**
+   * The display format of date.
+   *
+   * DateLabel provides a group of presets of date format,
+   * These presets refer to the formats in Excel.
+   */
   kind: DateFormatterLocaleKinds[T][number]
 }
 

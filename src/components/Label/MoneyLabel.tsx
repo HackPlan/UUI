@@ -4,11 +4,33 @@ import accounting from 'accounting';
 import { UUI } from '../../utils/uui';
 
 export interface BaseMoneyLabelProps {
-  children: string
+  /**
+   * Money value to be displayed.
+   */
+  value: string | number
+  /**
+   * The symbopl of currency
+   * @default $
+   */
   symbol?: string
+  /**
+   * The maximum number of decimals.
+   */
   precision?: number
+  /**
+   * Thousands separator
+   * @default ,
+   */
   thousand?: string
+  /**
+   * Decimal separator
+   * @default .
+   */
   decimal?: string
+  /**
+   * Custom format
+   * @reference http://openexchangerates.github.io/accounting.js/#documentation
+   */
   format?: string
 }
 
@@ -20,7 +42,7 @@ export const MoneyLabel = UUI.FunctionComponent({
 }, (props: BaseMoneyLabelProps, nodes) => {
   const { Root } = nodes
 
-  const text = accounting.formatMoney(props.children, omit(props, 'children'))
+  const text = accounting.formatMoney(props.value, omit(props, 'value'))
   return (
     <Root>{text}</Root>
   )

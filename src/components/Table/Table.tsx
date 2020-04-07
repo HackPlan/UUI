@@ -12,30 +12,45 @@ export interface TableColumn {
 }
 
 export interface BaseTableProps {
+  /**
+   * Columns information of table
+   * @default []
+   */
   columns: TableColumn[]
+  /**
+   * Cells of table
+   * @default []
+   */
   rows: React.ReactNode[][]
 
   /**
-   * Indicate which rows are selected, if this props passed,
-   * table will show a selection column in first of all.
+   * Indicate which rows are selected,
+   * if this prop is provided, table will show a selection column in the first.
+   * @default none
    */
   selectedIndexes?: number[]
   /**
-   * Callback of selection, it will trigger when user select or unselect some row.
+   * Callback invoked when one row of table is selected.
+   * Recommended when `selectedIndexes` is passed.
+   * @default none
    */
   onSelected?: (indexes: number[]) => void
 
   /**
-   * Table will hide header if this props set true
+   * Whether this table should hide header.
+   * @default false
    */
   hideHeader?: boolean
   /**
    * Customize table empty view.
+   * @default none
    */
   emptyView?: React.ReactNode
 
   /**
-   * Callback of drag and drop, if 
+   * Called when one row of table was dragged and released.
+   * if this prop is provided, the rows of table can be dragged.
+   * @default none
    */
   onDragged?: (fromIndex: number, toIndex: number) => void
 }

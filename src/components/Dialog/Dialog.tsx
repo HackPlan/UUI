@@ -6,11 +6,17 @@ import classNames from 'classnames';
 import { UUI } from '../../utils/uui';
 
 export interface BaseDialogProps {
+  /**
+   * Toggles the visibility of the overlay and its children.
+   * This prop is required because the component is controlled.
+   */
   open: boolean,
   focusTrap?: boolean,
   lockBodyScroll?: boolean,
+  /**
+   * The content of this dialog
+   */
   children?: React.ReactNode | string
-  onClick?: () => void
 }
 
 export const Dialog = UUI.FunctionComponent({

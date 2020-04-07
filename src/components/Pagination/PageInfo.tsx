@@ -2,8 +2,17 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 
 export interface BasePageInfoProps {
+  /**
+   * Current page
+   */
   page: number
+  /**
+   * The Size of per page
+   */
   pageSize: number
+  /**
+   * Total item number
+   */
   totalItem: number
 }
 

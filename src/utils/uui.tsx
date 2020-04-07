@@ -151,7 +151,17 @@ export type UUIComponentNodes<
 }
 
 export type UUIConvenienceProps = {
+  /**
+   * Convenience className props,
+   * this props will be applied to append to extendClassName of component Root node customize props.
+   * @default none
+   */
   className?: string
+  /**
+   * Convenience style props,
+   * this props will be applied to merge to extendStyle of component Root node customize props.
+   * @default none
+   */
   style?: React.CSSProperties
 }
 export abstract class UUI {
@@ -184,6 +194,10 @@ export abstract class UUI {
      * this is to allow developers to see detailed node type information when using this kind of component.
      */
     Z extends {
+      /**
+       * Customize component nodes
+       * @default none
+       */
       customize?: {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
           ? NodeCustomizeProps
@@ -230,6 +244,10 @@ export abstract class UUI {
      * this is to allow developers to see detailed node type information when using this kind of component.
      */
     Z extends {
+      /**
+       * Customize component nodes
+       * @default none
+       */
       customize?: {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
           ? NodeCustomizeProps

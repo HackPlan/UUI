@@ -6,9 +6,24 @@ import './Checkbox.scss';
 import { UUI } from '../../utils/uui';
 
 export interface BaseCheckboxProps {
-  label?: string | React.ReactNode
+  /**
+   * The label of checkbox.
+   * @default none
+   */
+  label?: React.ReactNode | string
+  /**
+   * Whether this checkbox is selected.
+   */
   value: boolean
+  /**
+   * Callback invoked when user changes select state.
+   * @default none
+   */
   onChange: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void
+  /**
+   * Whether the control is non-interactive.
+   * @default false
+   */
   disabled?: boolean
 }
 

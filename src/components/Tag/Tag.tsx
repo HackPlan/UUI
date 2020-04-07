@@ -5,7 +5,13 @@ import classNames from 'classnames';
 import { UUI } from '../../utils/uui';
 
 export interface BaseTagProps {
+  /**
+   * The content of tag.
+   */
   children?: React.ReactNode | string
+  /**
+   * Callback invokes when user click this tag.
+   */
   onClick?: () => void
 }
 

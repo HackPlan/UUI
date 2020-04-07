@@ -10,7 +10,16 @@ type InputHTMLAttributes = Pick<
   'checked' | 'disabled' | 'onChange'
 >
 export interface BaseRadioProps<T extends string | number> extends InputHTMLAttributes {
-  value?: T
+  /**
+   * The value of radio.
+   *
+   * T should be string or number.
+   */
+  value: T
+  /**
+   * The label of radio.
+   * @default none
+   */
   label?: string | React.ReactNode
 }
 

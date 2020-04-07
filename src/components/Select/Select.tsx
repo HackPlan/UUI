@@ -8,8 +8,19 @@ export interface SelectOption<T> {
 }
 
 export interface BaseSelectProps<T extends string | number> {
+  /**
+   * The options of select
+   */
   options: SelectOption<T>[]
+  /**
+   * The value of selected option.
+   *
+   * T should be string or string.
+   */
   value: T
+  /**
+   * Callback invokes when user change to select option.
+   */
   onChange: (value: T) => void
 }
 

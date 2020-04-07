@@ -8,10 +8,27 @@ type InputHTMLAttributes = Omit<
   'value' | 'onChange'
 >
 export interface BaseNumberFieldProps extends InputHTMLAttributes {
+  /**
+   * The minimum value of the input.
+   * @default none
+   */
   min?: number
+  /**
+   * The maximum value of the input.
+   * @default none
+   */
   max?: number
+  /**
+   * The maximum number of decimals of the input.
+   */
   fixed?: number
+  /**
+   * The value to display in the input field.
+   */
   value: number | null | undefined
+  /**
+   * Event handler invoked when input value is changed.
+   */
   onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 

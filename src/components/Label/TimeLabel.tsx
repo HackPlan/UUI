@@ -3,8 +3,22 @@ import { TimeFormatterLocale, TimeFormatterLocaleKinds, timeFormat } from '../..
 import { UUI } from '../../utils/uui';
 
 export interface BaseTimeLabelProps<T extends TimeFormatterLocale> {
+  /**
+   * Date value to be displayed.
+   *
+   * Only the part of time (hour, minute, second) is valid for this Component
+   */
   value: Date
+  /**
+   * The locale of display format.
+   */
   locale: T
+  /**
+   * The display format of date.
+   *
+   * DateLabel provides a group of presets of time format,
+   * These presets refer to the formats in Excel.
+   */
   kind: TimeFormatterLocaleKinds[T][number]
 }
 

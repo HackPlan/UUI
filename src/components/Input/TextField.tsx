@@ -4,8 +4,18 @@ import { UUI } from '../../utils/uui';
 
 type InputHTMLAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange'>
 export interface BaseTextFieldProps extends InputHTMLAttributes {
+  /**
+   * The type of user input.
+   * TextField only support string kind type
+   */
   type?: 'text' | 'tel' | 'url' | 'email' | 'password'
+  /**
+   * The value to display in the input field.
+   */
   value: string | null | undefined
+  /**
+   * Event handler invoked when input value is changed.
+   */
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 

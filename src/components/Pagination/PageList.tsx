@@ -5,8 +5,17 @@ import { UUI } from '../../utils/uui';
 
 
 export interface BasePageListProps {
+  /**
+   * Current page
+   */
   page: number
+  /**
+   * Total pages
+   */
   totalPage: number
+  /**
+   * Callback invokes when page changed.
+   */
   onPageChange: (page: number) => void
 }
 

@@ -3,7 +3,6 @@ import { UUI } from '../../utils/uui';
 
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  title?: string
 }
 
 export const Button = UUI.FunctionComponent({
