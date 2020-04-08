@@ -142,25 +142,22 @@ export const Table = UUI.FunctionComponent({
     >
       {!props.hideHeader && (
         <Head>
-          {/* Selection Head Cell */}
-          {props.selectedIndexes && (
-            <Row>
-              <HeadCell rowSpan={9999}>
-                <Checkbox
-                  value={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
-                  onChange={(value) => {
-                    if (props.rows.length > 0) {
-                      props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
-                    }
-                  }}
-                />
-              </HeadCell>
-            </Row>
-          )}
-
           {/* Grouping Head Cells */}
           {groupColumns.map((row, rowIndex) => (
             <Row key={`column-row-${rowIndex}`}>
+              {/* Selection Head Cell */}
+              {props.selectedIndexes && rowIndex === 0 && (
+                <HeadCell rowSpan={9999}>
+                  <Checkbox
+                    value={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
+                    onChange={(value) => {
+                      if (props.rows.length > 0) {
+                        props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
+                      }
+                    }}
+                  />
+                </HeadCell>
+              )}
               {row.map((cell, cellIndex) => (
                 <HeadCell
                   key={`column-row${rowIndex}-cell-${cellIndex}`}

@@ -3,7 +3,7 @@ import { IntrinsicNodeT, ComponentNodeT } from '../../src/utils/uui';
 import { mapValues, isString } from 'lodash';
 import '../style/Nodes.scss';
 
-const Colors = ['red', 'green', 'blue', 'orange', 'purple', 'yellow', 'gray', 'pink']
+const Colors = ['#363062', '#f4e04d', '#00bcd4', '#216353', '#eb4559', '#f6d186', '#6b778d', '#ffaaa5']
 
 export interface NodesProps<
 N extends string,
@@ -23,23 +23,30 @@ export function Nodes<
   const { name, nodes, render } = props
   const nodeNames = Object.keys(nodes) as N[]
 
+  const templateRef = useRef(null)
   const previewRef = useRef(null)
   useEffect(() => {
-    if (previewRef.current) {
+    if (templateRef.current && previewRef.current) {
+      const template = templateRef.current as any
       const preview = previewRef.current as any
       for (const nodeName of nodeNames) {
-        if (isString(nodes[nodeName])) {
-          const elements = preview.getElementsByClassName(`UUI-${name}-${nodeName}`)
-          for (const element of elements as HTMLElement[]) {
-            element.style.setProperty('--background-color', nodeColors[nodeName])
+        const elements = preview.getElementsByClassName(`UUI-${name}-${nodeName}`)
+        const templateElements = template.getElementsByClassName(`UUI-${name}-${nodeName}`)
+        elements.forEach((element: HTMLElement, index: number) => {
+          const templateElement = templateElements[index] as HTMLElement
+          element.style.setProperty('--background-color', nodeColors[nodeName])
+          if (['TD', 'TH'].includes(element.tagName)) {
+            element.style.width = `${templateElement.clientWidth}px`
+            element.style.height = `${templateElement.clientHeight}px`
           }
-        } else {
-          const elements = preview.getElementsByClassName(`UUI-${name}-${nodeName}`)
-          for (const element of elements as HTMLElement[]) {
-            element.style.setProperty('--background-color', nodeColors[nodeName])
+          if (['TR', 'THEAD'].includes(element.tagName)) {
+            element.style.whiteSpace = 'nowrap';
           }
-        }
-
+          if (['TR'].includes(element.tagName)) {
+            element.style.display = 'inline-block';
+            element.style.width = ``
+          }
+        })
       }
       console.log(previewRef.current)
     }
@@ -71,7 +78,7 @@ export function Nodes<
 
   return (
     <div
-      className="nodes-container u-my-4 u-p-12 u-flex u-flex-row u-w-full"
+      className="nodes-container u-my-4 u-p-12 u-flex u-flex-row u-w-full u-overflow-hidden"
     >
       <div ref={previewRef} className="component-preview">
         {render(customizeProps)}
@@ -85,6 +92,9 @@ export function Nodes<
             </div>
           )
         })}
+      </div>
+      <div ref={templateRef} className="component-template">
+        {render({})}
       </div>
     </div>
   )
