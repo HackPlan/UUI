@@ -1,14 +1,20 @@
-import React from 'react';
-import { omit, pick } from 'lodash';
+import React, { useState, useEffect } from 'react';
 import { UUI } from '../../utils/uui';
 import './TextField.scss';
+import { Button } from '../Button';
 
 export interface BaseTextFieldProps {
   /**
    * The type of user input.
    * TextField only support string kind type
+   * @default text
    */
   type?: 'text' | 'tel' | 'url' | 'email' | 'password'
+  /**
+   * Placeholder text when there is no value.
+   * @default none
+   */
+  placeholder?: string
   /**
    * The value to display in the input field.
    */
@@ -27,6 +33,24 @@ export interface BaseTextFieldProps {
    * @default false
    */
   showLengthIndicator?: boolean
+  /**
+   * Show button of toggling display/hide password
+   * @default false
+   */
+  showPasswordVisibleButton?: boolean
+  /**
+   * Whether the text of password is visible.
+   *
+   * if this prop is provided, inner password visible state will changed by this value
+   *
+   * @default false
+   */
+  passwordVisible?: boolean
+  /**
+   * Callback invoked when user click password visible button
+   * @default false
+   */
+  onPasswordVisibleChange?: (value: boolean) => void
 }
 
 export const TextField = UUI.FunctionComponent({
@@ -35,14 +59,38 @@ export const TextField = UUI.FunctionComponent({
     Root: 'div',
     Input: 'input',
     LengthIndicator: 'div',
+    TogglePasswordVisibleButton: Button,
   }
 }, (props: BaseTextFieldProps, nodes) => {
-  const { Root, Input, LengthIndicator } = nodes
+  const {
+    Root, Input,
+    LengthIndicator, TogglePasswordVisibleButton,
+  } = nodes
+
+  /**
+   * password visible inner state in the component.
+   * if props.passwordVisible is provided, this inner state will changed by outer prop state.
+   */
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(props.passwordVisible || false)
+  useEffect(() => {
+    setPasswordVisible(props.passwordVisible || false)
+  }, [props.passwordVisible])
+  const finalType = ((): BaseTextFieldProps['type'] => {
+    if (props.type === 'password' && passwordVisible) {
+      return 'text'
+    } else {
+      return props.type || 'text'
+    }
+  })()
+
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
+
   return (
     <Root className={"u-w-full u-p-2 u-border u-border-black"}>
       <Input
-        {...pick(props, 'maxLength', 'type', 'value', 'onChange')}
+        placeholder={props.placeholder}
+        maxLength={props.maxLength}
+        type={finalType}
         value={props.value || ''}
         onChange={(event) => {
           props.onChange(event.target.value, event)
@@ -52,6 +100,20 @@ export const TextField = UUI.FunctionComponent({
         <LengthIndicator>
           {lengthIndicatorText}
         </LengthIndicator>
+      )}
+      {props.showPasswordVisibleButton && (
+        <TogglePasswordVisibleButton
+          onClick={() => {
+            if (props.passwordVisible) {
+              props.onPasswordVisibleChange && props.onPasswordVisibleChange(!passwordVisible)
+            } else {
+              setPasswordVisible((value) => !value)
+            }
+          }}
+        >
+          {/* TODO: update with an icon */}
+          pw
+        </TogglePasswordVisibleButton>
       )}
     </Root>
   )

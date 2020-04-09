@@ -11,6 +11,8 @@ import { useState } from 'react';
 
 ### 简单使用
 
+使用 `TextField` 来输入短文本。
+
 <Preview>
   <Story name="TextField">
     {() => {
@@ -29,6 +31,10 @@ import { useState } from 'react';
 
 ### 限制文本输入长度
 
+使用 `showLengthIndicator` 来显示当前输入的文本长度。
+
+如果传入了 `maxLength`，则同时显示当前输入的文本长度和最多可输入的文本长度。
+
 <Preview>
   <Story name="TextField with max length limit">
     {() => {
@@ -41,6 +47,29 @@ import { useState } from 'react';
           showLengthIndicator
           onChange={(value) => { setText(value) }}
           placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### 输入密码
+
+当 `type` 为 `password` 时，传入 `showPasswordVisibleButton` 属性可以显示密码可见性切换的按钮。
+
+默认情况下，密码可见性状态由组件内部管理。如果你需要自己管理这个状态，可以传入 `passwordVisible` 和 `onPasswordVisibleChange` 属性。
+
+<Preview>
+  <Story name="TextField with password">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextField
+          type='password'
+          value={text}
+          showPasswordVisibleButton
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input password...'}
         />
       )
     }}

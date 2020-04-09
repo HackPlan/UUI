@@ -3,6 +3,7 @@
 ### v0.2.1
 
 - `TextField` support `maxLength` prop
+- `TextField` support toggle password visible
 
 ### v0.2.0
 
