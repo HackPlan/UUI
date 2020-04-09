@@ -1,33 +1,31 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { omit } from 'lodash';
-
-export enum TextFieldNodeName {
-  TextField = "textfield",
-  Root = "root",
-  Input = "input",
-  LeftElement = "leftelement",
-  RightElement = "rightelement",
-}
+import { UUI } from '../../utils/uui';
 
 type InputHTMLAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange'>
-export interface TextFieldProps extends InputHTMLAttributes, StylishProps<TextFieldNodeName> {
+export interface BaseTextFieldProps extends InputHTMLAttributes {
+  /**
+   * The type of user input.
+   * TextField only support string kind type
+   */
   type?: 'text' | 'tel' | 'url' | 'email' | 'password'
+  /**
+   * The value to display in the input field.
+   */
   value: string | null | undefined
+  /**
+   * Event handler invoked when input value is changed.
+   */
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export function TextField(props: TextFieldProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(TextFieldNodeName.TextField, props, { prefix: "uui" })
-    return [
-      stylished.element('input', TextFieldNodeName.Root),
-    ]
-  }, [])
+export const TextField = UUI.FunctionComponent({
+  name: 'TextField',
+  nodes: {
+    Root: 'input'
+  }
+}, (props: BaseTextFieldProps, nodes) => {
+  const { Root } = nodes
   return (
     <Root
       {...omit(props, 'leftNode', 'rightNode', 'value', 'onChange')}
@@ -38,4 +36,6 @@ export function TextField(props: TextFieldProps) {
       }}
     />
   )
-}
+})
+
+export type TextFieldProps = Parameters<typeof TextField>[0]

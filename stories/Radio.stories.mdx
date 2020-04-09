@@ -1,0 +1,39 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Radio, RadioGroup } from '../src';
+import { useState } from 'react';
+
+<Meta title="Radio" component={Radio} />
+
+# 单选框 Radio
+
+
+### 单个单选框
+
+<Preview>
+  <Story name="Radio">
+    <Radio
+      label={'Radio'}
+    />
+  </Story>
+</Preview>
+
+### 一组单选框
+
+<Preview>
+  <Story name="Group of Radio">
+    {() => {
+      const [n, setN] = useState("a")
+      return (
+        <RadioGroup name="radio1" value={n} onChange={(value) => { setN(value) }}>
+          <Radio label={'Apple'} value={'a'} customize={{ Root: { extendClassName: "u-mr-4" }}}></Radio>
+          <Radio label={'Banana'} value={'b'} customize={{ Root: { extendClassName: "u-mr-4" }}}></Radio>
+          <Radio label={'Cherry'} value={'c'} customize={{ Root: { extendClassName: "u-mr-4" }}}></Radio>
+        </RadioGroup>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Radio, RadioGroup }} />

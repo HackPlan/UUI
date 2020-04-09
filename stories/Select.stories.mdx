@@ -1,0 +1,30 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Select } from '../src';
+import { useState } from 'react';
+
+<Meta title="Select" component={Select} />
+
+# 选择器 Select
+
+
+### Select
+
+<Preview>
+  <Story name="Select">
+    {() => {
+      const options = [
+        { label: 'Cat', value: 'cat' },
+        { label: 'Dog', value: 'dog' },
+        { label: 'Parrot', value: 'parrot' },
+      ]
+      const [value, setValue] = useState('dog')
+      return (
+        <Select options={options} value={value} onChange={(value) => { setValue(value) }}/>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Select }} />

@@ -1,43 +1,34 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { useFocusTrap, useLockBodyScroll } from '../../hooks'
 
 import './Dialog.scss'
 import classNames from 'classnames';
+import { UUI } from '../../utils/uui';
 
-export enum DialogNodeName {
-  Dialog = "dialog",
-  Root = "root",
-  Backdrop = "backdrop",
-  Container = "container",
-  Content = "content",
-}
-
-export interface DialogProps extends StylishProps<DialogNodeName> {
+export interface BaseDialogProps {
+  /**
+   * Toggles the visibility of the overlay and its children.
+   * This prop is required because the component is controlled.
+   */
   open: boolean,
   focusTrap?: boolean,
   lockBodyScroll?: boolean,
+  /**
+   * The content of this dialog
+   */
   children?: React.ReactNode | string
-  onClick?: () => void
 }
 
-export function Dialog(props: DialogProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-    Backdrop,
-    Container,
-    Content,
-  ] = useMemo(() => {
-    const stylished = initStylished(DialogNodeName.Dialog, props, { prefix: "uui" })
-    return [
-      stylished.element('div', DialogNodeName.Root),
-      stylished.element('div', DialogNodeName.Backdrop),
-      stylished.element('div', DialogNodeName.Container),
-      stylished.element('div', DialogNodeName.Content),
-    ]
-  }, [])
+export const Dialog = UUI.FunctionComponent({
+  name: 'Dialog',
+  nodes: {
+    Root: 'div',
+    Backdrop: 'div',
+    Container: 'div',
+    Content: 'div',
+  }
+}, (props: BaseDialogProps, nodes) => {
+  const { Root, Backdrop, Container, Content } = nodes
 
   useLockBodyScroll(props.open && !!props.lockBodyScroll)
   const ref = useFocusTrap(props.open && !!props.focusTrap)
@@ -62,4 +53,6 @@ export function Dialog(props: DialogProps) {
       </Backdrop>
     </Root>
   )
-}
+})
+
+export type DialogProps = Parameters<typeof Dialog>[0]

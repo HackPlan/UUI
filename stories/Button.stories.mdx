@@ -1,0 +1,36 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Button } from '../src';
+
+<Meta title="Button" component={Button} />
+
+# 按钮 Button
+
+
+### Button
+
+<Preview>
+  <Story name="Button">
+    <Button
+      onClick={() => { console.log('clicked!') }}
+    >
+      Button
+    </Button>
+  </Story>
+</Preview>
+
+### Disabled Button
+
+<Preview>
+  <Story name="Disabled Button">
+    <Button
+      onClick={() => { console.log('clicked!') }}
+      disabled
+    >
+      Disabled
+    </Button>
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Button }} />

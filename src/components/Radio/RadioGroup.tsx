@@ -1,52 +1,64 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
-import classNames from 'classnames';
-import { RadioProps } from './Radio';
-
-export enum RadioGroupNodeName {
-  RadioGroup = "radiogroup",
-  Root = "root",
-  Radio = "radio"
-}
+import React from 'react';
+import { BaseRadioProps } from './Radio';
+import { UUI, UUIComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
 
 export interface RadioGroupOptions {
   label: string
   value: string
 }
-export interface RadioGroupProps<T extends string | number> extends StylishProps<RadioGroupNodeName> {
+export interface BaseRadioGroupProps<T extends string | number> {
+  /**
+   * The name of a group of radios
+   * @default none
+   */
   name?: string
+  /**
+   * The value of selected radio.
+   *
+   * T should be string or number.
+   */
   value: T
+  /**
+   * Callback invokes when user change to select radio.
+   */
   onChange: (value: T) => void
-  children: React.ReactElement<RadioProps<T>>[] | React.ReactElement<RadioProps<T>>
+  /**
+   * Array of `Radio`
+   */
+  children: React.ReactElement<BaseRadioProps<T>>[] | React.ReactElement<BaseRadioProps<T>>
 }
 
-export function RadioGroup<T extends string | number>(props: RadioGroupProps<T>) {
+const RadioGroupNodes = {
+  Root: 'div'
+} as const
+type RadioGroupCustomizeProps = UUIComponentCustomizeProps<typeof RadioGroupNodes>
 
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(RadioGroupNodeName.RadioGroup, props, { prefix: "uui" })
-    return [
-      stylished.element('div', RadioGroupNodeName.Root),
-    ]
-  }, [])
+// TODO: enhance UUI function component props generic
+export const RadioGroup = <K extends string | number>(props: BaseRadioGroupProps<K> & RadioGroupCustomizeProps & UUIConvenienceProps) => {
+  const BaseRadioGroup = UUI.FunctionComponent({
+    name: "RadioGroup",
+    nodes: RadioGroupNodes,
+  }, (props: BaseRadioGroupProps<K>, nodes) => {
+    const { Root } = nodes
 
-  return (
-    <Root
-      className={classNames("u-flex u-flex-row u-items-center u-block")}
-    >
-      {React.Children.map(props.children, (child: any) => {
-        return React.cloneElement<RadioProps<T>>(child, {
-          ...child.props,
-          ...(props.name ? { name: props.name } : {}),
-          checked: child.props.value === props.value,
-          onChange: (event) => {
-            props.onChange(child.props.value)
-          },
-        })
-      })}
-    </Root>
-  )
+    return (
+      <Root
+        className={"u-flex u-flex-row u-items-center u-block"}
+      >
+        {React.Children.map(props.children, (child: any) => {
+          return React.cloneElement<BaseRadioProps<K>>(child, {
+            ...child.props,
+            ...(props.name ? { name: props.name } : {}),
+            checked: child.props.value === props.value,
+            onChange: () => {
+              props.onChange(child.props.value)
+            },
+          })
+        })}
+      </Root>
+    )
+  })
+  return <><BaseRadioGroup {...props}></BaseRadioGroup></>
 }
 
+export type RadioGroupProps = Parameters<typeof RadioGroup>[0]

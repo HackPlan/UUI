@@ -1,61 +1,75 @@
-import React, { useMemo, useCallback, useState } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React, { useMemo, useCallback } from 'react';
 import { range, omit } from 'lodash';
-import { DragDropContext, Droppable, Draggable, DragStart, DropResult, ResponderProvided } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DragStart, DropResult } from 'react-beautiful-dnd';
 
-import { Checkbox } from '../Checkbox';
+import { UUI } from '../../utils/uui';
+import { Checkbox as UUICheckbox } from '../Checkbox';
 import './Table.scss';
 
-export enum TableNodeName {
-  Table = "table",
-  Root = "root",
-  Head = "head",
-  Body = "body",
-  Row = "row",
-  HeadCell = "headcell",
-  DataCell = "datacell",
-}
-
-export type TableCell = React.ReactNode | string
 export interface TableColumn {
-  title: TableCell
+  title: React.ReactNode
   children?: TableColumn[]
 }
 
-export interface TableProps extends React.HTMLAttributes<HTMLTableElement>, StylishProps<TableNodeName> {
+export interface BaseTableProps {
+  /**
+   * Columns information of table
+   * @default []
+   */
   columns: TableColumn[]
-  rows: TableCell[][]
+  /**
+   * Cells of table
+   * @default []
+   */
+  rows: React.ReactNode[][]
 
+  /**
+   * Indicate which rows are selected,
+   * if this prop is provided, table will show a selection column in the first.
+   * @default none
+   */
   selectedIndexes?: number[]
+  /**
+   * Callback invoked when one row of table is selected.
+   * Recommended when `selectedIndexes` is passed.
+   * @default none
+   */
   onSelected?: (indexes: number[]) => void
 
+  /**
+   * Whether this table should hide header.
+   * @default false
+   */
   hideHeader?: boolean
+  /**
+   * Customize table empty view.
+   * @default none
+   */
   emptyView?: React.ReactNode
 
+  /**
+   * Called when one row of table was dragged and released.
+   * if this prop is provided, the rows of table can be dragged.
+   * @default none
+   */
   onDragged?: (fromIndex: number, toIndex: number) => void
 }
 
-export function Table(props: TableProps) {
+export const TableNodes = {
+  Root: 'table',
+  Head: 'thead',
+  Body: 'tbody',
+  Row: 'tr',
+  HeadCell: 'th',
+  DataCell: 'td',
+  Checkbox: UUICheckbox,
+} as const
 
-  // Initial Nodes
-  const [
-    Root,
-    Head,
-    Body,
-    Row,
-    HeadCell,
-    DataCell,
-  ] = useMemo(() => {
-    const stylished = initStylished(TableNodeName.Table, props, { prefix: "uui" })
-    return [
-      stylished.element('table', TableNodeName.Root),
-      stylished.element('thead', TableNodeName.Head),
-      stylished.element('tbody', TableNodeName.Body),
-      stylished.element('tr', TableNodeName.Row),
-      stylished.element('th', TableNodeName.HeadCell),
-      stylished.element('td', TableNodeName.DataCell),
-    ]
-  }, [])
+export const Table = UUI.FunctionComponent({
+  name: 'Table',
+  nodes: TableNodes,
+}, (props: BaseTableProps, nodes) => {
+  const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox } = nodes
 
   const groupColumns = useMemo(() => {
     const groupCells: (TableColumn & { colspan?: number; rowspan?: number; })[][] = []
@@ -128,25 +142,22 @@ export function Table(props: TableProps) {
     >
       {!props.hideHeader && (
         <Head>
-          {/* Selection Head Cell */}
-          {props.selectedIndexes && (
-            <Row>
-              <HeadCell rowSpan={9999}>
-                <Checkbox
-                  value={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
-                  onChange={(value) => {
-                    if (props.rows.length > 0) {
-                      props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
-                    }
-                  }}
-                />
-              </HeadCell>
-            </Row>
-          )}
-
           {/* Grouping Head Cells */}
           {groupColumns.map((row, rowIndex) => (
             <Row key={`column-row-${rowIndex}`}>
+              {/* Selection Head Cell */}
+              {props.selectedIndexes && rowIndex === 0 && (
+                <HeadCell rowSpan={9999}>
+                  <Checkbox
+                    value={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
+                    onChange={(value) => {
+                      if (props.rows.length > 0) {
+                        props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
+                      }
+                    }}
+                  />
+                </HeadCell>
+              )}
               {row.map((cell, cellIndex) => (
                 <HeadCell
                   key={`column-row${rowIndex}-cell-${cellIndex}`}
@@ -240,4 +251,6 @@ export function Table(props: TableProps) {
       </DragDropContext>
     </Root>
   )
-}
+})
+
+export type TableProps = Parameters<typeof Table>[0]

@@ -1,0 +1,28 @@
+# Changelog
+
+### v0.2.0
+
+- use UUI Component Util to create components.
+- **\[BREAKING CHANGE\]** new prop `customize` to customize component style. (remove old customize props such as `extendClassName`, `extendStyle` in the root props of component)
+- **\[BREAKING CHANGE\]** component node class name will change to `UUI-XXX-YYY`
+- component support convenience props `className` and `style`, these props will be injected into Root node of component.
+- Storybook add docs page
+- `MoneyLabel` use `value` prop instead of `children`
+
+### v0.1.6
+
+- fix tailwindcss purge in production build
+- tailwindcss use `_` as separator
+
+### v0.1.5
+
+- export `Label`, `Pagination`, `Select` and `Toast` components
+
+### v0.1.4
+
+- update `TextField` and `NumberField` value type
+
+### v0.1.3
+
+- `Checkbox` props onChange new second parameter `event: React.ChangeEvent<HTMLInputElement>`
+- new Component `Toast`

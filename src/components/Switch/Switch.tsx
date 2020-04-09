@@ -14,7 +14,7 @@ export enum SwitchNodeName {
 
 export type SwitchSize = 'small' | 'default';
 
-export interface SwitchProps extends StylishProps<SwitchNodeName> {
+export interface BaseSwitchProps extends StylishProps<SwitchNodeName> {
   size?: SwitchSize;
   disabled?: boolean;
   loading?: boolean;
@@ -26,7 +26,7 @@ export interface SwitchProps extends StylishProps<SwitchNodeName> {
   onChange: (flag: boolean) => void
 }
 
-export function Switch(props: SwitchProps) {
+export function Switch(props: BaseSwitchProps) {
   const prefixCls = 'uui-switch'
   const getStylishProps = initStylish<SwitchNodeName>(SwitchNodeName.Root, props, { prefix: "uui" });
   const { disabled, loading } = props
@@ -59,3 +59,5 @@ export function Switch(props: SwitchProps) {
     />
   )
 }
+
+export type SwitchProps = Parameters<typeof Switch>[0]

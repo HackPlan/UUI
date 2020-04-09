@@ -1,0 +1,65 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Pagination, PageInfo, PageList, PageJumper } from '../src';
+import { useState, useMemo } from 'react';
+import { range } from 'lodash';
+
+<Meta title="Pagination" component={Pagination} />
+
+# 分页 Pagination
+
+### Pagination
+
+<Preview>
+  <Story name="Pagination">
+    {() => {
+      const [rows, setRows] = useState(range(1, 5))
+      const [count, setCount] = useState(43)
+      const [offset, setOffset] = useState(0)
+      const [limit, setLimit] = useState(5)
+      const { page, pageSize, totalPage, totalItem } = useMemo(() => {
+        return {
+          page: Math.ceil((offset + 0.1) / limit),
+          pageSize: limit,
+          totalPage: Math.ceil(count / limit),
+          totalItem: count
+        }
+      }, [rows, count, offset, limit])
+      const [jumpPage, setJumpPage] = useState(null)
+      return (
+        <div>
+          <div className="u-my-4">
+            <div>Current Page: {page}</div>
+            <div>Page Size: {pageSize}</div>
+            <div>Total Page: {totalPage}</div>
+            <div>Total Item: {totalItem}</div>
+          </div>
+          <Pagination>
+            <PageInfo
+              page={page}
+              pageSize={pageSize}
+              totalItem={totalItem}
+            ></PageInfo>
+            <PageList
+              page={page}
+              totalPage={totalPage}
+              onPageChange={(value) => {
+                setOffset((value - 1) * limit)
+              }}
+            ></PageList>
+            <PageJumper
+              jumpPage={jumpPage}
+              onJumpPageChange={(page) => setJumpPage(page)}
+              onJumped={(page) => {
+                setOffset((page - 1) * limit)
+              }}
+            ></PageJumper>
+          </Pagination>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Pagination, PageInfo, PageList, PageJumper }} />

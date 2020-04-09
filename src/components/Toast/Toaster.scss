@@ -1,4 +1,4 @@
-.uui-toaster-portal {
+.UUI-Toaster-Portal {
   position: absolute;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   pointer-events: none;
 }
 
-.uui-toaster-root {
+.UUI-Toaster-Root {
   pointer-events: none;
   z-index: 999;
 
@@ -47,7 +47,7 @@
   }
 }
 
-.uui-toast-root {
+.UUI-Toast-Root {
   width: fit-content;
   pointer-events: all;
 }

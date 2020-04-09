@@ -1,33 +1,39 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { TimeFormatterLocale, TimeFormatterLocaleKinds, timeFormat } from '../../utils/timeFormatter';
+import { UUI } from '../../utils/uui';
 
-export enum TimeLabelNodeName {
-  TimeLabel = "timelabel",
-  Root = "root",
-}
-
-export interface TimeLabelProps<T extends TimeFormatterLocale> extends React.HTMLAttributes<HTMLOrSVGElement>, StylishProps<TimeLabelNodeName> {
+export interface BaseTimeLabelProps<T extends TimeFormatterLocale> {
+  /**
+   * Date value to be displayed.
+   *
+   * Only the part of time (hour, minute, second) is valid for this Component
+   */
   value: Date
+  /**
+   * The locale of display format.
+   */
   locale: T
+  /**
+   * The display format of date.
+   *
+   * DateLabel provides a group of presets of time format,
+   * These presets refer to the formats in Excel.
+   */
   kind: TimeFormatterLocaleKinds[T][number]
 }
 
-export function TimeLabel<T extends TimeFormatterLocale>(props: TimeLabelProps<T>) {
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(TimeLabelNodeName.TimeLabel, props, { prefix: "uui" })
-    return [
-      stylished.element('label', TimeLabelNodeName.Root),
-    ]
-  }, [])
+export const TimeLabel = UUI.FunctionComponent({
+  name: 'TimeLabel',
+  nodes: {
+    Root: 'div',
+  }
+}, (props: BaseTimeLabelProps<TimeFormatterLocale>, nodes) => {
+  const { Root } = nodes
 
   const text = timeFormat(props.value, props.locale, props.kind)
-
   return (
     <Root>{text}</Root>
   )
-}
+})
+
+export type TimeLabelProps = Parameters<typeof TimeLabel>[0]

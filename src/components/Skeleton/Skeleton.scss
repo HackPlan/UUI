@@ -1,4 +1,4 @@
-.uui-skeleton {
+.UUI-Skeleton-Root {
   margin: 8px;
 
   @keyframes SkeletonAnimation {
@@ -11,31 +11,31 @@
   }
 
 
-  &-paragraph-line, &-title, &-picture {
+  .UUI-SkeletonParagraph-Line, .UUI-SkeletonTitle-Root, .UUI-SkeletonPicture-Root {
     margin-bottom: 16px;
     width: 100%;
     background: #dfe3e8;
     animation: SkeletonAnimation 1s linear infinite alternate;
   }
 
-  &-title {
-    width: 44%;
-    height: 26px;
-  }
+  .UUI-SkeletonParagraph-Line {
+    height: 16px;
 
-  &-paragraph {
-    &-line {
-      height: 16px;
-
-      &:last-child:not(:first-child):not(:nth-child(2)) {
-        width: 80%;
-        margin-bottom: none;
-      }
+    &:last-child:not(:first-child):not(:nth-child(2)) {
+      width: 80%;
+      margin-bottom: none;
     }
   }
 
-  &-picture {
+  .UUI-SkeletonPicture-Root {
+    margin-right: 16px;
     width: 360px;
     height: 270px;
   }
+
+  .UUI-SkeletonTitle-Root {
+    width: 44%;
+    height: 26px;
+  }
 }
+

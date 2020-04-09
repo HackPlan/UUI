@@ -1,37 +1,44 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { omit } from 'lodash';
-
-export enum NumberFieldNodeName {
-  NumberField = "numberfield",
-  Root = "root",
-}
+import { UUI } from '../../utils/uui';
 
 type InputHTMLAttributes = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
   'min' | 'max' | 'type' |
   'value' | 'onChange'
 >
-export interface NumberFieldProps extends InputHTMLAttributes, StylishProps<NumberFieldNodeName> {
+export interface BaseNumberFieldProps extends InputHTMLAttributes {
+  /**
+   * The minimum value of the input.
+   * @default none
+   */
   min?: number
+  /**
+   * The maximum value of the input.
+   * @default none
+   */
   max?: number
+  /**
+   * The maximum number of decimals of the input.
+   */
   fixed?: number
+  /**
+   * The value to display in the input field.
+   */
   value: number | null | undefined
+  /**
+   * Event handler invoked when input value is changed.
+   */
   onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export function NumberField(props: NumberFieldProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(NumberFieldNodeName.NumberField, props, { prefix: "uui" })
-    return [
-      stylished.element('input', NumberFieldNodeName.Root),
-    ]
-  }, [])
-
+export const NumberField = UUI.FunctionComponent({
+  name: 'NumberField',
+  nodes: {
+    Root: 'input'
+  }
+}, (props: BaseNumberFieldProps, nodes) => {
+  const { Root } = nodes
   return (
     <Root
       {...omit(props, 'value', 'onChange')}
@@ -51,7 +58,9 @@ export function NumberField(props: NumberFieldProps) {
       }}
     />
   )
-}
+})
+
+export type NumberFieldProps = Parameters<typeof NumberField>[0]
 
 
 function limitFixed(value: string, fixed?: number) {

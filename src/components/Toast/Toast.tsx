@@ -1,15 +1,16 @@
-import React, { useMemo, useEffect, useRef, useCallback } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { omit } from 'lodash';
+import { UUI } from '../../utils/uui';
 
 export enum ToastNodeName {
   Toast = "toast",
   Root = "root",
 }
 
-export interface ToastProps extends React.HTMLAttributes<HTMLDivElement>, StylishProps<ToastNodeName> {
+
+export interface BaseToastProps {
   /** Message to display in the body of the toast. */
-  message: React.ReactNode;
+  message: React.ReactNode | string | number;
   /**
    * Callback invoked when the toast is dismissed, either by the user or by the timeout.
    * The value of the argument indicates whether the toast was closed because the timeout expired.
@@ -23,21 +24,18 @@ export interface ToastProps extends React.HTMLAttributes<HTMLDivElement>, Stylis
    */
   timeout?: number;
 }
-export type IToast = ToastProps & { id: string }
+export type IToast = BaseToastProps & { id: string }
 
+export const Toast = UUI.FunctionComponent({
+  prefix: 'UUI',
+  name: 'Toast',
+  nodes: {
+    Root: 'div',
+  }
+}, (props: IToast, nodes) => {
+  const { Root } = nodes
 
-export function Toast(props: IToast) {
   const timeout = props.timeout || 5000
-
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(ToastNodeName.Toast, props, { prefix: "uui" })
-    return [
-      stylished.element('div', ToastNodeName.Root),
-    ]
-  }, [])
 
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -66,4 +64,6 @@ export function Toast(props: IToast) {
       {props.message}
     </Root>
   )
-}
+})
+
+export type ToastProps = Parameters<typeof Toast>[0]

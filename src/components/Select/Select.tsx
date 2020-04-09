@@ -1,61 +1,76 @@
-import React, { useMemo } from 'react';
-import { initStylished, StylishProps } from '../../utils/stylish';
+import React from 'react';
+import { UUI, UUIConvenienceProps, UUIComponentCustomizeProps } from '../../utils/uui';
 
-
-export enum SelectNodeName {
-  Root = "root",
-  Select = "select",
-  Option = "option",
-
-}
 
 export interface SelectOption<T> {
   label: string
   value: T
 }
 
-type SelectHTMLAttributes = Omit<
-  React.SelectHTMLAttributes<HTMLSelectElement>,
-  'value' | 'onChange'
->
-export interface SelectProps<T extends string | number> extends SelectHTMLAttributes, StylishProps<SelectNodeName> {
+export interface BaseSelectProps<T extends string | number> {
+  /**
+   * The options of select
+   */
   options: SelectOption<T>[]
+  /**
+   * The value of selected option.
+   *
+   * T should be string or string.
+   */
   value: T
+  /**
+   * Callback invokes when user change to select option.
+   */
   onChange: (value: T) => void
 }
 
+const SelectNodes = {
+  Root: 'label',
+  Input: 'input',
+  Indicator: 'span',
+  Label: 'span',
+} as const
+type SelectCustomizeProps = UUIComponentCustomizeProps<typeof SelectNodes>
 
-export function Select<T extends string | number>(props: SelectProps<T>) {
+/**
+ * Notes: The base props of Select compoent is a generic type,
+ * due to `Partial<Pick<Parameters<BaseSelect>[0]>>` infer to `never`,
+ * This component we use UUIComponentCustomizeProps to get customize props.
+ *
+ * Currently UUI Component Util un-support generic props type.
+ * TODO: enhance UUI function component props generic
+ */
 
-  // Initial Nodes
-  const [
-    Root,
-    Select,
-    Option,
-  ] = useMemo(() => {
-    const stylished = initStylished(SelectNodeName.Select, props, { prefix: "uui" })
-    return [
-      stylished.element('div', SelectNodeName.Root),
-      stylished.element('select', SelectNodeName.Select),
-      stylished.element('option', SelectNodeName.Option),
-    ]
-  }, [])
+export const Select = <K extends string | number>(props: UUIConvenienceProps & BaseSelectProps<K> & SelectCustomizeProps) => {
+  const BaseSelect = UUI.FunctionComponent({
+    name: "Select",
+    nodes: {
+      Root: 'div',
+      Select: 'select',
+      Option: 'option',
+    }
+  }, (props: BaseSelectProps<K>, nodes) => {
+    const { Root, Select, Option } = nodes
 
-  return (
-    <Root className="u-p-2 u-border u-border-black">
-      <Select
-        className="u-bg-white u-w-full"
-        value={props.value}
-        onChange={(event) => {
-          props.onChange(event.target.value as any)
-        }}
-      >
-        {props.options.map((i) => {
-          return (
-            <Option key={i.value} value={i.value}>{i.label}</Option>
-          )
-        })}
-      </Select>
-    </Root>
-  )
+    return (
+      <Root className="u-p-2 u-border u-border-black">
+        <Select
+          className="u-bg-white u-w-full"
+          value={props.value}
+          onChange={(event) => {
+            props.onChange(event.target.value as any)
+          }}
+        >
+          {props.options.map((i) => {
+            return (
+              <Option key={i.value} value={i.value}>{i.label}</Option>
+            )
+          })}
+        </Select>
+      </Root>
+    )
+  })
+  return <><BaseSelect {...props}></BaseSelect></>
 }
+
+export type SelectProps = Parameters<typeof Select>[0]

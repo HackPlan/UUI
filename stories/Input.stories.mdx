@@ -1,0 +1,47 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { TextField, NumberField } from '../src';
+import { useState } from 'react';
+
+<Meta title="Input" components={{ TextField, NumberField }} />
+
+# 输入框 Input
+
+
+### 文本输入框 TextField
+
+<Preview>
+  <Story name="TextField">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextField
+          type='text'
+          value={text}
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### 数字输入框 NumberField
+
+<Preview>
+  <Story name="NumberField">
+    {() => {
+      const [number, setNumber] = useState(null)
+      return (
+        <NumberField
+          value={number}
+          onChange={(value) => { setNumber(value) }}
+          placeholder={'Input number...'}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ TextField, NumberField }} />

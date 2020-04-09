@@ -1,16 +1,19 @@
 import React from 'react';
-import { StylishProps, initStylish } from "../../utils/stylish"
+import { UUI } from '../../utils/uui';
 
-export enum SkeletonTitleNodeName {
-  Root = "skeleton-title",
+export interface BaseSkeletonTitleProps {
 }
 
-export interface SkeletonTitleProps extends StylishProps<SkeletonTitleNodeName> {
-}
-
-export function SkeletonTitle(props: SkeletonTitleProps) {
-  const getStylishProps = initStylish<SkeletonTitleNodeName>(SkeletonTitleNodeName.Root, props, { prefix: "uui" })
+export const SkeletonTitle = UUI.FunctionComponent({
+  name: 'SkeletonTitle',
+  nodes: {
+    Root: 'h3'
+  }
+}, (props: BaseSkeletonTitleProps, nodes) => {
+  const { Root } = nodes
   return (
-    <h3 {...getStylishProps('', [])}></h3>
+    <Root></Root>
   )
-}
+})
+
+export type SkeletonTitleProps = Parameters<typeof SkeletonTitle>[0]

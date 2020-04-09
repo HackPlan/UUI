@@ -1,38 +1,51 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React from 'react';
 import { omit } from 'lodash';
 import accounting from 'accounting';
+import { UUI } from '../../utils/uui';
 
-export enum MoneyLabelNodeName {
-  MoneyLabel = "moneylabel",
-  Root = "root",
-}
-
-export interface MoneyLabelProps extends React.HTMLAttributes<HTMLOrSVGElement>, StylishProps<MoneyLabelNodeName> {
-  children: string
+export interface BaseMoneyLabelProps {
+  /**
+   * Money value to be displayed.
+   */
+  value: string | number
+  /**
+   * The symbopl of currency
+   * @default $
+   */
   symbol?: string
+  /**
+   * The maximum number of decimals.
+   */
   precision?: number
+  /**
+   * Thousands separator
+   * @default ,
+   */
   thousand?: string
+  /**
+   * Decimal separator
+   * @default .
+   */
   decimal?: string
+  /**
+   * Custom format
+   * @reference http://openexchangerates.github.io/accounting.js/#documentation
+   */
   format?: string
 }
 
-export function MoneyLabel(props: MoneyLabelProps) {
+export const MoneyLabel = UUI.FunctionComponent({
+  name: 'MoneyLabel',
+  nodes: {
+    Root: 'label',
+  }
+}, (props: BaseMoneyLabelProps, nodes) => {
+  const { Root } = nodes
 
-  // Initial Nodes
-  const [
-    Root,
-  ] = useMemo(() => {
-    const stylished = initStylished(MoneyLabelNodeName.MoneyLabel, props, { prefix: "uui" })
-    return [
-      stylished.element('label', MoneyLabelNodeName.Root),
-    ]
-  }, [])
-
-  const text = accounting.formatMoney(props.children, omit(props, 'children'))
-
+  const text = accounting.formatMoney(props.value, omit(props, 'value'))
   return (
     <Root>{text}</Root>
   )
-}
+})
 
+export type MoneyLabelProps = Parameters<typeof MoneyLabel>[0]

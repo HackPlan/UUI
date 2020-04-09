@@ -1,38 +1,40 @@
-import React, { useMemo } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
-import { NumberField } from '../Input';
+import React from 'react';
+import { NumberField as UUINumberField } from '../Input';
+import { UUI } from '../../utils/uui';
 
-export enum PageJumperNodeName {
-  PageJumper = "pagejumper",
-  Root = "root",
-  Input = "input"
-}
 
-export interface PageJumperProps extends StylishProps<PageJumperNodeName> {
+export interface BasePageJumperProps {
+  /**
+   * The target page to jump.
+   */
   jumpPage: number | null
+  /**
+   * Callback invokes when user change target page number
+   */
   onJumpPageChange: (page: number | null) => void
+  /**
+   * Callback invokes when user entered.
+   */
   onJumped: (page: number) => void
 }
 
-export function PageJumper(props: PageJumperProps) {
-
-  // Initial Nodes
-  const [
-    Root,
-    Input,
-  ] = useMemo(() => {
-    const stylished = initStylished(PageJumperNodeName.PageJumper, props, { prefix: "uui" })
-    return [
-      stylished.element('div', PageJumperNodeName.Root),
-      stylished.element('div', PageJumperNodeName.Input),
-    ]
-  }, [])
-
+export const PageJumper = UUI.FunctionComponent({
+  name: 'PageJumper',
+  nodes: {
+    Root: 'div',
+    NumberField: UUINumberField,
+  }
+}, (props: BasePageJumperProps, nodes) => {
+  const { Root, NumberField } = nodes
   return (
     <Root className={"u-flex u-flex-row u-mx-2 u-items-center"}>
       <div className={"u-flex-no-wrap u-pr-1"}>Jump to</div>
       <NumberField
-        extendStyle={{ root: { height: 34, width: 80 }}}
+        customize={{
+          Root: {
+            extendStyle: { height: 34, width: 80 }
+          }
+        }}
         value={props.jumpPage}
         onChange={(value) => { props.onJumpPageChange(value) }}
         onKeyDown={(event) => {
@@ -43,4 +45,6 @@ export function PageJumper(props: PageJumperProps) {
       ></NumberField>
     </Root>
   )
-}
+})
+
+export type PageJumperProps = Parameters<typeof PageJumper>[0]

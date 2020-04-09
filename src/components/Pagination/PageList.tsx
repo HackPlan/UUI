@@ -1,42 +1,36 @@
-import React, { useMemo, Props } from 'react';
-import { StylishProps, initStylished } from '../../utils/stylish';
+import React, { useMemo } from 'react';
 import { range } from 'lodash';
-import { Button } from '../Button';
+import { Button as UUIButton } from '../Button';
+import { UUI } from '../../utils/uui';
 
-export enum PageListNodeName {
-  PageList = "pagelist",
-  Root = "root",
-  PrevButton = "prevbutton",
-  PageButton = "pagebutton",
-  ActivePageButton = "activepagebutton",
-  NextButton = "nextbutton",
-}
 
-export interface PageListProps extends StylishProps<PageListNodeName> {
+export interface BasePageListProps {
+  /**
+   * Current page
+   */
   page: number
+  /**
+   * Total pages
+   */
   totalPage: number
+  /**
+   * Callback invokes when page changed.
+   */
   onPageChange: (page: number) => void
 }
 
-export function PageList(props: PageListProps) {
 
-  // Initial Nodes
-  const [
-    Root,
-    PrevButton,
-    PageButton,
-    ActivePageButton,
-    NextButton,
-  ] = useMemo(() => {
-    const stylished = initStylished(PageListNodeName.PageList, props, { prefix: "uui" })
-    return [
-      stylished.element('div', PageListNodeName.Root),
-      stylished.element('div', PageListNodeName.PrevButton),
-      stylished.element('div', PageListNodeName.PageButton),
-      stylished.element('div', PageListNodeName.ActivePageButton),
-      stylished.element('div', PageListNodeName.NextButton),
-    ]
-  }, [])
+export const PageList = UUI.FunctionComponent({
+  name: 'PageList',
+  nodes: {
+    Root: 'div',
+    PrevButton: UUIButton,
+    PageButton: UUIButton,
+    ActivePageButton: UUIButton,
+    NextButton: UUIButton,
+  }
+}, (props: BasePageListProps, nodes) => {
+  const { Root, PrevButton, PageButton, ActivePageButton, NextButton } = nodes
 
   const pageListData = useMemo(() => {
     const maxShowPageNumberLength = 5;
@@ -79,34 +73,49 @@ export function PageList(props: PageListProps) {
 
   return (
     <Root className={"u-flex u-flex-row u-mx-2"}>
-      <PrevButton>
-        <Button
-          disabled={props.page === 1}
-          onClick={() => { if (props.page > 1) props.onPageChange(props.page-1) }}
-        >Prev</Button>
-      </PrevButton>
+      <PrevButton
+        customize={{
+          Root: {
+            extendClassName: "u-mr-1"
+          }
+        }}
+        disabled={props.page === 1}
+        onClick={() => { if (props.page > 1) props.onPageChange(props.page-1) }}
+      >Prev</PrevButton>
       {pageListData.map((item, index) =>
         props.page === Number(item.title) ? (
-          <ActivePageButton key={`page-item-${index}`} className={"u-px-1"}>
-            <Button
-              extendClassName={{ root: "u-border-blue-500 u-text-blue-500" }}
-              onClick={() => { if (!item.nonInteractive) props.onPageChange(Number(item.title)) }}
-            >{item.title}</Button>
-          </ActivePageButton>
+          <ActivePageButton
+            key={`page-item-${index}`}
+            customize={{
+              Root: {
+                extendClassName: "u-mx-1 u-border-blue-500 u-text-blue-500"
+              }
+            }}
+            onClick={() => { if (!item.nonInteractive) props.onPageChange(Number(item.title)) }}
+          >{item.title}</ActivePageButton>
         ) : (
-          <PageButton key={`page-item-${index}`} className={"u-px-1"}>
-            <Button
-              onClick={() => { if (!item.nonInteractive) props.onPageChange(Number(item.title)) }}
-            >{item.title}</Button>
-          </PageButton>
+          <PageButton
+            key={`page-item-${index}`}
+            customize={{
+              Root: {
+                extendClassName: "u-mx-1"
+              }
+            }}
+            onClick={() => { if (!item.nonInteractive) props.onPageChange(Number(item.title)) }}
+          >{item.title}</PageButton>
         )
       )}
-      <NextButton>
-        <Button
-          disabled={props.page === props.totalPage}
-          onClick={() => { if (props.page < props.totalPage) props.onPageChange(props.page+1) }}
-        >Next</Button>
-      </NextButton>
+      <NextButton
+        customize={{
+          Root: {
+            extendClassName: "u-ml-1"
+          }
+        }}
+        disabled={props.page === props.totalPage}
+        onClick={() => { if (props.page < props.totalPage) props.onPageChange(props.page+1) }}
+      >Next</NextButton>
     </Root>
   )
-}
+})
+
+export type PageListProps = Parameters<typeof PageList>[0]
