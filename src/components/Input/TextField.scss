@@ -1,0 +1,14 @@
+.UUI-TextField-Root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .UUI-TextField-Input {
+    flex: 1;
+    outline: none;
+  }
+
+  .UUI-TextField-LengthIndicator {
+    color: gray;
+  }
+}

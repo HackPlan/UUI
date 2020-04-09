@@ -7,7 +7,9 @@ import { useState } from 'react';
 # 输入框 Input
 
 
-### 文本输入框 TextField
+## 文本输入框 TextField
+
+### 简单使用
 
 <Preview>
   <Story name="TextField">
@@ -25,7 +27,27 @@ import { useState } from 'react';
   </Story>
 </Preview>
 
-### 数字输入框 NumberField
+### 限制文本输入长度
+
+<Preview>
+  <Story name="TextField with max length limit">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextField
+          type='text'
+          value={text}
+          maxLength={10}
+          showLengthIndicator
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+## 数字输入框 NumberField
 
 <Preview>
   <Story name="NumberField">

@@ -1,9 +1,9 @@
 import React from 'react';
-import { omit } from 'lodash';
+import { omit, pick } from 'lodash';
 import { UUI } from '../../utils/uui';
+import './TextField.scss';
 
-type InputHTMLAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type' | 'value' | 'onChange'>
-export interface BaseTextFieldProps extends InputHTMLAttributes {
+export interface BaseTextFieldProps {
   /**
    * The type of user input.
    * TextField only support string kind type
@@ -17,24 +17,43 @@ export interface BaseTextFieldProps extends InputHTMLAttributes {
    * Event handler invoked when input value is changed.
    */
   onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
+  /**
+   * The maximum length of the input.
+   * @default none
+   */
+  maxLength?: number
+  /**
+   * Show input length indicator
+   * @default false
+   */
+  showLengthIndicator?: boolean
 }
 
 export const TextField = UUI.FunctionComponent({
   name: 'TextField',
   nodes: {
-    Root: 'input'
+    Root: 'div',
+    Input: 'input',
+    LengthIndicator: 'div',
   }
 }, (props: BaseTextFieldProps, nodes) => {
-  const { Root } = nodes
+  const { Root, Input, LengthIndicator } = nodes
+  const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
   return (
-    <Root
-      {...omit(props, 'leftNode', 'rightNode', 'value', 'onChange')}
-      className={"u-w-full u-p-2 u-border u-border-black"}
-      value={props.value || ''}
-      onChange={(event) => {
-        props.onChange(event.target.value, event)
-      }}
-    />
+    <Root className={"u-w-full u-p-2 u-border u-border-black"}>
+      <Input
+        {...pick(props, 'maxLength', 'type', 'value', 'onChange')}
+        value={props.value || ''}
+        onChange={(event) => {
+          props.onChange(event.target.value, event)
+        }}
+      ></Input>
+      {props.maxLength && props.showLengthIndicator && (
+        <LengthIndicator>
+          {lengthIndicatorText}
+        </LengthIndicator>
+      )}
+    </Root>
   )
 })
 

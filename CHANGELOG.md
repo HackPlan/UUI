@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.1
+
+- `TextField` support `maxLength` prop
+
 ### v0.2.0
 
 - use UUI Component Util to create components.
