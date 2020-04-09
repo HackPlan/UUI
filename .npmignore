@@ -12,3 +12,4 @@ package
 .netlify
 yarn-error.log
 hackplan-uui-*.tgz
+DEVNOTES.md

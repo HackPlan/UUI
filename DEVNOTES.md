@@ -154,6 +154,20 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 `initStylished` 是在前一个方法的基础上做的一个优化升级。相比前一个方法返回 props，这个方法直接返回了一个生成 component 的工具，可以直接使用 `stylished.element` 和 `stylished.component` 生成我们需要的 node component，再在 jsx 里直接使用。
 
 
+## TODO
+
+* TextField 限制输入文本长度
+* NumberField 处理科学计数法符号 `e`
+* Storybook 更新文档页面样式
+* 更新组件文档说明
+
+## Roadmap
+
+* 气泡卡片 Popover
+* 选择器 Select
+* 级联选择器 Cascader Select
+* 统一更新组件样式
+* 组件样式文件分开打包？
 
 ## 目前已有的组件
 
