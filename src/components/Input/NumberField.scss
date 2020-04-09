@@ -1,0 +1,10 @@
+.UUI-NumberField-Root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .UUI-NumberField-Input {
+    flex: 1;
+    outline: none;
+  }
+}

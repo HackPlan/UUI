@@ -1,13 +1,8 @@
 import React from 'react';
-import { omit } from 'lodash';
 import { UUI } from '../../utils/uui';
+import './NumberField.scss';
 
-type InputHTMLAttributes = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'min' | 'max' | 'type' |
-  'value' | 'onChange'
->
-export interface BaseNumberFieldProps extends InputHTMLAttributes {
+export interface BaseNumberFieldProps {
   /**
    * The minimum value of the input.
    * @default none
@@ -30,33 +25,44 @@ export interface BaseNumberFieldProps extends InputHTMLAttributes {
    * Event handler invoked when input value is changed.
    */
   onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void
+
+  /**
+   * Deprecated.
+   * FIXME: remove it when uui component customize props support IntrinsicAttriobutes
+   */
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 export const NumberField = UUI.FunctionComponent({
   name: 'NumberField',
   nodes: {
-    Root: 'input'
+    Root: 'div',
+    Input: 'input',
   }
 }, (props: BaseNumberFieldProps, nodes) => {
-  const { Root } = nodes
+  const { Root, Input } = nodes
   return (
-    <Root
-      {...omit(props, 'value', 'onChange')}
-      type='number'
-      className={"u-w-full u-p-2 u-border u-border-black"}
-      value={props.value || ''}
-      onChange={(event) => {
-        let value = event.target.value
-        value = limitFixed(value, props.fixed)
-        let finalValue = parseFloat(value)
-        if (isNaN(finalValue)) {
-          props.onChange(null, event)
-        } else {
-          finalValue = limitRange(finalValue, props.min, props.max)
-          props.onChange(finalValue, event)
-        }
-      }}
-    />
+    <Root className={"u-w-full u-p-2 u-border u-border-black"}>
+      <Input
+        onKeyDown={props.onKeyDown}
+        type='number'
+        max={props.max}
+        min={props.min}
+        value={props.value || ''}
+        onChange={(event) => {
+          let value = event.target.value
+          value = limitFixed(value, props.fixed)
+          let finalValue = parseFloat(value)
+          if (isNaN(finalValue)) {
+            props.onChange(null, event)
+          } else {
+            finalValue = limitRange(finalValue, props.min, props.max)
+            props.onChange(finalValue, event)
+          }
+        }}
+      />
+    </Root>
+
   )
 })
 
