@@ -4,6 +4,7 @@
 
 - `TextField` support `maxLength` prop
 - `TextField` support toggle password visible
+- New component `TextArea`
 
 ### v0.2.0
 

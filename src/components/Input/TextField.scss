@@ -4,15 +4,18 @@
   align-items: center;
 
   .UUI-TextField-Input {
+    padding: 0.5rem;
     flex: 1;
     outline: none;
   }
 
   .UUI-TextField-LengthIndicator {
+    padding: 0.5rem;
     color: gray;
   }
 
   .UUI-TextField-TogglePasswordVisibleButton {
+    padding: 0.5rem;
     border: none;
   }
 }

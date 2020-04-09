@@ -42,7 +42,7 @@ export const NumberField = UUI.FunctionComponent({
 }, (props: BaseNumberFieldProps, nodes) => {
   const { Root, Input } = nodes
   return (
-    <Root className={"u-w-full u-p-2 u-border u-border-black"}>
+    <Root className={"u-w-full u-border u-border-black"}>
       <Input
         onKeyDown={props.onKeyDown}
         type='number'

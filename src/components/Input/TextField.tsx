@@ -86,7 +86,7 @@ export const TextField = UUI.FunctionComponent({
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
 
   return (
-    <Root className={"u-w-full u-p-2 u-border u-border-black"}>
+    <Root className={"u-w-full u-border u-border-black"}>
       <Input
         placeholder={props.placeholder}
         maxLength={props.maxLength}

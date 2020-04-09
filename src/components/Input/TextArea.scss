@@ -1,0 +1,21 @@
+.UUI-TextArea-Root {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 120px;
+
+  .UUI-TextArea-Textarea {
+    padding: 0.5rem;
+    flex: 1;
+    outline: none;
+    align-self: stretch;
+  }
+
+  .UUI-TextArea-LengthIndicator {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.25rem;
+    color: gray;
+  }
+}

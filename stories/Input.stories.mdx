@@ -1,8 +1,8 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { TextField, NumberField } from '../src';
+import { TextField, NumberField, TextArea } from '../src';
 import { useState } from 'react';
 
-<Meta title="Input" components={{ TextField, NumberField }} />
+<Meta title="Input" components={{ TextField, NumberField, TextArea }} />
 
 # 输入框 Input
 
@@ -36,7 +36,7 @@ import { useState } from 'react';
 如果传入了 `maxLength`，则同时显示当前输入的文本长度和最多可输入的文本长度。
 
 <Preview>
-  <Story name="TextField with max length limit">
+  <Story name="TextField with length limit">
     {() => {
       const [text, setText] = useState(null)
       return (
@@ -78,6 +78,8 @@ import { useState } from 'react';
 
 ## 数字输入框 NumberField
 
+### 简单使用
+
 <Preview>
   <Story name="NumberField">
     {() => {
@@ -93,6 +95,46 @@ import { useState } from 'react';
   </Story>
 </Preview>
 
+## 文本域 TextArea
+
+### 简单使用
+
+使用 `TextArea` 来输入长文本。
+
+<Preview>
+  <Story name="TextArea">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextArea
+          value={text}
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+### 限制文本输入长度
+
+<Preview>
+  <Story name="TextArea with length limit">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextArea
+          value={text}
+          maxLength={20}
+          showLengthIndicator
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
 ### Props
 
-<Props components={{ TextField, NumberField }} />
+<Props components={{ TextField, NumberField, TextArea }} />

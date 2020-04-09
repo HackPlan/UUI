@@ -156,10 +156,10 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 
 ## TODO
 
-* TextField 限制输入文本长度
 * NumberField 处理科学计数法符号 `e`
 * Storybook 更新文档页面样式
 * 更新组件文档说明
+* TextArea autoSize
 
 ## Roadmap
 
@@ -177,7 +177,8 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 | Checkbox           | 多选框             |                                               |
 | Dialog             | 对话框             |                                               |
 | NumberField        | 数字输入框         | 优化数字输入                                  |
-| TextField          | 文本输入框         | 针对文本输入                                  |
+| TextField          | 文本输入框         | 针对短文本输入                                  |
+| TextArea          | 文本域         | 针对长文本输入                                  |
 | DateLabel          | 日期格式化显示     | 提供 Excel 推荐的格式化                       |
 | TimeLabel          | 时间格式化显示     | 提供 Excel 推荐的格式化                       |
 | MoneyLabel         | 货币金额格式化显示 | 提供 Excel 推荐的格式化                       |
