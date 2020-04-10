@@ -1,7 +1,13 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { UUI } from '../../utils/uui';
 import './Popover.scss';
 import ReactDOM from 'react-dom';
+// import { usePopper } from 'react-popper';
+import { Manager, Reference, Popper, usePopper } from 'react-popper';
+import { Placement, Modifier } from '@popperjs/core';
+
+export type PopoverPlacement = Exclude<Placement, ''>
+export type PopoverStrategy = 'absolute' | 'fixed'
 
 export interface BasePopoverProps {
   /**
@@ -28,6 +34,20 @@ export interface BasePopoverProps {
    * @default document.body
    */
   portalContainer?: HTMLElement
+  /**
+   * The position (relative to the activator) at which the popover should appear.
+   * @default 'bottom'
+   */
+  placement?: PopoverPlacement
+  /**
+   * The position strategy
+   * @default absolute
+   */
+  strategy?: PopoverStrategy
+  /**
+   * Popper.js props. reference: https://popper.js.org/docs/v2/modifiers/
+   */
+  modifiers?: Array<Partial<Modifier<any>>>
 }
 
 export const Popover = UUI.FunctionComponent({
@@ -35,59 +55,40 @@ export const Popover = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
     Activator: 'div',
+    Portal: 'div',
     Content: 'div',
   }
 }, (props: BasePopoverProps, nodes) => {
-  const { Root, Activator, Content } = nodes
+  const { Root, Activator, Portal, Content } = nodes
 
-  const finalProps = useMemo(() => {
-    return {
-      usePortal: props.usePortal || true,
-      portalContainer: props.portalContainer || document.body,
-    }
-  }, [props.usePortal, props.portalContainer])
+  const finalProps = {
+    usePortal: props.usePortal || true,
+    portalContainer: props.portalContainer || document.body,
+    placement: props.placement || 'bottom',
+    strategy: props.strategy || 'absolute'
+  }
 
-  const activatorRef = useRef(null)
-  const contentRef = useRef(null)
-
-  useEffect(() => {
-    if (activatorRef.current && contentRef.current) {
-      const activator = activatorRef.current as any as HTMLElement
-      const content = contentRef.current as any as HTMLElement
-      const activatorRectInfo = activator.getBoundingClientRect()
-      content.style.left = `${activatorRectInfo.left}px`
-      content.style.top = `${activatorRectInfo.top + activatorRectInfo.height}px`
-    }
-  }, [activatorRef.current, contentRef.current])
+  const [referenceElement, setReferenceElement] = React.useState<any>(null);
+  const [popperElement, setPopperElement] = React.useState<any>(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: finalProps.placement,
+    strategy: finalProps.strategy,
+  });
 
   useEffect(() => {
-    if (contentRef.current) {
-      const content = contentRef.current as any as HTMLElement
-      content.style.display = props.active ? 'inherit' : 'none'
+    if (popperElement) {
+      popperElement.style.visibility = props.active ? 'visible' : 'hidden'
     }
-  }, [props.active, contentRef.current])
-
-  const activator = useMemo(() => {
-    return <Activator ref={activatorRef}>{props.activator}</Activator>
-  }, [props.activator])
-
-  const contentPortal = useMemo(() => {
-    const wrappedContent = <Content ref={contentRef}>{props.children}</Content>
-    if (finalProps.usePortal) {
-      return ReactDOM.createPortal((
-        <div className="UUI-Popover-Portal">
-          {wrappedContent}
-        </div>
-      ), finalProps.portalContainer)
-    } else {
-      return wrappedContent
-    }
-  }, [props.children, finalProps.portalContainer])
+  }, [props.active, popperElement])
 
   return (
     <Root>
-      {activator}
-      {contentPortal}
+      <Activator ref={setReferenceElement}>{props.activator}</Activator>
+      {ReactDOM.createPortal((
+        <Portal className="UUI-Popover-Portal">
+          <Content ref={setPopperElement}  style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+        </Portal>
+      ), finalProps.portalContainer)}
     </Root>
   )
 })

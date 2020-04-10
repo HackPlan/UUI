@@ -1750,6 +1750,11 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@popperjs/core@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.2.2.tgz#2e254f5eb31f3abc35470060fb7116937d837739"
+  integrity sha512-LaSssaO8QHSAnRI4ZZB+jTD/hmndqOzwabDwKuySS1ME0pj+La6pV77i5CIQ61kVtz3pE13DhmkaYFGtrrCMeg==
+
 "@reach/router@^1.2.1", "@reach/router@^1.3.3":
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/@reach/router/-/router-1.3.3.tgz#58162860dce6c9449d49be86b0561b5ef46d80db"
@@ -13012,6 +13017,11 @@ react-fast-compare@^2.0.4:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
+react-fast-compare@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.0.1.tgz#884d339ce1341aad22392e7a88664c71da48600e"
+  integrity sha512-C5vP0J644ofZGd54P8++O7AvrqMEbrGf8Ue0eAUJLJyw168dAX2aiYyX/zcY/eSNwO0IDjsKUaLE6n83D+TnEg==
+
 react-focus-lock@^2.1.0:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-focus-lock/-/react-focus-lock-2.2.1.tgz#1d12887416925dc53481914b7cedd39494a3b24a"
@@ -13101,6 +13111,14 @@ react-popper@^1.3.7:
     popper.js "^1.14.4"
     prop-types "^15.6.1"
     typed-styles "^0.0.7"
+    warning "^4.0.2"
+
+react-popper@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.1.tgz#c5fdd3f58450f1144850381dca2aa0cb8db62248"
+  integrity sha512-nkO8lDzj2ZPO+fSK+gqo/dxEHBw4JZAE57tlS0Dm2EaPd7/C7Qs2bWXQUNAvzMf6X2s7LlyhQSzuvycOSyACPQ==
+  dependencies:
+    react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
 react-redux@^7.1.1:

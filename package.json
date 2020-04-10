@@ -22,12 +22,14 @@
   },
   "dependencies": {
     "@charlietango/use-focus-trap": "^1.2.6",
+    "@popperjs/core": "^2.2.2",
     "accounting": "^0.4.1",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "luxon": "^1.22.0",
     "rc-switch": "^1.9.0",
     "react-beautiful-dnd": "^13.0.0",
+    "react-popper": "^2.2.1",
     "react-use": "^13.12.2",
     "uuid": "^7.0.2"
   },
