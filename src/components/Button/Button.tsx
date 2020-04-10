@@ -20,9 +20,4 @@ export const Button = UUI.FunctionComponent({
   )
 })
 
-export type UUIConvenienceProps = {
-  className?: string
-  style?: React.CSSProperties
-}
-
 export type ButtonProps = Parameters<typeof Button>[0]
