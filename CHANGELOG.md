@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.2
+
+- fix uui components performance issue
+
 ### v0.2.1
 
 - `TextField` support `maxLength` prop
