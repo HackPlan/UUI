@@ -8,7 +8,7 @@
 
 
 import React, { useMemo } from 'react';
-import { mapValues, pick, isString, omit, merge, cloneDeep } from 'lodash';
+import { mapValues, pick, isString, omit, merge, clone } from 'lodash';
 import classNames from 'classnames';
 
 
@@ -279,7 +279,7 @@ function compileProps(props: any, options: any, ref: any): any {
    * className will be injected into customize.Root { extendClassName: ... }
    * style will be injected into customize.Root { extendStyle: ... }
    */
-  const compiledProps = cloneDeep(props)
+  const compiledProps = clone(props)
   if (
     (options.nodes as any)['Root'] && isString((options.nodes as any)['Root']) &&
     (compiledProps.className || compiledProps.style)
