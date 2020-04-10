@@ -5,6 +5,7 @@
 - `TextField` support `maxLength` prop
 - `TextField` support toggle password visible
 - New component `TextArea`
+- `NumberField` new nodes structure
 
 ### v0.2.0
 
