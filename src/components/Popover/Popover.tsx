@@ -74,6 +74,9 @@ export const Popover = UUI.FunctionComponent({
 }, (props: BasePopoverProps, nodes) => {
   const { Root, Activator, Portal, Content } = nodes
 
+  /**
+   * handle optional props default value
+   */
   const finalProps = {
     usePortal: props.usePortal === undefined ? true : props.usePortal,
     portalContainer: props.portalContainer || document.body,
@@ -83,6 +86,8 @@ export const Popover = UUI.FunctionComponent({
 
   /**
    * state for lazy render content portal views.
+   * `neverOpened` initial state true, when props.active becomes true,
+   * it will be turned to false and never turn back.
    */
   const [neverOpened, setNeverOpened] = useState(true)
   useEffect(() => {
@@ -91,6 +96,9 @@ export const Popover = UUI.FunctionComponent({
     }
   }, [props.lazy, props.active])
 
+  /**
+   * handle onClickAway callback
+   */
   const popoverRef = useRef<any>(null)
   useClickAway(popoverRef, () => {
     if (props.active) {
@@ -116,6 +124,9 @@ export const Popover = UUI.FunctionComponent({
   }, [props.activator, setReferenceElement])
 
   const content = useMemo(() => {
+    /**
+     * Popover enable lazy feature, and this is never opened, content will not rendered.
+     */
     if (props.lazy && neverOpened) return null
 
     return finalProps.usePortal ? ReactDOM.createPortal((
