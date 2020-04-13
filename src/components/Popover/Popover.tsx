@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { UUI } from '../../utils/uui';
 import './Popover.scss';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { Placement, Modifier } from '@popperjs/core';
+import { useClickAway } from 'react-use';
 
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'
@@ -13,6 +14,10 @@ export interface BasePopoverProps {
    * Whether this popover show content.
    */
   active: boolean
+  /**
+   * Callback invoked when user click out of component while Popover is active
+   */
+  onClickAway?: () => void
   /**
    * The trigger elements of Popover.
    * The position of content depends on activator.
@@ -67,6 +72,13 @@ export const Popover = UUI.FunctionComponent({
     strategy: props.strategy || 'absolute',
   }
 
+  const popoverRef = useRef<any>(null)
+  useClickAway(popoverRef, () => {
+    if (props.active) {
+      props.onClickAway && props.onClickAway()
+    }
+  })
+
   const [referenceElement, setReferenceElement] = React.useState<any>(null);
   const [popperElement, setPopperElement] = React.useState<any>(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -81,7 +93,7 @@ export const Popover = UUI.FunctionComponent({
   }, [props.active, popperElement])
 
   return (
-    <Root>
+    <Root ref={popoverRef}>
       <Activator ref={setReferenceElement}>{props.activator}</Activator>
       {finalProps.usePortal ? ReactDOM.createPortal((
         <Portal className="UUI-Popover-Portal">

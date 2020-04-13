@@ -22,6 +22,7 @@ import { useState } from 'react';
           activator={(
             <Button onClick={() => { setActive(!active) }}>Activator</Button>
           )}
+          onClickAway={() => { setActive(false) }}
         >
           <div className="u-m-4 u-w-48 u-h-24">
             <h1>Popover content header</h1>
@@ -50,6 +51,7 @@ import { useState } from 'react';
             activator={(
               <Button style={{ width: 110 }} onClick={() => { setActive(!active) }}>{title}</Button>
             )}
+            onClickAway={() => { setActive(false) }}
           >
             <div className="u-m-4 u-w-48 u-h-24">
               <h1>Popover content header</h1>
