@@ -1,16 +1,16 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Select } from '../src';
+import { HTMLSelect } from '../src';
 import { useState } from 'react';
 
-<Meta title="Select" component={Select} />
+<Meta title="Select" components={{ HTMLSelect }} />
 
 # 选择器 Select
 
 
-### Select
+## HTML 原生选择器 HTMLSelect
 
 <Preview>
-  <Story name="Select">
+  <Story name="HTMLSelect">
     {() => {
       const options = [
         { label: 'Cat', value: 'cat' },
@@ -19,7 +19,7 @@ import { useState } from 'react';
       ]
       const [value, setValue] = useState('dog')
       return (
-        <Select options={options} value={value} onChange={(value) => { setValue(value) }}/>
+        <HTMLSelect options={options} value={value} onChange={(value) => { setValue(value) }}/>
       )
     }}
   </Story>
@@ -27,4 +27,4 @@ import { useState } from 'react';
 
 ### Props
 
-<Props components={{ Select }} />
+<Props components={{ HTMLSelect }} />

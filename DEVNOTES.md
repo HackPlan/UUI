@@ -184,7 +184,7 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 | Pagination         | 分页控制           |                                               |
 | Popover | 气泡卡片 | 基于 popper.js 实现 |
 | Radio / RadioGroup | 单选框             |                                               |
-| Select             | 选择框             |                                               |
+| HTMLSelect         | HTML 原生选择框      |                                               |
 | Skeleton           | 骨架               |                                               |
 | Switch             | 开关               | 基于 rc-switch 实现，暂不支持 customize props |
 | Table              | 表格               | 有基础功能，部分高级功能还未实现              |

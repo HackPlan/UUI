@@ -2,16 +2,16 @@ import React from 'react';
 import { UUI, UUIConvenienceProps, UUIComponentCustomizeProps } from '../../utils/uui';
 
 
-export interface SelectOption<T> {
+export interface HTMLSelectOption<T> {
   label: string
   value: T
 }
 
-export interface BaseSelectProps<T extends string | number> {
+export interface BaseHTMLSelectProps<T extends string | number> {
   /**
    * The options of select
    */
-  options: SelectOption<T>[]
+  options: HTMLSelectOption<T>[]
   /**
    * The value of selected option.
    *
@@ -24,32 +24,27 @@ export interface BaseSelectProps<T extends string | number> {
   onChange: (value: T) => void
 }
 
-const SelectNodes = {
-  Root: 'label',
-  Input: 'input',
-  Indicator: 'span',
-  Label: 'span',
+const HTMLSelectNodes = {
+  Root: 'div',
+  Select: 'select',
+  Option: 'option',
 } as const
-type SelectCustomizeProps = UUIComponentCustomizeProps<typeof SelectNodes>
+type HTMLSelectCustomizeProps = UUIComponentCustomizeProps<typeof HTMLSelectNodes>
 
 /**
- * Notes: The base props of Select compoent is a generic type,
- * due to `Partial<Pick<Parameters<BaseSelect>[0]>>` infer to `never`,
+ * Notes: The base props of HTMLSelect compoent is a generic type,
+ * due to `Partial<Pick<Parameters<BaseHTMLSelect>[0]>>` infer to `never`,
  * This component we use UUIComponentCustomizeProps to get customize props.
  *
  * Currently UUI Component Util un-support generic props type.
  * TODO: enhance UUI function component props generic
  */
 
-export const Select = <K extends string | number>(props: UUIConvenienceProps & BaseSelectProps<K> & SelectCustomizeProps) => {
-  const BaseSelect = UUI.FunctionComponent({
-    name: "Select",
-    nodes: {
-      Root: 'div',
-      Select: 'select',
-      Option: 'option',
-    }
-  }, (props: BaseSelectProps<K>, nodes) => {
+export const HTMLSelect = <K extends string | number>(props: UUIConvenienceProps & BaseHTMLSelectProps<K> & HTMLSelectCustomizeProps) => {
+  const BaseHTMLSelect = UUI.FunctionComponent({
+    name: "HTMLSelect",
+    nodes: HTMLSelectNodes,
+  }, (props: BaseHTMLSelectProps<K>, nodes) => {
     const { Root, Select, Option } = nodes
 
     return (
@@ -72,7 +67,7 @@ export const Select = <K extends string | number>(props: UUIConvenienceProps & B
   })
   // temp fix
   const _props = props as any
-  return <><BaseSelect {..._props}></BaseSelect></>
+  return <><BaseHTMLSelect {..._props}></BaseHTMLSelect></>
 }
 
-export type SelectProps = Parameters<typeof Select>[0]
+export type HTMLSelectProps = Parameters<typeof HTMLSelect>[0]
