@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.3
+
+- new component `Popover`
+
 ### v0.2.2
 
 - fix uui components performance issue

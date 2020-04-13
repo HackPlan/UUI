@@ -1,0 +1,92 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Popover, PopoverProps, Button } from '../src';
+import { useState } from 'react';
+
+<Meta title="Popover" component={Popover} />
+
+# 气泡卡片 Popover
+
+气泡卡片是在 `popper.js` 的基础上构建起来的。
+
+可以传入 `modifiers` 属性自定义。详情请查看 `popper.js` 文档：https://popper.js.org/docs/v2/modifiers/
+
+### 简单使用
+
+<Preview>
+  <Story name="Popover">
+    {() => {
+      const [active, setActive] = useState(false)
+      return (
+        <Popover
+          active={active}
+          activator={(
+            <Button onClick={() => { setActive(!active) }}>Activator</Button>
+          )}
+          onClickAway={() => { setActive(false) }}
+        >
+          <div className="u-m-4 u-w-48 u-h-24">
+            <h1>Popover content header</h1>
+            <p>Popover test content</p>
+          </div>
+        </Popover>
+      )
+    }}
+  </Story>
+</Preview>
+
+### 设置位置
+
+气泡卡片 Popover 共有十二个可选位置。
+
+<Preview>
+  <Story name="Popover with Position">
+    {() => {
+      const PopoverElement = (props) => {
+        const [active, setActive] = useState(false)
+        const title = props.placement
+        return (
+          <Popover
+            {...props}
+            active={active}
+            activator={(
+              <Button style={{ width: 110 }} onClick={() => { setActive(!active) }}>{title}</Button>
+            )}
+            onClickAway={() => { setActive(false) }}
+          >
+            <div className="u-m-4 u-w-48 u-h-24">
+              <h1>Popover content header</h1>
+              <p>Popover test content</p>
+            </div>
+          </Popover>
+        )
+      }
+      const grid = [
+        ['', <PopoverElement placement='top-start' />, <PopoverElement placement='top' />, <PopoverElement placement='top-end' />, ''],
+        [<PopoverElement placement='left-start' />, '', '', '', <PopoverElement placement='right-start' />],
+        [<PopoverElement placement='left' />, '', '', '', <PopoverElement placement='right' />],
+        [<PopoverElement placement='left-end' />, '', '', '', <PopoverElement placement='right-end' />],
+        ['', <PopoverElement placement='bottom-start' />, <PopoverElement placement='bottom' />, <PopoverElement placement='bottom-end' />, ''],
+      ]
+      return (
+        <div className="u-flex u-flex-col">
+          {grid.map((row, rowIndex) => {
+            return (
+              <div key={rowIndex} className="row u-flex u-flex-row">
+                {row.map((cell, cellIndex) => {
+                  const element = typeof cell === 'string' ? <Button style={{ width: 110, visibility: 'hidden' }}>X</Button> : cell
+                  return (
+                    <div key={cellIndex} className="cell u-m-1">{element}</div>
+                  )
+                })}
+              </div>
+            )
+          })}
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Popover }} />

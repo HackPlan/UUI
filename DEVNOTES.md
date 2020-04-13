@@ -163,7 +163,6 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 
 ## Roadmap
 
-* 气泡卡片 Popover
 * 选择器 Select
 * 级联选择器 Cascader Select
 * 统一更新组件样式
@@ -183,6 +182,7 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 | TimeLabel          | 时间格式化显示     | 提供 Excel 推荐的格式化                       |
 | MoneyLabel         | 货币金额格式化显示 | 提供 Excel 推荐的格式化                       |
 | Pagination         | 分页控制           |                                               |
+| Popover | 气泡卡片 | 基于 popper.js 实现 |
 | Radio / RadioGroup | 单选框             |                                               |
 | Select             | 选择框             |                                               |
 | Skeleton           | 骨架               |                                               |
