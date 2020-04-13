@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { UUI } from '../../utils/uui';
 import './Popover.scss';
 import ReactDOM from 'react-dom';
@@ -39,6 +39,15 @@ export interface BasePopoverProps {
    */
   portalContainer?: HTMLElement
   /**
+   * If true, the content views is created and attached to the DOM when the popover is opened(active) for the first time,
+   * otherwise this happens when the component mounts.
+   *
+   * Lazy mounting provides noticeable performance improvements
+   * if you have lots of Popover which have tons of complex elements in content view at once, such as on each cell of a table.
+   * @default false
+   */
+  lazy?: boolean
+  /**
    * The position (relative to the activator) at which the popover should appear.
    * @default 'bottom'
    */
@@ -72,6 +81,16 @@ export const Popover = UUI.FunctionComponent({
     strategy: props.strategy || 'absolute',
   }
 
+  /**
+   * state for lazy render content portal views.
+   */
+  const [neverOpened, setNeverOpened] = useState(true)
+  useEffect(() => {
+    if (props.lazy && props.active && neverOpened) {
+      setNeverOpened(false)
+    }
+  }, [props.lazy, props.active])
+
   const popoverRef = useRef<any>(null)
   useClickAway(popoverRef, () => {
     if (props.active) {
@@ -92,16 +111,30 @@ export const Popover = UUI.FunctionComponent({
     }
   }, [props.active, popperElement])
 
+  const activator = useMemo(() => {
+    return <Activator ref={setReferenceElement}>{props.activator}</Activator>
+  }, [props.activator, setReferenceElement])
+
+  const content = useMemo(() => {
+    if (props.lazy && neverOpened) return null
+
+    return finalProps.usePortal ? ReactDOM.createPortal((
+      <Portal>
+        <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+      </Portal>
+    ), finalProps.portalContainer) : (
+      <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+    )
+  }, [
+    props.lazy, neverOpened,
+    finalProps.usePortal, props.children,
+    styles, attributes, setPopperElement,
+  ])
+
   return (
     <Root ref={popoverRef}>
-      <Activator ref={setReferenceElement}>{props.activator}</Activator>
-      {finalProps.usePortal ? ReactDOM.createPortal((
-        <Portal className="UUI-Popover-Portal">
-          <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
-        </Portal>
-      ), finalProps.portalContainer) : (
-        <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
-      )}
+      {activator}
+      {content}
     </Root>
   )
 })
