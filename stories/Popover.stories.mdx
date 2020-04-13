@@ -18,7 +18,6 @@ import { useState } from 'react';
       const [active, setActive] = useState(false)
       return (
         <Popover
-          usePortal={false}
           active={active}
           activator={(
             <Button onClick={() => { setActive(!active) }}>Activator</Button>

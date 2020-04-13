@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { UUI } from '../../utils/uui';
 import './Popover.scss';
 import ReactDOM from 'react-dom';
-// import { usePopper } from 'react-popper';
-import { Manager, Reference, Popper, usePopper } from 'react-popper';
+import { usePopper } from 'react-popper';
 import { Placement, Modifier } from '@popperjs/core';
 
 export type PopoverPlacement = Exclude<Placement, ''>
@@ -62,10 +61,10 @@ export const Popover = UUI.FunctionComponent({
   const { Root, Activator, Portal, Content } = nodes
 
   const finalProps = {
-    usePortal: props.usePortal || true,
+    usePortal: props.usePortal === undefined ? true : props.usePortal,
     portalContainer: props.portalContainer || document.body,
     placement: props.placement || 'bottom',
-    strategy: props.strategy || 'absolute'
+    strategy: props.strategy || 'absolute',
   }
 
   const [referenceElement, setReferenceElement] = React.useState<any>(null);
@@ -84,11 +83,13 @@ export const Popover = UUI.FunctionComponent({
   return (
     <Root>
       <Activator ref={setReferenceElement}>{props.activator}</Activator>
-      {ReactDOM.createPortal((
+      {finalProps.usePortal ? ReactDOM.createPortal((
         <Portal className="UUI-Popover-Portal">
-          <Content ref={setPopperElement}  style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+          <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
         </Portal>
-      ), finalProps.portalContainer)}
+      ), finalProps.portalContainer) : (
+        <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+      )}
     </Root>
   )
 })
