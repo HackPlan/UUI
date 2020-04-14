@@ -1,8 +1,8 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { HTMLSelect } from '../src';
+import { HTMLSelect, Select } from '../src';
 import { useState } from 'react';
 
-<Meta title="Select" components={{ HTMLSelect }} />
+<Meta title="Select" components={{ HTMLSelect, Select }} />
 
 # 选择器 Select
 
@@ -25,6 +25,67 @@ import { useState } from 'react';
   </Story>
 </Preview>
 
+## 选择器 Select
+
+
+#### 简单使用
+
+<Preview>
+  <Story name="Select">
+    {() => {
+      const items = [
+        { name: 'Cat', id: 'cat' },
+        { name: 'Dog', id: 'dog' },
+        { name: 'Parrot', id: 'parrot' },
+      ]
+      const [value, setValue] = useState(null)
+      return (
+        <Select
+          items={items}
+          onItemRender={(item) => item.name}
+          onItemLabel={(item) => item.name}
+          placeholder={'Select animal'}
+          value={value}
+          onChange={(value) => { console.log(value); setValue(value) }}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+#### 自定义选项内容
+
+<Preview>
+  <Story name="Select with filter">
+    {() => {
+      const items = [
+        { name: 'Cat', id: 'cat' },
+        { name: 'Dog', id: 'dog' },
+        { name: 'Parrot', id: 'parrot' },
+      ]
+      const [value, setValue] = useState(null)
+      return (
+        <Select
+          items={items}
+          onItemRender={(item) => {
+            return (
+              <div className="u-flex u-flex-row u-justify-between">
+                <div>{item.name}</div>
+                <div className="u-font-bold">{item.id.toUpperCase()}</div>
+              </div>
+            )
+          }}
+          onItemLabel={(item) => item.name}
+          placeholder={'Select animal'}
+          value={value}
+          onChange={(value) => { console.log(value); setValue(value) }}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+
 ### Props
 
-<Props components={{ HTMLSelect }} />
+<Props components={{ HTMLSelect, Select }} />

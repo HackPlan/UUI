@@ -99,8 +99,8 @@ export const Popover = UUI.FunctionComponent({
   /**
    * handle onClickAway callback
    */
-  const popoverRef = useRef<any>(null)
-  useClickAway(popoverRef, () => {
+  const popperRef = useRef<any>(null)
+  useClickAway(popperRef, () => {
     if (props.active) {
       props.onClickAway && props.onClickAway()
     }
@@ -131,10 +131,10 @@ export const Popover = UUI.FunctionComponent({
 
     return finalProps.usePortal ? ReactDOM.createPortal((
       <Portal>
-        <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+        <Content ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
       </Portal>
     ), finalProps.portalContainer) : (
-      <Content ref={setPopperElement} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+      <Content ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
     )
   }, [
     props.lazy, neverOpened,
@@ -143,7 +143,7 @@ export const Popover = UUI.FunctionComponent({
   ])
 
   return (
-    <Root ref={popoverRef}>
+    <Root>
       {activator}
       {content}
     </Root>
