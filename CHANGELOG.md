@@ -3,6 +3,8 @@
 ### v0.2.3
 
 - new component `Popover`
+- fix convenience props
+- uui IntrinsicNode support IntrinsicAttributes
 
 ### v0.2.2
 
