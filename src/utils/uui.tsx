@@ -266,7 +266,7 @@ export abstract class UUI {
       nodes: X
     },
   ) {
-    return class WrappedComponent<P = {}, S = {}> extends React.Component<P, S> {
+    return class WrappedComponent<P = {}, S = {}> extends React.Component<P & UUIConvenienceProps & Z, S> {
       nodes: UUIComponentNodes<X>
       constructor(props: P & UUIConvenienceProps & Z) {
         super(props)

@@ -5,6 +5,7 @@
 - new component `Popover`
 - fix convenience props
 - uui IntrinsicNode support IntrinsicAttributes
+- fix UUI.ClassComponent customize props type
 
 ### v0.2.2
 
