@@ -287,10 +287,10 @@ function compileProps(props: any, options: any, ref: any): any {
     if (!compiledProps.customize) {
       compiledProps.customize = {}
     }
-    const rootCustomizeProps: NodeCustomizeProps = {}
-    if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(rootCustomizeProps.extendClassName, compiledProps.className)
-    if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle) as any
-    (compiledProps.customize as any)['Root'] = rootCustomizeProps
+    const rootCustomizeProps: any = (compiledProps.customize as any)['Root'] || {};
+    if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
+    if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle) as any;
+    (compiledProps.customize as any)['Root'] = rootCustomizeProps;
   }
   compiledProps.ref = ref
 
