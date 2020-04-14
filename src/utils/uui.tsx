@@ -60,16 +60,17 @@ type IntrinsicNodeCustomizeProps =
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
-type IntrinsicNodeCustomizeOptions =
+type IntrinsicNodeCustomizeOptions<T extends keyof JSX.IntrinsicElements> =
   & IntrinsicNodeCustomizeProps
+  & JSX.IntrinsicElements[T]
   & {
     prefix?: string
     separator?: string
   }
 
 export type IntrinsicNodeT = JSX.IntrinsicElements
-type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
-function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
+type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions<T>) => (props: JSX.IntrinsicElements[T]) => JSX.Element
+function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions<T>) {
   return React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
 
     const className = (() => {
@@ -103,7 +104,10 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     })()
 
     return React.createElement(tagName, {
-      ...omit(_props, 'customize',
+      ..._props,
+      ...omit(options,
+        'prefix', 'separator',
+        'ref', 'className', 'style', 'children',
         'overrideClassName', 'extendClassName',
         'overrideStyle', 'extendStyle',
         'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
@@ -137,7 +141,7 @@ export type UUIComponentCustomizeProps<
 > = {
   customize?: {
     [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
-      ? NodeCustomizeProps
+      ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
       : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
   }
 }
@@ -200,7 +204,7 @@ export abstract class UUI {
        */
       customize?: {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
-          ? NodeCustomizeProps
+          ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
           : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
       }
     }
@@ -250,7 +254,7 @@ export abstract class UUI {
        */
       customize?: {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
-          ? NodeCustomizeProps
+          ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
           : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
       }
     }
@@ -299,17 +303,17 @@ function compileProps(props: any, options: any, ref: any): any {
 
 function compileNodes(props: any, options: any): any {
   const prefix = `${options.prefix || 'UUI'}-${options.name}`
-  return mapValues(options.nodes, (value, key) => {
-    const customizeProps = props.customize && (props.customize as any)[key]
-    if (isString(value)) {
-      return IntrinsicNode(value as any, key, {
+  return mapValues(options.nodes, (nodeElement, nodeName) => {
+    const customizeProps = props.customize && (props.customize as any)[nodeName]
+    if (isString(nodeElement)) {
+      return IntrinsicNode(nodeElement as any, nodeName, {
         prefix, separator: options.separator,
         ...customizeProps,
       })
     } else {
-      return ComponentNode(value as any, key, {
+      return ComponentNode(nodeElement as any, nodeName, {
         customize: customizeProps,
-        className: `${prefix}-${key}`
+        className: `${prefix}-${nodeName}`
       })
     }
   })

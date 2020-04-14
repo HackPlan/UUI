@@ -70,7 +70,9 @@ export const Select = <K extends string | number>(props: UUIConvenienceProps & B
       </Root>
     )
   })
-  return <><BaseSelect {...props}></BaseSelect></>
+  // temp fix
+  const _props = props as any
+  return <><BaseSelect {..._props}></BaseSelect></>
 }
 
 export type SelectProps = Parameters<typeof Select>[0]
