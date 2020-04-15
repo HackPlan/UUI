@@ -6,6 +6,8 @@
 - fix convenience props
 - uui IntrinsicNode support IntrinsicAttributes
 - fix UUI.ClassComponent customize props type
+- rename `HTMLSelect`
+- new component `Select`
 
 ### v0.2.2
 

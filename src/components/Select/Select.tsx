@@ -2,20 +2,16 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover as UUIPopover, TextField } from '../..';
 import './Select.scss';
+import { flatMap } from 'lodash';
 
-export interface BaseSelectProps<T> {
-  /**
-   * Option items of Select.
-   */
-  items: T[]
-  /**
-   * Delegate for rendering item content view.
-   */
-  onItemRender: (item: T, index: number) => React.ReactNode
-  /**
-   * Delegate for indicating item label text.
-   */
-  onItemLabel: (item: T) => string
+
+interface SelectItem<T extends string | number> {
+  label: string
+  content?: React.ReactNode
+  value: T
+}
+
+interface BaseSelectProps<T extends string | number> {
   /**
    * Selected item.
    */
@@ -31,6 +27,25 @@ export interface BaseSelectProps<T> {
   placeholder?: string
 }
 
+interface SelectItemsProps<T extends string | number> extends BaseSelectProps<T> {
+  /**
+   * Option items of Select.
+   */
+  items: SelectItem<T>[]
+}
+
+interface SelectSectionsProps<T extends string | number> extends BaseSelectProps<T> {
+  /**
+   * Option items of Select.
+   */
+  sections: {
+    label: React.ReactNode
+    items: SelectItem<T>[]
+  }[]
+}
+
+export type SelectProps<T extends string | number> = SelectSectionsProps<T> | SelectItemsProps<T>
+
 export interface SelectState<T> {
   active: boolean
   text: string
@@ -43,13 +58,15 @@ const SelectNodes = {
   Selector: 'div',
   Input: TextField,
   ItemList: 'div',
+  ItemSection: 'div',
+  ItemSectionTitle: 'div',
   Item: 'div',
 } as const
 
-export class Select<T> extends UUI.ClassComponent({
+export class Select<T extends string | number> extends UUI.ClassComponent({
   name: 'Select',
   nodes: SelectNodes,
-})<BaseSelectProps<T>, SelectState<T>> {
+})<SelectProps<T>, SelectState<T>> {
 
   state: SelectState<T> = {
     active: false,
@@ -57,9 +74,10 @@ export class Select<T> extends UUI.ClassComponent({
     textPlaceholder: undefined,
   }
 
-  constructor(props: BaseSelectProps<T>) {
+  constructor(props: SelectProps<T>) {
     super(props)
-    const text = props.value ? props.onItemLabel(props.value) : ''
+    const allItems = this.getAllItems()
+    const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
     const textPlaceholder = props.placeholder
     this.state = {
       active: false,
@@ -69,7 +87,7 @@ export class Select<T> extends UUI.ClassComponent({
   }
 
   render() {
-    const { Root, Dropdown, Selector, Input, ItemList, Item } = this.nodes
+    const { Root, Dropdown, Selector, Input, ItemList } = this.nodes
 
     return (
       <Root>
@@ -91,11 +109,13 @@ export class Select<T> extends UUI.ClassComponent({
                 customize={{
                   Input: {
                     onFocus: () => {
-                      const text = this.props.value ? this.props.onItemLabel(this.props.value) : ''
+                      const allItems = this.getAllItems()
+                      const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
                       this.setState({ text: '', textPlaceholder: text })
                     },
                     onBlur: () => {
-                      const text = this.props.value ? this.props.onItemLabel(this.props.value) : ''
+                      const allItems = this.getAllItems()
+                      const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
                       this.setState({ text, textPlaceholder: this.props.placeholder })
                     }
                   }
@@ -105,22 +125,57 @@ export class Select<T> extends UUI.ClassComponent({
           }
         >
           <ItemList>
-            {this.props.items.map((item, index) => {
-              return (
-                <Item
-                  key={index}
-                  onClick={() => {
-                    this.props.onChange(item)
-                    this.setState({ active: false, text: this.props.onItemLabel(item) })
-                  }}
-                >
-                  {this.props.onItemRender(item, index)}
-                </Item>
-              )
-            })}
+            {this.renderItemListContent()}
           </ItemList>
         </Dropdown>
       </Root>
     )
+  }
+
+  private getAllItems(): SelectItem<T>[] {
+    if ((this.props as any)['items']) {
+      const props = this.props as SelectItemsProps<T>
+      return props.items
+    } else if ((this.props as any)['sections']) {
+      const props = this.props as SelectSectionsProps<T>
+      return flatMap(props.sections, (i) => i.items)
+    } else {
+      return []
+    }
+  }
+
+  private renderItems(items: SelectItem<T>[]) {
+    const { Item } = this.nodes
+    return items.map((item, index) => {
+      return (
+        <Item
+          key={index}
+          onClick={() => {
+            this.props.onChange(item.value)
+            this.setState({ active: false, text: item.label })
+          }}
+        >
+          {item.content || item.label}
+        </Item>
+      )
+    })
+  }
+
+  private renderItemListContent() {
+    const { ItemSection, ItemSectionTitle, Item } = this.nodes
+    if ((this.props as any)['items']) {
+      const props = this.props as SelectItemsProps<T>
+      return this.renderItems(props.items)
+    } else if ((this.props as any)['sections']) {
+      const props = this.props as SelectSectionsProps<T>
+      return props.sections.map((section, index) => {
+        return (
+          <ItemSection key={index}>
+            <ItemSectionTitle>{section.label}</ItemSectionTitle>
+            {this.renderItems(section.items)}
+          </ItemSection>
+        )
+      })
+    }
   }
 }

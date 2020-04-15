@@ -14,7 +14,15 @@
 }
 
 .UUI-Select-ItemList {
-  min-width: 240px;
+  min-width: 200px;
+  max-height: 260px;
+  overflow: auto;
+
+  .UUI-Select-ItemSectionTitle {
+    font-weight: bold;
+    margin: 0.5rem;
+    border-bottom: 1px solid lightgray;
+  }
 
   .UUI-Select-Item {
     cursor: pointer;
