@@ -13,12 +13,13 @@
   }
 }
 
-.UUI-Select-ItemList {
+.UUI-Select-SectionList {
   min-width: 200px;
   max-height: 260px;
   overflow: auto;
 
-  .UUI-Select-ItemSectionTitle {
+
+  .UUI-Select-SectionHeader {
     font-weight: bold;
     margin: 0.5rem;
     border-bottom: 1px solid lightgray;

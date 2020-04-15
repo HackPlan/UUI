@@ -57,9 +57,10 @@ const SelectNodes = {
   Dropdown: UUIPopover,
   Selector: 'div',
   Input: TextField,
+  SectionList: 'div',
+  Section: 'div',
+  SectionHeader: 'div',
   ItemList: 'div',
-  ItemSection: 'div',
-  ItemSectionTitle: 'div',
   Item: 'div',
 } as const
 
@@ -87,7 +88,7 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
   }
 
   render() {
-    const { Root, Dropdown, Selector, Input, ItemList } = this.nodes
+    const { Root, Dropdown, Selector, Input, SectionList } = this.nodes
 
     return (
       <Root>
@@ -124,9 +125,9 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
             </Selector>
           }
         >
-          <ItemList>
-            {this.renderItemListContent()}
-          </ItemList>
+          <SectionList>
+            {this.renderSection()}
+          </SectionList>
         </Dropdown>
       </Root>
     )
@@ -144,36 +145,37 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
     }
   }
 
-  private renderItems(items: SelectItem<T>[]) {
-    const { Item } = this.nodes
+  private renderItemList(items: SelectItem<T>[]) {
+    const { ItemList, Item } = this.nodes
     return items.map((item, index) => {
       return (
-        <Item
-          key={index}
-          onClick={() => {
-            this.props.onChange(item.value)
-            this.setState({ active: false, text: item.label })
-          }}
-        >
-          {item.content || item.label}
-        </Item>
+        <ItemList key={index}>
+          <Item
+            onClick={() => {
+              this.props.onChange(item.value)
+              this.setState({ active: false, text: item.label })
+            }}
+          >
+            {item.content || item.label}
+          </Item>
+        </ItemList>
       )
     })
   }
 
-  private renderItemListContent() {
-    const { ItemSection, ItemSectionTitle, Item } = this.nodes
+  private renderSection() {
+    const { Section, SectionHeader, ItemList, Item } = this.nodes
     if ((this.props as any)['items']) {
       const props = this.props as SelectItemsProps<T>
-      return this.renderItems(props.items)
+      return this.renderItemList(props.items)
     } else if ((this.props as any)['sections']) {
       const props = this.props as SelectSectionsProps<T>
       return props.sections.map((section, index) => {
         return (
-          <ItemSection key={index}>
-            <ItemSectionTitle>{section.label}</ItemSectionTitle>
-            {this.renderItems(section.items)}
-          </ItemSection>
+          <Section key={index}>
+            <SectionHeader>{section.label}</SectionHeader>
+            {this.renderItemList(section.items)}
+          </Section>
         )
       })
     }
