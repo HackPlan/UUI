@@ -1,0 +1,26 @@
+.UUI-Drawer-Portal {
+  .UUI-Drawer-Backdrop {
+    visibility: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    display: flex;
+    justify-content: flex-end;
+
+    &.Active {
+      visibility: visible;
+    }
+  }
+
+  .UUI-Drawer-Content {
+    background-color: white;
+    width: 400px;
+    box-shadow: 2px 2px 4px black;
+  }
+}
