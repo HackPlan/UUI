@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
 import './NumberField.scss';
+import { limitPrecision, limitRange } from '../../utils/numberHelper';
 
 export interface BaseNumberFieldProps {
   /**
@@ -14,9 +15,20 @@ export interface BaseNumberFieldProps {
    */
   max?: number
   /**
-   * The maximum number of decimals of the input.
+   * Limit number value precision.
+   * @default none
    */
-  fixed?: number
+  precision?: number
+  /**
+   * The step sets the stepping interval when clicking up and down spinner buttons.
+   * @default none
+   */
+  step?: string | number
+  /**
+   * Whether the control is non-interactive.
+   * @default false
+   */
+  disabled?: boolean
   /**
    * The value to display in the input field.
    */
@@ -41,6 +53,7 @@ export const NumberField = UUI.FunctionComponent({
   }
 }, (props: BaseNumberFieldProps, nodes) => {
   const { Root, Input } = nodes
+
   return (
     <Root className={"u-w-full u-border u-border-black"}>
       <Input
@@ -48,10 +61,12 @@ export const NumberField = UUI.FunctionComponent({
         type='number'
         max={props.max}
         min={props.min}
-        value={props.value == null ? '' : props.value}
+        step={props.step}
+        disabled={props.disabled}
+        value={props.value == null ? '' : parseFloat(props.value.toPrecision(10))}
         onChange={(event) => {
           let value = event.target.value
-          value = limitFixed(value, props.fixed)
+          value = limitPrecision(value, props.precision)
           let finalValue = parseFloat(value)
           if (isNaN(finalValue)) {
             props.onChange(null, event)
@@ -67,14 +82,3 @@ export const NumberField = UUI.FunctionComponent({
 })
 
 export type NumberFieldProps = Parameters<typeof NumberField>[0]
-
-
-function limitFixed(value: string, fixed?: number) {
-  if (fixed === undefined) return value
-  const dotIndex = value.indexOf('.')
-  if (dotIndex === -1) return value
-  return value.slice(0, dotIndex + (fixed === 0 ? 0 : 1 + fixed))
-}
-function limitRange(value: number, min?: number, max?: number) {
-  return Math.min(Math.max(min || Number.MIN_VALUE, value), max || Number.MAX_VALUE)
-}

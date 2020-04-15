@@ -9,6 +9,11 @@ export interface BaseTextAreaProps {
    */
   placeholder?: string
   /**
+   * Whether the control is non-interactive.
+   * @default false
+   */
+  disabled?: boolean
+  /**
    * The value to display in the input field.
    */
   value: string | null | undefined
@@ -44,6 +49,7 @@ export const TextArea = UUI.FunctionComponent({
     <Root className={"u-w-full u-border u-border-black"}>
       <Textarea
         placeholder={props.placeholder}
+        disabled={props.disabled}
         maxLength={props.maxLength}
         value={props.value || ''}
         onChange={(event) => {

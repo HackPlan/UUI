@@ -16,6 +16,11 @@ export interface BaseTextFieldProps {
    */
   placeholder?: string
   /**
+   * Whether the control is non-interactive.
+   * @default false
+   */
+  disabled?: boolean
+  /**
    * The value to display in the input field.
    */
   value: string | null | undefined
@@ -89,6 +94,7 @@ export const TextField = UUI.FunctionComponent({
     <Root className={"u-w-full u-border u-border-black"}>
       <Input
         placeholder={props.placeholder}
+        disabled={props.disabled}
         maxLength={props.maxLength}
         type={finalType}
         value={props.value || ''}

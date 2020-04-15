@@ -1,0 +1,70 @@
+.UUI-Stepper-Root {
+  display: flex;
+  flex-direction: row;
+
+  .UUI-Stepper-Input,
+  .UUI-Stepper-MinusButton,
+  .UUI-Stepper-PlusButton {
+    display: inline-block;
+    width: initial;
+  }
+
+  .UUI-Stepper-Input .UUI-NumberField-Input:disabled,
+  .UUI-Stepper-MinusButton:disabled,
+  .UUI-Stepper-PlusButton:disabled {
+    cursor: not-allowed;
+  }
+
+  .UUI-Stepper-Input {
+    width: 6rem;
+
+    .UUI-NumberField-Input {
+      text-align: center;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  .UUI-Stepper-MinusButton,
+  .UUI-Stepper-PlusButton {
+    padding: 0.5rem;
+    min-width: 2.5rem;
+  }
+}
+
+.UUI-Stepper-Root.ControlSeparate {
+  .UUI-Stepper-Input {
+    border-left: none;
+    border-right: none;
+  }
+
+  .UUI-Stepper-MinusButton,
+  .UUI-Stepper-PlusButton {
+    padding: 0.5rem;
+    min-width: 2.5rem;
+  }
+}
+
+.UUI-Stepper-Root.ControlRight {
+  .RightControlsContainer {
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  .UUI-Stepper-MinusButton,
+  .UUI-Stepper-PlusButton {
+    display: block;
+    padding: 0;
+    height: 21px;
+    border-left: none;
+    line-height: 0;
+  }
+
+  .UUI-Stepper-PlusButton {
+    border-bottom: none;
+  }
+}
