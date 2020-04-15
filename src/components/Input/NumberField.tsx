@@ -48,7 +48,7 @@ export const NumberField = UUI.FunctionComponent({
         type='number'
         max={props.max}
         min={props.min}
-        value={props.value || ''}
+        value={props.value == null ? '' : props.value}
         onChange={(event) => {
           let value = event.target.value
           value = limitFixed(value, props.fixed)
