@@ -1,78 +1,183 @@
 import React from 'react';
-import { UUI, UUIConvenienceProps, UUIComponentCustomizeProps } from '../../utils/uui';
+import { UUI } from '../../utils/uui';
+import { Popover as UUIPopover, TextField } from '../..';
+import './Select.scss';
+import { flatMap } from 'lodash';
 
 
-export interface SelectOption<T> {
+interface SelectItem<T extends string | number> {
   label: string
+  content?: React.ReactNode
   value: T
 }
 
-export interface BaseSelectProps<T extends string | number> {
+interface BaseSelectProps<T extends string | number> {
   /**
-   * The options of select
+   * Selected item.
    */
-  options: SelectOption<T>[]
+  value: T | null
   /**
-   * The value of selected option.
-   *
-   * T should be string or string.
+   * Callback invoked when an item is selected.
    */
-  value: T
+  onChange: (value: T | null) => void
   /**
-   * Callback invokes when user change to select option.
+   * Placeholder text when there is no value.
+   * @default none
    */
-  onChange: (value: T) => void
+  placeholder?: string
+}
+
+interface SelectItemsProps<T extends string | number> extends BaseSelectProps<T> {
+  /**
+   * Option items of Select.
+   */
+  items: SelectItem<T>[]
+}
+
+interface SelectSectionsProps<T extends string | number> extends BaseSelectProps<T> {
+  /**
+   * Option items of Select.
+   */
+  sections: {
+    label: React.ReactNode
+    items: SelectItem<T>[]
+  }[]
+}
+
+export type SelectProps<T extends string | number> = SelectSectionsProps<T> | SelectItemsProps<T>
+
+export interface SelectState<T> {
+  active: boolean
+  text: string
+  textPlaceholder?: string
 }
 
 const SelectNodes = {
-  Root: 'label',
-  Input: 'input',
-  Indicator: 'span',
-  Label: 'span',
+  Root: 'div',
+  Dropdown: UUIPopover,
+  Selector: 'div',
+  Input: TextField,
+  SectionList: 'div',
+  Section: 'div',
+  SectionHeader: 'div',
+  ItemList: 'div',
+  Item: 'div',
 } as const
-type SelectCustomizeProps = UUIComponentCustomizeProps<typeof SelectNodes>
 
-/**
- * Notes: The base props of Select compoent is a generic type,
- * due to `Partial<Pick<Parameters<BaseSelect>[0]>>` infer to `never`,
- * This component we use UUIComponentCustomizeProps to get customize props.
- *
- * Currently UUI Component Util un-support generic props type.
- * TODO: enhance UUI function component props generic
- */
+export class Select<T extends string | number> extends UUI.ClassComponent({
+  name: 'Select',
+  nodes: SelectNodes,
+})<SelectProps<T>, SelectState<T>> {
 
-export const Select = <K extends string | number>(props: UUIConvenienceProps & BaseSelectProps<K> & SelectCustomizeProps) => {
-  const BaseSelect = UUI.FunctionComponent({
-    name: "Select",
-    nodes: {
-      Root: 'div',
-      Select: 'select',
-      Option: 'option',
+  state: SelectState<T> = {
+    active: false,
+    text: '',
+    textPlaceholder: undefined,
+  }
+
+  constructor(props: SelectProps<T>) {
+    super(props)
+    const allItems = this.getAllItems()
+    const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
+    const textPlaceholder = props.placeholder
+    this.state = {
+      active: false,
+      text,
+      textPlaceholder,
     }
-  }, (props: BaseSelectProps<K>, nodes) => {
-    const { Root, Select, Option } = nodes
+  }
+
+  render() {
+    const { Root, Dropdown, Selector, Input, SectionList } = this.nodes
 
     return (
-      <Root className="u-p-2 u-border u-border-black">
-        <Select
-          className="u-bg-white u-w-full"
-          value={props.value}
-          onChange={(event) => {
-            props.onChange(event.target.value as any)
-          }}
+      <Root>
+        <Dropdown
+          active={this.state.active}
+          placement={'bottom-start'}
+          onClickAway={() => { this.setState({ active: false }) }}
+          activator={
+            <Selector onClick={() => { this.setState({ active: true }) }}>
+              <Input
+                value={this.state.text}
+                onChange={(value) => {
+                  this.setState({ text: value })
+                  if (value === '') {
+                    this.props.onChange(null)
+                  }
+                }}
+                placeholder={this.state.textPlaceholder}
+                customize={{
+                  Input: {
+                    onFocus: () => {
+                      const allItems = this.getAllItems()
+                      const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
+                      this.setState({ text: '', textPlaceholder: text })
+                    },
+                    onBlur: () => {
+                      const allItems = this.getAllItems()
+                      const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
+                      this.setState({ text, textPlaceholder: this.props.placeholder })
+                    }
+                  }
+                }}
+              />
+            </Selector>
+          }
         >
-          {props.options.map((i) => {
-            return (
-              <Option key={i.value} value={i.value}>{i.label}</Option>
-            )
-          })}
-        </Select>
+          <SectionList>
+            {this.renderSection()}
+          </SectionList>
+        </Dropdown>
       </Root>
     )
-  })
-  // temp fix
-  const _props = props as any
-  return <><BaseSelect {..._props}></BaseSelect></>
-}
+  }
 
-export type SelectProps = Parameters<typeof Select>[0]
+  private getAllItems(): SelectItem<T>[] {
+    if ((this.props as any)['items']) {
+      const props = this.props as SelectItemsProps<T>
+      return props.items
+    } else if ((this.props as any)['sections']) {
+      const props = this.props as SelectSectionsProps<T>
+      return flatMap(props.sections, (i) => i.items)
+    } else {
+      return []
+    }
+  }
+
+  private renderItemList(items: SelectItem<T>[]) {
+    const { ItemList, Item } = this.nodes
+    return items.map((item, index) => {
+      return (
+        <ItemList key={index}>
+          <Item
+            onClick={() => {
+              this.props.onChange(item.value)
+              this.setState({ active: false, text: item.label })
+            }}
+          >
+            {item.content || item.label}
+          </Item>
+        </ItemList>
+      )
+    })
+  }
+
+  private renderSection() {
+    const { Section, SectionHeader, ItemList, Item } = this.nodes
+    if ((this.props as any)['items']) {
+      const props = this.props as SelectItemsProps<T>
+      return this.renderItemList(props.items)
+    } else if ((this.props as any)['sections']) {
+      const props = this.props as SelectSectionsProps<T>
+      return props.sections.map((section, index) => {
+        return (
+          <Section key={index}>
+            <SectionHeader>{section.label}</SectionHeader>
+            {this.renderItemList(section.items)}
+          </Section>
+        )
+      })
+    }
+  }
+}

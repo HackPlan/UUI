@@ -1,16 +1,19 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Select } from '../src';
+import { HTMLSelect, Select } from '../src';
 import { useState } from 'react';
 
-<Meta title="Select" component={Select} />
+<Meta title="Select" components={{ HTMLSelect, Select }} />
 
 # 选择器 Select
 
+HTML 选择器通常适用于移动端，而 Popover 选择器适用于电脑端。
 
-### Select
+
+## HTML 原生选择器 HTMLSelect
+
 
 <Preview>
-  <Story name="Select">
+  <Story name="HTMLSelect">
     {() => {
       const options = [
         { label: 'Cat', value: 'cat' },
@@ -19,12 +22,112 @@ import { useState } from 'react';
       ]
       const [value, setValue] = useState('dog')
       return (
-        <Select options={options} value={value} onChange={(value) => { setValue(value) }}/>
+        <HTMLSelect options={options} value={value} onChange={(value) => { setValue(value) }}/>
       )
     }}
   </Story>
 </Preview>
 
+## 选择器 Select
+
+#### 简单使用
+
+<Preview>
+  <Story name="Select">
+    {() => {
+      const items = [
+        { label: 'Cat', value: 'cat' },
+        { label: 'Dog', value: 'dog' },
+        { label: 'Parrot', value: 'parrot' },
+      ]
+      const [value, setValue] = useState(null)
+      return (
+        <Select
+          items={items}
+          onItemRender={(item) => item.name}
+          onItemLabel={(item) => item.name}
+          placeholder={'Select animal'}
+          value={value}
+          onChange={(value) => { console.log(value); setValue(value) }}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+#### 可选项分组
+
+对下拉菜单里的可选项分组
+
+<Preview>
+  <Story name="Select with item sections">
+    {() => {
+      const sections = [{
+        label: 'Animal',
+        items: [
+          { label: 'Cat', value: 'cat' },
+          { label: 'Dog', value: 'dog' },
+          { label: 'Parrot', value: 'parrot' },
+        ],
+      }, {
+        label: 'Fruit',
+        items: [
+          { label: 'Apple', value: 'apple' },
+          { label: 'Banana', value: 'banana' },
+          { label: 'Lemon', value: 'lemon' },
+        ]
+      }]
+      const [value, setValue] = useState(null)
+      return (
+        <Select
+          sections={sections}
+          placeholder={'Select animal'}
+          value={value}
+          onChange={(value) => { console.log(value); setValue(value) }}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+#### 自定义模板
+
+可以自定义选项内容
+
+<Preview>
+  <Story name="Select with filter">
+    {() => {
+      const data = [
+        { name: 'Cat', id: 'cat' },
+        { name: 'Dog', id: 'dog' },
+        { name: 'Parrot', id: 'parrot' },
+      ]
+      const items = data.map((i) => {
+        return {
+          label: i.name,
+          value: i.id,
+          content: (
+            <div className="u-flex u-flex-row u-justify-between">
+              <div>{i.name}</div>
+              <div className="u-font-bold">{i.id.toUpperCase()}</div>
+            </div>
+          )
+        }
+      })
+      const [value, setValue] = useState(null)
+      return (
+        <Select
+          items={items}
+          placeholder={'Select animal'}
+          value={value}
+          onChange={(value) => { console.log(value); setValue(value) }}
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+
 ### Props
 
-<Props components={{ Select }} />
+<Props components={{ HTMLSelect, Select }} />
