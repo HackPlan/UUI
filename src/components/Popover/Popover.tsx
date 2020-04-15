@@ -82,6 +82,10 @@ export const Popover = UUI.FunctionComponent({
     portalContainer: props.portalContainer || document.body,
     placement: props.placement || 'bottom',
     strategy: props.strategy || 'absolute',
+    modifiers: [
+      { name: 'offset', options: { offset: [0, 4] } },
+      ...(props.modifiers || []),
+    ]
   }
 
   /**
@@ -111,6 +115,7 @@ export const Popover = UUI.FunctionComponent({
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
     placement: finalProps.placement,
     strategy: finalProps.strategy,
+    modifiers: finalProps.modifiers,
   });
 
   useEffect(() => {
