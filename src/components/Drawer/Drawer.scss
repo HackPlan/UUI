@@ -1,0 +1,50 @@
+.UUI-Drawer-Portal {
+  .UUI-Drawer-Backdrop {
+    visibility: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.3);
+
+    display: flex;
+
+    &.left {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    &.right {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    &.top {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    &.bottom {
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    &.left .UUI-Drawer-Content,
+    &.right .UUI-Drawer-Content {
+      width: 400px;
+    }
+    &.top .UUI-Drawer-Content,
+    &.bottom .UUI-Drawer-Content {
+      width: 100%;
+      min-height: 200px;
+    }
+
+    &.active {
+      visibility: visible;
+    }
+  }
+
+  .UUI-Drawer-Content {
+    background-color: white;
+    box-shadow: 0 0 8px gray;
+  }
+}
