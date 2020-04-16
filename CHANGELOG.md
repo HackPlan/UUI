@@ -4,6 +4,8 @@
 
 - new component `Stepper`
 - fix input components style
+- new component `Drawer`
+- export uui utils
 
 ### v0.2.3
 

@@ -175,6 +175,7 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 | Button             | 按钮               |                                               |
 | Checkbox           | 多选框             |                                               |
 | Dialog             | 对话框             |                                               |
+| Drawer             | 抽屉               |                                               |
 | NumberField        | 数字输入框         | 优化数字输入                                  |
 | TextField          | 文本输入框         | 针对短文本输入                                |
 | TextArea           | 文本域             | 针对长文本输入                                |
