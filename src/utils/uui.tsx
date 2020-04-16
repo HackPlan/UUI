@@ -7,7 +7,7 @@
  */
 
 
-import React, { useMemo } from 'react';
+import React, { useMemo, JSXElementConstructor } from 'react';
 import { mapValues, pick, isString, omit, merge, clone } from 'lodash';
 import classNames from 'classnames';
 
@@ -168,6 +168,10 @@ export type UUIConvenienceProps = {
    */
   style?: React.CSSProperties
 }
+
+export type UUIFunctionComponentProps<T extends (...args: any) => any> = Parameters<T>[0]
+export type UUIClassComponentProps<T extends JSXElementConstructor<any>> = React.ComponentProps<T>
+
 export abstract class UUI {
   /**
    * UUI Advanced Component for Function Component
