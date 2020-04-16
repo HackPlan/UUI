@@ -5,3 +5,10 @@ code {
 pre code {
   color: inherit !important;
 }
+
+ul li {
+  list-style-type: disc;
+}
+
+@import '../../node_modules/github-markdown-css/github-markdown.css';
+@import './Nodes.scss';

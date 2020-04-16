@@ -1,4 +1,7 @@
+import React from 'react';
 import { addParameters } from '@storybook/react';
+import { components as htmlComponents } from '@storybook/components/html';
+import '../stories/style/storybook.scss';
 
 addParameters({
   options: {
@@ -22,3 +25,28 @@ addParameters({
     },
   },
 });
+
+// -----------
+/**
+ * 重置 mdx markdown render 默认样式，并使用 github-markdown-css
+ */
+// 在 root 上加 class `markdown-body`
+(() => {
+  const root = document.getElementById('docs-root')
+  if (!root.classList.contains('markdown-body')) {
+    root.classList.add('markdown-body')
+  }
+})()
+// 重置mdx provider components
+const resetComponents = {};
+Object.keys(htmlComponents).forEach((key) => {
+  resetComponents[key] = (props) => React.createElement(key, props);
+});
+addParameters({
+  docs: {
+    components: {
+      ...resetComponents,
+    }
+  }
+})
+// ------------

@@ -157,7 +157,6 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 ## TODO
 
 * NumberField 处理科学计数法符号 `e`
-* Storybook 更新文档页面样式
 * 更新组件文档说明
 * TextArea autoSize
 * Select 进阶功能（搜索筛选，多选）

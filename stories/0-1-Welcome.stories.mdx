@@ -1,11 +1,7 @@
-import { Meta, Description } from '@storybook/addon-docs/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
+import ReactMarkdown from 'react-markdown';
 import README from '../README.md';
-import './style/storybook.scss';
 
 <Meta title="Welcome" parameters={{ sortIndex: '0-uui-1' }} />
 
-<div className="markdown-body">
-  <Description>
-    {README}
-  </Description>
-</div>
+<ReactMarkdown source={README}/>
