@@ -11,16 +11,40 @@
     background-color: rgba(0, 0, 0, 0.3);
 
     display: flex;
-    justify-content: flex-end;
 
-    &.Active {
+    &.left {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    &.right {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+    &.top {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    &.bottom {
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    &.left .UUI-Drawer-Content,
+    &.right .UUI-Drawer-Content {
+      width: 400px;
+    }
+    &.top .UUI-Drawer-Content,
+    &.bottom .UUI-Drawer-Content {
+      width: 100%;
+      min-height: 200px;
+    }
+
+    &.active {
       visibility: visible;
     }
   }
 
   .UUI-Drawer-Content {
     background-color: white;
-    width: 400px;
-    box-shadow: 2px 2px 4px black;
+    box-shadow: 0 0 8px gray;
   }
 }

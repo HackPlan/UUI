@@ -5,6 +5,8 @@ import './Drawer.scss';
 import classNames from 'classnames';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 
+export type DrawerPlacement = 'top' | 'right' | 'bottom' | 'left'
+
 export interface BaseDrawerProps {
     /**
    * Whether this Drawer show content.
@@ -33,6 +35,11 @@ export interface BaseDrawerProps {
    * Wether lock scrolling on the body element while Drawer is active
    */
   lockBodyScroll?: boolean
+  /**
+   * The position at which the Drawer should appear.
+   * @default right
+   */
+  placement?: DrawerPlacement
 }
 
 export const Drawer = UUI.FunctionComponent({
@@ -53,6 +60,7 @@ export const Drawer = UUI.FunctionComponent({
     usePortal: props.usePortal === undefined ? true : props.usePortal,
     portalContainer: props.portalContainer || document.body,
     lockBodyScroll: props.lockBodyScroll === undefined ? true : props.lockBodyScroll,
+    placement: props.placement || 'right',
   }
 
   const contentRef = useRef<any>(null)
@@ -64,11 +72,7 @@ export const Drawer = UUI.FunctionComponent({
 
   const content = useMemo(() => {
     return (
-      <Backdrop
-        className={classNames({
-          'Active': props.active
-        })}
-      >
+      <Backdrop className={classNames({ 'active': props.active }, [finalProps.placement])}>
         <Content ref={contentRef}>{props.children}</Content>
       </Backdrop>
     )
@@ -76,11 +80,7 @@ export const Drawer = UUI.FunctionComponent({
 
   const portal = useMemo(() => {
     return finalProps.usePortal
-    ? ReactDOM.createPortal((
-      <Portal>
-        {content}
-      </Portal>
-    ), finalProps.portalContainer)
+    ? ReactDOM.createPortal(<Portal>{content}</Portal>, finalProps.portalContainer)
     : content
   }, [finalProps.usePortal, finalProps.portalContainer, content])
 
