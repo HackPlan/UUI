@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Toaster, ToasterPosition } from '../src';
 import { Button } from '../src';
 import { withKnobs } from "@storybook/addon-knobs";
@@ -8,18 +8,12 @@ export default {
   decorators: [withKnobs]
 };
 
-const AppToaster = Toaster.create({
-  maxToasts: 5,
-  position: ToasterPosition.TopRight,
-})
-
-const AppToaster2 = Toaster.create({
-  maxToasts: 5,
-  position: ToasterPosition.TopRight,
-})
-
-
 export const Toast = () => {
+  const AppToaster = useMemo(() => Toaster.create({
+    maxToasts: 5,
+    position: ToasterPosition.TopRight,
+  }), [])
+
   return (
     <Button onClick={() => {
       AppToaster.show({
@@ -36,9 +30,13 @@ Toast.story = {
 };
 
 export const ToastCustomStyle = () => {
+  const AppToaster = useMemo(() => Toaster.create({
+    maxToasts: 5,
+    position: ToasterPosition.TopRight,
+  }), [])
   return (
     <Button onClick={() => {
-      AppToaster2.show({
+      AppToaster.show({
         customize: {
           Root: {
             extendClassName: "u-bg-green-400 u-rounded u-border-none u-text-white",
