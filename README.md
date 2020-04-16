@@ -12,7 +12,7 @@ $ yarn add @hackplan/uui
 
 ```typescript
 import '@hackplan/uui/lib/index.css';
-const { Button } from '@hackplan/uui';
+import { Button } from '@hackplan/uui';
 
 function App() {
   return (
