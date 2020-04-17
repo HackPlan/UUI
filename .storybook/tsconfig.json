@@ -1,7 +1,7 @@
 {
-  "rootDirs": ["src", "stories"],
+  "rootDirs": ["../src", "../stories"],
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "../src",
     "target": "es5",
     "lib": ["es2015", "dom"],
     "allowJs": true,
@@ -20,11 +20,12 @@
     "sourceMap": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "stories/**/*.tsx"
+    "../src/**/*.ts",
+    "../src/**/*.tsx",
+    "../stories/**/*.tsx",
+    "./typing/*.d.ts"
   ],
   "exclude": [
-    "lib"
+    "../lib"
   ]
 }

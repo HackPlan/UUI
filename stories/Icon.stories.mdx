@@ -1,0 +1,46 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Icon } from '../src';
+
+<Meta title="Icon" component={Icon} />
+
+# 图标 Icon
+
+渲染图标工具，这个组件本身没有任何预置的图表库。
+
+> 文档演示图片来自网络： https://www.iconfont.cn/collections/detail?cid=15329
+
+
+### 多种数据源导入为图标
+
+```typescript
+const icon1 = require('./assets/icon_xxx.png');
+import icon2, { ReactComponent as icon3 } from './assets/icon_xxx.svg';
+/**
+ * icon1: string
+ * icon2: string
+ * icon3: SvgrComponent
+ */
+```
+
+可以打开控制台工具看看这三种方式渲染出来的 DOM 区别。
+
+<Preview>
+  <Story name="Icon" id="icon--icon-source" />
+</Preview>
+
+### 内联 SVG 支持传入更多参数
+
+<Preview>
+  <Story name="Icon with custom size" id="icon--icon-svg-props" />
+</Preview>
+
+
+### 自定义图标大小
+
+<Preview>
+  <Story name="Icon with custom size" id="icon--icon-size" />
+</Preview>
+
+### Props
+
+<Props components={{ Icon }} />
