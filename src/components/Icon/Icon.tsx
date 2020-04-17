@@ -7,7 +7,7 @@ export type SvgrComponentProps = React.SVGAttributes<SVGElement>
 export interface SvgrComponent extends React.StatelessComponent<SvgrComponentProps> {}
 
 
-interface _BaseIconProps {
+interface BaseIconProps {
   /**
    * Icon render mode.
    */
@@ -31,24 +31,19 @@ interface _BaseIconProps {
    */
   height?: number
 }
-
-interface _IconImageProps extends _BaseIconProps {
+export interface IconImageProps extends BaseIconProps {
   mode: 'image'
   source: string
 }
-
-interface _IconSvgProps extends _BaseIconProps {
+export interface IconSvgProps extends BaseIconProps {
   mode: 'svg'
   source: string | SvgrComponent
   svgrProps?: SvgrComponentProps
 }
-
-interface _IconAnyProps extends _BaseIconProps {
+export interface IconAnyProps extends BaseIconProps {
   mode: 'any'
 }
-
-type _IconProps = _IconImageProps | _IconSvgProps | _IconAnyProps
-
+export type IconFeatureProps = IconImageProps | IconSvgProps | IconAnyProps
 
 export const Icon = UUI.FunctionComponent({
   name: 'Icon',
@@ -56,7 +51,7 @@ export const Icon = UUI.FunctionComponent({
     Root: 'div',
     Container: 'div',
   }
-}, (props: _IconProps, nodes) => {
+}, (props: IconFeatureProps, nodes) => {
   const { Root, Container } = nodes
 
   const finalProps = {

@@ -17,6 +17,7 @@ import sushiUrl, { ReactComponent as sushi } from './assets/sushi.svg';
 
 import { ReactComponent as email } from './assets/email.svg';
 
+import { IconGallery } from "../src";
 
 export default {
   title: 'Icon',
@@ -99,4 +100,23 @@ export const IconSize = () => {
 
 IconSize.story = {
   name: 'Icon with custom size',
+};
+
+export const IconIconGallery = () => {
+  const Icons = IconGallery({
+    DonutsPng: { source: require('./assets/donuts.png'), mode: 'image' },
+    PuddingUrl: { source: require('./assets/pudding.svg').default },
+    Sushi: { source: require('./assets/sushi.svg').ReactComponent },
+  }, { width: 40, height: 40, mode: 'svg' })
+  return (
+    <div className="u-flex u-flex-row u-items-center">
+      <Icons.DonutsPng className="u-m-2" />
+      <Icons.PuddingUrl className="u-m-2" />
+      <Icons.Sushi className="u-m-2" />
+    </div>
+  )
+}
+
+IconIconGallery.story = {
+  name: 'Icon with IconGallery',
 };
