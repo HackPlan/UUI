@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.6
+
+- new component `CountdownLabel`
+
 ### v0.2.5
 
 - new component `Icon`

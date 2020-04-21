@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { MoneyLabel, DateLabel, TimeLabel } from '../src';
+import { MoneyLabel, DateLabel, TimeLabel, CountdownLabel } from '../src';
 import { useState } from 'react';
+import { DateTime } from 'luxon';
 
 <Meta title="Label" components={{ MoneyLabel, DateLabel, TimeLabel }} />
 
@@ -112,6 +113,22 @@ import { useState } from 'react';
   </Story>
 </Preview>
 
+### 倒计时标签 CountdownLabel
+
+<Preview>
+  <Story name="CountdownLabel">
+    {() => {
+      const until = DateTime.local().plus({ hours: 12 }).toJSDate()
+      return (
+        <div className="u-flex u-flex-col">
+          <CountdownLabel until={until} format={'hh:mm:ss'} />
+          <CountdownLabel until={until} format={'hh:mm:ss:SSS'} frequency={1} />
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
 ### Props
 
-<Props components={{ MoneyLabel, DateLabel, TimeLabel }} />
+<Props components={{ MoneyLabel, DateLabel, TimeLabel, CountdownLabel }} />
