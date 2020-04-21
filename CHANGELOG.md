@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.5
+
+- new component `Icon`
+
 ### v0.2.4
 
 - new component `Stepper`
