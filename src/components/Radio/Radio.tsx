@@ -56,7 +56,6 @@ export const Radio = <K extends string | number>(props: RadioCustomizeProps & Ba
       </Root>
     )
   })
-  type XXX = Partial<Pick<Parameters<typeof BaseRadio>[0], 'customize'>>
   return <><BaseRadio {...props}></BaseRadio></>
 }
 

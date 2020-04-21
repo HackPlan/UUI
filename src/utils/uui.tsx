@@ -103,6 +103,23 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       return children
     })()
 
+    /**
+     * Merge both customize functions and component inner functions.
+     */
+    const mergedFunctions = (() => {
+      const data: any = {}
+      const attrs = Object.keys(_props)
+      for (const attr of attrs) {
+        if (typeof (_props as any)[attr] === 'function' && (options as any)[attr]) {
+          data[attr] = (...args: any[]) => {
+            (_props as any)[attr](...args);
+            (options as any)[attr](...args);
+          };
+        }
+      }
+      return data
+    })()
+
     return React.createElement(tagName, {
       ..._props,
       ...omit(options,
@@ -112,6 +129,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
         'overrideStyle', 'extendStyle',
         'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
       ),
+      ...mergedFunctions,
       ref,
       className, style, children,
     })

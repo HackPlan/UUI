@@ -3,6 +3,8 @@
 ### v0.2.6
 
 - new component `CountdownLabel`
+- fix uui component util
+- fix `Button` root props
 
 ### v0.2.5
 
