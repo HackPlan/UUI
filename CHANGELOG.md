@@ -5,6 +5,7 @@
 - new component `CountdownLabel`
 - fix uui component util
 - fix `Button` root props
+- `Dialog` new props `onDismiss`
 
 ### v0.2.5
 

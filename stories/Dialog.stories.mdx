@@ -21,6 +21,9 @@ import { useState } from 'react';
           <Dialog
             open={opened}
             focusTrap={true}
+            onDismiss={() => {
+              setOpened(false)
+            }}
           >
             <div className=" u-w-64 u-h-40"></div>
             <button
