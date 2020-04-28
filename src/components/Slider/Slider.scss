@@ -1,5 +1,7 @@
 $ThumbRadius: 8px;
 $ThumbBorderWidth: 2px;
+$RemarkRadius: 5px;
+$RemarkBorderWidth: 2px;
 
 .UUI-Slider-Root {
   width: 400px;
@@ -29,9 +31,29 @@ $ThumbBorderWidth: 2px;
       width: $ThumbRadius * 2;
       height: $ThumbRadius * 2;
       background-color: white;
-      border-radius: 999999px;
-      border: 2px solid black;
+      border-radius: $ThumbRadius;
+      border: $ThumbBorderWidth solid black;
       cursor: pointer;
+    }
+
+    .UUI-Slider-Remark {
+      position: absolute;
+      width: $RemarkRadius * 2;
+      height: $RemarkRadius * 2;
+      background-color: white;
+      border-radius: $RemarkRadius;
+      border: $RemarkBorderWidth solid rgb(200, 198, 196);
+
+      &.active {
+        border: $RemarkBorderWidth solid black;
+      }
+    }
+
+    .UUI-Slider-RemarkLabel {
+      position: absolute;
+      top: $RemarkRadius;
+      margin-top: 2px;
+      transform: translateX(-50%);
     }
   }
 
@@ -55,6 +77,13 @@ $ThumbBorderWidth: 2px;
 
     .UUI-Slider-ActiveLine, .UUI-Slider-InactiveLine {
       width: 4px;
+    }
+
+    .UUI-Slider-RemarkLabel {
+      margin-top: 0;
+      top: $RemarkRadius / 2;
+      left: 20px;
+      transform: translateY(-50%);
     }
   }
 }

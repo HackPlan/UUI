@@ -3,8 +3,13 @@ import React, { useMemo, useRef, useCallback, useState, useEffect } from 'react'
 import { UUI } from '../../utils/uui';
 import './Slider.scss';
 import { useEvent } from 'react-use';
-import { clamp, clone } from 'lodash';
+import { clamp, clone, inRange } from 'lodash';
 import classNames from 'classnames';
+
+export interface SliderRemark {
+  value: number
+  label: React.ReactNode
+}
 
 export interface BaseSliderProps {
   /**
@@ -28,6 +33,11 @@ export interface BaseSliderProps {
    */
   step: number
   /**
+   * Tick mark, the value is in the closed interval [min, max].
+   * @default []
+   */
+  remarks?: SliderRemark[]
+  /**
    * Whether the control is non-interactive.
    * @default false
    */
@@ -47,9 +57,15 @@ export const Slider = UUI.FunctionComponent({
     ActiveLine: 'div',
     InactiveLine: 'div',
     Thumb: 'div',
+    Remark: 'div',
+    RemarkLabel: 'div',
   }
 }, (props: BaseSliderProps, nodes) => {
-  const { Root, Container, ActiveLine, InactiveLine, Thumb } = nodes
+  const { Root, Container, ActiveLine, InactiveLine, Thumb, Remark, RemarkLabel } = nodes
+
+  const finalProps = {
+    remarks: props.remarks || [],
+  }
 
   /**
    * Due to Slider supports the selection of a value or a range of values,
@@ -131,9 +147,9 @@ export const Slider = UUI.FunctionComponent({
   useEvent('touchend', onMouseUpOrTouchEnd as any, window, { capture: !props.disabled && !!thumbDragging })
 
   /**
-   * Calculate the position and size of lines and thumbs.
+   * Calculate the position and size of thumbs, remarks and lines.
    */
-  const styles = useMemo((): { [key: string]: React.CSSProperties } => {
+  const styles = useMemo(() => {
     const sortPosition = clone(finalPosition).sort()
     const widthOrHeight = props.vertical ? 'height' : 'width'
     const leftOrTop = props.vertical ? 'top' : 'left'
@@ -157,9 +173,16 @@ export const Slider = UUI.FunctionComponent({
       TrailingThumb: {
         [leftOrTop]: toPercentage(finalPosition[1]),
         transform: thumbTransform,
-      }
+      },
+      Remark: finalProps.remarks.map((remark) => {
+        const position = (remark.value - props.min) / (props.max - props.min)
+        return {
+          [leftOrTop]: toPercentage(position),
+          transform: thumbTransform,
+        }
+      })
     }
-  }, [finalPosition])
+  }, [finalPosition, props.max, props.min, finalProps.remarks])
 
   return (
     <Root
@@ -172,6 +195,18 @@ export const Slider = UUI.FunctionComponent({
         <InactiveLine style={{ ...styles.LeadingInactiveLine }} />
         <ActiveLine style={{ ...styles.ActiveLine }} />
         <InactiveLine style={{ ...styles.TrailingInactiveLine }} />
+        {finalProps.remarks.map((remark, index) => {
+          const isActive = inRange(remark.value, finalValue[0], finalValue[1])
+          return (
+            <Remark
+              key={index}
+              className={classNames({ 'active': isActive })}
+              style={{ ...styles.Remark[index] }}
+            >
+              <RemarkLabel>{remark.label}</RemarkLabel>
+            </Remark>
+          )
+        })}
         <Thumb
           style={{ ...styles.LeadingThumb }}
           onMouseDown={onMouseDownOrTouchStart(0) as any}
@@ -180,6 +215,7 @@ export const Slider = UUI.FunctionComponent({
           style={{ ...styles.TrailingThumb }}
           onMouseDown={onMouseDownOrTouchStart(1) as any}
         />
+
       </Container>
     </Root>
   )
