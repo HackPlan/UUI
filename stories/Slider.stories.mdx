@@ -12,11 +12,18 @@ import { useState } from 'react';
 <Preview>
   <Story name="Slider">
     {() => {
-      const [value, setValue] = useState(0)
+      const [value, setValue] = useState(11)
+      const [value2, setValue2] = useState(22)
       return (
-        <div className="u-flex u-flex-row u-items-center">
-          <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
-          <div>{JSON.stringify(value)}</div>
+        <div>
+          <div className="u-flex u-flex-row u-items-center">
+            <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
+            <div>{JSON.stringify(value)}</div>
+          </div>
+          <div className="u-flex u-flex-row u-items-center">
+            <Slider value={value2} max={100} min={0} step={1} onChange={(value) => setValue2(value)} disabled />
+            <div>{JSON.stringify(value2)}</div>
+          </div>
         </div>
       )
     }}
@@ -31,7 +38,7 @@ import { useState } from 'react';
       const [value, setValue] = useState([10, 40])
       return (
         <div className="u-flex u-flex-row u-items-center">
-          <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
+          <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} />
           <div>{JSON.stringify(value)}</div>
         </div>
       )

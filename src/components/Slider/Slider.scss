@@ -2,15 +2,16 @@ $ThumbRadius: 8px;
 $ThumbBorderWidth: 2px;
 
 .UUI-Slider-Root {
-  display: inline-block;
+  width: 400px;
+  height: 20px;
 
   .UUI-Slider-Container {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 200px;
-    height: 20px;
+    height: 100%;
+
     margin-left: $ThumbRadius;
     margin-right: $ThumbRadius;
 
@@ -32,6 +33,16 @@ $ThumbBorderWidth: 2px;
       border: 2px solid black;
       cursor: pointer;
       transform: translateX(-50%);
+    }
+  }
+
+  &.disabled {
+    .UUI-Slider-Thumb {
+      cursor: not-allowed;
+      border: 2px solid #7d7d7d;
+    }
+    .UUI-Slider-ActiveLine {
+      background-color: #7d7d7d;
     }
   }
 }

@@ -4,6 +4,7 @@ import { UUI } from '../../utils/uui';
 import './Slider.scss';
 import { useEvent } from 'react-use';
 import { clamp, clone } from 'lodash';
+import classNames from 'classnames';
 
 export interface BaseSliderProps {
   /**
@@ -26,6 +27,11 @@ export interface BaseSliderProps {
    * The step sets the stepping interval when clicking up and down spinner buttons.
    */
   step: number
+  /**
+   * Whether the control is non-interactive.
+   * @default false
+   */
+  disabled?: boolean
 }
 
 export const Slider = UUI.FunctionComponent({
@@ -94,9 +100,10 @@ export const Slider = UUI.FunctionComponent({
     newPosition = clamp(newPosition, 0.00, 1.00)
     return newPosition
   }
-  const onMouseDownOrTouchStart = (thumb: 0 | 1) => () => { setThumbDragging(thumb) }
-  const onMouseUpOrTouchEnd = () => { setThumbDragging(null) }
+  const onMouseDownOrTouchStart = (thumb: 0 | 1) => () => { !props.disabled && setThumbDragging(thumb) }
+  const onMouseUpOrTouchEnd = () => { !props.disabled && setThumbDragging(null) }
   const onMouseOrTouchMove = (event: MouseEvent | TouchEvent) => {
+    if (props.disabled) return
     if (thumbDragging === null) return
     const newPosition = getPositionFromEvent(event)
     if (newPosition === null) return
@@ -111,10 +118,10 @@ export const Slider = UUI.FunctionComponent({
       onFinalChange(newFinalValue)
     }
   }
-  useEvent('mousemove', onMouseOrTouchMove as any, window, { capture: !!thumbDragging })
-  useEvent('touchmove', onMouseOrTouchMove as any, window, { capture: !!thumbDragging })
-  useEvent('mouseup', onMouseUpOrTouchEnd as any, window, { capture: !!thumbDragging })
-  useEvent('touchend', onMouseUpOrTouchEnd as any, window, { capture: !!thumbDragging })
+  useEvent('mousemove', onMouseOrTouchMove as any, window, { capture: !props.disabled && !!thumbDragging })
+  useEvent('touchmove', onMouseOrTouchMove as any, window, { capture: !props.disabled && !!thumbDragging })
+  useEvent('mouseup', onMouseUpOrTouchEnd as any, window, { capture: !props.disabled && !!thumbDragging })
+  useEvent('touchend', onMouseUpOrTouchEnd as any, window, { capture: !props.disabled && !!thumbDragging })
 
   /**
    * Calculate the position and size of lines and thumbs.
@@ -143,7 +150,7 @@ export const Slider = UUI.FunctionComponent({
   }, [finalPosition])
 
   return (
-    <Root>
+    <Root className={classNames({ 'disabled': props.disabled })}>
       <Container ref={containerRef}>
         <InactiveLine style={{ ...styles.LeadingInactiveLine }} />
         <ActiveLine style={{ ...styles.ActiveLine }} />
