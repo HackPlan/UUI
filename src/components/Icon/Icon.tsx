@@ -4,44 +4,44 @@ import { isString } from 'lodash';
 import './Icon.scss';
 
 export type SvgrComponentProps = React.SVGAttributes<SVGElement>
-export interface SvgrComponent extends React.StatelessComponent<SvgrComponentProps> {}
+export type SvgrComponent = React.StatelessComponent<SvgrComponentProps>
 
 
 interface BaseIconProps {
   /**
    * Icon render mode.
    */
-  mode: 'image' | 'svg' | 'any'
+  mode: 'image' | 'svg' | 'any';
   /**
    * The source data of Icon.
    */
-  source: string | SvgrComponent | React.ReactNode
+  source: string | SvgrComponent | React.ReactNode;
   /**
    * alternative text description of the icon image.
    */
-  alt?: string
+  alt?: string;
   /**
    * Width(px) of icon.
    * @default 24px
    */
-  width?: number
+  width?: number;
   /**
    * Height(px) of icon.
    * @default 24px
    */
-  height?: number
+  height?: number;
 }
 export interface IconImageProps extends BaseIconProps {
-  mode: 'image'
-  source: string
+  mode: 'image';
+  source: string;
 }
 export interface IconSvgProps extends BaseIconProps {
-  mode: 'svg'
-  source: string | SvgrComponent
-  svgrProps?: SvgrComponentProps
+  mode: 'svg';
+  source: string | SvgrComponent;
+  svgrProps?: SvgrComponentProps;
 }
 export interface IconAnyProps extends BaseIconProps {
-  mode: 'any'
+  mode: 'any';
 }
 export type IconFeatureProps = IconImageProps | IconSvgProps | IconAnyProps
 

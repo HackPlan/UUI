@@ -2,7 +2,7 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 
 export interface BasePaginationProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export const Pagination = UUI.FunctionComponent({

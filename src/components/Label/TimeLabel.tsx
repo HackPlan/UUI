@@ -8,18 +8,18 @@ export interface BaseTimeLabelProps<T extends TimeFormatterLocale> {
    *
    * Only the part of time (hour, minute, second) is valid for this Component
    */
-  value: Date
+  value: Date;
   /**
    * The locale of display format.
    */
-  locale: T
+  locale: T;
   /**
    * The display format of date.
    *
    * DateLabel provides a group of presets of time format,
    * These presets refer to the formats in Excel.
    */
-  kind: TimeFormatterLocaleKinds[T][number]
+  kind: TimeFormatterLocaleKinds[T][number];
 }
 
 export const TimeLabel = UUI.FunctionComponent({

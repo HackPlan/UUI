@@ -5,18 +5,18 @@ export type NodeExtraChildren<T extends string> = {
 }
 
 export interface ExtraChildrenProps<T extends string> {
-  overrideChildren?: NodeExtraChildren<T>
-  extendChildrenBefore?: NodeExtraChildren<T>
-  extendChildrenAfter?: NodeExtraChildren<T>
+  overrideChildren?: NodeExtraChildren<T>;
+  extendChildrenBefore?: NodeExtraChildren<T>;
+  extendChildrenAfter?: NodeExtraChildren<T>;
 }
 
 export function getCompiledChildren<T extends string>(
   nodeName: string,
   initialChildren?: any,
   options?: {
-    overrideChildren?: NodeExtraChildren<T>
-    extendChildrenBefore?: NodeExtraChildren<T>
-    extendChildrenAfter?: NodeExtraChildren<T>
+    overrideChildren?: NodeExtraChildren<T>;
+    extendChildrenBefore?: NodeExtraChildren<T>;
+    extendChildrenAfter?: NodeExtraChildren<T>;
   },
 ): JSX.Element {
   const keyName = nodeName === '' ? 'root' : nodeName;

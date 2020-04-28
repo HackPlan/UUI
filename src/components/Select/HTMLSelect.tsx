@@ -3,25 +3,25 @@ import { UUI, UUIConvenienceProps, UUIComponentCustomizeProps } from '../../util
 
 
 export interface HTMLSelectOption<T> {
-  label: string
-  value: T
+  label: string;
+  value: T;
 }
 
 export interface BaseHTMLSelectProps<T extends string | number> {
   /**
    * The options of select
    */
-  options: HTMLSelectOption<T>[]
+  options: HTMLSelectOption<T>[];
   /**
    * The value of selected option.
    *
    * T should be string or string.
    */
-  value: T
+  value: T;
   /**
    * Callback invokes when user change to select option.
    */
-  onChange: (value: T) => void
+  onChange: (value: T) => void;
 }
 
 const HTMLSelectNodes = {

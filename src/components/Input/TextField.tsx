@@ -9,40 +9,40 @@ export interface BaseTextFieldProps {
    * TextField only support string kind type
    * @default text
    */
-  type?: 'text' | 'tel' | 'url' | 'email' | 'password'
+  type?: 'text' | 'tel' | 'url' | 'email' | 'password';
   /**
    * Placeholder text when there is no value.
    * @default none
    */
-  placeholder?: string
+  placeholder?: string;
   /**
    * Whether the control is non-interactive.
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * The value to display in the input field.
    */
-  value: string | null | undefined
+  value: string | null | undefined;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * The maximum length of the input.
    * @default none
    */
-  maxLength?: number
+  maxLength?: number;
   /**
    * Show input length indicator
    * @default false
    */
-  showLengthIndicator?: boolean
+  showLengthIndicator?: boolean;
   /**
    * Show button of toggling display/hide password
    * @default false
    */
-  showPasswordVisibleButton?: boolean
+  showPasswordVisibleButton?: boolean;
   /**
    * Whether the text of password is visible.
    *
@@ -50,12 +50,12 @@ export interface BaseTextFieldProps {
    *
    * @default false
    */
-  passwordVisible?: boolean
+  passwordVisible?: boolean;
   /**
    * Callback invoked when user click password visible button
    * @default false
    */
-  onPasswordVisibleChange?: (value: boolean) => void
+  onPasswordVisibleChange?: (value: boolean) => void;
 }
 
 export const TextField = UUI.FunctionComponent({

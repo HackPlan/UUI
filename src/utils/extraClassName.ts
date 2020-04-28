@@ -5,9 +5,9 @@ export type NodeExtraClassNames<T extends string> = {
 }
 
 export interface ExtraClassNameProps<T extends string> {
-  prefixClassName?: string,
-  overrideClassName?: NodeExtraClassNames<T>
-  extendClassName?: NodeExtraClassNames<T>
+  prefixClassName?: string;
+  overrideClassName?: NodeExtraClassNames<T>;
+  extendClassName?: NodeExtraClassNames<T>;
 }
 
 export function getCompiledClassNames<T extends string>(
@@ -15,8 +15,8 @@ export function getCompiledClassNames<T extends string>(
   nodeClassName: string,
   initialClassName?: string,
   options?: {
-    overrideClassName?: NodeExtraClassNames<T>,
-    extendClassName?: NodeExtraClassNames<T>,
+    overrideClassName?: NodeExtraClassNames<T>;
+    extendClassName?: NodeExtraClassNames<T>;
   },
 ): string {
   const keyName = nodeName === '' ? 'root' : nodeName;

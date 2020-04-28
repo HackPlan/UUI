@@ -22,8 +22,8 @@ export interface BaseSwitchProps extends StylishProps<SwitchNodeName> {
   title?: string;
   children?: React.ReactNode;
   unCheckedChildren?: React.ReactNode;
-  value: boolean
-  onChange: (flag: boolean) => void
+  value: boolean;
+  onChange: (flag: boolean) => void;
 }
 
 export function Switch(props: BaseSwitchProps) {

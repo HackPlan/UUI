@@ -8,7 +8,7 @@ import './Skeleton.scss';
 
 
 export interface BaseSkeletonProps {
-  children?: React.ReactNode | string
+  children?: React.ReactNode | string;
 }
 
 export const _Skeleton = UUI.FunctionComponent({
@@ -24,9 +24,9 @@ export const _Skeleton = UUI.FunctionComponent({
 })
 
 const Skeleton = _Skeleton as typeof _Skeleton & {
-  Paragraph: typeof SkeletonParagraph,
-  Title: typeof SkeletonTitle,
-  Picture: typeof SkeletonPicture,
+  Paragraph: typeof SkeletonParagraph;
+  Title: typeof SkeletonTitle;
+  Picture: typeof SkeletonPicture;
 }
 Skeleton.Paragraph = SkeletonParagraph
 Skeleton.Title = SkeletonTitle

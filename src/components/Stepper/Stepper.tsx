@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Button } from '../..';
 import { NumberField } from '../Input';
@@ -9,46 +9,46 @@ export interface BaseStepperProps {
   /**
    * The value to display in the input field.
    */
-  value: number | null
+  value: number | null;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: number | null) => void
+  onChange: (value: number | null) => void;
   /**
    * The minimum value of the input.
    * @default none
    */
-  min?: number
+  min?: number;
   /**
    * The maximum value of the input.
    * @default none
    */
-  max?: number
+  max?: number;
   /**
    * The step sets the stepping interval when clicking up and down spinner buttons.
    * @default none
    */
-  step?: number
+  step?: number;
   /**
    * Limit number value precision.
    * @default none
    */
-  precision?: number
+  precision?: number;
   /**
    * Indicate where controls should display.
    * @default separate
    */
-  controlPosition?: 'separate' | 'right'
+  controlPosition?: 'separate' | 'right';
   /**
    * Whether the control is non-interactive.
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * Placeholder text when there is no value.
    * @default none
    */
-  placeholder?: string
+  placeholder?: string;
 }
 
 export const Stepper = UUI.FunctionComponent({

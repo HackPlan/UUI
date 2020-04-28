@@ -6,32 +6,32 @@ import { flatMap } from 'lodash';
 
 
 interface SelectItem<T extends string | number> {
-  label: string
-  content?: React.ReactNode
-  value: T
+  label: string;
+  content?: React.ReactNode;
+  value: T;
 }
 
 interface BaseSelectProps<T extends string | number> {
   /**
    * Selected item.
    */
-  value: T | null
+  value: T | null;
   /**
    * Callback invoked when an item is selected.
    */
-  onChange: (value: T | null) => void
+  onChange: (value: T | null) => void;
   /**
    * Placeholder text when there is no value.
    * @default none
    */
-  placeholder?: string
+  placeholder?: string;
 }
 
 interface SelectItemsProps<T extends string | number> extends BaseSelectProps<T> {
   /**
    * Option items of Select.
    */
-  items: SelectItem<T>[]
+  items: SelectItem<T>[];
 }
 
 interface SelectSectionsProps<T extends string | number> extends BaseSelectProps<T> {
@@ -39,17 +39,17 @@ interface SelectSectionsProps<T extends string | number> extends BaseSelectProps
    * Option items of Select.
    */
   sections: {
-    label: React.ReactNode
-    items: SelectItem<T>[]
-  }[]
+    label: React.ReactNode;
+    items: SelectItem<T>[];
+  }[];
 }
 
 export type SelectProps<T extends string | number> = SelectSectionsProps<T> | SelectItemsProps<T>
 
 export interface SelectState<T> {
-  active: boolean
-  text: string
-  textPlaceholder?: string
+  active: boolean;
+  text: string;
+  textPlaceholder?: string;
 }
 
 const SelectNodes = {
@@ -164,7 +164,7 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
   }
 
   private renderSection() {
-    const { Section, SectionHeader, ItemList, Item } = this.nodes
+    const { Section, SectionHeader } = this.nodes
     if ((this.props as any)['items']) {
       const props = this.props as SelectItemsProps<T>
       return this.renderItemList(props.items)

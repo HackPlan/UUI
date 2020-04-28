@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import { UUI } from '../../utils/uui';
 import { useInterval } from 'react-use';
-import { DateTime, Duration } from 'luxon';
+import { DateTime } from 'luxon';
 
 export interface BaseCountdownLabelProps {
   /**
    * Time in countdown.
    */
-  until: Date
+  until: Date;
   /**
    * Luxon date format.
    * https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
    * @default hh:mm:ss
    */
-  format?: string
+  format?: string;
   /**
    * Frequency of update text. (milliseconds)
    * @default 1000
    */
-  frequency?: number
+  frequency?: number;
 }
 
 export const CountdownLabel = UUI.FunctionComponent({

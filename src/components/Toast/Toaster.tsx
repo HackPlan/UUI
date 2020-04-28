@@ -31,7 +31,7 @@ export interface ToasterProps {
    * When the limit is about to be exceeded, the oldest active toast is removed.
    * @default undefined
    */
-  maxToasts?: number
+  maxToasts?: number;
 }
 
 export interface ToasterState {
@@ -109,13 +109,12 @@ export class Toaster extends UUI.ClassComponent({
     }
   }
 
-
   render() {
     const { Root } = this.nodes
 
     return (
       <Root className={classNames("u-p-4 u-h-full u-flex u-flex-col", `position-${this.props.position || ToasterPosition.Top}`)}>
-        {this.state.toasts.map((toast, index) => {
+        {this.state.toasts.map((toast) => {
           return (
             <Toast
               {...toast}

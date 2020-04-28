@@ -1,14 +1,14 @@
 import React, { useMemo, useCallback } from 'react';
 import { range, omit } from 'lodash';
-import { DragDropContext, Droppable, Draggable, DragStart, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 import { UUI } from '../../utils/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
 import './Table.scss';
 
 export interface TableColumn {
-  title: React.ReactNode
-  children?: TableColumn[]
+  title: React.ReactNode;
+  children?: TableColumn[];
 }
 
 export interface BaseTableProps {
@@ -16,43 +16,43 @@ export interface BaseTableProps {
    * Columns information of table
    * @default []
    */
-  columns: TableColumn[]
+  columns: TableColumn[];
   /**
    * Cells of table
    * @default []
    */
-  rows: React.ReactNode[][]
+  rows: React.ReactNode[][];
 
   /**
    * Indicate which rows are selected,
    * if this prop is provided, table will show a selection column in the first.
    * @default none
    */
-  selectedIndexes?: number[]
+  selectedIndexes?: number[];
   /**
    * Callback invoked when one row of table is selected.
    * Recommended when `selectedIndexes` is passed.
    * @default none
    */
-  onSelected?: (indexes: number[]) => void
+  onSelected?: (indexes: number[]) => void;
 
   /**
    * Whether this table should hide header.
    * @default false
    */
-  hideHeader?: boolean
+  hideHeader?: boolean;
   /**
    * Customize table empty view.
    * @default none
    */
-  emptyView?: React.ReactNode
+  emptyView?: React.ReactNode;
 
   /**
    * Called when one row of table was dragged and released.
    * if this prop is provided, the rows of table can be dragged.
    * @default none
    */
-  onDragged?: (fromIndex: number, toIndex: number) => void
+  onDragged?: (fromIndex: number, toIndex: number) => void;
 }
 
 export const TableNodes = {
@@ -72,9 +72,9 @@ export const Table = UUI.FunctionComponent({
   const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox } = nodes
 
   const groupColumns = useMemo(() => {
-    const groupCells: (TableColumn & { colspan?: number; rowspan?: number; })[][] = []
+    const groupCells: (TableColumn & { colspan?: number; rowspan?: number })[][] = []
     let maxDepth = 0;
-    const dfs = (column: TableColumn, depth: number): { colspan: number; rowspan: number; } => {
+    const dfs = (column: TableColumn, depth: number): { colspan: number; rowspan: number } => {
       let colspan = 0, rowspan = 0;
       maxDepth = Math.max(maxDepth, depth);
       if (column.children) {
@@ -105,7 +105,7 @@ export const Table = UUI.FunctionComponent({
   /**
    * Drag and Drop
    */
-  const onBeforeDragStart = useCallback((initial: DragStart) => {
+  const onBeforeDragStart = useCallback(() => {
     const elements = Array.from(document.getElementsByTagName('td'))
     for (const element of elements) {
       element.setAttribute('UUI_TABLE_FIXED_WIDTH', 'yes')
@@ -128,7 +128,7 @@ export const Table = UUI.FunctionComponent({
         element.removeAttribute('UUI_TABLE_FIXED_HEIGHT')
       }
     }
-  }, [])
+  }, [props])
 
   return (
     <Root
@@ -177,7 +177,7 @@ export const Table = UUI.FunctionComponent({
         onDragEnd={onDragEnd}
       >
       <Droppable droppableId="RowDroppable" type="ROW">
-        {(provided, snapshot) => (
+        {(provided) => (
           <Body ref={provided.innerRef} {...provided.droppableProps}>
             {props.rows.length === 0 ? (
               <Row>
@@ -196,7 +196,7 @@ export const Table = UUI.FunctionComponent({
                   index={rowIndex}
                   isDragDisabled={!props.onDragged}
                 >
-                  {(provided, snapshot) => {
+                  {(provided) => {
                     const draggableStyle = provided.draggableProps.style;
                     const transform = draggableStyle ? draggableStyle.transform : null;
 

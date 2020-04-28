@@ -3,8 +3,7 @@ import { UUI } from '../../utils/uui';
 import { omit } from 'lodash';
 
 
-export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-}
+export type BaseButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export const Button = UUI.FunctionComponent({
   name: 'Button',
