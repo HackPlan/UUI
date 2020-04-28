@@ -6,6 +6,7 @@
 - fix uui component util
 - fix `Button` root props
 - `Dialog` new props `onDismiss`
+- new component `Slider`
 
 ### v0.2.5
 
