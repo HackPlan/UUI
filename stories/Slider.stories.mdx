@@ -1,0 +1,44 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Slider } from '../src';
+import { useState } from 'react';
+
+<Meta title="Slider" component={Slider} />
+
+# 滑块 Slider
+
+
+### 简单使用
+
+<Preview>
+  <Story name="Slider">
+    {() => {
+      const [value, setValue] = useState(0)
+      return (
+        <div className="u-flex u-flex-row u-items-center">
+          <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
+          <div>{JSON.stringify(value)}</div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### 范围选取
+
+<Preview>
+  <Story name="Slider with range">
+    {() => {
+      const [value, setValue] = useState([10, 40])
+      return (
+        <div className="u-flex u-flex-row u-items-center">
+          <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
+          <div>{JSON.stringify(value)}</div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Slider }} />

@@ -1,0 +1,37 @@
+$ThumbRadius: 8px;
+$ThumbBorderWidth: 2px;
+
+.UUI-Slider-Root {
+  display: inline-block;
+
+  .UUI-Slider-Container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 200px;
+    height: 20px;
+    margin-left: $ThumbRadius;
+    margin-right: $ThumbRadius;
+
+    .UUI-Slider-ActiveLine, .UUI-Slider-InactiveLine {
+      height: 4px;
+      background-color: rgb(200, 198, 196);
+    }
+
+    .UUI-Slider-ActiveLine {
+      background-color: black;
+    }
+
+    .UUI-Slider-Thumb {
+      position: absolute;
+      width: $ThumbRadius * 2;
+      height: $ThumbRadius * 2;
+      background-color: white;
+      border-radius: 999999px;
+      border: 2px solid black;
+      cursor: pointer;
+      transform: translateX(-50%);
+    }
+  }
+}
