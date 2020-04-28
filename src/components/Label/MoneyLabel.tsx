@@ -7,31 +7,31 @@ export interface BaseMoneyLabelProps {
   /**
    * Money value to be displayed.
    */
-  value: string | number
+  value: string | number;
   /**
    * The symbopl of currency
    * @default $
    */
-  symbol?: string
+  symbol?: string;
   /**
    * The maximum number of decimals.
    */
-  precision?: number
+  precision?: number;
   /**
    * Thousands separator
    * @default ,
    */
-  thousand?: string
+  thousand?: string;
   /**
    * Decimal separator
    * @default .
    */
-  decimal?: string
+  decimal?: string;
   /**
    * Custom format
    * @reference http://openexchangerates.github.io/accounting.js/#documentation
    */
-  format?: string
+  format?: string;
 }
 
 export const MoneyLabel = UUI.FunctionComponent({

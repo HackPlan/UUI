@@ -3,29 +3,29 @@ import { BaseRadioProps } from './Radio';
 import { UUI, UUIComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
 
 export interface RadioGroupOptions {
-  label: string
-  value: string
+  label: string;
+  value: string;
 }
 export interface BaseRadioGroupProps<T extends string | number> {
   /**
    * The name of a group of radios
    * @default none
    */
-  name?: string
+  name?: string;
   /**
    * The value of selected radio.
    *
    * T should be string or number.
    */
-  value: T
+  value: T;
   /**
    * Callback invokes when user change to select radio.
    */
-  onChange: (value: T) => void
+  onChange: (value: T) => void;
   /**
    * Array of `Radio`
    */
-  children: React.ReactElement<BaseRadioProps<T>>[] | React.ReactElement<BaseRadioProps<T>>
+  children: React.ReactElement<BaseRadioProps<T>>[] | React.ReactElement<BaseRadioProps<T>>;
 }
 
 const RadioGroupNodes = {

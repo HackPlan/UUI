@@ -10,21 +10,21 @@ export interface BaseCheckboxProps {
    * The label of checkbox.
    * @default none
    */
-  label?: React.ReactNode | string
+  label?: React.ReactNode | string;
   /**
    * Whether this checkbox is selected.
    */
-  value: boolean
+  value: boolean;
   /**
    * Callback invoked when user changes select state.
    * @default none
    */
-  onChange: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * Whether the control is non-interactive.
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export const Checkbox = UUI.FunctionComponent({

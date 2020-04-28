@@ -7,46 +7,46 @@ import { clamp, clone, inRange } from 'lodash';
 import classNames from 'classnames';
 
 export interface SliderRemark {
-  value: number
-  label: React.ReactNode
+  value: number;
+  label: React.ReactNode;
 }
 
 export interface BaseSliderProps {
   /**
    * The value to display in the input field.
    */
-  value: [number, number] | number
+  value: [number, number] | number;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: [number, number] | number) => void
+  onChange: (value: [number, number] | number) => void;
   /**
    * The minimum value of the input.
    */
-  min: number
+  min: number;
   /**
    * The maximum value of the input.
    */
-  max: number
+  max: number;
   /**
    * The step sets the stepping interval when clicking up and down spinner buttons.
    */
-  step: number
+  step: number;
   /**
    * Tick mark, the value is in the closed interval [min, max].
    * @default []
    */
-  remarks?: SliderRemark[]
+  remarks?: SliderRemark[];
   /**
    * Whether the control is non-interactive.
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * Whether to render the Slider vertically. Defaults to rendering horizontal.
    * @default false
    */
-  vertical?: boolean
+  vertical?: boolean;
 }
 
 export const Slider = UUI.FunctionComponent({
@@ -72,16 +72,17 @@ export const Slider = UUI.FunctionComponent({
    * a unified interface is needed to handle what type of data the component should return.
    */
   const finalValue = useMemo(() => {
-    const thumb1  = typeof props.value === 'number' ? 0 : props.value[0]
-    const thumb2 = typeof props.value === 'number' ? props.value : props.value[1]
-    return [thumb1, thumb2] as const
+    return [
+      typeof props.value === 'number' ? 0 : props.value[0],
+      typeof props.value === 'number' ? props.value : props.value[1],
+    ] as const
   }, [props.value])
   const onFinalChange = useCallback((value: [number, number]) => {
     const newValue: [number, number] = [Number(value[0].toFixed(8)), Number(value[1].toFixed(8))]
     if (typeof props.value === 'number') {
-      props.onChange(newValue[1])
+      props.onChange.call(undefined, newValue[1])
     } else {
-      props.onChange(newValue)
+      props.onChange.call(undefined, newValue)
     }
   }, [props.value, props.onChange])
 
@@ -98,7 +99,7 @@ export const Slider = UUI.FunctionComponent({
       (finalValue[0]-props.min) / (props.max-props.min),
       (finalValue[1]-props.min) / (props.max-props.min),
     ])
-  }, [finalValue])
+  }, [finalValue, props.min, props.max])
   const containerRef = useRef<any>()
   const getPositionFromEvent = (event: MouseEvent | TouchEvent) => {
     if (!containerRef.current) return null
@@ -212,7 +213,7 @@ export const Slider = UUI.FunctionComponent({
           })
         }
     }
-  }, [finalPosition, props.max, props.min, finalProps.remarks])
+  }, [finalPosition, props.value, props.max, props.min, props.vertical, finalProps.remarks])
 
   return (
     <Root

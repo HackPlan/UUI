@@ -8,11 +8,11 @@ export interface BaseTagProps {
   /**
    * The content of tag.
    */
-  children?: React.ReactNode | string
+  children?: React.ReactNode | string;
   /**
    * Callback invokes when user click this tag.
    */
-  onClick?: () => void
+  onClick?: () => void;
 }
 
 export const TagNodes = {

@@ -8,15 +8,15 @@ export interface BasePageListProps {
   /**
    * Current page
    */
-  page: number
+  page: number;
   /**
    * Total pages
    */
-  totalPage: number
+  totalPage: number;
   /**
    * Callback invokes when page changed.
    */
-  onPageChange: (page: number) => void
+  onPageChange: (page: number) => void;
 }
 
 

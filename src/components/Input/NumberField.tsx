@@ -8,41 +8,41 @@ export interface BaseNumberFieldProps {
    * The minimum value of the input.
    * @default none
    */
-  min?: number
+  min?: number;
   /**
    * The maximum value of the input.
    * @default none
    */
-  max?: number
+  max?: number;
   /**
    * Limit number value precision.
    * @default none
    */
-  precision?: number
+  precision?: number;
   /**
    * The step sets the stepping interval when clicking up and down spinner buttons.
    * @default none
    */
-  step?: string | number
+  step?: string | number;
   /**
    * Whether the control is non-interactive.
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * The value to display in the input field.
    */
-  value: number | null | undefined
+  value: number | null | undefined;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void;
 
   /**
    * Deprecated.
    * FIXME: remove it when uui component customize props support IntrinsicAttriobutes
    */
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const NumberField = UUI.FunctionComponent({

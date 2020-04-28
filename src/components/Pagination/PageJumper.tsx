@@ -7,15 +7,15 @@ export interface BasePageJumperProps {
   /**
    * The target page to jump.
    */
-  jumpPage: number | null
+  jumpPage: number | null;
   /**
    * Callback invokes when user change target page number
    */
-  onJumpPageChange: (page: number | null) => void
+  onJumpPageChange: (page: number | null) => void;
   /**
    * Callback invokes when user entered.
    */
-  onJumped: (page: number) => void
+  onJumped: (page: number) => void;
 }
 
 export const PageJumper = UUI.FunctionComponent({

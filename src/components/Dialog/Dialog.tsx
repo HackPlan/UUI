@@ -11,20 +11,20 @@ export interface BaseDialogProps {
    * Toggles the visibility of the overlay and its children.
    * This prop is required because the component is controlled.
    */
-  open: boolean
+  open: boolean;
   /**
    * Callback invoked when user click outside of content view.
    */
-  onDismiss?: () => void
-  focusTrap?: boolean
+  onDismiss?: () => void;
+  focusTrap?: boolean;
   /**
    * Wether lock scrolling on the body element while Drawer is active
    */
-  lockBodyScroll?: boolean
+  lockBodyScroll?: boolean;
   /**
    * The content of this dialog
    */
-  children?: React.ReactNode | string
+  children?: React.ReactNode | string;
 }
 
 export const Dialog = UUI.FunctionComponent({

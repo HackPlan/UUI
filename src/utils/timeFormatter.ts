@@ -61,7 +61,7 @@ export interface TimeFormatterLocaleKinds extends BaseTimeFormatterLocaleKinds {
     "下午1时30分55秒",
     "十三时三十分",
     "下午一时三十分",
-  ],
+  ];
   'zh-TW': [
     "13:30",
     "1:30 PM",
@@ -74,13 +74,13 @@ export interface TimeFormatterLocaleKinds extends BaseTimeFormatterLocaleKinds {
     "下午1時30分55秒",
     "十三時三十分",
     "下午一時三十分",
-  ],
+  ];
   'en-US': [
     "13:30",
     "1:30 PM",
     "13:30:55",
     "1:30:55 PM",
-  ],
+  ];
 }
 
 export function timeFormat<T extends TimeFormatterLocale>(date: Date, _locale: T, kind: TimeFormatterLocaleKinds[T][number]) {

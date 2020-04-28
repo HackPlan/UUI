@@ -2,7 +2,7 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 
 export interface BaseSkeletonParagraphProps {
-  lines?: number
+  lines?: number;
 }
 
 export const SkeletonParagraph = UUI.FunctionComponent({

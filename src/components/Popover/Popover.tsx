@@ -13,31 +13,31 @@ export interface BasePopoverProps {
   /**
    * Whether this popover show content.
    */
-  active: boolean
+  active: boolean;
   /**
    * Callback invoked when user click out of component while Popover is active
    */
-  onClickAway?: () => void
+  onClickAway?: () => void;
   /**
    * The trigger elements of Popover.
    * The position of content depends on activator.
    */
-  activator: React.ReactNode
+  activator: React.ReactNode;
   /**
    * The content elements of Popover
    */
-  children: React.ReactNode
+  children: React.ReactNode;
   /**
    * Whether the content of popover should be rendered inside a `Portal` where appending inside `portalContainer`(if it provided) or `document.body`.
    * @default true
    */
-  usePortal?: boolean
+  usePortal?: boolean;
   /**
    * The container element into which the overlay renders its contents, when `usePortal` is `true`.
    * This prop is ignored if `usePortal` is `false`.
    * @default document.body
    */
-  portalContainer?: HTMLElement
+  portalContainer?: HTMLElement;
   /**
    * If true, the content views is created and attached to the DOM when the popover is opened(active) for the first time,
    * otherwise this happens when the component mounts.
@@ -46,21 +46,21 @@ export interface BasePopoverProps {
    * if you have lots of Popover which have tons of complex elements in content view at once, such as on each cell of a table.
    * @default false
    */
-  lazy?: boolean
+  lazy?: boolean;
   /**
    * The position (relative to the activator) at which the popover should appear.
    * @default 'bottom'
    */
-  placement?: PopoverPlacement
+  placement?: PopoverPlacement;
   /**
    * The position strategy
    * @default absolute
    */
-  strategy?: PopoverStrategy
+  strategy?: PopoverStrategy;
   /**
    * Popper.js props. reference: https://popper.js.org/docs/v2/modifiers/
    */
-  modifiers?: Array<Partial<Modifier<any>>>
+  modifiers?: Array<Partial<Modifier<any>>>;
 }
 
 export const Popover = UUI.FunctionComponent({
@@ -98,6 +98,8 @@ export const Popover = UUI.FunctionComponent({
     if (props.lazy && props.active && neverOpened) {
       setNeverOpened(false)
     }
+  // intentionally Ignore `neverOpened` dependency
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.lazy, props.active])
 
   /**
@@ -142,10 +144,11 @@ export const Popover = UUI.FunctionComponent({
       <Content ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
     )
   }, [
-    props.lazy, neverOpened,
+    props.lazy, finalProps.portalContainer, neverOpened,
     finalProps.usePortal, props.children,
     styles, attributes, setPopperElement,
   ])
+  console.log('test@@@')
 
   return (
     <Root>

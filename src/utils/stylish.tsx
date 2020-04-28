@@ -3,14 +3,14 @@ import classnames from 'classnames';
 import { NodeExtraClassNames, getCompiledClassNames, ExtraClassNameProps } from './extraClassName';
 import { NodeExtraStyles, getCompiledStyles, ExtraStyleProps } from './extraStyle';
 import { getCompiledChildren, NodeExtraChildren, ExtraChildrenProps } from './extraChildren';
-import { pick, merge, mergeWith, omit, clone } from 'lodash';
+import { merge, mergeWith, omit, clone } from 'lodash';
 import classNames from 'classnames';
 
 export type StylishProps<T extends string> = ExtraClassNameProps<T> & ExtraStyleProps<T> & ExtraChildrenProps<T>
 
 function compileNodeName(nodeNames: (string | undefined)[], options?: {
-  prefix?: string,
-  separator?: string,
+  prefix?: string;
+  separator?: string;
 }) {
   return [options?.prefix, ...nodeNames].filter((i) => i && i.length > 0).join(options?.separator || '-')
 }
@@ -18,19 +18,19 @@ function compileNodeName(nodeNames: (string | undefined)[], options?: {
 export function initStylish<T extends string>(
   rootNodeName: string,
   props?: {
-    overrideClassName?: NodeExtraClassNames<T>,
-    extendClassName?: NodeExtraClassNames<T>,
+    overrideClassName?: NodeExtraClassNames<T>;
+    extendClassName?: NodeExtraClassNames<T>;
 
-    overrideStyle?: NodeExtraStyles<T>,
-    extendStyle?: NodeExtraStyles<T>,
+    overrideStyle?: NodeExtraStyles<T>;
+    extendStyle?: NodeExtraStyles<T>;
 
-    overrideChildren?: NodeExtraChildren<T>,
-    extendChildrenBefore?: NodeExtraChildren<T>,
-    extendChildrenAfter?: NodeExtraChildren<T>,
+    overrideChildren?: NodeExtraChildren<T>;
+    extendChildrenBefore?: NodeExtraChildren<T>;
+    extendChildrenAfter?: NodeExtraChildren<T>;
   },
   options?: {
-    prefix?: string,
-    separator?: string,
+    prefix?: string;
+    separator?: string;
   }
 ) {
   return (
@@ -50,19 +50,19 @@ export function initStylish<T extends string>(
 export function initStylished<T extends string>(
   rootNodeName: string,
   props?: {
-    overrideClassName?: NodeExtraClassNames<T>,
-    extendClassName?: NodeExtraClassNames<T>,
+    overrideClassName?: NodeExtraClassNames<T>;
+    extendClassName?: NodeExtraClassNames<T>;
 
-    overrideStyle?: NodeExtraStyles<T>,
-    extendStyle?: NodeExtraStyles<T>,
+    overrideStyle?: NodeExtraStyles<T>;
+    extendStyle?: NodeExtraStyles<T>;
 
-    overrideChildren?: NodeExtraChildren<T>,
-    extendChildrenBefore?: NodeExtraChildren<T>,
-    extendChildrenAfter?: NodeExtraChildren<T>,
+    overrideChildren?: NodeExtraChildren<T>;
+    extendChildrenBefore?: NodeExtraChildren<T>;
+    extendChildrenAfter?: NodeExtraChildren<T>;
   },
   options?: {
-    prefix?: string,
-    separator?: string,
+    prefix?: string;
+    separator?: string;
   }
 ) {
 
@@ -93,13 +93,17 @@ export function initStylished<T extends string>(
             ref={ref}
             className={getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props as any)}
             style={getCompiledStyles<T>(nodeName, _props.style, props as any)}
-            children={children}
-          />
+          >
+            {children}
+          </Tag>
         )
       })
     },
     component: <P extends any>(Target: React.ComponentType<P>, nodeName: string) => {
       return React.forwardRef((_props: P, ref) => {
+        const className = getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props)
+        const style = getCompiledStyles<T>(nodeName, _props.style, props)
+        const children = getCompiledChildren<T>(nodeName, _props.children, props)
         return (
           <Target
             {...omit(_props, [
@@ -108,10 +112,11 @@ export function initStylished<T extends string>(
               'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
             ]) as any}
             ref={ref}
-            className={getCompiledClassNames<T>(nodeName, compileNodeName([rootNodeName, nodeName], options), _props.className, props)}
-            style={getCompiledStyles<T>(nodeName, _props.style, props)}
-            children={getCompiledChildren<T>(nodeName, _props.children, props)}
-          />
+            className={className}
+            style={style}
+          >
+            {children}
+          </Target>
         )
       })
     },
@@ -124,7 +129,7 @@ export function initStylishedProxy<T extends string, P extends StylishProps<T>>(
     const styleKeys = ['overrideStyle', 'extendStyle'] as const
     const childrenKeys = ['overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter'] as const
 
-    let finalProps = clone(_props)
+    const finalProps = clone(_props)
 
     for (const key of classNameKeys) {
       if (props[key]) {

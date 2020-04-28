@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { UUI } from '../../utils/uui';
 import './TextArea.scss';
 
@@ -7,30 +7,30 @@ export interface BaseTextAreaProps {
    * Placeholder text when there is no value.
    * @default none
    */
-  placeholder?: string
+  placeholder?: string;
   /**
    * Whether the control is non-interactive.
    * @default false
    */
-  disabled?: boolean
+  disabled?: boolean;
   /**
    * The value to display in the input field.
    */
-  value: string | null | undefined
+  value: string | null | undefined;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void
+  onChange: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   /**
    * The maximum length of the input.
    * @default none
    */
-  maxLength?: number
+  maxLength?: number;
   /**
    * Show input length indicator
    * @default false
    */
-  showLengthIndicator?: boolean
+  showLengthIndicator?: boolean;
 }
 
 export const TextArea = UUI.FunctionComponent({

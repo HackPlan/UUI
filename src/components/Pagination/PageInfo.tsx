@@ -5,15 +5,15 @@ export interface BasePageInfoProps {
   /**
    * Current page
    */
-  page: number
+  page: number;
   /**
    * The Size of per page
    */
-  pageSize: number
+  pageSize: number;
   /**
    * Total item number
    */
-  totalItem: number
+  totalItem: number;
 }
 
 export const PageInfo = UUI.FunctionComponent({

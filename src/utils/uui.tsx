@@ -13,20 +13,20 @@ import classNames from 'classnames';
 
 
 export interface NodeCustomizeClassNameProps {
-  className?: string
-  overrideClassName?: string
-  extendClassName?: string
+  className?: string;
+  overrideClassName?: string;
+  extendClassName?: string;
 }
 export interface NodeCustomizeStyleProps {
-  style?: React.CSSProperties
-  overrideStyle?: React.CSSProperties
-  extendStyle?: React.CSSProperties
+  style?: React.CSSProperties;
+  overrideStyle?: React.CSSProperties;
+  extendStyle?: React.CSSProperties;
 }
 export interface NodeCustomizeChildrenProps {
-  children?: React.ReactNode
-  overrideChildren?: React.ReactNode
-  extendChildrenBefore?: React.ReactNode
-  extendChildrenAfter?: React.ReactNode
+  children?: React.ReactNode;
+  overrideChildren?: React.ReactNode;
+  extendChildrenBefore?: React.ReactNode;
+  extendChildrenAfter?: React.ReactNode;
 }
 export type NodeCustomizeProps =
   & NodeCustomizeClassNameProps
@@ -64,8 +64,8 @@ type IntrinsicNodeCustomizeOptions<T extends keyof JSX.IntrinsicElements> =
   & IntrinsicNodeCustomizeProps
   & JSX.IntrinsicElements[T]
   & {
-    prefix?: string
-    separator?: string
+    prefix?: string;
+    separator?: string;
   }
 
 export type IntrinsicNodeT = JSX.IntrinsicElements
@@ -121,7 +121,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     })()
 
     return React.createElement(tagName, {
-      ..._props,
+      ...omit(_props, 'children'),
       ...omit(options,
         'prefix', 'separator',
         'ref', 'className', 'style', 'children',
@@ -131,8 +131,8 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       ),
       ...mergedFunctions,
       ref,
-      className, style, children,
-    })
+      className, style,
+    }, children)
   })
 }
 
@@ -161,7 +161,7 @@ export type UUIComponentCustomizeProps<
     [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
       ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
       : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
-  }
+  };
 }
 
 export type UUIComponentNodes<
@@ -178,13 +178,13 @@ export type UUIConvenienceProps = {
    * this props will be applied to append to extendClassName of component Root node customize props.
    * @default none
    */
-  className?: string
+  className?: string;
   /**
    * Convenience style props,
    * this props will be applied to merge to extendStyle of component Root node customize props.
    * @default none
    */
-  style?: React.CSSProperties
+  style?: React.CSSProperties;
 }
 
 export type UUIFunctionComponentProps<T extends (...args: any) => any> = Parameters<T>[0]
@@ -228,19 +228,21 @@ export abstract class UUI {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
           ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
           : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
-      }
+      };
     }
   >(
     options: {
-      prefix?: string
-      name: string
-      separator?: string
-      nodes: X
+      prefix?: string;
+      name: string;
+      separator?: string;
+      nodes: X;
     },
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
     return (props: P & UUIConvenienceProps & Z) => {
-      const compiledProps = compileProps(props, options, undefined)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      const compiledProps = useMemo(() => compileProps(props, options, undefined), [props])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       const nodes = useMemo(() => compileNodes(compiledProps, options), [])
       return WrappedComponent(compiledProps, nodes)
     }
@@ -278,14 +280,14 @@ export abstract class UUI {
         [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
           ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
           : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
-      }
+      };
     }
   >(
     options: {
-      prefix?: string
-      name: string
-      separator?: string
-      nodes: X
+      prefix?: string;
+      name: string;
+      separator?: string;
+      nodes: X;
     },
   ) {
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P & UUIConvenienceProps & Z, S> {

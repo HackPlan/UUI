@@ -35,22 +35,24 @@ export const Toast = UUI.FunctionComponent({
 }, (props: IToast, nodes) => {
   const { Root } = nodes
 
-  const timeout = props.timeout || 5000
+  const finalProps = {
+    timeout: props.timeout || 5000
+  }
 
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  useEffect(() => {
-    startTimer()
-  }, [])
-
   const startTimer = useCallback(() => {
     if (timer.current) clearTimeout(timer.current)
-    timer.current = setTimeout(() => { props.onDismiss && props.onDismiss(props.id) }, timeout)
-  }, [timer])
+    timer.current = setTimeout(() => { props.onDismiss && props.onDismiss(props.id) }, finalProps.timeout)
+  }, [timer, finalProps.timeout, props])
 
   const clearTimer = useCallback(() => {
     if (timer.current) clearTimeout(timer.current)
   }, [timer])
+
+  useEffect(() => {
+    startTimer()
+  }, [startTimer])
 
   return (
     <Root

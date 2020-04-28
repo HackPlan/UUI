@@ -8,18 +8,18 @@ export interface BaseDateLabelProps<T extends DateFormatterLocale> {
    *
    * Only the part of date (year, month, day, week) is valid for this Component
    */
-  value: Date
+  value: Date;
   /**
    * The locale of display format.
    */
-  locale: T
+  locale: T;
   /**
    * The display format of date.
    *
    * DateLabel provides a group of presets of date format,
    * These presets refer to the formats in Excel.
    */
-  kind: DateFormatterLocaleKinds[T][number]
+  kind: DateFormatterLocaleKinds[T][number];
 }
 
 export const DateLabel = UUI.FunctionComponent({

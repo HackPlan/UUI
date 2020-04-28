@@ -15,12 +15,12 @@ export interface BaseRadioProps<T extends string | number> extends InputHTMLAttr
    *
    * T should be string or number.
    */
-  value: T
+  value: T;
   /**
    * The label of radio.
    * @default none
    */
-  label?: string | React.ReactNode
+  label?: string | React.ReactNode;
 }
 
 const RadioNodes = {

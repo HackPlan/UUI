@@ -87,7 +87,7 @@ export interface DateFormatterLocaleKinds extends BaseDateFormatterLocaleKinds {
     "3月14日",
     "星期三",
     "周三",
-  ],
+  ];
   'zh-TW': [
     "2012-03-14",
     "2012年3月14日",
@@ -98,7 +98,7 @@ export interface DateFormatterLocaleKinds extends BaseDateFormatterLocaleKinds {
     "三月十四日",
     "星期三",
     "週三",
-  ],
+  ];
   'en-US': [
     "2012/3/14",
     "2012-03-14",
@@ -111,7 +111,7 @@ export interface DateFormatterLocaleKinds extends BaseDateFormatterLocaleKinds {
     "March-12",
     "March 14, 2012",
     "14-Mar-2012",
-  ],
+  ];
 }
 
 export function dateFormat<T extends DateFormatterLocale>(date: Date, _locale: T, kind: DateFormatterLocaleKinds[T][number]) {

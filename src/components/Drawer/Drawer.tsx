@@ -11,35 +11,35 @@ export interface BaseDrawerProps {
     /**
    * Whether this Drawer show content.
    */
-  active: boolean
+  active: boolean;
   /**
    * Callback invoked when user click outside of content view.
    */
-  onDismiss?: () => void
+  onDismiss?: () => void;
   /**
    * The content elements of Drawer
    */
-  children: React.ReactNode
+  children: React.ReactNode;
   /**
    * Whether the content of Drawer should be rendered inside a `Portal` where appending inside `portalContainer`(if it provided) or `document.body`.
    * @default true
    */
-  usePortal?: boolean
+  usePortal?: boolean;
   /**
    * The container element into which the overlay renders its contents, when `usePortal` is `true`.
    * This prop is ignored if `usePortal` is `false`.
    * @default document.body
    */
-  portalContainer?: HTMLElement
+  portalContainer?: HTMLElement;
   /**
    * Wether lock scrolling on the body element while Drawer is active
    */
-  lockBodyScroll?: boolean
+  lockBodyScroll?: boolean;
   /**
    * The position at which the Drawer should appear.
    * @default right
    */
-  placement?: DrawerPlacement
+  placement?: DrawerPlacement;
 }
 
 export const Drawer = UUI.FunctionComponent({
@@ -76,7 +76,7 @@ export const Drawer = UUI.FunctionComponent({
         <Content ref={contentRef}>{props.children}</Content>
       </Backdrop>
     )
-  }, [props.children, props.active, contentRef.current])
+  }, [props.children, props.active, finalProps.placement])
 
   const portal = useMemo(() => {
     return finalProps.usePortal
