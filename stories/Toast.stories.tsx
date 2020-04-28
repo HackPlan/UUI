@@ -8,15 +8,19 @@ export default {
   decorators: [withKnobs]
 };
 
-export const Toast = () => {
-  const AppToaster = useMemo(() => Toaster.create({
-    maxToasts: 5,
-    position: ToasterPosition.TopRight,
-  }), [])
+const AppToaster1 = Toaster.create({
+  maxToasts: 5,
+  position: ToasterPosition.TopRight,
+})
+const AppToaster2 = Toaster.create({
+  maxToasts: 5,
+  position: ToasterPosition.TopRight,
+})
 
+export const Toast = () => {
   return (
     <Button onClick={() => {
-      AppToaster.show({
+      AppToaster1.show({
         message: Math.random(),
       })
     }}>
@@ -30,13 +34,9 @@ Toast.story = {
 };
 
 export const ToastCustomStyle = () => {
-  const AppToaster = useMemo(() => Toaster.create({
-    maxToasts: 5,
-    position: ToasterPosition.TopRight,
-  }), [])
   return (
     <Button onClick={() => {
-      AppToaster.show({
+      AppToaster2.show({
         customize: {
           Root: {
             extendClassName: "u-bg-green-400 u-rounded u-border-none u-text-white",
