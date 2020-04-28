@@ -56,10 +56,11 @@ export const Slider = UUI.FunctionComponent({
     return [thumb1, thumb2] as const
   }, [props.value])
   const onFinalChange = useCallback((value: [number, number]) => {
+    const newValue: [number, number] = [Number(value[0].toFixed(8)), Number(value[1].toFixed(8))]
     if (typeof props.value === 'number') {
-      props.onChange(value[1])
+      props.onChange(newValue[1])
     } else {
-      props.onChange(value)
+      props.onChange(newValue)
     }
   }, [props.value, props.onChange])
 
