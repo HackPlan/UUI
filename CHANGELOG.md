@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.2.7
+
+- lint code
+- fix `Slider` vertical direction, min -> max, bottom -> top
+
 ### v0.2.6
 
 - new component `CountdownLabel`
