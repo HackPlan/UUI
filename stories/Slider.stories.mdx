@@ -46,6 +46,29 @@ import { useState } from 'react';
   </Story>
 </Preview>
 
+### 垂直方向
+
+<Preview>
+  <Story name="Slider with vertical">
+    {() => {
+      const [value, setValue] = useState(13)
+      const [value2, setValue2] = useState([30, 75])
+      return (
+        <div className="u-flex u-flex-row u-items-center">
+          <div className="u-inline-flex u-flex-col u-items-center u-w-20">
+            <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} vertical />
+            <div>{JSON.stringify(value)}</div>
+          </div>
+          <div className="u-inline-flex u-flex-col u-items-center u-w-20">
+            <Slider value={value2} max={100} min={0} step={0.1} onChange={(value) => setValue2(value)} vertical />
+            <div>{JSON.stringify(value2)}</div>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
 ### Props
 
 <Props components={{ Slider }} />

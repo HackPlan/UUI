@@ -32,6 +32,11 @@ export interface BaseSliderProps {
    * @default false
    */
   disabled?: boolean
+  /**
+   * Whether to render the Slider vertically. Defaults to rendering horizontal.
+   * @default false
+   */
+  vertical?: boolean
 }
 
 export const Slider = UUI.FunctionComponent({
@@ -82,16 +87,17 @@ export const Slider = UUI.FunctionComponent({
   const getPositionFromEvent = (event: MouseEvent | TouchEvent) => {
     if (!containerRef.current) return null
     const containerRect = containerRef.current.getBoundingClientRect()
-    const leadingPosition = containerRect.left
-    const trailingPosition = containerRect.right
+    const leadingPosition = props.vertical ? containerRect.top : containerRect.left
+    const trailingPosition = props.vertical ? containerRect.bottom : containerRect.right
+
     const currentPosition = (() => {
       switch (event.type) {
         case 'mousedown':
         case 'mousemove':
-          return (event as MouseEvent).clientX
+          return props.vertical ? (event as MouseEvent).clientY : (event as MouseEvent).clientX
         case 'touchstart':
         case 'touchmove':
-          return (event as TouchEvent).touches[0].clientX
+          return props.vertical ? (event as TouchEvent).touches[0].clientY :(event as TouchEvent).touches[0].clientX
         default:
           return null
       }
@@ -129,29 +135,39 @@ export const Slider = UUI.FunctionComponent({
    */
   const styles = useMemo((): { [key: string]: React.CSSProperties } => {
     const sortPosition = clone(finalPosition).sort()
+    const widthOrHeight = props.vertical ? 'height' : 'width'
+    const leftOrTop = props.vertical ? 'top' : 'left'
+    const thumbTransform = props.vertical ? 'translateY(-50%)' : 'translateX(-50%)'
     return {
       LeadingInactiveLine: {
-        width: toPercentage(sortPosition[0]),
+        [widthOrHeight]: toPercentage(sortPosition[0]),
         display: typeof props.value === 'number' ? 'none' : undefined,
       },
       ActiveLine: {
-        width: toPercentage(sortPosition[1]-sortPosition[0]),
+        [widthOrHeight]: toPercentage(sortPosition[1]-sortPosition[0]),
       },
       TrailingInactiveLine: {
-        width: toPercentage(1-sortPosition[1]),
+        [widthOrHeight]: toPercentage(1-sortPosition[1]),
       },
       LeadingThumb: {
-        left: toPercentage(finalPosition[0]),
+        [leftOrTop]: toPercentage(finalPosition[0]),
         display: typeof props.value === 'number' ? 'none' : undefined,
+        transform: thumbTransform,
       },
       TrailingThumb: {
-        left: toPercentage(finalPosition[1]),
+        [leftOrTop]: toPercentage(finalPosition[1]),
+        transform: thumbTransform,
       }
     }
   }, [finalPosition])
 
   return (
-    <Root className={classNames({ 'disabled': props.disabled })}>
+    <Root
+      className={classNames({
+        'disabled': props.disabled,
+        'vertical': props.vertical,
+      })}
+    >
       <Container ref={containerRef}>
         <InactiveLine style={{ ...styles.LeadingInactiveLine }} />
         <ActiveLine style={{ ...styles.ActiveLine }} />
