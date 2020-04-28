@@ -1,0 +1,115 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Slider } from '../src';
+import { useState } from 'react';
+
+<Meta title="Slider" component={Slider} />
+
+# 滑块 Slider
+
+
+### 简单使用
+
+<Preview>
+  <Story name="Slider">
+    {() => {
+      const [value, setValue] = useState(72)
+      const [value2, setValue2] = useState(22)
+      return (
+        <div>
+          <div className="u-flex u-flex-row u-items-center u-my-2">
+            <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
+          </div>
+          <div className="u-flex u-flex-row u-items-center u-my-2">
+            <Slider value={value2} max={100} min={0} step={1} onChange={(value) => setValue2(value)} disabled />
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### 范围选取
+
+<Preview>
+  <Story name="Slider with range">
+    {() => {
+      const [value, setValue] = useState([10, 40])
+      return (
+        <div className="u-flex u-flex-row u-items-center">
+          <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} />
+          <div>{JSON.stringify(value)}</div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### 刻度标记
+
+> 刻度标记 `Remark` 和拖动按钮 `Thumb` 使用了绝对定位，所以无法撑开组件的高度，使用的时候要根据标记的内容尺寸大小，自行加上外边距，避免元素之前重叠显示。
+
+<Preview>
+  <Story name="Slider with remark">
+    {() => {
+      const [value, setValue] = useState([10, 40])
+      return (
+        <div className="u-flex u-flex-row u-items-center">
+          <Slider
+            value={value}
+            max={100}
+            min={0}
+            step={0.1}
+            onChange={(value) => setValue(value)}
+            remarks={[
+              { label: '0°C', value: 0 },
+              { label: '33°C', value: 33 },
+              { label: <div className="u-text-red-500">100°C</div>, value: 100 },
+            ]}
+          />
+          <div className="u-ml-12">{JSON.stringify(value)}</div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### 垂直方向
+
+<Preview>
+  <Story name="Slider with vertical">
+    {() => {
+      const [value, setValue] = useState(13)
+      const [value2, setValue2] = useState([30, 75])
+      const [value3, setValue3] = useState(57)
+      return (
+        <div className="u-flex u-flex-row u-items-center">
+          <div className="u-inline-flex u-flex-col u-items-center u-mx-4">
+            <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} vertical />
+          </div>
+          <div className="u-inline-flex u-flex-col u-items-center u-mx-4">
+            <Slider value={value2} max={100} min={0} step={0.1} onChange={(value) => setValue2(value)} vertical />
+          </div>
+          <div className="u-inline-flex u-flex-col u-items-center u-mx-4">
+            <Slider
+              value={value3}
+              max={100}
+              min={0}
+              step={0.1}
+              onChange={(value) => setValue3(value)}
+              remarks={[
+                { label: '0°C', value: 0 },
+                { label: '33°C', value: 33 },
+                { label: <div className="u-text-red-500">100°C</div>, value: 100 },
+              ]}
+              vertical
+            />
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Slider }} />

@@ -1,0 +1,89 @@
+$ThumbRadius: 8px;
+$ThumbBorderWidth: 2px;
+$RemarkRadius: 5px;
+$RemarkBorderWidth: 2px;
+
+.UUI-Slider-Root {
+  width: 400px;
+  height: 20px;
+
+  .UUI-Slider-Container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+
+    margin-left: $ThumbRadius;
+    margin-right: $ThumbRadius;
+
+    .UUI-Slider-ActiveLine, .UUI-Slider-InactiveLine {
+      height: 4px;
+      background-color: rgb(200, 198, 196);
+    }
+
+    .UUI-Slider-ActiveLine {
+      background-color: black;
+    }
+
+    .UUI-Slider-Thumb {
+      position: absolute;
+      width: $ThumbRadius * 2;
+      height: $ThumbRadius * 2;
+      background-color: white;
+      border-radius: $ThumbRadius;
+      border: $ThumbBorderWidth solid black;
+      cursor: pointer;
+    }
+
+    .UUI-Slider-Remark {
+      position: absolute;
+      width: $RemarkRadius * 2;
+      height: $RemarkRadius * 2;
+      background-color: white;
+      border-radius: $RemarkRadius;
+      border: $RemarkBorderWidth solid rgb(200, 198, 196);
+
+      &.active {
+        border: $RemarkBorderWidth solid black;
+      }
+    }
+
+    .UUI-Slider-RemarkLabel {
+      position: absolute;
+      top: $RemarkRadius;
+      margin-top: 2px;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.disabled {
+    .UUI-Slider-Thumb {
+      cursor: not-allowed;
+      border: 2px solid #7d7d7d;
+    }
+    .UUI-Slider-ActiveLine {
+      background-color: #7d7d7d;
+    }
+  }
+
+  &.vertical {
+    height: 300px;
+    width: 20px;
+
+    .UUI-Slider-Container {
+      flex-direction: column;
+    }
+
+    .UUI-Slider-ActiveLine, .UUI-Slider-InactiveLine {
+      width: 4px;
+    }
+
+    .UUI-Slider-RemarkLabel {
+      margin-top: 0;
+      top: $RemarkRadius / 2;
+      left: 20px;
+      transform: translateY(-50%);
+    }
+  }
+}
