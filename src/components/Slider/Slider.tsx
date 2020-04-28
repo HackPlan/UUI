@@ -103,8 +103,8 @@ export const Slider = UUI.FunctionComponent({
   const getPositionFromEvent = (event: MouseEvent | TouchEvent) => {
     if (!containerRef.current) return null
     const containerRect = containerRef.current.getBoundingClientRect()
-    const leadingPosition = props.vertical ? containerRect.top : containerRect.left
-    const trailingPosition = props.vertical ? containerRect.bottom : containerRect.right
+    const leadingPosition = props.vertical ? containerRect.bottom : containerRect.left
+    const trailingPosition = props.vertical ? containerRect.top : containerRect.right
 
     const currentPosition = (() => {
       switch (event.type) {
@@ -151,36 +151,66 @@ export const Slider = UUI.FunctionComponent({
    */
   const styles = useMemo(() => {
     const sortPosition = clone(finalPosition).sort()
-    const widthOrHeight = props.vertical ? 'height' : 'width'
-    const leftOrTop = props.vertical ? 'top' : 'left'
-    const thumbTransform = props.vertical ? 'translateY(-50%)' : 'translateX(-50%)'
-    return {
-      LeadingInactiveLine: {
-        [widthOrHeight]: toPercentage(sortPosition[0]),
-        display: typeof props.value === 'number' ? 'none' : undefined,
-      },
-      ActiveLine: {
-        [widthOrHeight]: toPercentage(sortPosition[1]-sortPosition[0]),
-      },
-      TrailingInactiveLine: {
-        [widthOrHeight]: toPercentage(1-sortPosition[1]),
-      },
-      LeadingThumb: {
-        [leftOrTop]: toPercentage(finalPosition[0]),
-        display: typeof props.value === 'number' ? 'none' : undefined,
-        transform: thumbTransform,
-      },
-      TrailingThumb: {
-        [leftOrTop]: toPercentage(finalPosition[1]),
-        transform: thumbTransform,
-      },
-      Remark: finalProps.remarks.map((remark) => {
-        const position = (remark.value - props.min) / (props.max - props.min)
+    switch (props.vertical) {
+      case false:
+      case undefined:
         return {
-          [leftOrTop]: toPercentage(position),
-          transform: thumbTransform,
+          LeadingInactiveLine: {
+            width: toPercentage(sortPosition[0]),
+            display: typeof props.value === 'number' ? 'none' : undefined,
+          },
+          ActiveLine: {
+            width: toPercentage(sortPosition[1] - sortPosition[0]),
+          },
+          TrailingInactiveLine: {
+            width: toPercentage(1 - sortPosition[1]),
+          },
+          LeadingThumb: {
+            left: toPercentage(finalPosition[0]),
+            display: typeof props.value === 'number' ? 'none' : undefined,
+            transform: 'translateX(-50%)',
+          },
+          TrailingThumb: {
+            left: toPercentage(finalPosition[1]),
+            transform: 'translateX(-50%)',
+          },
+          Remark: finalProps.remarks.map((remark) => {
+            const position = (remark.value - props.min) / (props.max - props.min)
+            return {
+              left: toPercentage(position),
+              transform: 'translateX(-50%)',
+            }
+          })
         }
-      })
+      case true:
+        return {
+          TrailingInactiveLine: {
+            height: toPercentage(sortPosition[0]),
+            display: typeof props.value === 'number' ? 'none' : undefined,
+          },
+          ActiveLine: {
+            height: toPercentage(sortPosition[1] - sortPosition[0]),
+          },
+          LeadingInactiveLine: {
+            height: toPercentage(1 - sortPosition[1]),
+          },
+          LeadingThumb: {
+            bottom: toPercentage(finalPosition[0]),
+            display: typeof props.value === 'number' ? 'none' : undefined,
+            transform: 'translateY(50%)',
+          },
+          TrailingThumb: {
+            bottom: toPercentage(finalPosition[1]),
+            transform: 'translateY(50%)',
+          },
+          Remark: finalProps.remarks.map((remark) => {
+            const position = (remark.value - props.min) / (props.max - props.min)
+            return {
+              bottom: toPercentage(position),
+              transform: 'translateY(50%)',
+            }
+          })
+        }
     }
   }, [finalPosition, props.max, props.min, finalProps.remarks])
 
