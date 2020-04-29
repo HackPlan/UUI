@@ -243,7 +243,11 @@ export abstract class UUI {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       const compiledProps = useMemo(() => compileProps(props, options, undefined), [props])
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      const nodes = useMemo(() => compileNodes(compiledProps, options), [])
+      const nodes = useMemo(() => compileNodes(compiledProps, options), [
+        compiledProps.customize,
+        compiledProps.className,
+        compiledProps.style
+      ])
       return WrappedComponent(compiledProps, nodes)
     }
   }
