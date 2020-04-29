@@ -58,7 +58,6 @@ export const Toast = UUI.FunctionComponent({
   return (
     <Root
       {...omit(props, 'message', 'onDismiss')}
-      className={"u-p-4 u-mb-4 u-bg-white u-shadow-md u-border u-border-black u-py-1 u-px-2"}
       onBlur={() => { startTimer() }}
       onFocus={() => { clearTimer() }}
       onMouseEnter={() => { clearTimer() }}

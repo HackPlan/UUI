@@ -14,7 +14,7 @@ import { useState } from 'react';
     {() => {
       const [checked, setChecked] = useState(false)
       return (
-        <div className="u-flex u-flex-col">
+        <div className="flex flex-col">
           <Switch
             value={checked}
             onChange={(value) => { setChecked(value); console.log('onChange', value) }}

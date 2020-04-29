@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import './Toaster.scss'
 import classNames from 'classnames';
 import { UUI } from '../../utils/uui';
 
@@ -113,7 +112,7 @@ export class Toaster extends UUI.ClassComponent({
     const { Root } = this.nodes
 
     return (
-      <Root className={classNames("u-p-4 u-h-full u-flex u-flex-col", `position-${this.props.position || ToasterPosition.Top}`)}>
+      <Root className={classNames(`position-${this.props.position || ToasterPosition.Top}`)}>
         {this.state.toasts.map((toast) => {
           return (
             <Toast

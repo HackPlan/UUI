@@ -13,7 +13,7 @@ export const Pagination = UUI.FunctionComponent({
 }, (props: BasePaginationProps, nodes) => {
   const { Root } = nodes
   return (
-    <Root className={"u-flex u-flex-row u-items-center"}>
+    <Root className={"flex flex-row items-center"}>
       {props.children}
     </Root>
   )

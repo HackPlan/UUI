@@ -25,9 +25,9 @@ import { useState } from 'react';
       const [n, setN] = useState("a")
       return (
         <RadioGroup name="radio1" value={n} onChange={(value) => { setN(value) }}>
-          <Radio label={'Apple'} value={'a'} customize={{ Root: { extendClassName: "u-mr-4" }}}></Radio>
-          <Radio label={'Banana'} value={'b'} customize={{ Root: { extendClassName: "u-mr-4" }}}></Radio>
-          <Radio label={'Cherry'} value={'c'} customize={{ Root: { extendClassName: "u-mr-4" }}}></Radio>
+          <Radio label={'Apple'} value={'a'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+          <Radio label={'Banana'} value={'b'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+          <Radio label={'Cherry'} value={'c'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
         </RadioGroup>
       )
     }}

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { UUI } from '../../utils/uui';
-import './Popover.scss';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { Placement, Modifier } from '@popperjs/core';
@@ -148,7 +147,6 @@ export const Popover = UUI.FunctionComponent({
     finalProps.usePortal, props.children,
     styles, attributes, setPopperElement,
   ])
-  console.log('test@@@')
 
   return (
     <Root>

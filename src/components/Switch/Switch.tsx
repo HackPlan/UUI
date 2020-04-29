@@ -1,7 +1,6 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Button as UUIButton } from '../Button/Button';
-import './Switch.scss';
 import classNames from 'classnames';
 
 

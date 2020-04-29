@@ -1,5 +1,16 @@
-.UUI-Table-HeadCell,
-.UUI-Table-DataCell {
+.UUI-Table-Root {
   border: 1px solid black;
-  padding: 8px;
+
+  .UUI-Table-HeadCell,
+  .UUI-Table-DataCell {
+    border: 1px solid black;
+    padding: 8px;
+  }
+
+  .UUI-Table-EmptyView {
+    height: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

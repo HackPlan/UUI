@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { UUI } from '../../utils/uui';
-import './TextField.scss';
 import { Button } from '../Button';
 
 export interface BaseTextFieldProps {
@@ -91,7 +90,7 @@ export const TextField = UUI.FunctionComponent({
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
 
   return (
-    <Root className={"u-w-full u-border u-border-black"}>
+    <Root>
       <Input
         placeholder={props.placeholder}
         disabled={props.disabled}

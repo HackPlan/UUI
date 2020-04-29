@@ -43,7 +43,7 @@ export const RadioGroup = <K extends string | number>(props: BaseRadioGroupProps
 
     return (
       <Root
-        className={"u-flex u-flex-row u-items-center u-block"}
+        className={"flex flex-row items-center block"}
       >
         {React.Children.map(props.children, (child: any) => {
           return React.cloneElement<BaseRadioProps<K>>(child, {

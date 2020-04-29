@@ -29,7 +29,7 @@ export const PageInfo = UUI.FunctionComponent({
   const text = `${startItem}-${endItem} of ${props.totalItem} items`
 
   return (
-    <Root className={"u-flex u-flex-row u-mx-2"}>
+    <Root>
       {text}
     </Root>
   )

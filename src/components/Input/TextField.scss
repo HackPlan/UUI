@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
+  border: 1px solid black;
 
   .UUI-TextField-Input {
     width: 100%;

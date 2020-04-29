@@ -22,14 +22,14 @@ import { Nodes } from './utils/Nodes';
     <Tag
       customize={{
         Root: {
-          extendClassName: 'u-flex u-flex-col',
+          extendClassName: 'flex flex-col',
           extendStyle: {
             background: '#CCC'
           },
           extendChildrenAfter: <div>append element</div>
         },
         Content: {
-          extendClassName: 'u-text-green-800'
+          extendClassName: 'text-green-800'
         },
       }}
     >ABC</Tag>
@@ -39,7 +39,7 @@ import { Nodes } from './utils/Nodes';
       onClick={() => {}}
       customize={{
         Root: {
-          overrideClassName: 'uui-tag u-inline-block u-p-6 u-rounded-full u-bg-gray-600',
+          overrideClassName: 'uui-tag inline-block p-6 rounded-full bg-gray-600',
         }
       }}
     >ABC</Tag>

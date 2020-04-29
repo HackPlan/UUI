@@ -24,8 +24,8 @@ import { useState } from 'react';
           )}
           onClickAway={() => { setActive(false) }}
         >
-          <div className="u-m-4 u-w-48 u-h-24">
-            <h1>Popover content header</h1>
+          <div className="m-4 w-48 h-24">
+            <p>Popover content header</p>
             <p>Popover test content</p>
           </div>
         </Popover>
@@ -53,8 +53,8 @@ import { useState } from 'react';
             )}
             onClickAway={() => { setActive(false) }}
           >
-            <div className="u-m-4 u-w-48 u-h-24">
-              <h1>Popover content header</h1>
+            <div className="m-4 w-48 h-24">
+              <p>Popover content header</p>
               <p>Popover test content</p>
             </div>
           </Popover>
@@ -68,14 +68,14 @@ import { useState } from 'react';
         ['', <PopoverElement placement='bottom-start' />, <PopoverElement placement='bottom' />, <PopoverElement placement='bottom-end' />, ''],
       ]
       return (
-        <div className="u-flex u-flex-col">
+        <div className="flex flex-col">
           {grid.map((row, rowIndex) => {
             return (
-              <div key={rowIndex} className="row u-flex u-flex-row">
+              <div key={rowIndex} className="row flex flex-row">
                 {row.map((cell, cellIndex) => {
                   const element = typeof cell === 'string' ? <Button style={{ width: 112, visibility: 'hidden' }}>X</Button> : cell
                   return (
-                    <div key={cellIndex} className="cell u-m-1">{element}</div>
+                    <div key={cellIndex} className="cell m-1">{element}</div>
                   )
                 })}
               </div>

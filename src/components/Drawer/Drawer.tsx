@@ -1,7 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import { UUI } from '../../utils/uui';
-import './Drawer.scss';
 import classNames from 'classnames';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Button } from '../..';
 import { NumberField } from '../Input';
-import './Stepper.scss';
 import { limitRange } from '../../utils/numberHelper';
 
 export interface BaseStepperProps {

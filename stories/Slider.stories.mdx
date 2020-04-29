@@ -16,10 +16,10 @@ import { useState } from 'react';
       const [value2, setValue2] = useState(22)
       return (
         <div>
-          <div className="u-flex u-flex-row u-items-center u-my-2">
+          <div className="flex flex-row items-center my-2">
             <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
           </div>
-          <div className="u-flex u-flex-row u-items-center u-my-2">
+          <div className="flex flex-row items-center my-2">
             <Slider value={value2} max={100} min={0} step={1} onChange={(value) => setValue2(value)} disabled />
           </div>
         </div>
@@ -35,7 +35,7 @@ import { useState } from 'react';
     {() => {
       const [value, setValue] = useState([10, 40])
       return (
-        <div className="u-flex u-flex-row u-items-center">
+        <div className="flex flex-row items-center">
           <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} />
           <div>{JSON.stringify(value)}</div>
         </div>
@@ -53,7 +53,7 @@ import { useState } from 'react';
     {() => {
       const [value, setValue] = useState([10, 40])
       return (
-        <div className="u-flex u-flex-row u-items-center">
+        <div className="flex flex-row items-center">
           <Slider
             value={value}
             max={100}
@@ -63,10 +63,10 @@ import { useState } from 'react';
             remarks={[
               { label: '0°C', value: 0 },
               { label: '33°C', value: 33 },
-              { label: <div className="u-text-red-500">100°C</div>, value: 100 },
+              { label: <div className="text-red-500">100°C</div>, value: 100 },
             ]}
           />
-          <div className="u-ml-12">{JSON.stringify(value)}</div>
+          <div className="ml-12">{JSON.stringify(value)}</div>
         </div>
       )
     }}
@@ -82,14 +82,14 @@ import { useState } from 'react';
       const [value2, setValue2] = useState([30, 75])
       const [value3, setValue3] = useState(57)
       return (
-        <div className="u-flex u-flex-row u-items-center">
-          <div className="u-inline-flex u-flex-col u-items-center u-mx-4">
+        <div className="flex flex-row items-center">
+          <div className="inline-flex flex-col items-center mx-4">
             <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} vertical />
           </div>
-          <div className="u-inline-flex u-flex-col u-items-center u-mx-4">
+          <div className="inline-flex flex-col items-center mx-4">
             <Slider value={value2} max={100} min={0} step={0.1} onChange={(value) => setValue2(value)} vertical />
           </div>
-          <div className="u-inline-flex u-flex-col u-items-center u-mx-4">
+          <div className="inline-flex flex-col items-center mx-4">
             <Slider
               value={value3}
               max={100}
@@ -99,7 +99,7 @@ import { useState } from 'react';
               remarks={[
                 { label: '0°C', value: 0 },
                 { label: '33°C', value: 33 },
-                { label: <div className="u-text-red-500">100°C</div>, value: 100 },
+                { label: <div className="text-red-500">100°C</div>, value: 100 },
               ]}
               vertical
             />

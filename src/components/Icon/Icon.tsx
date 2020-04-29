@@ -1,11 +1,9 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
 import { isString } from 'lodash';
-import './Icon.scss';
 
 export type SvgrComponentProps = React.SVGAttributes<SVGElement>
 export type SvgrComponent = React.StatelessComponent<SvgrComponentProps>
-
 
 interface BaseIconProps {
   /**

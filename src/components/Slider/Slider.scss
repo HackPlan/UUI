@@ -1,6 +1,6 @@
 $ThumbRadius: 8px;
 $ThumbBorderWidth: 2px;
-$RemarkRadius: 5px;
+$RemarkRadius: 4px;
 $RemarkBorderWidth: 2px;
 
 .UUI-Slider-Root {
@@ -31,7 +31,7 @@ $RemarkBorderWidth: 2px;
       width: $ThumbRadius * 2;
       height: $ThumbRadius * 2;
       background-color: white;
-      border-radius: $ThumbRadius;
+      border-radius: 50%;
       border: $ThumbBorderWidth solid black;
       cursor: pointer;
     }
@@ -41,7 +41,7 @@ $RemarkBorderWidth: 2px;
       width: $RemarkRadius * 2;
       height: $RemarkRadius * 2;
       background-color: white;
-      border-radius: $RemarkRadius;
+      border-radius: 50%;
       border: $RemarkBorderWidth solid rgb(200, 198, 196);
 
       &.active {
@@ -51,7 +51,7 @@ $RemarkBorderWidth: 2px;
 
     .UUI-Slider-RemarkLabel {
       position: absolute;
-      top: $RemarkRadius;
+      top: $RemarkRadius * 2;
       margin-top: 2px;
       transform: translateX(-50%);
     }
@@ -81,7 +81,7 @@ $RemarkBorderWidth: 2px;
 
     .UUI-Slider-RemarkLabel {
       margin-top: 0;
-      top: $RemarkRadius / 2;
+      top: $RemarkRadius;
       left: 20px;
       transform: translateY(-50%);
     }

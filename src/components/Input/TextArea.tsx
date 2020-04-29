@@ -1,6 +1,5 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
-import './TextArea.scss';
 
 export interface BaseTextAreaProps {
   /**
@@ -46,7 +45,7 @@ export const TextArea = UUI.FunctionComponent({
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
 
   return (
-    <Root className={"u-w-full u-border u-border-black"}>
+    <Root>
       <Textarea
         placeholder={props.placeholder}
         disabled={props.disabled}

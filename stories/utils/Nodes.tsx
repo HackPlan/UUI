@@ -78,17 +78,17 @@ export function Nodes<
 
   return (
     <div
-      className="nodes-container u-my-4 u-p-12 u-flex u-flex-row u-w-full u-overflow-hidden"
+      className="nodes-container my-4 p-12 flex flex-row w-full overflow-hidden"
     >
       <div ref={previewRef} className="component-preview">
         {render(customizeProps)}
       </div>
-      <div className="color-sets u-ml-8">
+      <div className="color-sets ml-8">
         {nodeNames.map((name) => {
           return (
-            <div key={name} className="u-flex u-flex-row u-items-center">
+            <div key={name} className="flex flex-row items-center">
               <div style={{ backgroundColor: nodeColors[name], width: 10, height: 10, borderRadius: 9999 }}></div>
-              <div className="u-ml-2">{name}</div>
+              <div className="ml-2">{name}</div>
             </div>
           )
         })}

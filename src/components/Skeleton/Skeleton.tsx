@@ -4,8 +4,6 @@ import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
 import { UUI } from '../../utils/uui';
 
-import './Skeleton.scss';
-
 
 export interface BaseSkeletonProps {
   children?: React.ReactNode | string;

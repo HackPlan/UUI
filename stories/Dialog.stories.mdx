@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Dialog } from '../src';
+import { Dialog, Button } from '../src';
 import { useState } from 'react';
 
 <Meta title="Dialog" component={Dialog} />
@@ -13,11 +13,11 @@ import { useState } from 'react';
     {() => {
       const [opened, setOpened] = useState(true)
       return (
-        <div className="u-bg-gray-300" style={{ height: '100vh' }}>
-          <button
-            className="u-bg-blue-400 u-p-2 u-text-white"
+        <div className="bg-gray-300" style={{ height: '100vh' }}>
+          <Button
+            className="bg-blue-400 p-2 text-white border-none"
             onClick={() => { setOpened((value) => { return !value })}}
-          >toggle dialog</button>
+          >toggle dialog</Button>
           <Dialog
             open={opened}
             focusTrap={true}
@@ -25,9 +25,9 @@ import { useState } from 'react';
               setOpened(false)
             }}
           >
-            <div className=" u-w-64 u-h-40"></div>
+            <div className="w-64 h-40"></div>
             <button
-              className="u-bg-red-400 u-p-2 u-text-white"
+              className="bg-red-400 p-2 text-white"
               onClick={() => { setOpened((value) => { return !value })}}
             >close</button>
           </Dialog>

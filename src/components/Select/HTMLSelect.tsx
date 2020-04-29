@@ -48,9 +48,8 @@ export const HTMLSelect = <K extends string | number>(props: UUIConvenienceProps
     const { Root, Select, Option } = nodes
 
     return (
-      <Root className="u-p-2 u-border u-border-black">
+      <Root>
         <Select
-          className="u-bg-white u-w-full"
           value={props.value}
           onChange={(event) => {
             props.onChange(event.target.value as any)

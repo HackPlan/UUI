@@ -2,7 +2,6 @@
  * Style Export
  */
 
-import './styles/tailwind.css'
 import './index.scss'
 
 /**

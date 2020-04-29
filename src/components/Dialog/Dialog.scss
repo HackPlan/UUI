@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
 
-  &.is-visible {
+  &.opened {
     z-index: 9000;
     visibility: visible;
     opacity: 1;
@@ -18,9 +18,12 @@
 }
 
 .UUI-Dialog-Container {
+  background-color: white;
+  border-radius: 0.25rem;
+  padding: 1rem;
   visibility: hidden;
 
-  &.is-visible {
+  &.opened {
     visibility: visible;
   }
 }

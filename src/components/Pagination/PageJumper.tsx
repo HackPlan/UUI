@@ -22,13 +22,14 @@ export const PageJumper = UUI.FunctionComponent({
   name: 'PageJumper',
   nodes: {
     Root: 'div',
+    Label: 'div',
     NumberField: UUINumberField,
   }
 }, (props: BasePageJumperProps, nodes) => {
-  const { Root, NumberField } = nodes
+  const { Root, Label, NumberField } = nodes
   return (
-    <Root className={"u-flex u-flex-row u-mx-2 u-items-center"}>
-      <div className={"u-flex-no-wrap u-pr-1"}>Jump to</div>
+    <Root>
+      <Label>Jump to</Label>
       <NumberField
         customize={{
           Root: {

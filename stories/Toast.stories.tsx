@@ -39,7 +39,7 @@ export const ToastCustomStyle = () => {
       AppToaster2.show({
         customize: {
           Root: {
-            extendClassName: "u-bg-green-400 u-rounded u-border-none u-text-white",
+            extendClassName: "bg-green-400 rounded border-none text-white",
             extendStyle: { padding: 12 },
           }
         },

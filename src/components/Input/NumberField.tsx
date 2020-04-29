@@ -1,6 +1,5 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
-import './NumberField.scss';
 import { limitPrecision, limitRange } from '../../utils/numberHelper';
 
 export interface BaseNumberFieldProps {
@@ -55,7 +54,7 @@ export const NumberField = UUI.FunctionComponent({
   const { Root, Input } = nodes
 
   return (
-    <Root className={"u-w-full u-border u-border-black"}>
+    <Root>
       <Input
         onKeyDown={props.onKeyDown}
         type='number'

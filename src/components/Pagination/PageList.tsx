@@ -72,13 +72,8 @@ export const PageList = UUI.FunctionComponent({
   }, [props.page, props.totalPage]);
 
   return (
-    <Root className={"u-flex u-flex-row u-mx-2"}>
+    <Root>
       <PrevButton
-        customize={{
-          Root: {
-            extendClassName: "u-mr-1"
-          }
-        }}
         disabled={props.page === 1}
         onClick={() => { if (props.page > 1) props.onPageChange(props.page-1) }}
       >Prev</PrevButton>
@@ -86,31 +81,16 @@ export const PageList = UUI.FunctionComponent({
         props.page === Number(item.title) ? (
           <ActivePageButton
             key={`page-item-${index}`}
-            customize={{
-              Root: {
-                extendClassName: "u-mx-1 u-border-blue-500 u-text-blue-500"
-              }
-            }}
             onClick={() => { if (!item.nonInteractive) props.onPageChange(Number(item.title)) }}
           >{item.title}</ActivePageButton>
         ) : (
           <PageButton
             key={`page-item-${index}`}
-            customize={{
-              Root: {
-                extendClassName: "u-mx-1"
-              }
-            }}
             onClick={() => { if (!item.nonInteractive) props.onPageChange(Number(item.title)) }}
           >{item.title}</PageButton>
         )
       )}
       <NextButton
-        customize={{
-          Root: {
-            extendClassName: "u-ml-1"
-          }
-        }}
         disabled={props.page === props.totalPage}
         onClick={() => { if (props.page < props.totalPage) props.onPageChange(props.page+1) }}
       >Next</NextButton>

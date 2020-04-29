@@ -1,0 +1,12 @@
+.UUI-PageJumper-Root {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  align-items: center;
+
+  .UUI-PageJumper-Label {
+    flex-wrap: nowrap;
+    padding-right: 0.25rem;
+  }
+}

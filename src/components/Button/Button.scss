@@ -1,0 +1,14 @@
+.UUI-Button-Root {
+  border: 1px solid black;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  cursor: pointer;
+
+  &.disabled {
+    color: gray;
+    border-color: gray;
+    cursor: not-allowed;
+  }
+}

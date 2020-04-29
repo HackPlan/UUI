@@ -1,8 +1,6 @@
 import React from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
-
-import './Checkbox.scss';
 import { UUI } from '../../utils/uui';
 
 export interface BaseCheckboxProps {
@@ -40,9 +38,8 @@ export const Checkbox = UUI.FunctionComponent({
 
   return (
     <Root
-      className={classNames("u-flex u-flex-row u-items-center u-block", {
-        'u-cursor-pointer': !props.disabled,
-        'u-cursor-not-allowed': props.disabled,
+      className={classNames({
+        'disabled': props.disabled,
       })}
     >
       <Input
@@ -53,10 +50,12 @@ export const Checkbox = UUI.FunctionComponent({
           props.onChange(event.target.checked, event)
         }}
       />
-      <Indicator className={classNames([
-        props.value ? 'checked' : ''
-      ])}></Indicator>
-      <Label className="u-pl-2">{props.label}</Label>
+      <Indicator
+        className={classNames({
+          'checked': props.value,
+        })}
+      ></Indicator>
+      <Label>{props.label}</Label>
     </Root>
   )
 })

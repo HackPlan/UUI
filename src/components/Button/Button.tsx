@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
 import { omit } from 'lodash';
+import classNames from 'classnames';
 
 
 export type BaseButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -14,7 +15,11 @@ export const Button = UUI.FunctionComponent({
   const { Root } = nodes
 
   return (
-    <Root {...omit(props, 'customize', 'className', 'style')} className={"u-border u-border-black u-py-1 u-px-2"}>
+    <Root
+      {...omit(props, 'customize', 'className', 'style')}
+      className={classNames({
+        'disabled': props.disabled,
+      })}>
       {props.children}
     </Root>
   )

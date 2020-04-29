@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useFocusTrap, useLockBodyScroll } from '../../hooks'
 
-import './Dialog.scss'
 import classNames from 'classnames';
 import { UUI } from '../../utils/uui';
 import { useClickAway } from 'react-use';
@@ -51,7 +50,7 @@ export const Dialog = UUI.FunctionComponent({
       <Backdrop
         ref={ref}
         className={classNames({
-          'is-visible': props.open
+          'opened': props.open
         })}
         role="presentation"
         tabIndex={-1}
@@ -59,8 +58,8 @@ export const Dialog = UUI.FunctionComponent({
         <Container
           ref={containerRef}
           role="dialog"
-          className={classNames(['u-bg-white u-rounded u-p-4'], {
-            'is-visible': props.open
+          className={classNames({
+            'opened': props.open
           })}
         >
           <Content>{props.children}</Content>

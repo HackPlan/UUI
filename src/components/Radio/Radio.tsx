@@ -3,8 +3,6 @@ import { omit } from 'lodash';
 import classNames from 'classnames';
 import { UUI, UUIComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
 
-import './Radio.scss';
-
 type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,
   'checked' | 'disabled' | 'onChange'
@@ -40,9 +38,9 @@ export const Radio = <K extends string | number>(props: RadioCustomizeProps & Ba
 
     return (
       <Root
-        className={classNames("u-flex u-flex-row u-items-center u-block", {
-          'u-cursor-pointer': !props.disabled,
-          'u-cursor-not-allowed': props.disabled,
+        className={classNames({
+          'disabled': props.disabled,
+          'checked': props.checked,
         })}
       >
         <Input
@@ -52,7 +50,7 @@ export const Radio = <K extends string | number>(props: RadioCustomizeProps & Ba
         <Indicator className={classNames([
           props.checked ? 'checked' : ''
         ])}></Indicator>
-        <Label className="u-pl-2">{props.label}</Label>
+        <Label>{props.label}</Label>
       </Root>
     )
   })

@@ -1,27 +1,43 @@
-.UUI-Radio-Input {
-  width: 0;
-  height: 0;
-  opacity: 0;
-}
+.UUI-Radio-Root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
 
-.UUI-Radio-Indicator {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-color: #fff;
-  border: 1px solid #d9d9d9;
-  border-radius: 2px;
-  border-collapse: separate;
-  border-radius: 50%;
+  .UUI-Radio-Input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
 
-  &.checked {
+  .UUI-Radio-Indicator {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    border-collapse: separate;
+    border-radius: 50%;
+  }
+
+  .UUI-Radio-Label {
+    padding-left: 0.5rem;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+  }
+
+  &.checked .UUI-Radio-Indicator {
     background-color: white;
     border-color: black;
   }
-  &.checked:after {
+
+  &.checked .UUI-Radio-Indicator:after {
     position: absolute;
     content: '';
     width: 9px;
@@ -34,3 +50,4 @@
     border-radius: 50%;
   }
 }
+

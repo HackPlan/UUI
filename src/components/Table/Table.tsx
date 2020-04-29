@@ -4,7 +4,6 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 
 import { UUI } from '../../utils/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
-import './Table.scss';
 
 export interface TableColumn {
   title: React.ReactNode;
@@ -63,13 +62,14 @@ export const TableNodes = {
   HeadCell: 'th',
   DataCell: 'td',
   Checkbox: UUICheckbox,
+  EmptyView: 'div',
 } as const
 
 export const Table = UUI.FunctionComponent({
   name: 'Table',
   nodes: TableNodes,
 }, (props: BaseTableProps, nodes) => {
-  const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox } = nodes
+  const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
 
   const groupColumns = useMemo(() => {
     const groupCells: (TableColumn & { colspan?: number; rowspan?: number })[][] = []
@@ -138,7 +138,6 @@ export const Table = UUI.FunctionComponent({
         'hideHeader', 'emptyView',
         'onDragged',
       )}
-      className={"u-border u-border-black u-py-1 u-px-2"}
     >
       {!props.hideHeader && (
         <Head>
@@ -182,9 +181,9 @@ export const Table = UUI.FunctionComponent({
             {props.rows.length === 0 ? (
               <Row>
                 <DataCell colSpan={9999}>
-                  {props.emptyView || (
-                    <div className="u-h-40 u-flex u-items-center u-justify-center">No Data</div>
-                  )}
+                  <EmptyView>
+                    {props.emptyView || 'No Data'}
+                  </EmptyView>
                 </DataCell>
               </Row>
             ) : props.rows.map((row, rowIndex) => {

@@ -1,4 +1,22 @@
-.UUI-Tag {
+.UUI-Tag-Root {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: #718096;
+  margin: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+
+  .UUI-Tag-Content {
+    color: white;
+  }
+
+  &.interactive {
+    cursor: pointer;
+    user-select: none;
+  }
+
   &.interactive:hover {
     background-color: rgba(92,112,128,.85);
   }

@@ -1,0 +1,23 @@
+.UUI-PageList-Root {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+
+  .UUI-PageList-PrevButton {
+    margin-right: 0.25rem;
+  }
+  .UUI-PageList-ActivePageButton {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    border: 1px solid #4299e1;
+    color: #4299e1;
+  }
+  .UUI-PageList-PageButton {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+  .UUI-PageList-NextButton {
+    margin-left: 0.25rem;
+  }
+}

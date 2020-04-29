@@ -1,7 +1,6 @@
 import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover as UUIPopover, TextField } from '../..';
-import './Select.scss';
 import { flatMap } from 'lodash';
 
 

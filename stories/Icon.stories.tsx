@@ -27,32 +27,32 @@ export default {
 export const IconSource = () => {
   return (
     <div>
-      <div className="u-flex u-flex-row u-items-center">
-        <div className="u-inline-block u-w-24">Image Url</div>
-        <Icon className="u-m-2" mode='image' source={cookiesPng}></Icon>
-        <Icon className="u-m-2" mode='image' source={puddingPng}></Icon>
-        <Icon className="u-m-2" mode='image' source={strawberryPng}></Icon>
-        <Icon className="u-m-2" mode='image' source={donutsPng}></Icon>
-        <Icon className="u-m-2" mode='image' source={hotdogPng}></Icon>
-        <Icon className="u-m-2" mode='image' source={sushiPng}></Icon>
+      <div className="flex flex-row items-center">
+        <div className="inline-block w-24">Image Url</div>
+        <Icon className="m-2" mode='image' source={cookiesPng}></Icon>
+        <Icon className="m-2" mode='image' source={puddingPng}></Icon>
+        <Icon className="m-2" mode='image' source={strawberryPng}></Icon>
+        <Icon className="m-2" mode='image' source={donutsPng}></Icon>
+        <Icon className="m-2" mode='image' source={hotdogPng}></Icon>
+        <Icon className="m-2" mode='image' source={sushiPng}></Icon>
       </div>
-      <div className="u-flex u-flex-row u-items-center">
-        <div className="u-inline-block u-w-24">SVG Url</div>
-        <Icon className="u-m-2" mode='svg' source={cookiesUrl}></Icon>
-        <Icon className="u-m-2" mode='svg' source={puddingUrl}></Icon>
-        <Icon className="u-m-2" mode='svg' source={strawberryUrl}></Icon>
-        <Icon className="u-m-2" mode='svg' source={donutsUrl}></Icon>
-        <Icon className="u-m-2" mode='svg' source={hotdogUrl}></Icon>
-        <Icon className="u-m-2" mode='svg' source={sushiUrl}></Icon>
+      <div className="flex flex-row items-center">
+        <div className="inline-block w-24">SVG Url</div>
+        <Icon className="m-2" mode='svg' source={cookiesUrl}></Icon>
+        <Icon className="m-2" mode='svg' source={puddingUrl}></Icon>
+        <Icon className="m-2" mode='svg' source={strawberryUrl}></Icon>
+        <Icon className="m-2" mode='svg' source={donutsUrl}></Icon>
+        <Icon className="m-2" mode='svg' source={hotdogUrl}></Icon>
+        <Icon className="m-2" mode='svg' source={sushiUrl}></Icon>
       </div>
-      <div className="u-flex u-flex-row u-items-center">
-      <div className="u-inline-block u-w-24">Inline SVG</div>
-        <Icon className="u-m-2" mode='svg' source={cookies}></Icon>
-        <Icon className="u-m-2" mode='svg' source={pudding}></Icon>
-        <Icon className="u-m-2" mode='svg' source={strawberry}></Icon>
-        <Icon className="u-m-2" mode='svg' source={donuts}></Icon>
-        <Icon className="u-m-2" mode='svg' source={hotdog}></Icon>
-        <Icon className="u-m-2" mode='svg' source={sushi}></Icon>
+      <div className="flex flex-row items-center">
+      <div className="inline-block w-24">Inline SVG</div>
+        <Icon className="m-2" mode='svg' source={cookies}></Icon>
+        <Icon className="m-2" mode='svg' source={pudding}></Icon>
+        <Icon className="m-2" mode='svg' source={strawberry}></Icon>
+        <Icon className="m-2" mode='svg' source={donuts}></Icon>
+        <Icon className="m-2" mode='svg' source={hotdog}></Icon>
+        <Icon className="m-2" mode='svg' source={sushi}></Icon>
       </div>
     </div>
   )
@@ -65,8 +65,8 @@ IconSource.story = {
 export const IconSvgProps = () => {
   return (
     <div>
-      <Icon className="u-m-2" mode='svg' source={email}></Icon>
-      <Icon className="u-m-2" mode='svg' source={email} svgrProps={{ fill: 'red' }}></Icon>
+      <Icon className="m-2" mode='svg' source={email}></Icon>
+      <Icon className="m-2" mode='svg' source={email} svgrProps={{ fill: 'red' }}></Icon>
     </div>
   )
 }
@@ -77,20 +77,20 @@ IconSvgProps.story = {
 
 export const IconSize = () => {
   return (
-    <div className="u-flex u-flex-row u-items-end">
-      <div className="u-mx-4 u-flex u-flex-col u-items-center">
+    <div className="flex flex-row items-end">
+      <div className="mx-4 flex flex-col items-center">
         <Icon mode='svg' source={cookies}></Icon>
         <div>24px</div>
       </div>
-      <div className="u-mx-4 u-flex u-flex-col u-items-center">
+      <div className="mx-4 flex flex-col items-center">
         <Icon mode='svg' source={cookies} width={32} height={32}></Icon>
         <div>32px</div>
       </div>
-      <div className="u-mx-4 u-flex u-flex-col u-items-center">
+      <div className="mx-4 flex flex-col items-center">
         <Icon mode='svg' source={cookies} width={40} height={40}></Icon>
         <div>40px</div>
       </div>
-      <div className="u-mx-4 u-flex u-flex-col u-items-center">
+      <div className="mx-4 flex flex-col items-center">
         <Icon mode='svg' source={cookies} width={48} height={48}></Icon>
         <div>48px</div>
       </div>
@@ -109,10 +109,10 @@ export const IconIconGallery = () => {
     Sushi: { source: require('./assets/sushi.svg').ReactComponent },
   }, { width: 40, height: 40, mode: 'svg' })
   return (
-    <div className="u-flex u-flex-row u-items-center">
-      <Icons.DonutsPng className="u-m-2" />
-      <Icons.PuddingUrl className="u-m-2" />
-      <Icons.Sushi className="u-m-2" />
+    <div className="flex flex-row items-center">
+      <Icons.DonutsPng className="m-2" />
+      <Icons.PuddingUrl className="m-2" />
+      <Icons.Sushi className="m-2" />
     </div>
   )
 }
