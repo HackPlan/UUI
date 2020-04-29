@@ -1,0 +1,240 @@
+import { Meta, Preview, Story } from '@storybook/addon-docs/blocks';
+import ReactMarkdown from 'react-markdown';
+import { useState } from 'react';
+import { Stepper, Slider, Switch } from '../src';
+
+import { ComponentComparator } from './utils/ComponentComparator';
+
+<Meta title="Customize Tutorial" parameters={{ sortIndex: '0-uui-3' }} />
+
+# UUI Customize Tutorial
+
+UUI 从设计开发之初，就考虑到要给使用者提供高度的组件样式自定义功能。
+
+在实际使用 UUI 的组件时，我们有多种方法去重写组件的样式。
+
+## 外部 CSS 文件
+
+UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root`、`UUI-Stepper-MinusButton` 等等。
+有了这些 className，我们就可以用类选择器来修改组件的样式。
+
+例如，我们创建一个 `UUIStepperCustomize.scss` 的样式文件用来修改 Stepper 的默认样式，并导入到页面文件：
+
+```scss
+.UUI-Stepper-Root {
+  .UUI-Stepper-MinusButton, .UUI-Stepper-PlusButton {
+    background-color: #f5f7fa;
+    color: #606266;
+  }
+  .UUI-Stepper-MinusButton, .UUI-Stepper-PlusButton, .UUI-Stepper-Input {
+    border: 1px solid #dcdfe6;
+  }
+  &:not(.ControlRight) {
+    .UUI-Stepper-MinusButton {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+    .UUI-Stepper-PlusButton {
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+    }
+  }
+  &.ControlRight {
+    .UUI-Stepper-MinusButton {
+      border-bottom-right-radius: 4px;
+    }
+    .UUI-Stepper-PlusButton {
+      border-top-right-radius: 4px;
+    }
+    .UUI-Stepper-Input {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      overflow: hidden;
+    }
+  }
+}
+```
+
+<Preview>
+  <Story name="Customize Demo Stepper">
+  {() => {
+    const [n, setN] = useState(null)
+    return (
+      <>
+      <ComponentComparator
+        before={
+          <Stepper
+            value={n}
+            onChange={(value) => {
+              setN(value)
+            }}
+          >
+          </Stepper>
+        }
+        after={
+          <Stepper
+            className={'CustomizeDemo'}
+            value={n}
+            onChange={(value) => {
+              setN(value)
+            }}
+          >
+          </Stepper>
+        }
+      />
+      <ComponentComparator
+        before={
+          <Stepper
+            value={n}
+            controlPosition={'right'}
+            onChange={(value) => {
+              setN(value)
+            }}
+          >
+          </Stepper>
+        }
+        after={
+          <Stepper
+            className={'CustomizeDemo'}
+            controlPosition={'right'}
+            value={n}
+            onChange={(value) => {
+              setN(value)
+            }}
+          >
+          </Stepper>
+        }
+      />
+      </>
+    )
+  }}
+  </Story>
+</Preview>
+
+## customize props
+
+配合 tailwindcss 来修改组件样式
+
+```tsx
+<Slider
+  value={value}
+  max={100}
+  min={0}
+  step={1}
+  className={''}
+  onChange={(value) => setValue(value)}
+  customize={{
+    ActiveLine: {
+      extendClassName: 'bg-blue-500'
+    },
+    Thumb: {
+      extendClassName: 'border-blue-500 rounded-none'
+    },
+  }}
+/>
+```
+
+<Preview>
+  <Story name="Customize Demo Slider">
+    {() => {
+      const [value, setValue] = useState(72)
+      return (
+        <ComponentComparator
+          before={
+            <Slider
+              value={value}
+              max={100}
+              min={0}
+              step={1}
+              onChange={(value) => setValue(value)}
+            />
+          }
+          after={
+            <Slider
+              value={value}
+              max={100}
+              min={0}
+              step={1}
+              className={''}
+              onChange={(value) => setValue(value)}
+              customize={{
+                ActiveLine: {
+                  extendClassName: 'bg-blue-500'
+                },
+                Thumb: {
+                  extendClassName: 'border-blue-500 rounded-none'
+                },
+              }}
+            />
+          }
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+## 内联样式 style
+
+```tsx
+<Switch
+  value={checked}
+  onChange={(value) => { setChecked(value); console.log('onChange', value) }}
+  customize={{
+    Button: {
+      Root: {
+        extendStyle: {
+          backgroundColor: checked ? '#4299e1' : 'rgba(0,0,0,.25)',
+          border: 'none',
+        }
+      }
+    },
+    Thumb: {
+      extendStyle: {
+        backgroundColor: 'white',
+      }
+    }
+  }}
+>
+</Switch>
+```
+
+<Preview>
+  <Story name="Switch">
+    {() => {
+      const [checked, setChecked] = useState(false)
+      return (
+        <ComponentComparator
+          before={
+            <Switch
+              value={checked}
+              onChange={(value) => { setChecked(value); console.log('onChange', value) }}
+            >
+            </Switch>
+          }
+          after={
+            <Switch
+              value={checked}
+              onChange={(value) => { setChecked(value); console.log('onChange', value) }}
+              customize={{
+                Button: {
+                  Root: {
+                    extendStyle: {
+                      backgroundColor: checked ? '#4299e1' : 'rgba(0,0,0,.25)',
+                      border: 'none',
+                    }
+                  }
+                },
+                Thumb: {
+                  extendStyle: {
+                    backgroundColor: 'white',
+                  }
+                }
+              }}
+            >
+            </Switch>
+          }
+        />
+      )
+    }}
+  </Story>
+</Preview>
