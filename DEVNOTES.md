@@ -169,29 +169,29 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 
 ## 目前已有的组件
 
-| 组件名             | 描述                 | 备注                                          |
-| ------------------ | -------------------- | --------------------------------------------- |
-| Button             | 按钮                 |                                               |
-| Checkbox           | 多选框               |                                               |
-| Dialog             | 对话框               |                                               |
-| Drawer             | 抽屉                 |                                               |
-| Icon               | 图标                 | 图标工具，组件本身不带图标库                  |
-| NumberField        | 数字输入框           | 优化数字输入                                  |
-| TextField          | 文本输入框           | 针对短文本输入                                |
-| TextArea           | 文本域               | 针对长文本输入                                |
-| DateLabel          | 日期格式化显示       | 提供 Excel 推荐的格式化                       |
-| TimeLabel          | 时间格式化显示       | 提供 Excel 推荐的格式化                       |
-| MoneyLabel         | 货币金额格式化显示   | 提供 Excel 推荐的格式化                       |
-| CountdownLabel     | 倒计时时间格式化显示 |                                               |
-| Pagination         | 分页控制             |                                               |
-| Stepper            | 分页控制             |                                               |
-| Popover            | 气泡卡片             | 基于 popper.js 实现                           |
-| Radio / RadioGroup | 单选框               |                                               |
-| HTMLSelect         | HTML 原生选择框      |                                               |
-| Skeleton           | 骨架                 |                                               |
-| Slider             | 滑块                 |                                               |
-| Switch             | 开关                 | 基于 rc-switch 实现，暂不支持 customize props |
-| Table              | 表格                 | 有基础功能，部分高级功能还未实现              |
-| Tag                | 标签                 |                                               |
-| Toast              | 提示弹框             |                                               |
+| 组件名             | 描述                 | 备注                             |
+| ------------------ | -------------------- | -------------------------------- |
+| Button             | 按钮                 |                                  |
+| Checkbox           | 多选框               |                                  |
+| Dialog             | 对话框               |                                  |
+| Drawer             | 抽屉                 |                                  |
+| Icon               | 图标                 | 图标工具，组件本身不带图标库     |
+| NumberField        | 数字输入框           | 优化数字输入                     |
+| TextField          | 文本输入框           | 针对短文本输入                   |
+| TextArea           | 文本域               | 针对长文本输入                   |
+| DateLabel          | 日期格式化显示       | 提供 Excel 推荐的格式化          |
+| TimeLabel          | 时间格式化显示       | 提供 Excel 推荐的格式化          |
+| MoneyLabel         | 货币金额格式化显示   | 提供 Excel 推荐的格式化          |
+| CountdownLabel     | 倒计时时间格式化显示 |                                  |
+| Pagination         | 分页控制             |                                  |
+| Stepper            | 分页控制             |                                  |
+| Popover            | 气泡卡片             | 基于 popper.js 实现              |
+| Radio / RadioGroup | 单选框               |                                  |
+| HTMLSelect         | HTML 原生选择框      |                                  |
+| Skeleton           | 骨架                 |                                  |
+| Slider             | 滑块                 |                                  |
+| Switch             | 开关                 |                                  |
+| Table              | 表格                 | 有基础功能，部分高级功能还未实现 |
+| Tag                | 标签                 |                                  |
+| Toast              | 提示弹框             |                                  |
 

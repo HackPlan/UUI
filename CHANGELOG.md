@@ -4,6 +4,7 @@
 
 - lint code
 - fix `Slider` vertical direction, min -> max, bottom -> top
+- new implementation of `Switch`, remove `rc-switch` dependency
 
 ### v0.2.6
 
