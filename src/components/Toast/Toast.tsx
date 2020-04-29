@@ -52,7 +52,8 @@ export const Toast = UUI.FunctionComponent({
 
   useEffect(() => {
     startTimer()
-  }, [startTimer])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Root

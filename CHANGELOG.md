@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.8
+
+- fix `Toast` timeout dismiss
+
 ### v0.2.7
 
 - lint code
