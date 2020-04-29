@@ -1,10 +1,9 @@
-import React, { useRef } from 'react'
-import { StylishProps, initStylish } from '../../utils/stylish';
-import RcSwitch from 'rc-switch';
-import { omit } from 'lodash';
-import classnames from 'classnames';
+import React from 'react';
+import { UUI } from '../../utils/uui';
+import { Button as UUIButton } from '../Button/Button';
+import './Switch.scss';
+import classNames from 'classnames';
 
-import './Switch.less'
 
 export enum SwitchNodeName {
   Root = "switch",
@@ -14,50 +13,39 @@ export enum SwitchNodeName {
 
 export type SwitchSize = 'small' | 'default';
 
-export interface BaseSwitchProps extends StylishProps<SwitchNodeName> {
-  size?: SwitchSize;
+export interface BaseSwitchProps {
   disabled?: boolean;
   loading?: boolean;
-  autoFocus?: boolean;
-  title?: string;
-  children?: React.ReactNode;
-  unCheckedChildren?: React.ReactNode;
   value: boolean;
   onChange: (flag: boolean) => void;
 }
 
-export function Switch(props: BaseSwitchProps) {
-  const prefixCls = 'uui-switch'
-  const getStylishProps = initStylish<SwitchNodeName>(SwitchNodeName.Root, props, { prefix: "uui" });
-  const { disabled, loading } = props
-  const size = props.size || 'default'
-  const children = props.children || (<div></div>)
-  const rcSwitch = useRef(null)
-
-  const loadingIcon = loading ? (
-    <div style={{ width: 4, height: 4 }}>i</div> // TODO: fill real loading icon
-  ) : null;
-
-  const classNames = classnames({
-    [`${prefixCls}-small`]: size === 'small',
-    [`${prefixCls}-loading`]: loading,
-  });
+export const Switch = UUI.FunctionComponent({
+  name: 'Switch',
+  nodes: {
+    Root: 'div',
+    Button: UUIButton,
+    Thumb: 'div',
+    Loading: 'div',
+  }
+}, (props: BaseSwitchProps, nodes) => {
+  const { Root, Button, Thumb, Loading } = nodes
 
   return (
-    <RcSwitch
-      {...omit(props, ['loading', 'extendClassName', 'extendStyle', 'overrideClassName', 'overrideStyle'])}
-      {...getStylishProps('', [
-        classNames
-      ])}
-      checkedChildren={children}
-      unCheckedChildren={children}
-      checked={props.value}
-      prefixCls={prefixCls}
-      disabled={disabled || loading}
-      ref={rcSwitch}
-      loadingIcon={loadingIcon}
-    />
+    <Root
+      className={classNames({
+        'checked': props.value,
+        'disabled': props.disabled,
+        'loading': props.loading,
+      })}
+    >
+      <Button onClick={() => { !props.disabled && props.onChange(!props.value) }}>
+        <Thumb>
+          <Loading>{/** TODO: fill loading icon */}</Loading>
+        </Thumb>
+      </Button>
+    </Root>
   )
-}
+})
 
 export type SwitchProps = Parameters<typeof Switch>[0]

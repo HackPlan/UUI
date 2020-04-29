@@ -6,30 +6,27 @@ import { useState } from 'react';
 
 # 开关 Switch
 
-> 注意：目前 Switch 是由 rc-switch 实现，所以暂时不支持 UUI 的 customize props。
 
-
-### Switch
+### 简单使用
 
 <Preview>
   <Story name="Switch">
     {() => {
       const [checked, setChecked] = useState(false)
       return (
-        <Switch
-          value={checked}
-          onChange={(value) => { setChecked(value); console.log('onChange', value) }}
-          extendClassName={{
-            root: 'w-full'
-          }}
-          extendStyle={{
-            root: {
-              fontSize: 30,
-            }
-          }}
-        >
-          {checked ? 'on' : 'off'}
-        </Switch>
+        <div className="u-flex u-flex-col">
+          <Switch
+            value={checked}
+            onChange={(value) => { setChecked(value); console.log('onChange', value) }}
+          >
+          </Switch>
+          <Switch
+            value={checked}
+            onChange={(value) => { setChecked(value); console.log('onChange', value) }}
+            disabled
+          >
+          </Switch>
+        </div>
       )
     }}
   </Story>

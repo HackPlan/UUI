@@ -28,7 +28,6 @@
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "luxon": "^1.22.0",
-    "rc-switch": "^1.9.0",
     "react-beautiful-dnd": "^13.0.0",
     "react-popper": "^2.2.1",
     "react-use": "^13.12.2",

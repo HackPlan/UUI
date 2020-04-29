@@ -1,0 +1,74 @@
+.UUI-Switch-Root {
+  display: inline-block;
+
+  .UUI-Switch-Button {
+    width: 40px;
+    height: 22px;
+    border-radius: 99999px;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-color: black;
+  }
+
+  .UUI-Switch-Thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 99999px;
+    background-color: black;
+  }
+
+  .UUI-Switch-Loading {
+    visibility: hidden;
+  }
+
+  &.checked {
+    .UUI-Switch-Button {
+      background-color: black;
+    }
+
+    .UUI-Switch-Thumb {
+      margin-left: auto;
+      background-color: white;
+    }
+  }
+
+  &.disabled {
+    .UUI-Switch-Button {
+      cursor: not-allowed;
+      border-color: gray;
+    }
+
+    .UUI-Switch-Thumb {
+      background-color: gray;
+    }
+  }
+
+  &.checked.disabled {
+    .UUI-Switch-Button {
+      cursor: not-allowed;
+      border-color: gray;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .UUI-Switch-Thumb {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &.loading {
+    &.checked {
+      .UUI-Switch-Loading {
+        color: black;
+      }
+    }
+    .UUI-Switch-Loading {
+      visibility: visible;
+      color: white;
+      font-size: 10px;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+  }
+}
