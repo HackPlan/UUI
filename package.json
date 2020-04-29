@@ -1,6 +1,6 @@
 {
   "name": "@hackplan/uui",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "UUI Framework",
   "repository": "git@lab.hackplan.com:tinyapps/uui.git",
   "author": "HackPlan <npm@hackplan.com>",
