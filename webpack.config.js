@@ -77,9 +77,7 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader
         },
         'css-loader',
-        {
-          loader: 'postcss-loader',
-        }
+        'postcss-loader',
       ]
     }, {
       test: /\.s[ac]ss$/i,
@@ -88,6 +86,7 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader
         },
         'css-loader',
+        'postcss-loader',
         {
           loader: 'sass-loader',
           options: {
@@ -99,23 +98,7 @@ module.exports = {
           }
         },
       ],
-    }, {
-      test: /\.less$/,
-      use: [
-        {
-          loader: MiniCssExtractPlugin.loader
-        },
-        {
-          loader: 'css-loader',
-        },
-        {
-          loader: 'less-loader',
-          options: {
-            javascriptEnabled: true,
-          },
-        },
-      ],
-    }]
+    }],
   },
   plugins: [
     /**
