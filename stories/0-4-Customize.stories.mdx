@@ -1,7 +1,7 @@
 import { Meta, Preview, Story } from '@storybook/addon-docs/blocks';
 import ReactMarkdown from 'react-markdown';
 import { useState } from 'react';
-import { Stepper, Slider, Switch } from '../src';
+import { Stepper, Slider, Switch, TextField } from '../src';
 
 import { ComponentComparator } from './utils/ComponentComparator';
 
@@ -56,7 +56,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 ```
 
 <Preview>
-  <Story name="Customize Demo Stepper">
+  <Story name="Demo Stepper">
   {() => {
     const [n, setN] = useState(null)
     return (
@@ -111,11 +111,11 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
   </Story>
 </Preview>
 
-## customize props
+## 添加新的 className
 
-配合 tailwindcss 来修改组件样式
+可以配合 tailwindcss 来修改组件样式
 
-```tsx
+```jsx
 <Slider
   value={value}
   max={100}
@@ -135,7 +135,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 ```
 
 <Preview>
-  <Story name="Customize Demo Slider">
+  <Story name="Demo Slider">
     {() => {
       const [value, setValue] = useState(72)
       return (
@@ -175,10 +175,10 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 
 ## 内联样式 style
 
-```tsx
+```jsx
 <Switch
   value={checked}
-  onChange={(value) => { setChecked(value); console.log('onChange', value) }}
+  onChange={(value) => { setChecked(value); }}
   customize={{
     Button: {
       Root: {
@@ -199,7 +199,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 ```
 
 <Preview>
-  <Story name="Switch">
+  <Story name="Demo Switch">
     {() => {
       const [checked, setChecked] = useState(false)
       return (
@@ -232,6 +232,72 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
               }}
             >
             </Switch>
+          }
+        />
+      )
+    }}
+  </Story>
+</Preview>
+
+## 添加额外的 Elements
+
+```jsx
+<TextField
+  type='text'
+  value={text}
+  onChange={(value) => { setText(value) }}
+  placeholder={'Input money...'}
+  customize={{
+    Root: {
+      extendStyle: {
+        padding: '0 0.5rem',
+        border: '1px solid #dcdfe6',
+        borderRadius: 4,
+      },
+      extendChildrenBefore: (
+        <div className="text-gray-600">$</div>
+      )
+    },
+  }}
+/>
+```
+
+<Preview>
+  <Story name="Demo TextField">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <ComponentComparator
+          before={
+            <TextField
+              type='text'
+              value={text}
+              onChange={(value) => { setText(value) }}
+              placeholder={'Input money...'}
+            />
+          }
+          after={
+            <TextField
+              type='text'
+              value={text}
+              onChange={(value) => { setText(value) }}
+              placeholder={'Input money...'}
+              customize={{
+                Root: {
+                  extendStyle: {
+                    padding: '0 0.5rem',
+                    border: '1px solid #dcdfe6',
+                    borderRadius: 4,
+                  },
+                  extendChildrenBefore: (
+                    <div className="text-gray-600">¥</div>
+                  ),
+                  extendChildrenAfter: (
+                    <div className="text-gray-600">RMB</div>
+                  )
+                },
+              }}
+            />
           }
         />
       )
