@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.2.9
+
+- dist pack style files separately
+- fix uui component utils, avoid re-create nodes when props change
+
 ### v0.2.8
 
 - fix `Toast` timeout dismiss
