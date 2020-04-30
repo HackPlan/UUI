@@ -1,10 +1,4 @@
 /**
- * Style Export
- */
-
-import './index.scss'
-
-/**
  * Component Export
  */
 

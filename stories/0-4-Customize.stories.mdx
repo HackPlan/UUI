@@ -13,6 +13,26 @@ UUI 从设计开发之初，就考虑到要给使用者提供高度的组件样�
 
 在实际使用 UUI 的组件时，我们有多种方法去重写组件的样式。
 
+## 按需加载样式文件
+
+全量导入所有的组件样式
+
+```jsx
+import '@hackplan/uui/lib/index.css';
+```
+
+按需加载某些组件的样式文件
+
+```jsx
+// css
+import '@hackplan/uui/lib/styles/css/base.css';
+import '@hackplan/uui/lib/styles/css/Button.css';
+
+// sass
+import '@hackplan/uui/lib/styles/sass/base.scss';
+import '@hackplan/uui/lib/styles/sass/components/Button.scss';
+```
+
 ## 外部 CSS 文件
 
 UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root`、`UUI-Stepper-MinusButton` 等等。
