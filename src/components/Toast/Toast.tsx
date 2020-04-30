@@ -57,7 +57,7 @@ export const Toast = UUI.FunctionComponent({
 
   return (
     <Root
-      {...omit(props, 'message', 'onDismiss')}
+      {...omit(props, 'message', 'onDismiss', 'customize')}
       onBlur={() => { startTimer() }}
       onFocus={() => { clearTimer() }}
       onMouseEnter={() => { clearTimer() }}

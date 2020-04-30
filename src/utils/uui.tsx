@@ -60,28 +60,25 @@ type IntrinsicNodeCustomizeProps =
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
-type IntrinsicNodeCustomizeOptions<T extends keyof JSX.IntrinsicElements> =
-  & IntrinsicNodeCustomizeProps
-  & JSX.IntrinsicElements[T]
-  & {
-    prefix?: string;
-    separator?: string;
-  }
+type IntrinsicNodeCustomizeOptions= {
+  prefix?: string;
+  separator?: string;
+}
 
 export type IntrinsicNodeT = JSX.IntrinsicElements
-type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions<T>) => (props: JSX.IntrinsicElements[T]) => JSX.Element
-function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions<T>) {
-  return React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
-
+type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
+function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
+  const Node = React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
+    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<N> } & UUIConvenienceProps
     const className = (() => {
       return getCompiledClassNames(compileNodeName(nodeName, pick(options, ['prefix', 'separator'])), {
-        ...pick(options, ['overrideClassName', 'extendClassName']),
+        ...pick(customizeProps.customize, ['overrideClassName', 'extendClassName']),
         ...pick(_props, ['className']),
       })
     })()
     const style = (() => {
       return getCompiledStyles({
-        ...pick(options, ['overrideStyle', 'extendStyle']),
+        ...pick(customizeProps.customize, ['overrideStyle', 'extendStyle']),
         ...pick(_props, ['style']),
       })
     })()
@@ -96,7 +93,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
         children = _props.children
       } else if (!isInput) {
         children = getCompiledChildren({
-          ...pick(options, ['overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter']),
+          ...pick(customizeProps.customize, ['overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter']),
           ...pick(_props, ['children']),
         })
       }
@@ -110,7 +107,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       const data: any = {}
       const attrs = Object.keys(_props)
       for (const attr of attrs) {
-        if (typeof (_props as any)[attr] === 'function' && (options as any)[attr]) {
+        if (typeof (_props as any)[attr] === 'function' && (customizeProps as any)[attr]) {
           data[attr] = (...args: any[]) => {
             (_props as any)[attr](...args);
             (options as any)[attr](...args);
@@ -122,36 +119,38 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
 
     return React.createElement(tagName, {
       ...omit(_props, 'children'),
-      ...omit(options,
-        'prefix', 'separator',
-        'ref', 'className', 'style', 'children',
-        'overrideClassName', 'extendClassName',
-        'overrideStyle', 'extendStyle',
-        'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
-      ),
+      ...omit(customizeProps, 'customize'),
       ...mergedFunctions,
       ref,
       className, style,
     }, children)
   })
+  return Node
 }
 
 type ComponentNodeCustomizeProps<M extends string | number | symbol> = {
   [key in M]: IntrinsicNodeCustomizeProps
 }
+type ComponentNodeCustomizeOptions= {
+  prefix?: string;
+  separator?: string;
+}
 
 export type ComponentNodeT = (props: any, ...args: any) => any
-type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.ComponentType<P>, nodeName: N, customizeProps: ComponentNodeCustomizeProps<M>) => (props: P) => JSX.Element
-function ComponentNode<P extends any, N extends string, M extends string>(Target: React.ComponentType<P>, nodeName: N, customizeProps: { customize?: ComponentNodeCustomizeProps<M> } & UUIConvenienceProps) {
+type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) => (props: P) => JSX.Element
+function ComponentNode<P extends any, N extends string, M extends string>(Target: React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) {
   const _Target = Target as any
-  return React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => (
-    <_Target
+  const Node = React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => {
+    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> } & UUIConvenienceProps
+    const nodeClassName = [options.prefix, nodeName].join(options.separator)
+    return <_Target
       {...omit(_props, 'customize')}
       ref={ref as any}
-      className={classNames(_props.className, customizeProps.className)}
+      className={classNames(nodeClassName, _props.className, customizeProps.className)}
       customize={merge(_props.customize, customizeProps.customize)}
     />
-  ))
+  })
+  return Node
 }
 
 export type UUIComponentCustomizeProps<
@@ -239,15 +238,10 @@ export abstract class UUI {
     },
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
+    const nodes = compileNodes(options)
     return (props: P & UUIConvenienceProps & Z) => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      const compiledProps = useMemo(() => compileProps(props, options, undefined), [props])
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      const nodes = useMemo(() => compileNodes(compiledProps, options), [
-        compiledProps.customize,
-        compiledProps.className,
-        compiledProps.style
-      ])
+      const compiledProps = compileProps(props, options, undefined)
+      injectCustomizeProps(nodes, compiledProps)
       return WrappedComponent(compiledProps, nodes)
     }
   }
@@ -294,12 +288,14 @@ export abstract class UUI {
       nodes: X;
     },
   ) {
+    const nodes = compileNodes(options)
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P & UUIConvenienceProps & Z, S> {
       nodes: UUIComponentNodes<X>
       constructor(props: P & UUIConvenienceProps & Z) {
         super(props)
         const compiledProps = compileProps(props, options, (props as any).innerRef || undefined)
-        this.nodes = compileNodes(compiledProps, options)
+        injectCustomizeProps(nodes, compiledProps)
+        this.nodes = nodes
       }
     }
   }
@@ -329,20 +325,21 @@ function compileProps(props: any, options: any, ref: any): any {
   return  compiledProps
 }
 
-function compileNodes(props: any, options: any): any {
-  const prefix = `${options.prefix || 'UUI'}-${options.name}`
+function compileNodes(options: any): any {
+  const separator = options.separator || '-'
+  const prefix = [options.prefix || 'UUI', options.name].join(separator)
   return mapValues(options.nodes, (nodeElement, nodeName) => {
-    const customizeProps = props.customize && (props.customize as any)[nodeName]
     if (isString(nodeElement)) {
-      return IntrinsicNode(nodeElement as any, nodeName, {
-        prefix, separator: options.separator,
-        ...customizeProps,
-      })
+      return IntrinsicNode(nodeElement as any, nodeName, { prefix, separator })
     } else {
-      return ComponentNode(nodeElement as any, nodeName, {
-        customize: customizeProps,
-        className: `${prefix}-${nodeName}`
-      })
+      return ComponentNode(nodeElement as any, nodeName, { prefix, separator })
     }
   })
+}
+
+function injectCustomizeProps(nodes: any, props: any) {
+  for (const nodeName of Object.keys(nodes)) {
+    const customizeProps = props.customize && (props.customize as any)[nodeName]
+    nodes[nodeName]['CustomizeProps'] = { customize: customizeProps }
+  }
 }

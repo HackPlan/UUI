@@ -44,7 +44,7 @@ export const Radio = <K extends string | number>(props: RadioCustomizeProps & Ba
         })}
       >
         <Input
-          {...omit(props, 'type')}
+          {...omit(props, 'type', 'customize')}
           type='radio'
         />
         <Indicator className={classNames([

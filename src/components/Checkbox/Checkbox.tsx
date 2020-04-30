@@ -43,7 +43,7 @@ export const Checkbox = UUI.FunctionComponent({
       })}
     >
       <Input
-        {...omit(props, 'type', 'value', 'onChange')}
+        {...omit(props, 'type', 'value', 'onChange', 'customize')}
         type='checkbox'
         checked={props.value}
         onChange={(event) => {

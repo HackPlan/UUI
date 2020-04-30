@@ -42,7 +42,7 @@ export const MoneyLabel = UUI.FunctionComponent({
 }, (props: BaseMoneyLabelProps, nodes) => {
   const { Root } = nodes
 
-  const text = accounting.formatMoney(props.value, omit(props, 'value'))
+  const text = accounting.formatMoney(props.value, omit(props, 'value', 'customize'))
   return (
     <Root>{text}</Root>
   )
