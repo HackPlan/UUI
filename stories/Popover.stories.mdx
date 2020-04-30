@@ -20,7 +20,7 @@ import { useState } from 'react';
         <Popover
           active={active}
           activator={(
-            <Button onClick={() => { setActive(!active) }}>Activator</Button>
+            <Button style={{ width: 112, fontSize: 15, height: 40 }} onClick={() => { setActive(!active) }}>Activator</Button>
           )}
           onClickAway={() => { setActive(false) }}
         >
@@ -49,7 +49,7 @@ import { useState } from 'react';
             {...props}
             active={active}
             activator={(
-              <Button style={{ width: 112 }} onClick={() => { setActive(!active) }}>{title}</Button>
+              <Button style={{ width: 112, fontSize: 15, height: 40 }} onClick={() => { setActive(!active) }}>{title}</Button>
             )}
             onClickAway={() => { setActive(false) }}
           >
@@ -73,7 +73,7 @@ import { useState } from 'react';
             return (
               <div key={rowIndex} className="row flex flex-row">
                 {row.map((cell, cellIndex) => {
-                  const element = typeof cell === 'string' ? <Button style={{ width: 112, visibility: 'hidden' }}>X</Button> : cell
+                  const element = typeof cell === 'string' ? <Button style={{ width: 112, fontSize: 15, height: 40, visibility: 'hidden' }}>X</Button> : cell
                   return (
                     <div key={cellIndex} className="cell m-1">{element}</div>
                   )
