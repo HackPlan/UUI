@@ -1,5 +1,3 @@
-const path = require('path')
-
 module.exports = {
   stories: ['../stories/**/*.stories.(tsx|mdx)'],
   addons: [
@@ -8,6 +6,7 @@ module.exports = {
     '@storybook/addon-storysource',
     '@storybook/addon-knobs',
     '@storybook/addon-docs',
+    'storybook-addon-performance',
   ],
   webpackFinal: (config) => {
 
