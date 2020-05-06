@@ -7,16 +7,20 @@
   align-items: center;
   min-height: 120px;
   width: 100%;
+
+  overflow: hidden;
+  color: $textDarkColor;
+
   @include border;
-  @include shadow;
-  @include radius;
+  @include rounded;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
 
   .UUI-TextArea-Textarea {
-    @include radius;
     width: 100%;
     padding: 0.5rem;
     flex: 1;
-    outline: none;
     align-self: stretch;
   }
 

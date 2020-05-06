@@ -1,3 +1,4 @@
+@import '../variables.scss';
 @import '../mixins.scss';
 
 .UUI-TextField-Root {
@@ -5,16 +6,20 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
+
+  overflow: hidden;
+  color: $textDarkColor;
+
   @include border;
-  @include shadow;
-  @include radius;
+  @include rounded;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
 
   .UUI-TextField-Input {
     width: 100%;
     padding: .5rem;
     flex: 1;
-    outline: none;
-    @include radius;
   }
 
   .UUI-TextField-LengthIndicator {
@@ -25,5 +30,10 @@
   .UUI-TextField-TogglePasswordVisibleButton {
     padding: 0.5rem;
     border: none;
+    background-color: white;
+    border: none;
+    color: $textDarkColor;
   }
+
+  transition: border, box-shadow 0.2s ease-in-out;
 }
