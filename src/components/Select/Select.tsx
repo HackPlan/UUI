@@ -74,6 +74,8 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
     textPlaceholder: undefined,
   }
 
+  inputRef = React.createRef<any>()
+
   constructor(props: SelectProps<T>) {
     super(props)
     const allItems = this.getAllItems()
@@ -96,7 +98,11 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
           placement={'bottom-start'}
           onClickAway={() => { this.setState({ active: false }) }}
           activator={
-            <Selector onClick={() => { this.setState({ active: true }) }}>
+            <Selector
+              onClick={() => {
+                this.setState({ active: true });
+                this.inputRef.current && this.inputRef.current.focus && this.inputRef.current.focus();
+              }}>
               <Input
                 value={this.state.text}
                 onChange={(value) => {
@@ -108,6 +114,7 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
                 placeholder={this.state.textPlaceholder}
                 customize={{
                   Input: {
+                    ref: this.inputRef,
                     onFocus: () => {
                       const allItems = this.getAllItems()
                       const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''

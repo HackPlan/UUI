@@ -68,7 +68,7 @@ type IntrinsicNodeCustomizeOptions= {
 export type IntrinsicNodeT = JSX.IntrinsicElements
 type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
 function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
-  const Node = React.forwardRef((_props: JSX.IntrinsicElements[T], ref) => {
+  const Node = React.forwardRef((_props: JSX.IntrinsicElements[T], _ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<N> } & UUIConvenienceProps
     const className = (() => {
       return getCompiledClassNames(compileNodeName(nodeName, pick(options, ['prefix', 'separator'])), {
@@ -99,6 +99,8 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       }
       return children
     })()
+
+    const ref = customizeProps.customize ? (customizeProps.customize as any).ref : _ref
 
     /**
      * Merge both customize functions and component inner functions.

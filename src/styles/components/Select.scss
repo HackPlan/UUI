@@ -1,10 +1,23 @@
+@import '../variables.scss';
 @import '../mixins.scss';
 
 .UUI-Select-Root {
+  display: inline-block;
+  color: $textDarkColor;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
   .UUI-Select-Selector {
     cursor: pointer;
+    padding: 0.25rem;
 
     .UUI-Select-Input {
+      border: none;
+      box-shadow: none;
       pointer-events: none;
       cursor: pointer;
 
