@@ -1,0 +1,19 @@
+$primaryColor: #409EFF;
+$textLightColor: white;
+$textDarkColor: #3333;
+
+$disabledBackgroundColor: #e2e2e2;
+$disabledTextColor: rgba(0, 0, 0, 0.4);
+
+$borderRadius: 0.25rem;
+
+
+$primaryDarken1: darken($primaryColor, 10%);
+$primaryDarken2: darken($primaryColor, 20%);
+$primaryDarken3: darken($primaryColor, 30%);
+$primaryDarken4: darken($primaryColor, 40%);
+
+$primaryLighten1: lighten($primaryColor, 10%);
+$primaryLighten2: lighten($primaryColor, 20%);
+$primaryLighten3: lighten($primaryColor, 30%);
+$primaryLighten4: lighten($primaryColor, 40%);

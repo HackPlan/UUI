@@ -1,12 +1,18 @@
+@import "./variables.scss";
+
 @mixin shadow {
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),
               0 1px 2px 0 rgba(0,0,0,.06);
 }
 
 @mixin radius {
-  border-radius: .25rem;
+  border-radius: $borderRadius;
 }
 
 @mixin border {
   border: 1px solid #cbd5e0;
+}
+
+@mixin focusShadow {
+  box-shadow: $primaryLighten3 0 0 0 3px;
 }
