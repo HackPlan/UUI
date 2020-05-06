@@ -29,7 +29,7 @@ function App() {
 $ git clone git@lab.hackplan.com:tinyapps/uui.git
 $ cd uui
 $ yarn
-$ yarn start
+$ yarn storybook
 ```
 
 Open your browser and visit http://localhost:6006 .
