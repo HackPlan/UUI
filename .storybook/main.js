@@ -7,6 +7,7 @@ module.exports = {
     '@storybook/addon-knobs',
     '@storybook/addon-docs',
     'storybook-addon-performance',
+    '@storybook/addon-a11y',
   ],
   webpackFinal: (config) => {
 
