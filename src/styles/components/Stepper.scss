@@ -40,6 +40,10 @@
   .UUI-Stepper-Input {
     border-left: none;
     border-right: none;
+    border-radius: 0;
+    .UUI-NumberField-Input {
+      border-radius: 0;
+    }
   }
 
   .UUI-Stepper-MinusButton,
@@ -47,9 +51,27 @@
     padding: 0.5rem;
     min-width: 2.5rem;
   }
+
+  .UUI-Stepper-MinusButton {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .UUI-Stepper-PlusButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
 }
 
 .UUI-Stepper-Root.ControlRight {
+  .UUI-Stepper-Input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    .UUI-NumberField-Input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
   .RightControlsContainer {
     display: inline-flex;
     flex-direction: column;
@@ -57,14 +79,20 @@
 
   .UUI-Stepper-MinusButton,
   .UUI-Stepper-PlusButton {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     display: block;
     padding: 0;
     height: 21px;
     border-left: none;
     line-height: 0;
   }
+  .UUI-Stepper-MinusButton{
+    border-top-right-radius: 0;
+  }
 
   .UUI-Stepper-PlusButton {
+    border-bottom-right-radius: 0;
     border-bottom: none;
   }
 }

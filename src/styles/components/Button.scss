@@ -1,9 +1,9 @@
 .UUI-Button-Root {
-  border: 1px solid black;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  @include border;
+  @include shadow;
+  @include radius;
+  background-color: #fff;
+  padding: .5rem 1rem;
   cursor: pointer;
 
   &.disabled {

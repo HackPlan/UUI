@@ -3,13 +3,16 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
-  border: 1px solid black;
+  @include border;
+  @include shadow;
+  @include radius;
 
   .UUI-TextField-Input {
     width: 100%;
-    padding: 0.5rem;
+    padding: .5rem;
     flex: 1;
     outline: none;
+    @include radius;
   }
 
   .UUI-TextField-LengthIndicator {

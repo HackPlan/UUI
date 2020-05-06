@@ -86,7 +86,6 @@ module.exports = {
           loader: MiniCssExtractPlugin.loader
         },
         'css-loader',
-        'postcss-loader',
         {
           loader: 'sass-loader',
           options: {
@@ -96,7 +95,7 @@ module.exports = {
               fiber: require('fibers'),
             },
           }
-        },
+        }
       ],
     }],
   },

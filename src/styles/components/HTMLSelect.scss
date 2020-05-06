@@ -1,6 +1,8 @@
 .UUI-HTMLSelect-Root {
   padding: 0.5rem;
-  border: 1px solid black;
+  @include border;
+  @include shadow;
+  @include radius;
 
   .UUI-HTMLSelect-Select {
     background-color: white;
