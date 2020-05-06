@@ -187,7 +187,9 @@ UUI 的基础工具总共写了三次，UUI Component Util 之前有 `initStylis
 | Stepper            | 分页控制             |                                  |
 | Popover            | 气泡卡片             | 基于 popper.js 实现              |
 | Radio / RadioGroup | 单选框               |                                  |
+| SegmentControl     | 分段控制器           |                                  |
 | HTMLSelect         | HTML 原生选择框      |                                  |
+| Select             | Popover 选择框       |                                  |
 | Skeleton           | 骨架                 |                                  |
 | Slider             | 滑块                 |                                  |
 | Switch             | 开关                 |                                  |

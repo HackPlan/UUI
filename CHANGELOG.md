@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.2.10
+
+- new component `SegmentControl`
+- update components style
+
 ### v0.2.9
 
 - dist pack style files separately
