@@ -8,6 +8,10 @@
   @include border;
   @include shadow;
   @include radius;
-  visibility: hidden;
+
+  opacity: 0;
   background-color: white;
+  pointer-events: none;
+
+  transition: opacity 0.1s ease-in-out;
 }

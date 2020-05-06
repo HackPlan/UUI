@@ -11,7 +11,7 @@
   color: $textDarkColor;
 
   @include border;
-  @include rounded;
+  @include radius;
   @include hoverBorder;
   @include focusWithinShadow;
   @include focusWithinBorder;

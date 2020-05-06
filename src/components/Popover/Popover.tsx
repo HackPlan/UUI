@@ -121,7 +121,8 @@ export const Popover = UUI.FunctionComponent({
 
   useEffect(() => {
     if (popperElement) {
-      popperElement.style.visibility = props.active ? 'visible' : 'hidden'
+      popperElement.style.opacity = props.active ? '1' : '0'
+      popperElement.style.pointerEvents = props.active ? 'auto' : 'none'
     }
   }, [props.active, popperElement])
 

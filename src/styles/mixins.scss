@@ -1,16 +1,8 @@
 @import "./variables.scss";
 
-@mixin shadow {
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),
-              0 1px 2px 0 rgba(0,0,0,.06);
-}
 
-// deprecated
+
 @mixin radius {
-  border-radius: $borderRadius;
-}
-
-@mixin rounded {
   border-radius: $borderRadius;
 }
 
@@ -22,19 +14,20 @@
     border: 1px solid lighten($primaryColor, 10%);
   }
 }
-
 @mixin activeBorder {
   &:active {
     border: 1px solid $primaryColor;
   }
 }
-
-
-
 @mixin focusWithinBorder {
   &:focus-within {
     border: 1px solid $primaryColor;
   }
+}
+
+@mixin shadow {
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),
+              0 1px 2px 0 rgba(0,0,0,.06);
 }
 @mixin focusWithinShadow {
   &:focus-within {

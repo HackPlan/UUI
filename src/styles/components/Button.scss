@@ -8,7 +8,7 @@
   padding: .5rem 1rem;
   cursor: pointer;
 
-  @include rounded;
+  @include radius;
   @include focusWithinShadow;
 
   &:hover {
