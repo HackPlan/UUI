@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer as UUIDrawer, Button } from '../src';
+import { Drawer, Button } from '../src';
 import { withKnobs } from "@storybook/addon-knobs";
 
 export default {
@@ -7,24 +7,23 @@ export default {
   decorators: [withKnobs]
 };
 
-export const Drawer = () => {
+export const Drawer1 = () => {
   const [active, setActive] = useState(false)
   return (
     <div>
       <Button onClick={() => { setActive((value=> !value)) }}>Click me!</Button>
-      <UUIDrawer
+      <Drawer
         active={active}
         onDismiss={() => {
           setActive(false)
         }}
       >
         Content
-      </UUIDrawer>
+      </Drawer>
     </div>
-
   )
 }
 
-Drawer.story = {
+Drawer1.story = {
   name: 'Drawer',
 };
