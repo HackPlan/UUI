@@ -1,0 +1,24 @@
+.UUI-SegmentControl-Root {
+  display: inline-block;
+
+  .UUI-SegmentControl-Button:not(:first-child):not(:last-child) {
+    border-right: none;
+    border-radius: 0;
+  }
+  .UUI-SegmentControl-Button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+  }
+  .UUI-SegmentControl-Button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .UUI-SegmentControl-Button {
+    box-shadow: none;
+
+    &.Active {
+      background-color: #c2dbfb;
+    }
+  }
+}
