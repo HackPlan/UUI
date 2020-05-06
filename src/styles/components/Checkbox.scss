@@ -1,7 +1,8 @@
+@import '../variables.scss';
 @import '../mixins.scss';
 
 .UUI-Checkbox-Root {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   align-items: center;
   cursor: pointer;
@@ -25,8 +26,8 @@
     border-collapse: separate;
 
     &.checked {
-      background-color: black;
-      border-color: black;
+      background-color: $primaryColor;
+      border-color: $primaryColor;
     }
     &.checked:after {
       position: absolute;
@@ -48,10 +49,23 @@
   }
 
   .UUI-Checkbox-Label {
+    color: $textDarkColor;
     padding-left: 0.5rem;
   }
 
   &.disabled {
     cursor: not-allowed;
+
+    .UUI-Checkbox-Indicator {
+      border-color: $disabledBorderColor;
+      background-color: $disabledBackgroundColor;
+
+      &.checked::after {
+        border-color: darken($disabledBackgroundColor, 30%);
+      }
+    }
+    .UUI-Checkbox-Label {
+      color: $disabledTextColor;
+    }
   }
 }

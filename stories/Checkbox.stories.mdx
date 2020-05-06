@@ -6,8 +6,9 @@ import { useState } from 'react';
 
 # 多选框 Checkbox
 
+在一组选择项中进行多选。
 
-### Checkbox
+### 简单使用
 
 <Preview>
   <Story name="Checkbox">
@@ -15,7 +16,7 @@ import { useState } from 'react';
       const [flag, setFlag] = useState(false)
       return (
         <Checkbox
-          label={'Checkbox'}
+          label={'Apple'}
           value={flag}
           onChange={(value) => { console.log(value); setFlag(value) }}
         />
@@ -24,19 +25,29 @@ import { useState } from 'react';
   </Story>
 </Preview>
 
-### Disabled Checkbox
+### 不可用状态
 
 <Preview>
   <Story name="Disabled Checkbox">
     {() => {
       const [flag, setFlag] = useState(false)
       return (
-        <Checkbox
-          label={'Disabled'}
-          value={flag}
-          onChange={(value) => { console.log(value); setFlag(value) }}
-          disabled
-        />
+        <div>
+          <Checkbox
+            className="mr-2"
+            label={'Apple'}
+            value={flag}
+            onChange={(value) => { console.log(value); setFlag(value) }}
+            disabled
+          />
+          <Checkbox
+            className="mr-2"
+            label={'Banana'}
+            value={!flag}
+            onChange={(value) => { console.log(value); setFlag(value) }}
+            disabled
+          />
+        </div>
       )
     }}
   </Story>
