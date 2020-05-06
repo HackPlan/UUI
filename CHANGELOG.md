@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.11
+
+- fix webpack dist config
+
 ### v0.2.10
 
 - new component `SegmentControl`

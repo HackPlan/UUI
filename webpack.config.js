@@ -35,7 +35,7 @@ class Without {
 
 module.exports = {
   entry: {
-    index: ['./src/index.ts', './src/styles/index.scss'],
+    index: ['./src/styles/index.scss', './src/index.ts'],
     base: ['./src/styles/base.scss'],
     Button: ['./src/styles/components/Button.scss'],
     Checkbox: ['./src/styles/components/Checkbox.scss'],
