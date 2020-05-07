@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UUI } from '../../utils/uui';
 import { Button } from '../Button';
+import { Icons } from '../../icons/Icons';
 
 export interface BaseTextFieldProps {
   /**
@@ -116,8 +117,10 @@ export const TextField = UUI.FunctionComponent({
             }
           }}
         >
-          {/* TODO: update with an icon */}
-          pw
+          {passwordVisible
+            ? <Icons.Eye></Icons.Eye>
+            : <Icons.EyeOff></Icons.EyeOff>
+          }
         </TogglePasswordVisibleButton>
       )}
     </Root>

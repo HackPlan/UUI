@@ -28,6 +28,9 @@
   }
 
   .UUI-TextField-TogglePasswordVisibleButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0.5rem;
     border: none;
     background-color: white;

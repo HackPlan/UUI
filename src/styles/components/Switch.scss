@@ -17,6 +17,9 @@
   }
 
   .UUI-Switch-Thumb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 16px;
     width: 16px;
     border-radius: 99999px;
@@ -26,6 +29,11 @@
   }
 
   .UUI-Switch-Loading {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: $borderColor;
     visibility: hidden;
   }
 
@@ -54,14 +62,16 @@
   &.loading {
     &.checked {
       .UUI-Switch-Loading {
+        border-top-color: $primaryColor;
         color: black;
       }
     }
     .UUI-Switch-Loading {
+      border-top-color: $borderColor;
       visibility: visible;
       color: white;
       font-size: 10px;
-      animation: spin 2s linear infinite;
+      animation: spin 1s linear infinite;
     }
     @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
   }

@@ -14,6 +14,9 @@
   }
 
   .UUI-PageList-PrevButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-right: 0.25rem;
   }
   .UUI-PageList-ActivePageButton {
@@ -27,6 +30,9 @@
     margin-right: 0.25rem;
   }
   .UUI-PageList-NextButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-left: 0.25rem;
   }
 }

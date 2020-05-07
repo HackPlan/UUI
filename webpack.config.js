@@ -99,6 +99,12 @@ module.exports = {
           }
         }
       ],
+    }, {
+      test: /\.svg$/,
+      use: ['@svgr/webpack', {
+        loader: 'file-loader',
+        options: { name: 'icons/assets/[name].[hash:8].[ext]', esModule: false },
+      }],
     }],
   },
   plugins: [
