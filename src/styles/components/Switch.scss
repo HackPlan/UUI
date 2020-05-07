@@ -1,3 +1,4 @@
+@import '../variables.scss';
 @import '../mixins.scss';
 
 .UUI-Switch-Root {
@@ -11,14 +12,17 @@
     padding-bottom: 0;
     padding-left: 2px;
     padding-right: 2px;
-    border-color: black;
+    border-color: $primaryColor;
+    background-color: $borderColor;
   }
 
   .UUI-Switch-Thumb {
     height: 16px;
     width: 16px;
     border-radius: 99999px;
-    background-color: black;
+    background-color: white;
+    margin-left: calc(50% - 16px);
+    transition: margin 0.2s ease-in-out;
   }
 
   .UUI-Switch-Loading {
@@ -27,35 +31,23 @@
 
   &.checked {
     .UUI-Switch-Button {
-      background-color: black;
+      background-color: $primaryColor;
     }
 
     .UUI-Switch-Thumb {
-      margin-left: auto;
+      margin-left: calc(50%);
       background-color: white;
     }
   }
 
   &.disabled {
+    opacity: .6;
+
     .UUI-Switch-Button {
       cursor: not-allowed;
-      border-color: gray;
-    }
-
-    .UUI-Switch-Thumb {
-      background-color: gray;
-    }
-  }
-
-  &.checked.disabled {
-    .UUI-Switch-Button {
-      cursor: not-allowed;
-      border-color: gray;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .UUI-Switch-Thumb {
-      background-color: rgba(255, 255, 255, 0.5);
+      &:focus-within {
+        box-shadow: none;
+      }
     }
   }
 
