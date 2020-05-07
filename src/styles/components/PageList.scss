@@ -1,3 +1,4 @@
+@import '../variables.scss';
 @import '../mixins.scss';
 
 .UUI-PageList-Root {
@@ -5,6 +6,12 @@
   flex-direction: row;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+
+  .UUI-Button-Root {
+    background-color: white;
+    color: $textDarkColor;
+    @include border;
+  }
 
   .UUI-PageList-PrevButton {
     margin-right: 0.25rem;
