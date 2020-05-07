@@ -7,7 +7,7 @@ import { Nodes } from './utils/Nodes';
 
 # 表格 Table
 
-### Table
+### 简单使用
 
 <Preview>
   <Story name="Table">
@@ -28,7 +28,7 @@ import { Nodes } from './utils/Nodes';
   </Story>
 </Preview>
 
-### Table with selection
+### 多选表格行
 
 <Preview>
   <Story name="Table with selection">
@@ -52,7 +52,7 @@ import { Nodes } from './utils/Nodes';
   </Story>
 </Preview>
 
-### Table with grouping column
+### 表头分组
 
 <Preview>
   <Story name="Table with grouping column">
@@ -94,7 +94,7 @@ import { Nodes } from './utils/Nodes';
   </Story>
 </Preview>
 
-### Table with empty data
+### 空表格空状态视图
 
 <Preview>
   <Story name="Table with empty data">
@@ -111,7 +111,7 @@ import { Nodes } from './utils/Nodes';
   </Story>
 </Preview>
 
-### Table hide header
+### 隐藏表格表头
 
 <Preview>
   <Story name="Table hide header">
@@ -133,7 +133,7 @@ import { Nodes } from './utils/Nodes';
   </Story>
 </Preview>
 
-### Table with drag and drop
+### 表格行拖拽
 
 <Preview>
   <Story name="Table with drag and drop">
@@ -160,90 +160,6 @@ import { Nodes } from './utils/Nodes';
     }}
   </Story>
 </Preview>
-
-### Table with custom style
-
-<Preview>
-  <Story name="Table with custom style">
-    {() => {
-      const columns = [{
-        title: 'Person',
-        children: [{
-          title: 'Info',
-          children: [{
-            title: 'Name',
-          }, {
-            title: 'Age',
-          }, {
-            title: 'Gender',
-          }]
-        }, {
-          title: 'Contact',
-          children: [{
-            title: 'Mobile',
-          }, {
-            title: 'Email',
-          }]
-        }]
-      }, {
-        title: 'Profession'
-      }]
-      const rows = [
-        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
-        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
-        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
-      ]
-      const [selectedIndexes, setSelectedIndexes] = useState([])
-      return (
-        <Table
-          columns={columns}
-          rows={rows}
-          customize={{
-            HeadCell: {
-              extendClassName: 'bg-green-400',
-            },
-            DataCell: {
-              extendClassName: 'bg-red-400',
-              extendStyle: {
-                fontStyle: 'italic',
-                padding: 20
-              },
-            },
-            Checkbox: {
-              Root: {
-              }
-            }
-          }}
-          selectedIndexes={selectedIndexes}
-          onSelected={(indexes) => { setSelectedIndexes(indexes) }}
-        ></Table>
-      )
-    }}
-  </Story>
-</Preview>
-
-### Nodes
-
-<Nodes
-  name={'Table'}
-  nodes={TableNodes}
-  render={(props) => {
-    const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
-    const rows = [
-      ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
-      ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
-      ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
-    ]
-    return (
-      <Table
-        columns={columns}
-        rows={rows}
-        selectedIndexes={[]}
-        {...props}
-      ></Table>
-    )
-  }}
-/>
 
 ### Table Types
 
