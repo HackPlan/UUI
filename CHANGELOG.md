@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.12
+
+- update all components style
+
 ### v0.2.11
 
 - fix webpack dist config
