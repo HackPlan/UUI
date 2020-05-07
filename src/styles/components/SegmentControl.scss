@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .UUI-SegmentControl-Root {
   display: inline-block;
 
@@ -15,10 +17,14 @@
     border-bottom-left-radius: 0;
   }
   .UUI-SegmentControl-Button {
-    box-shadow: none;
+    background-color: white;
+    border: 1px solid $borderColor;
+    color: $textDarkColor;
 
     &.Active {
-      background-color: #c2dbfb;
+      background-color: $primaryColor;
+      color: $textLightColor;
+      border-color: $primaryColor;
     }
   }
 }

@@ -1,13 +1,30 @@
+@import '../variables.scss';
 @import '../mixins.scss';
 
 .UUI-Table-Root {
-  border: 1px solid black;
+  width: 100%;
+  border: 1px solid $borderColor;
   border-collapse: collapse;
+
+  .UUI-Table-Row {
+    &:hover {
+      background-color: #fafafa;
+    }
+  }
 
   .UUI-Table-HeadCell,
   .UUI-Table-DataCell {
-    border: 1px solid black;
-    padding: 8px;
+    border: 1px solid $borderColor;
+    padding: 0.75rem;
+  }
+
+  .UUI-Table-HeadCell {
+    color: rgba(0,0,0,.85);
+    text-align: left;
+    background-color: #fafafa;
+  }
+  .UUI-Table-DataCell {
+    color: rgba(0,0,0,.65);
   }
 
   .UUI-Table-EmptyView {

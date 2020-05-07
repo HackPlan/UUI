@@ -1,5 +1,12 @@
 @import '../mixins.scss';
 
 .UUI-Icon-Root {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  .UUI-Icon-Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

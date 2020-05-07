@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { range } from 'lodash';
 import { Button as UUIButton } from '../Button';
 import { UUI } from '../../utils/uui';
+import { Icons } from '../../icons/Icons';
 
 
 export interface BasePageListProps {
@@ -76,7 +77,9 @@ export const PageList = UUI.FunctionComponent({
       <PrevButton
         disabled={props.page === 1}
         onClick={() => { if (props.page > 1) props.onPageChange(props.page-1) }}
-      >Prev</PrevButton>
+      >
+        <Icons.ChevronsLeft width={18} height={18}></Icons.ChevronsLeft>
+      </PrevButton>
       {pageListData.map((item, index) =>
         props.page === Number(item.title) ? (
           <ActivePageButton
@@ -93,7 +96,9 @@ export const PageList = UUI.FunctionComponent({
       <NextButton
         disabled={props.page === props.totalPage}
         onClick={() => { if (props.page < props.totalPage) props.onPageChange(props.page+1) }}
-      >Next</NextButton>
+      >
+        <Icons.ChevronsRight width={18} height={18}></Icons.ChevronsRight>
+      </NextButton>
     </Root>
   )
 })

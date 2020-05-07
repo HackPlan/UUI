@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
-import { UUI, UUIComponentCustomizeProps, UUIConvenienceProps } from '../../utils/uui';
+import { UUI } from '../../utils/uui';
 
 type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -27,34 +27,30 @@ const RadioNodes = {
   Indicator: 'span',
   Label: 'span',
 } as const
-type RadioCustomizeProps = UUIComponentCustomizeProps<typeof RadioNodes>
 
-export const Radio = <K extends string | number>(props: RadioCustomizeProps & BaseRadioProps<K> & UUIConvenienceProps) => {
-  const BaseRadio = UUI.FunctionComponent({
-    name: "Radio",
-    nodes: RadioNodes,
-  }, (props: BaseRadioProps<K>, nodes) => {
-    const { Root, Input, Indicator, Label } = nodes
+export class Radio<K extends string | number> extends UUI.ClassComponent({
+  name: "Radio",
+  nodes: RadioNodes,
+})<BaseRadioProps<K>, {}> {
 
+  render() {
+    const { Root, Input, Indicator, Label } = this.nodes
     return (
       <Root
         className={classNames({
-          'disabled': props.disabled,
-          'checked': props.checked,
+          'disabled': this.props.disabled,
+          'checked': this.props.checked,
         })}
       >
         <Input
-          {...omit(props, 'type', 'customize')}
+          {...omit(this.props, 'type', 'customize')}
           type='radio'
         />
         <Indicator className={classNames([
-          props.checked ? 'checked' : ''
+          this.props.checked ? 'checked' : ''
         ])}></Indicator>
-        <Label>{props.label}</Label>
+        <Label>{this.props.label}</Label>
       </Root>
     )
-  })
-  return <><BaseRadio {...props}></BaseRadio></>
+  }
 }
-
-export type RadioProps = Parameters<typeof Radio>[0]

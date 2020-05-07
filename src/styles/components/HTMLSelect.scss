@@ -2,12 +2,19 @@
 
 .UUI-HTMLSelect-Root {
   padding: 0.5rem;
+
+  cursor: pointer;
+  color: $textDarkColor;
+
   @include border;
-  @include shadow;
   @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
 
   .UUI-HTMLSelect-Select {
     background-color: white;
     width: 100%;
+    cursor: pointer;
   }
 }

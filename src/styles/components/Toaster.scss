@@ -56,11 +56,10 @@
 .UUI-Toast-Root {
   width: fit-content;
   pointer-events: all;
-  padding: 1rem;
+  padding: 0.5rem 0.75rem;
   margin-bottom: 1rem;
   background-color: white;
   @include border;
   @include shadow;
   @include radius;
-  padding: 0.25rem 0.5rem;
 }

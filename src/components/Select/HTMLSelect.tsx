@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI, UUIConvenienceProps, UUIComponentCustomizeProps } from '../../utils/uui';
+import { UUI } from '../../utils/uui';
 
 
 export interface HTMLSelectOption<T> {
@@ -29,33 +29,22 @@ const HTMLSelectNodes = {
   Select: 'select',
   Option: 'option',
 } as const
-type HTMLSelectCustomizeProps = UUIComponentCustomizeProps<typeof HTMLSelectNodes>
 
-/**
- * Notes: The base props of HTMLSelect compoent is a generic type,
- * due to `Partial<Pick<Parameters<BaseHTMLSelect>[0]>>` infer to `never`,
- * This component we use UUIComponentCustomizeProps to get customize props.
- *
- * Currently UUI Component Util un-support generic props type.
- * TODO: enhance UUI function component props generic
- */
-
-export const HTMLSelect = <K extends string | number>(props: UUIConvenienceProps & BaseHTMLSelectProps<K> & HTMLSelectCustomizeProps) => {
-  const BaseHTMLSelect = UUI.FunctionComponent({
-    name: "HTMLSelect",
-    nodes: HTMLSelectNodes,
-  }, (props: BaseHTMLSelectProps<K>, nodes) => {
-    const { Root, Select, Option } = nodes
-
+export class HTMLSelect<K extends string | number> extends UUI.ClassComponent({
+  name: "HTMLSelect",
+  nodes: HTMLSelectNodes,
+})<BaseHTMLSelectProps<K>, {}> {
+  render() {
+    const { Root, Select, Option } = this.nodes
     return (
       <Root>
         <Select
-          value={props.value}
+          value={this.props.value}
           onChange={(event) => {
-            props.onChange(event.target.value as any)
+            this.props.onChange(event.target.value as any)
           }}
         >
-          {props.options.map((i) => {
+          {this.props.options.map((i) => {
             return (
               <Option key={i.value} value={i.value}>{i.label}</Option>
             )
@@ -63,10 +52,5 @@ export const HTMLSelect = <K extends string | number>(props: UUIConvenienceProps
         </Select>
       </Root>
     )
-  })
-  // temp fix
-  const _props = props as any
-  return <><BaseHTMLSelect {..._props}></BaseHTMLSelect></>
+  }
 }
-
-export type HTMLSelectProps = Parameters<typeof HTMLSelect>[0]

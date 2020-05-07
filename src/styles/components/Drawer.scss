@@ -2,7 +2,7 @@
 
 .UUI-Drawer-Portal {
   .UUI-Drawer-Backdrop {
-    visibility: hidden;
+    display: flex;
     position: fixed;
     left: 0;
     right: 0;
@@ -11,8 +11,8 @@
     background-color: white;
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.3);
-
-    display: flex;
+    opacity: 0;
+    pointer-events: none;
 
     &.left {
       flex-direction: row;
@@ -40,13 +40,40 @@
       min-height: 200px;
     }
 
-    &.active {
-      visibility: visible;
+    &.left .UUI-Drawer-Content {
+      transform: translateX(-100%);
     }
-  }
+    &.right .UUI-Drawer-Content {
+      transform: translateX(100%);
+    }
+    &.top .UUI-Drawer-Content {
+      transform: translateY(-100%);
+    }
+    &.bottom .UUI-Drawer-Content {
+      transform: translateY(100%);
+    }
+    &.active.left .UUI-Drawer-Content,
+    &.active.right .UUI-Drawer-Content {
+      transform: translateX(0);
+    }
+    &.active.top .UUI-Drawer-Content,
+    &.active.bottom .UUI-Drawer-Content {
+      transform: translateY(0);
+    }
 
-  .UUI-Drawer-Content {
-    background-color: white;
-    box-shadow: 0 0 8px gray;
+    &.active {
+      pointer-events: auto;
+      opacity: 1;
+    }
+
+    transition: opacity 0.2s ease-in-out;
+
+    .UUI-Drawer-Content {
+      padding: 0.5rem;
+      background-color: white;
+      box-shadow: 0 0 8px gray;
+
+      transition: transform 0.2s ease-in-out;
+    }
   }
 }

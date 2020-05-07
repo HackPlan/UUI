@@ -1,8 +1,15 @@
 @import '../mixins.scss';
 
 .UUI-Stepper-Root {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
+
+  overflow: hidden;
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
 
   .UUI-Stepper-Input,
   .UUI-Stepper-MinusButton,
@@ -35,13 +42,38 @@
   .UUI-Stepper-PlusButton {
     padding: 0.5rem;
     min-width: 2.5rem;
+    &:hover {
+      color: $primaryColor;
+    }
+    &:active {
+      color: darken($primaryColor, 10%);
+    }
+  }
+
+  // style override
+  .UUI-Stepper-Input {
+    &:focus-within {
+      box-shadow: none;
+      border: 1px solid $borderColor;
+    }
+    &:hover {
+      border: 1px solid $borderColor;
+    }
+  }
+  .UUI-Stepper-MinusButton,
+  .UUI-Stepper-PlusButton {
+    border: 1px solid $borderColor;
+    background-color: #f5f7fa;
+    color: #606266;
+    &:focus-within {
+      box-shadow: none;
+    }
   }
 }
 
 .UUI-Stepper-Root.ControlSeparate {
   .UUI-Stepper-Input {
-    border-left: none;
-    border-right: none;
+    border: none;
     border-radius: 0;
     .UUI-NumberField-Input {
       border-radius: 0;
@@ -53,25 +85,28 @@
     padding: 0.5rem;
     min-width: 2.5rem;
   }
-
   .UUI-Stepper-MinusButton {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
   }
   .UUI-Stepper-PlusButton {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+  }
+  .UUI-Stepper-MinusButton,
+  .UUI-Stepper-PlusButton {
+    border-radius: 0;
   }
 }
 
 .UUI-Stepper-Root.ControlRight {
   .UUI-Stepper-Input {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    .UUI-NumberField-Input {
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 0;
-    }
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    border-radius: 0;
   }
 
   .RightControlsContainer {
@@ -81,8 +116,7 @@
 
   .UUI-Stepper-MinusButton,
   .UUI-Stepper-PlusButton {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    border-radius: 0;
     display: block;
     padding: 0;
     height: 21px;
@@ -90,11 +124,13 @@
     line-height: 0;
   }
   .UUI-Stepper-MinusButton{
-    border-top-right-radius: 0;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    margin-top: -0.5px;
   }
 
   .UUI-Stepper-PlusButton {
-    border-bottom-right-radius: 0;
-    border-bottom: none;
+    border: none;
   }
 }

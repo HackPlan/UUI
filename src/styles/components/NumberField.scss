@@ -5,17 +5,21 @@
   flex-direction: row;
   align-items: center;
   width: 100%;
+
+  overflow: hidden;
+  color: $textDarkColor;
+
   @include border;
-  @include shadow;
   @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
 
   .UUI-NumberField-Input {
-    @include radius;
     width: 100%;
     height: 100%;
     padding: 0.5rem;
     box-sizing: border-box;
     flex: 1;
-    outline: none;
   }
 }

@@ -49,7 +49,9 @@ module.exports = {
     PageJumper: ['./src/styles/components/PageJumper.scss'],
     PageList: ['./src/styles/components/PageList.scss'],
     Popover: ['./src/styles/components/Popover.scss'],
+    RadioGroup: ['./src/styles/components/RadioGroup.scss'],
     Radio: ['./src/styles/components/Radio.scss'],
+    SegmentControl: ['./src/styles/components/SegmentControl.scss'],
     HTMLSelect: ['./src/styles/components/HTMLSelect.scss'],
     Select: ['./src/styles/components/Select.scss'],
     Skeleton: ['./src/styles/components/Skeleton.scss'],
@@ -97,6 +99,12 @@ module.exports = {
           }
         }
       ],
+    }, {
+      test: /\.svg$/,
+      use: ['@svgr/webpack', {
+        loader: 'file-loader',
+        options: { name: 'icons/assets/[name].[hash:8].[ext]', esModule: false },
+      }],
     }],
   },
   plugins: [
@@ -130,7 +138,9 @@ module.exports = {
       /PageJumper.js$/,
       /PageList.js$/,
       /Popover.js$/,
+      /RadioGroup.js$/,
       /Radio.js$/,
+      /SegmentControl.js$/,
       /HTMLSelect.js$/,
       /Select.js$/,
       /Skeleton.js$/,

@@ -2,6 +2,7 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Button as UUIButton } from '../Button/Button';
 import classNames from 'classnames';
+import { Icons } from '../../icons/Icons';
 
 
 export enum SwitchNodeName {
@@ -40,7 +41,7 @@ export const Switch = UUI.FunctionComponent({
     >
       <Button onClick={() => { !props.disabled && props.onChange(!props.value) }}>
         <Thumb>
-          <Loading>{/** TODO: fill loading icon */}</Loading>
+          <Loading></Loading>
         </Thumb>
       </Button>
     </Root>

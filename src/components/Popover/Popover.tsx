@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { Placement, Modifier } from '@popperjs/core';
 import { useClickAway } from 'react-use';
+import classNames from 'classnames';
 
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'
@@ -121,7 +122,8 @@ export const Popover = UUI.FunctionComponent({
 
   useEffect(() => {
     if (popperElement) {
-      popperElement.style.visibility = props.active ? 'visible' : 'hidden'
+      popperElement.style.opacity = props.active ? '1' : '0'
+      popperElement.style.pointerEvents = props.active ? 'auto' : 'none'
     }
   }, [props.active, popperElement])
 
@@ -149,7 +151,7 @@ export const Popover = UUI.FunctionComponent({
   ])
 
   return (
-    <Root>
+    <Root className={classNames({ 'Active': props.active })}>
       {activator}
       {content}
     </Root>

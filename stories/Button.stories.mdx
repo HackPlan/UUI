@@ -5,20 +5,21 @@ import { Button } from '../src';
 
 # 按钮 Button
 
+按钮用于触发一个即时操作。
 
-### Button
+### 简单使用
 
 <Preview>
   <Story name="Button">
     <Button
-      onClick={() => { console.log('clicked!') }}
+      onClick={() => { console.log('clicked!'); window.alert('Button clicked!'); }}
     >
       Button
     </Button>
   </Story>
 </Preview>
 
-### Disabled Button
+### 不可用状态
 
 <Preview>
   <Story name="Disabled Button">
