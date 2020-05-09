@@ -100,7 +100,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       return children
     })()
 
-    const ref = customizeProps.customize ? (customizeProps.customize as any).ref : _ref
+    const ref = customizeProps.customize && (customizeProps.customize as any).ref ? (customizeProps.customize as any).ref : _ref
 
     /**
      * Merge both customize functions and component inner functions.
