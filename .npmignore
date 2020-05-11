@@ -13,3 +13,7 @@ package
 yarn-error.log
 hackplan-uui-*.tgz
 DEVNOTES.md
+.now
+.eslintignore
+.eslintrc.js
+.github
