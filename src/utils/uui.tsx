@@ -7,7 +7,7 @@
  */
 
 
-import React, { useMemo, JSXElementConstructor } from 'react';
+import React, { JSXElementConstructor } from 'react';
 import { mapValues, pick, isString, omit, merge, clone } from 'lodash';
 import classNames from 'classnames';
 

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
 import { UUI } from '../../utils/uui';

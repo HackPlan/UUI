@@ -2,8 +2,6 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Button as UUIButton } from '../Button/Button';
 import classNames from 'classnames';
-import { Icons } from '../../icons/Icons';
-
 
 export enum SwitchNodeName {
   Root = "switch",
