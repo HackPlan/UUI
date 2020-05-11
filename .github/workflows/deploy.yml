@@ -20,15 +20,6 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Read .nvmrc and setup node version
-    - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-      id: nvm
-    - name: Use Node.js (.nvmrc)
-      uses: actions/setup-node@v1
-      with:
-        node-version: "${{ steps.nvm.outputs.NVMRC }}"
-
     # yarn install
     - name: Install
       run: yarn install
@@ -36,6 +27,8 @@ jobs:
     # build typescript
     - name: Build
       run: yarn build
+   
+    # Deployment
     - name: ZEIT Now Deployment
       uses: amondnet/now-deployment@v2.0.3
       with:
