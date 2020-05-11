@@ -14,7 +14,7 @@ Universal Utility-first React UI Library
 ![](https://img.shields.io/github/languages/top/HackPlan/UUI)
 ![](https://img.shields.io/github/license/HackPlan/UUI)
 
-> **UUI is under development in heavily**, Component interface may change causing breaking change. Currently you should not use it on
+> **UUI is under development in heavily**, Component interface may change causing breaking change.
 
 ## Features
 
@@ -23,6 +23,8 @@ Universal Utility-first React UI Library
 * Powerful style customization of components.
 
 ## Installation
+
+Strongly recommend using yarn to install dependencies.
 
 ```bash
 $ yarn add @hackplan/uui
@@ -47,6 +49,8 @@ function App() {
 
 ## Links
 
+* [Documentation](https://doc.uui.cool)
+* [Contributing](https://github.com/HackPlan/UUI/blob/master/CONTRIBUTING.md)
 * [Customization Tutorial](https://uui.cool/?path=/docs/customize-tutorial--demo-stepper)
 * [Development Notes](https://github.com/HackPlan/UUI/blob/master/DEVNOTES.md)
 * [Changelog](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md)
@@ -63,12 +67,16 @@ $ yarn storybook
 
 Open your browser and visit http://localhost:6006 .
 
-## Deploy
+## Deployment
 
 run `yarn pack:uui` to generate a preview package file.
 Check whether there are extra files that should not exist in the output package, if there are, they should be added to the `.npmignore` file.
 
 run `yarn publish:uui` to publish a new version of uui.
+
+## Contributing
+
+We welcome all contributions. Please read CONTRIBUTING.md first.
 
 ## Licenses
 
