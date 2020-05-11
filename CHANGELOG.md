@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.2.14
+
+- fix uui component util ref issue
+
 ### v0.2.12
 
 - update all components style

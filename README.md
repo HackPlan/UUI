@@ -1,6 +1,6 @@
 # UUI
 
-Universal web framework
+Universal web library
 
 ## Installation
 
@@ -33,3 +33,7 @@ $ yarn storybook
 ```
 
 Open your browser and visit http://localhost:6006 .
+
+## Licenses
+
+All files on the UUI GitHub repository are subject to the MIT license. Please read the License file at the root of the project.
