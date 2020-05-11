@@ -39,4 +39,5 @@ jobs:
           zeit-token: ${{ secrets.ZEIT_TOKEN }} # Required
           now-org-id: ${{ secrets.ORG_ID}}  #Required
           now-project-id: ${{ secrets.PROJECT_ID}} #Required
+          now-args: '--prod' #Optional
           working-directory: ./storybook-static
