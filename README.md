@@ -24,15 +24,15 @@ Universal Utility-first React UI Library
 
 ## Installation
 
-Strongly recommend using yarn to install dependencies.
+```bash
+npm install @hackplan/uui --save
+```
 
 ```bash
-$ yarn add @hackplan/uui
+yarn add @hackplan/uui
 ```
 
 ## Usage
-
-Strongly recommend using UUI in TypeScript project.
 
 ```tsx
 import '@hackplan/uui/lib/index.css';
@@ -57,22 +57,25 @@ function App() {
 
 ## Development
 
+For the development of this project, Yarn is preferred over npm. However, any Yarn command can be replaced by the npm equivalent.
+
 ```bash
-$ git clone https://github.com/HackPlan/UUI.git
-$ cd uui
-$ nvm use
-$ yarn
-$ yarn storybook
+git clone https://github.com/HackPlan/UUI.git
+cd uui
+nvm use
+yarn
+yarn storybook
 ```
 
 Open your browser and visit http://localhost:6006 .
 
-## Deployment
+## Package Production Deployment
 
-run `yarn pack:uui` to generate a preview package file.
-Check whether there are extra files that should not exist in the output package, if there are, they should be added to the `.npmignore` file.
+(for maintainer)
 
-run `yarn publish:uui` to publish a new version of uui.
+1. run `yarn pack:uui` command to generate a preview package file.
+2. Check whether there are extra files that should not exist in the output package, if there are, they should be added to the `.npmignore` file.
+3. run `yarn publish:uui` command, Make sure you enter the correct version number.
 
 ## Contributing
 

@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.3.0
+
+- update `Pagination`, `Stepper` button icons
+- update `Dialog` - render views in portal container
+
 ### v0.2.14
 
 - fix uui component util ref issue
