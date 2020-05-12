@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useFocusTrap, useLockBodyScroll } from '../../hooks'
 
 import classNames from 'classnames';
 import { UUI } from '../../utils/uui';
 import { useClickAway } from 'react-use';
+import ReactDOM from 'react-dom';
 
 export interface BaseDialogProps {
   /**
@@ -17,7 +18,18 @@ export interface BaseDialogProps {
   onDismiss?: () => void;
   focusTrap?: boolean;
   /**
-   * Wether lock scrolling on the body element while Drawer is active
+   * Whether the content of Dialog should be rendered inside a `Portal` where appending inside `portalContainer`(if it provided) or `document.body`.
+   * @default true
+   */
+  usePortal?: boolean;
+  /**
+   * The container element into which the overlay renders its contents, when `usePortal` is `true`.
+   * This prop is ignored if `usePortal` is `false`.
+   * @default document.body
+   */
+  portalContainer?: HTMLElement;
+  /**
+   * Wether lock scrolling on the body element while Dialog is active
    */
   lockBodyScroll?: boolean;
   /**
@@ -37,7 +49,16 @@ export const Dialog = UUI.FunctionComponent({
 }, (props: BaseDialogProps, nodes) => {
   const { Root, Backdrop, Container, Content } = nodes
 
-  useLockBodyScroll(props.open && !!props.lockBodyScroll)
+  /**
+   * handle optional props default value
+   */
+  const finalProps = {
+    usePortal: props.usePortal === undefined ? true : props.usePortal,
+    portalContainer: props.portalContainer || document.body,
+    lockBodyScroll: props.lockBodyScroll === undefined ? true : props.lockBodyScroll,
+  }
+
+  useLockBodyScroll(props.open && !!finalProps.lockBodyScroll)
 
   const containerRef = useRef<any>(null)
   useClickAway(containerRef, () => {
@@ -45,26 +66,32 @@ export const Dialog = UUI.FunctionComponent({
   })
 
   const ref = useFocusTrap(props.open && !!props.focusTrap)
-  return (
-    <Root>
-      <Backdrop
-        ref={ref}
+
+  const backdrop = useMemo(() => (
+    <Backdrop
+      ref={ref}
+      className={classNames({
+        'opened': props.open
+      })}
+      role="presentation"
+      tabIndex={-1}
+    >
+      <Container
+        ref={containerRef}
+        role="dialog"
         className={classNames({
           'opened': props.open
         })}
-        role="presentation"
-        tabIndex={-1}
       >
-        <Container
-          ref={containerRef}
-          role="dialog"
-          className={classNames({
-            'opened': props.open
-          })}
-        >
-          <Content>{props.children}</Content>
-        </Container>
-      </Backdrop>
+        <Content>{props.children}</Content>
+      </Container>
+    </Backdrop>
+  ), [props.open])
+
+  const portal = finalProps.usePortal ? ReactDOM.createPortal(backdrop, finalProps.portalContainer) : backdrop
+  return (
+    <Root>
+      {portal}
     </Root>
   )
 })

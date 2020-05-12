@@ -1,3 +1,4 @@
+@import '../variables.scss';
 @import '../mixins.scss';
 
 .UUI-Dialog-Backdrop {
@@ -6,26 +7,24 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: -1;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+
+  .UUI-Dialog-Container {
+    background-color: white;
+    border-radius: $borderRadius;
+    padding: 1rem;
+  }
 
   &.opened {
-    z-index: 9000;
-    visibility: visible;
+    pointer-events: inherit;
     opacity: 1;
-    background-color: rgba(0, 0, 0, 0.3);
   }
-}
 
-.UUI-Dialog-Container {
-  background-color: white;
-  border-radius: 0.25rem;
-  padding: 1rem;
-  visibility: hidden;
-
-  &.opened {
-    visibility: visible;
-  }
+  transition: opacity 0.1s ease-in-out;
 }

@@ -6,18 +6,15 @@ import { useState } from 'react';
 
 # 对话框 Dialog
 
-### Dialog
+### 简单使用
 
 <Preview>
   <Story name="Dialog">
     {() => {
-      const [opened, setOpened] = useState(true)
+      const [opened, setOpened] = useState(false)
       return (
-        <div className="bg-gray-300" style={{ height: '100vh' }}>
-          <Button
-            className="bg-blue-400 p-2 text-white border-none"
-            onClick={() => { setOpened((value) => { return !value })}}
-          >toggle dialog</Button>
+        <div>
+          <Button onClick={() => { setOpened((value) => { return !value })}}>Click me!</Button>
           <Dialog
             open={opened}
             focusTrap={true}
@@ -25,11 +22,24 @@ import { useState } from 'react';
               setOpened(false)
             }}
           >
-            <div className="w-64 h-40"></div>
-            <button
-              className="bg-red-400 p-2 text-white"
-              onClick={() => { setOpened((value) => { return !value })}}
-            >close</button>
+            <div style={{ width: 400, height: 300 }}>
+              <h1 style={{ marginTop: 0 }}>Lorem Ipsum</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lorem nulla, malesuada ut sagittis sit amet, vulputate in leo.</p>
+            </div>
+            <div className="flex flex-row justify-end">
+              <Button
+                className="bg-red-500"
+                onClick={() => { setOpened((value) => { return !value })}}
+              >
+                Close
+              </Button>
+              <Button
+                className="ml-2"
+                onClick={() => { setOpened((value) => { return !value })}}
+              >
+                Confirm
+              </Button>
+              </div>
           </Dialog>
         </div>
       )
