@@ -8,7 +8,7 @@
 
 
 import React, { JSXElementConstructor } from 'react';
-import { mapValues, pick, isString, omit, merge, clone } from 'lodash';
+import { mapValues, pick, isString, omit, merge, clone, uniq } from 'lodash';
 import classNames from 'classnames';
 
 
@@ -107,12 +107,23 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
      */
     const mergedFunctions = (() => {
       const data: any = {}
-      const attrs = Object.keys(_props)
+      const attrs = uniq([
+        ...Object.keys(_props),
+        ...Object.keys(customizeProps.customize || {}),
+      ])
       for (const attr of attrs) {
-        if (typeof (_props as any)[attr] === 'function' && (customizeProps as any)[attr]) {
+        if (
+          attr.startsWith('on') &&
+          (typeof (_props as any)[attr] === 'function') ||
+          (customizeProps.customize && typeof (customizeProps.customize as any)[attr] === 'function')
+        ) {
           data[attr] = (...args: any[]) => {
-            (_props as any)[attr](...args);
-            (options as any)[attr](...args);
+            if ((_props as any)[attr]) {
+              (_props as any)[attr](...args);
+            }
+            if (customizeProps.customize && (customizeProps.customize as any)[attr]) {
+              (customizeProps.customize as any)[attr](...args);
+            }
           };
         }
       }
@@ -121,7 +132,12 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
 
     return React.createElement(tagName, {
       ...omit(_props, 'children'),
-      ...omit(customizeProps, 'customize'),
+      ...omit(customizeProps.customize,
+        'ref',
+        'overrideClassName', 'extendClassName',
+        'overrideStyle', 'extendStyle',
+        'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
+      ),
       ...mergedFunctions,
       ref,
       className, style,
@@ -145,6 +161,7 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
   const Node = React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> } & UUIConvenienceProps
     const nodeClassName = [options.prefix, nodeName].join(options.separator)
+
     return <_Target
       {...omit(_props, 'customize')}
       ref={ref as any}
