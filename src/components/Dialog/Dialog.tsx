@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { useFocusTrap, useLockBodyScroll } from '../../hooks'
 
 import classNames from 'classnames';
@@ -67,7 +67,7 @@ export const Dialog = UUI.FunctionComponent({
 
   const ref = useFocusTrap(props.open && !!props.focusTrap)
 
-  const backdrop = useMemo(() => (
+  const backdrop = (
     <Backdrop
       ref={ref}
       className={classNames({
@@ -86,8 +86,7 @@ export const Dialog = UUI.FunctionComponent({
         <Content>{props.children}</Content>
       </Container>
     </Backdrop>
-  ), [props.open])
-
+  )
   const portal = finalProps.usePortal ? ReactDOM.createPortal(backdrop, finalProps.portalContainer) : backdrop
   return (
     <Root>
