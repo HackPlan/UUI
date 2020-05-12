@@ -29,9 +29,18 @@ module.exports = {
     fileLoaderRule.test = /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani|pdf)(\?.*)?$/
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack', {
+      use: [{
+        loader: '@svgr/webpack',
+        options: {
+          svgoConfig: {
+            plugins: {
+              removeViewBox: false
+            }
+          },
+        },
+      }, {
         loader: 'file-loader',
-        options: { name: 'static/media/[name].[hash:8].[ext]', esModule: false },
+        options: { name: 'icons/assets/[name].[hash:8].[ext]', esModule: false },
       }],
     })
     // ===================

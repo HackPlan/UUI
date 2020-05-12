@@ -3,6 +3,7 @@ import { UUI } from '../../utils/uui';
 import { Button } from '../..';
 import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
+import { Icons } from '../../icons/Icons';
 
 export interface BaseStepperProps {
   /**
@@ -74,7 +75,13 @@ export const Stepper = UUI.FunctionComponent({
         props.onChange(finalValue)
       }}
       disabled={props.disabled || (props.min && props.value && props.value - props.min <= 0 || false)}
-    >-</MinusButton>
+    >
+      {props.controlPosition === 'right' ? (
+        <Icons.ChevronDown width={14} height={14} />
+      ) : (
+        <Icons.ChevronLeft width={16} height={16} />
+      )}
+    </MinusButton>
   )
   const plus = (
     <PlusButton
@@ -83,7 +90,13 @@ export const Stepper = UUI.FunctionComponent({
         props.onChange(finalValue)
       }}
       disabled={props.disabled || (props.max && props.value && props.value - props.max >= 0 || false)}
-    >+</PlusButton>)
+    >
+      {props.controlPosition === 'right' ? (
+        <Icons.ChevronUp width={14} height={14} />
+      ) : (
+        <Icons.ChevronRight width={16} height={16} />
+      )}
+    </PlusButton>)
   const input = (
     <Input
       step={props.step}

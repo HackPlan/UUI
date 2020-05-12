@@ -78,7 +78,7 @@ export const PageList = UUI.FunctionComponent({
         disabled={props.page === 1}
         onClick={() => { if (props.page > 1) props.onPageChange(props.page-1) }}
       >
-        <Icons.ChevronsLeft width={18} height={18}></Icons.ChevronsLeft>
+        <Icons.ChevronLeft></Icons.ChevronLeft>
       </PrevButton>
       {pageListData.map((item, index) =>
         props.page === Number(item.title) ? (
@@ -97,7 +97,7 @@ export const PageList = UUI.FunctionComponent({
         disabled={props.page === props.totalPage}
         onClick={() => { if (props.page < props.totalPage) props.onPageChange(props.page+1) }}
       >
-        <Icons.ChevronsRight width={18} height={18}></Icons.ChevronsRight>
+        <Icons.ChevronRight></Icons.ChevronRight>
       </NextButton>
     </Root>
   )

@@ -101,9 +101,18 @@ module.exports = {
       ],
     }, {
       test: /\.svg$/,
-      use: ['@svgr/webpack', {
+      use: [{
+        loader: '@svgr/webpack',
+        options: {
+          svgoConfig: {
+            plugins: {
+              removeViewBox: false
+            }
+          },
+        },
+      }, {
         loader: 'file-loader',
-        options: { name: 'icons/assets/[name].[hash:8].[ext]', esModule: false },
+        options: { name: 'icons/assets/[name].[ext]', esModule: false },
       }],
     }],
   },
