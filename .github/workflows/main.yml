@@ -31,6 +31,15 @@ jobs:
       with:
         node-version: "${{ steps.nvm.outputs.NVMRC }}"
 
+    # Cache NPM dependencies
+    - name: Cache NPM dependencies
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.OS }}-yarn-cache-
+
     # yarn install
     - name: Install
       run: yarn install
