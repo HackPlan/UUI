@@ -39,7 +39,7 @@ export const Cascader = UUI.FunctionComponent({
 }, (props: BaseCascaderProps, nodes) => {
   const { Root, Dropdown, Input, LevelList, ItemList, Item } = nodes
 
-  const [active, setActive] = useState(true)
+  const [active, setActive] = useState(false)
   const inputRef = useRef<any>()
 
   type Levels = (CascaderOption & { selectedOption: Omit<CascaderOption, 'children'>[] })[][]
