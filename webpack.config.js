@@ -38,6 +38,7 @@ module.exports = {
     index: ['./src/styles/index.scss', './src/index.ts'],
     base: ['./src/styles/base.scss'],
     Button: ['./src/styles/components/Button.scss'],
+    Cascader: ['./src/styles/components/Cascader.scss'],
     Checkbox: ['./src/styles/components/Checkbox.scss'],
     Dialog: ['./src/styles/components/Dialog.scss'],
     Drawer: ['./src/styles/components/Drawer.scss'],
@@ -135,7 +136,7 @@ module.exports = {
     new Without([
       /base.js/,
       /Button.js$/,
-      /Button.js$/,
+      /Cascader.js$/,
       /Checkbox.js$/,
       /Dialog.js$/,
       /Drawer.js$/,

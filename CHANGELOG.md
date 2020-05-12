@@ -1,5 +1,10 @@
 # Changelog
 
+### v0.3.1
+
+- new component `Cascader`
+- fix uui component util - customizeProps onXXX events mergedFunctions
+
 ### v0.3.0
 
 - update `Pagination`, `Stepper` button icons

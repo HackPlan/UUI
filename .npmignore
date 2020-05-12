@@ -17,3 +17,4 @@ DEVNOTES.md
 .eslintignore
 .eslintrc.js
 .github
+.DS_Store
