@@ -1,0 +1,50 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Cascader } from '../src';
+import { useState, useEffect } from 'react';
+
+<Meta title="Cascader" component={Cascader} />
+
+# 级联选择器 Cascader
+
+### 简单使用
+
+<Preview>
+  <Story name="Cascader">
+    {() => {
+      const [value, setValue] = useState([])
+      const alp = 'abcdefghijklmnopqrst'
+      const options = alp
+        .split('')
+        .map((i) => {
+          return {
+            label: i.toUpperCase(),
+            value: i,
+            children: alp.split('').map((j) => {
+              return {
+                label: i.toUpperCase() + j.toUpperCase(),
+                value: j,
+                children: alp.split('').map((k) => {
+                  return {
+                    label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
+                    value: k,
+                  }
+                })
+              }
+            })
+          }
+        })
+      return (
+        <Cascader
+          options={options}
+          value={value}
+          onChange={(value) => { setValue(value) }}
+        >
+        </Cascader>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Cascader }} />
