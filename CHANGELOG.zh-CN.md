@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.3
+
+- 修复 `Toast` timeout 0 的问题
+
 ### v0.3.2
 
 - 更新组件 `Cascader` 的样式，新增 placeholder 和 expandTriggerType 参数

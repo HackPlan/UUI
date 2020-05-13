@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.zh-CN.md)
 
+### v0.3.3
+
+- fix Toaster 0 to disable the timeout
+
 ### v0.3.2
 
 - update component `Cascader` with styling, placeholder and expandTriggerType
