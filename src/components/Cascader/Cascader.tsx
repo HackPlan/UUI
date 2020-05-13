@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useCallback } from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover } from '../Popover';
 import { TextField } from '../Input';
@@ -19,6 +19,11 @@ export interface BaseCascaderProps {
    */
   options: CascaderOption[];
   /**
+   * Placeholder text when there is no value.
+   * @default none
+   */
+  placeholder?: string;
+  /**
    * The value to display in the input field.
    */
   value: string[] | null;
@@ -26,6 +31,11 @@ export interface BaseCascaderProps {
    * Event handler invoked when input value is changed.
    */
   onChange: (value: string[] | null) => void;
+  /**
+   * Indicate which type to trigger expand item list.
+   * @default click
+   */
+  expandTriggerType: 'click' | 'hover';
 }
 
 export const Cascader = UUI.FunctionComponent({
@@ -43,6 +53,10 @@ export const Cascader = UUI.FunctionComponent({
   }
 }, (props: BaseCascaderProps, nodes) => {
   const { Root, Dropdown, Input, LevelList, ItemList, Item, ItemLabel, ItemIcon } = nodes
+
+  const finalProps = {
+    expandTriggerType: props.expandTriggerType || 'click',
+  }
 
   const [active, setActive] = useState(false)
   const inputRef = useRef<any>()
@@ -94,6 +108,7 @@ export const Cascader = UUI.FunctionComponent({
         onClickAway={() => { setActive(false) }}
         activator={
           <Input
+            placeholder={props.placeholder}
             value={inputText}
             // TODO: implement this when Cascader support input search option
             // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -108,7 +123,6 @@ export const Cascader = UUI.FunctionComponent({
               Input: {
                 ref: inputRef,
                 readOnly: true,
-                // disabled: true,
               },
             }}
           />
@@ -129,6 +143,12 @@ export const Cascader = UUI.FunctionComponent({
                       onClick={() => {
                         if (option.disabled) return
                         if (!option.children) setActive(false)
+                        props.onChange(option.selectedOption.map((i) => i.value))
+                      }}
+                      onMouseEnter={() => {
+                        if (finalProps.expandTriggerType !== 'hover') return
+                        if (option.disabled) return
+                        if (!option.children) return
                         props.onChange(option.selectedOption.map((i) => i.value))
                       }}
                     >

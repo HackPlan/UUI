@@ -36,6 +36,7 @@ import { useState, useEffect } from 'react';
       options[1].children[2].children[3].disabled = true
       return (
         <Cascader
+          placeholder={'Please select'}
           options={options}
           value={value}
           onChange={(value) => { setValue(value) }}
