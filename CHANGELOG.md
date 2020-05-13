@@ -1,5 +1,9 @@
 # Changelog
 
+### v0.3.2
+
+- update component `Cascader` with styling, placeholder and expandTriggerType
+
 ### v0.3.1
 
 - new component `Cascader`
