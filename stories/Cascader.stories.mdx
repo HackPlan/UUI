@@ -33,6 +33,7 @@ import { useState, useEffect } from 'react';
             })
           }
         })
+      options[1].children[2].children[3].disabled = true
       return (
         <Cascader
           options={options}
@@ -48,3 +49,14 @@ import { useState, useEffect } from 'react';
 ### Props
 
 <Props components={{ Cascader }} />
+
+### CascaderOption
+
+```tsx
+export interface CascaderOption {
+  value: string;
+  label?: React.ReactNode;
+  disabled?: boolean;
+  children?: CascaderOption[];
+}
+```

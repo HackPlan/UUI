@@ -43,12 +43,52 @@
     min-width: 100px;
     overflow: auto;
 
+    &:not(:last-child) {
+      border-right: 1px solid $borderColor;
+    }
+
     .UUI-Cascader-Item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
       padding: 0.5rem;
       cursor: pointer;
 
       &:hover {
-        background-color: #dcf0ff;
+        background-color: $hoverBackgroundColor;
+      }
+
+      &.Selected {
+        background-color: $activeBackgroundColor;
+      }
+
+      &.Disabled {
+        .UUI-Cascader-ItemLabel {
+          color: $disabledTextColor;
+        }
+
+        &:hover {
+          background-color: inherit;
+        }
+        cursor: not-allowed;
+      }
+
+      .UUI-Cascader-ItemLabel {
+        color: $textDarkColor;
+      }
+      .UUI-Cascader-ItemIcon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .UUI-Icon-Root.Hidden svg {
+          opacity: 0;
+        }
+
+        svg {
+          color: lighten($textDarkColor, 30%);
+        }
       }
     }
   }

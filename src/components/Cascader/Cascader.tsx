@@ -3,16 +3,19 @@ import { UUI } from '../../utils/uui';
 import { Popover } from '../Popover';
 import { TextField } from '../Input';
 import { pick } from 'lodash';
+import classNames from 'classnames';
+import { Icons } from '../../icons/Icons';
 
 export interface CascaderOption {
   value: string;
   label?: React.ReactNode;
+  disabled?: boolean;
   children?: CascaderOption[];
 }
 
 export interface BaseCascaderProps {
   /**
-   *
+   * Option items of Cascader.
    */
   options: CascaderOption[];
   /**
@@ -35,22 +38,32 @@ export const Cascader = UUI.FunctionComponent({
     SectionList: 'div',
     ItemList: 'div',
     Item: 'div',
+    ItemLabel: 'div',
+    ItemIcon: 'div',
   }
 }, (props: BaseCascaderProps, nodes) => {
-  const { Root, Dropdown, Input, LevelList, ItemList, Item } = nodes
+  const { Root, Dropdown, Input, LevelList, ItemList, Item, ItemLabel, ItemIcon } = nodes
 
   const [active, setActive] = useState(false)
   const inputRef = useRef<any>()
 
-  type Levels = (CascaderOption & { selectedOption: Omit<CascaderOption, 'children'>[] })[][]
+  /**
+   * Generate tree hierarchy data of cascade options.
+   */
+  type Levels = (CascaderOption & {
+    selectedOption: Omit<CascaderOption, 'children'>[];
+    selected: boolean;
+  })[][]
   const levels = useMemo(() => {
     const dfs = (data: Levels, index: number, selectedOption: CascaderOption[], options: CascaderOption[]) => {
-      data.push(options.map((i) => ({ ...i, selectedOption: [...selectedOption, pick(i, 'value', 'label')] })))
+      const getNewSelectedOption = (option: CascaderOption) => [...selectedOption, pick(option, 'value', 'label')]
+      const getSelected = (option: CascaderOption) => props.value ? option.value === props.value[index] : false
+      data.push(options.map((i) => ({ ...i, selectedOption: getNewSelectedOption(i), selected: getSelected(i) })))
       if (props.value && props.value[index]) {
         const value = props.value[index]
         const option = options.find((option) => option.value === value)
         if (option && option.children) {
-          dfs(data, index+1, [...selectedOption, pick(option, 'value', 'label')], option.children)
+          dfs(data, index+1, getNewSelectedOption(option), option.children)
         }
       }
     }
@@ -59,6 +72,9 @@ export const Cascader = UUI.FunctionComponent({
     return data
   }, [props.options, props.value])
 
+  /**
+   * Generate input text string value.
+   */
   const inputText = useMemo(() => {
     if (!props.value) return null
 
@@ -105,15 +121,26 @@ export const Cascader = UUI.FunctionComponent({
                 {options.map((option, optionIndex) => {
                   return (
                     <Item
+                      className={classNames({
+                        'Selected': option.selected,
+                        'Disabled': option.disabled,
+                      })}
                       key={optionIndex}
                       onClick={() => {
+                        if (option.disabled) return
+                        if (!option.children) setActive(false)
                         props.onChange(option.selectedOption.map((i) => i.value))
-                        if (!option.children) {
-                          setActive(false)
-                        }
                       }}
                     >
-                      {option.label}
+                      <ItemLabel>{option.label}</ItemLabel>
+                      <ItemIcon>
+                        <Icons.ChevronRight
+                          className={classNames({
+                            'Hidden': !option.children,
+                          })}
+                          svgrProps={{ strokeWidth: 1 }}
+                        />
+                      </ItemIcon>
                     </Item>
                   )
                 })}
