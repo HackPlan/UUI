@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useCallback } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover } from '../Popover';
 import { TextField } from '../Input';
@@ -43,6 +43,7 @@ export const Cascader = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
     Dropdown: Popover,
+    DropdownIcon: 'div',
     Input: TextField,
     LevelList: 'div',
     SectionList: 'div',
@@ -52,7 +53,10 @@ export const Cascader = UUI.FunctionComponent({
     ItemIcon: 'div',
   }
 }, (props: BaseCascaderProps, nodes) => {
-  const { Root, Dropdown, Input, LevelList, ItemList, Item, ItemLabel, ItemIcon } = nodes
+  const {
+    Root, Dropdown, DropdownIcon, Input,
+    LevelList, ItemList, Item, ItemLabel, ItemIcon,
+  } = nodes
 
   const finalProps = {
     expandTriggerType: props.expandTriggerType || 'click',
@@ -101,7 +105,11 @@ export const Cascader = UUI.FunctionComponent({
   }, [props.value, levels])
 
   return (
-    <Root>
+    <Root
+      className={classNames({
+        'Active': active,
+      })}
+    >
       <Dropdown
         active={active}
         placement={'bottom-start'}
@@ -119,6 +127,11 @@ export const Cascader = UUI.FunctionComponent({
                   setActive(true)
                   inputRef.current && inputRef.current.focus && inputRef.current.focus();
                 },
+                extendChildrenAfter: (
+                  <DropdownIcon>
+                    <Icons.ChevronDown width={20} height={20} svgrProps={{ strokeWidth: 1 }}></Icons.ChevronDown>
+                  </DropdownIcon>
+                )
               },
               Input: {
                 ref: inputRef,

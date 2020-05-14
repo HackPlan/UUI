@@ -2,6 +2,8 @@ import React from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover as UUIPopover, TextField } from '../..';
 import { flatMap } from 'lodash';
+import classNames from 'classnames';
+import { Icons } from '../../icons/Icons';
 
 
 interface SelectItem<T extends string | number> {
@@ -54,6 +56,7 @@ export interface SelectState<T> {
 const SelectNodes = {
   Root: 'div',
   Dropdown: UUIPopover,
+  DropdownIcon: 'div',
   Selector: 'div',
   Input: TextField,
   SectionList: 'div',
@@ -89,10 +92,14 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
   }
 
   render() {
-    const { Root, Dropdown, Selector, Input, SectionList } = this.nodes
+    const { Root, Dropdown, DropdownIcon, Selector, Input, SectionList } = this.nodes
 
     return (
-      <Root>
+      <Root
+        className={classNames({
+          'Active': this.state.active,
+        })}
+      >
         <Dropdown
           active={this.state.active}
           placement={'bottom-start'}
@@ -113,6 +120,13 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
                 }}
                 placeholder={this.state.textPlaceholder}
                 customize={{
+                  Root: {
+                    extendChildrenAfter: (
+                      <DropdownIcon>
+                        <Icons.ChevronDown width={20} height={20} svgrProps={{ strokeWidth: 1 }}></Icons.ChevronDown>
+                      </DropdownIcon>
+                    )
+                  },
                   Input: {
                     ref: this.inputRef,
                     onFocus: () => {
@@ -124,8 +138,9 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
                       const allItems = this.getAllItems()
                       const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
                       this.setState({ text, textPlaceholder: this.props.placeholder })
-                    }
-                  }
+                    },
+                    readOnly: true,
+                  },
                 }}
               />
             </Selector>
