@@ -22,11 +22,11 @@ import { useState, useEffect } from 'react';
             children: alp.split('').map((j) => {
               return {
                 label: i.toUpperCase() + j.toUpperCase(),
-                value: j,
+                value: i + j,
                 children: alp.split('').map((k) => {
                   return {
                     label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
-                    value: k,
+                    value: i + j + k,
                   }
                 })
               }
@@ -40,6 +40,49 @@ import { useState, useEffect } from 'react';
           options={options}
           value={value}
           onChange={(value) => { setValue(value) }}
+        >
+        </Cascader>
+      )
+    }}
+  </Story>
+</Preview>
+
+### 可选择任意一级选项
+
+`props.changeOnFinalSelect` 默认为 `true`，这个时候，只有当选择了最后一级 option 才会回调 `props.onChange`；反之，点击选择任何一级 option 都会回调。
+
+<Preview>
+  <Story name="Cascader with select any level option">
+    {() => {
+      const [value, setValue] = useState([])
+      const alp = 'abcdefghi'
+      const options = alp
+        .split('')
+        .map((i) => {
+          return {
+            label: i.toUpperCase(),
+            value: i,
+            children: alp.split('').map((j) => {
+              return {
+                label: i.toUpperCase() + j.toUpperCase(),
+                value: i + j,
+                children: alp.split('').map((k) => {
+                  return {
+                    label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
+                    value: i + j + k,
+                  }
+                })
+              }
+            })
+          }
+        })
+      return (
+        <Cascader
+          placeholder={'Please select'}
+          changeOnFinalSelect={false}
+          options={options}
+          value={value}
+          onChange={(value) => { console.log('onChange', value); setValue(value) }}
         >
         </Cascader>
       )

@@ -2,9 +2,10 @@ import React, { useState, useRef, useMemo } from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover } from '../Popover';
 import { TextField } from '../Input';
-import { pick } from 'lodash';
+import { pick, isEqual } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
+import { usePendingValue } from '../../hooks/usePendingValue';
 
 export interface CascaderOption {
   value: string;
@@ -36,6 +37,11 @@ export interface BaseCascaderProps {
    * @default click
    */
   expandTriggerType: 'click' | 'hover';
+  /**
+   * only invoke onChange when the final level option item select.
+   * @default true
+   */
+  changeOnFinalSelect: boolean;
 }
 
 export const Cascader = UUI.FunctionComponent({
@@ -53,20 +59,31 @@ export const Cascader = UUI.FunctionComponent({
     ItemIcon: 'div',
   }
 }, (props: BaseCascaderProps, nodes) => {
+  /**
+   * Component Nodes Spread
+   */
   const {
     Root, Dropdown, DropdownIcon, Input,
     LevelList, ItemList, Item, ItemLabel, ItemIcon,
   } = nodes
 
+  /**
+   * Default props value
+   */
   const finalProps = {
     expandTriggerType: props.expandTriggerType || 'click',
+    changeOnFinalSelect: props.changeOnFinalSelect === undefined ? true : props.changeOnFinalSelect,
   }
 
-  const [active, setActive] = useState(false)
-  const inputRef = useRef<any>()
+  /**
+   * Component Inner States
+   */
+  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue(props.value, (finalValue) => { props.onChange(finalValue) })
+  const [popoverActive, setPopoverActive] = useState(false)
+  const [inputValue, setInputValue] = useState<string | null>(null)
 
   /**
-   * Generate tree hierarchy data of cascade options.
+   * Generate tree hierarchy data of cascade options for rendering.
    */
   type Levels = (CascaderOption & {
     selectedOption: Omit<CascaderOption, 'children'>[];
@@ -75,10 +92,10 @@ export const Cascader = UUI.FunctionComponent({
   const levels = useMemo(() => {
     const dfs = (data: Levels, index: number, selectedOption: CascaderOption[], options: CascaderOption[]) => {
       const getNewSelectedOption = (option: CascaderOption) => [...selectedOption, pick(option, 'value', 'label')]
-      const getSelected = (option: CascaderOption) => props.value ? option.value === props.value[index] : false
+      const getSelected = (option: CascaderOption) => innerValue ? option.value === innerValue[index] : false
       data.push(options.map((i) => ({ ...i, selectedOption: getNewSelectedOption(i), selected: getSelected(i) })))
-      if (props.value && props.value[index]) {
-        const value = props.value[index]
+      if (innerValue && innerValue[index]) {
+        const value = innerValue[index]
         const option = options.find((option) => option.value === value)
         if (option && option.children) {
           dfs(data, index+1, getNewSelectedOption(option), option.children)
@@ -88,44 +105,50 @@ export const Cascader = UUI.FunctionComponent({
     const data: Levels = []
     dfs(data, 0, [], props.options)
     return data
-  }, [props.options, props.value])
+  }, [props.options, innerValue])
 
-  /**
-   * Generate input text string value.
-   */
-  const inputText = useMemo(() => {
-    if (!props.value) return null
-
-    return props.value.map((value, index) => {
-      if (!levels[index]) return 'N/A'
-      const level = levels[index]
-      const option = level.find((i) => i.value === value)
-      return option ? (option.label || option.value) : 'N/A'
-    }).join(' / ')
-  }, [props.value, levels])
+  const value = useMemo(() => {
+    if (isEqual(innerValue, props.value)) {
+      const selectedOptions = findSelectedOptions(props.value, props.options)
+      return generateLabel(selectedOptions)
+    } else {
+      return null
+    }
+  }, [innerValue, props.value, props.options])
+  const placeholder = useMemo(() => {
+    if (isEqual(innerValue, props.value)) {
+      return props.placeholder
+    } else {
+      const selectedOptions = findSelectedOptions(props.value, props.options)
+      return generateLabel(selectedOptions) || props.placeholder
+    }
+  }, [innerValue, props.value, props.options, props.placeholder])
 
   return (
     <Root
       className={classNames({
-        'Active': active,
+        'Active': popoverActive,
       })}
     >
       <Dropdown
-        active={active}
+        active={popoverActive}
         placement={'bottom-start'}
-        onClickAway={() => { setActive(false) }}
+        onClickAway={() => {
+          setPopoverActive(false)
+          resetInnerValue()
+        }}
         activator={
           <Input
-            placeholder={props.placeholder}
-            value={inputText}
-            // TODO: implement this when Cascader support input search option
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onChange={() => {}}
+            placeholder={placeholder}
+            value={value}
+            onChange={(value) => {
+              setInputValue(value.length > 0 ? value : null)
+            }}
             customize={{
               Root: {
-                onClick: () => {
-                  setActive(true)
-                  inputRef.current && inputRef.current.focus && inputRef.current.focus();
+                onFocus: () => {
+                  setPopoverActive(true)
+                  setInputValue('')
                 },
                 extendChildrenAfter: (
                   <DropdownIcon>
@@ -134,7 +157,6 @@ export const Cascader = UUI.FunctionComponent({
                 )
               },
               Input: {
-                ref: inputRef,
                 readOnly: true,
               },
             }}
@@ -155,14 +177,20 @@ export const Cascader = UUI.FunctionComponent({
                       key={optionIndex}
                       onClick={() => {
                         if (option.disabled) return
-                        if (!option.children) setActive(false)
-                        props.onChange(option.selectedOption.map((i) => i.value))
+
+                        if (option.children) {
+                          console.log('AAA', !finalProps.changeOnFinalSelect)
+                          setInnerValue(option.selectedOption.map((i) => i.value), !finalProps.changeOnFinalSelect)
+                        } else if (!option.children) {
+                          setPopoverActive(false)
+                          setInnerValue(option.selectedOption.map((i) => i.value), true)
+                        }
                       }}
                       onMouseEnter={() => {
                         if (finalProps.expandTriggerType !== 'hover') return
                         if (option.disabled) return
                         if (!option.children) return
-                        props.onChange(option.selectedOption.map((i) => i.value))
+                        setInnerValue(option.selectedOption.map((i) => i.value))
                       }}
                     >
                       <ItemLabel>{option.label}</ItemLabel>
@@ -187,3 +215,24 @@ export const Cascader = UUI.FunctionComponent({
 })
 
 export type CascaderProps = Parameters<typeof Cascader>[0]
+
+
+function findSelectedOptions(value: string[] | null, options: CascaderOption[]) {
+  if (!value || value.length === 0) return []
+  const dfs = (data: CascaderOption[], index: number, options: CascaderOption[]) => {
+    if (!value[index]) return
+    const option = options.find((option) => option.value === value[index])
+    if (!option) return
+    data.push(option)
+    if (option.children) {
+      dfs(data, index+1, option.children)
+    }
+  }
+  const data: CascaderOption[] = []
+  dfs(data, 0, options)
+  return data
+}
+
+function generateLabel(options: CascaderOption[]) {
+  return options.map((i) => i.label || i.value).join(' / ')
+}
