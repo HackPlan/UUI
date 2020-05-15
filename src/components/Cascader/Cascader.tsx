@@ -43,9 +43,13 @@ export interface BaseCascaderProps {
    */
   changeOnFinalSelect: boolean;
   /**
-   * enable inputing text to search options.
+   * enable inputting text to search options.
    */
   enableSearch?: boolean;
+  /**
+   * The custom search function, it invoked per option iteration.
+   */
+  onSearch?: (option: CascaderOption, q: string) => boolean;
 }
 
 export const Cascader = UUI.FunctionComponent({
@@ -127,8 +131,8 @@ export const Cascader = UUI.FunctionComponent({
 
   const searchMatchedOptions = useMemo(() => {
     if (!inputValue) return []
-    return searchInOptions(inputValue, props.options)
-  }, [inputValue, props.options])
+    return searchInOptions(inputValue, props.options, props.onSearch)
+  }, [inputValue, props.onSearch, props.options])
 
   const [showSearchList, showLevelList] = useMemo(() => {
     if (!finalProps.enableSearch) return [false, true]
@@ -289,7 +293,7 @@ function highlightKeyword(text: string, keyword: string, HighlightComponent: any
   return data.map((i) => <>{i}</>)
 }
 
-function searchInOptions(q: string, options: CascaderOption[]) {
+function searchInOptions(q: string, options: CascaderOption[], predicate?: BaseCascaderProps['onSearch']) {
   const current: CascaderOption[] = []
   const flatOptions: CascaderOption[][] = []
   const initialOption: CascaderOption = {
@@ -299,7 +303,7 @@ function searchInOptions(q: string, options: CascaderOption[]) {
   const backtracking = (current: CascaderOption[], flatOptions: CascaderOption[][], option: CascaderOption) => {
     if (!option.children) {
       const searched = current.some((i) => {
-        if (isString(i.label)) return i.label.includes(q)
+        if (isString(i.label)) return predicate ? predicate(i, q) : i.label.includes(q)
         else return false
       })
       if (searched) flatOptions.push(clone(current))
