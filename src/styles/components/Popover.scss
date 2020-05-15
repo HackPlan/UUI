@@ -10,9 +10,14 @@
   @include radius;
 
   z-index: 9999;
-  opacity: 0;
   background-color: white;
-  pointer-events: none;
 
-  transition: opacity 0.1s ease-in-out;
+  opacity: 0;
+  transition: opacity 0s ease-in-out;
+  pointer-events: none;
+  &.Active {
+    opacity: 1;
+    transition: opacity 0.1s ease-in-out;
+    pointer-events: auto;
+  }
 }
