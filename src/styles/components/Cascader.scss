@@ -125,6 +125,14 @@
       background-color: $hoverBackgroundColor;
     }
 
+    &.Disabled {
+      color: $disabledTextColor;
+      &:hover {
+        background-color: inherit;
+      }
+      cursor: not-allowed;
+    }
+
     .UUI-Cascader-SearchMatched {
       color: $primaryColor;
     }

@@ -234,10 +234,15 @@ export const Cascader = UUI.FunctionComponent({
         {showSearchList && (
           <SearchList>
             {searchMatchedOptions.map((group, groupIndex) => {
+              const disabled = group.some((i) => i.disabled)
               return (
                 <SearchItem
+                  className={classNames({
+                    'Disabled': disabled,
+                  })}
                   key={groupIndex}
                   onClick={() => {
+                    if (disabled) return
                     setPopoverActive(false)
                     const newValue = group.map((i) => i.value)
                     setInnerValue(newValue, true)
