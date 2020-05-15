@@ -302,14 +302,18 @@ function searchInOptions(q: string, options: CascaderOption[], predicate?: BaseC
   }
   const backtracking = (current: CascaderOption[], flatOptions: CascaderOption[][], option: CascaderOption) => {
     if (!option.children) {
-      const searched = current.some((i) => {
-        if (isString(i.label)) return predicate ? predicate(i, q) : i.label.includes(q)
-        else return false
-      })
-      if (searched) flatOptions.push(clone(current))
+      const searched = current.some((i) => !!(i as any)['matched'])
+      if (searched) flatOptions.push(clone(current.map((i) => {
+        delete (i as any)['matched']
+        return i
+      })))
       return
     }
     for (const child of option.children) {
+      (child as any)['matched'] = (() => {
+        if (isString(child.label)) return predicate ? predicate(child, q) : child.label.includes(q)
+        else return false
+      })()
       current.push(child)
       backtracking(current, flatOptions, child)
       current.pop()
