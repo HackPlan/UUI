@@ -108,3 +108,25 @@
     }
   }
 }
+
+.UUI-Cascader-SearchList {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 240px;
+  min-width: 100px;
+  overflow: auto;
+
+  .UUI-Cascader-SearchItem {
+    padding: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $hoverBackgroundColor;
+    }
+
+    .UUI-Cascader-SearchMatched {
+      color: $primaryColor;
+    }
+  }
+}

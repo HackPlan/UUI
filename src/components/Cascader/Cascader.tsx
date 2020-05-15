@@ -1,15 +1,15 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover } from '../Popover';
 import { TextField } from '../Input';
-import { pick, isEqual } from 'lodash';
+import { pick, clone, isString } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
 
 export interface CascaderOption {
   value: string;
-  label?: React.ReactNode;
+  label: React.ReactNode | string;
   disabled?: boolean;
   children?: CascaderOption[];
 }
@@ -42,6 +42,10 @@ export interface BaseCascaderProps {
    * @default true
    */
   changeOnFinalSelect: boolean;
+  /**
+   * enable inputing text to search options.
+   */
+  enableSearch?: boolean;
 }
 
 export const Cascader = UUI.FunctionComponent({
@@ -57,7 +61,10 @@ export const Cascader = UUI.FunctionComponent({
     Item: 'div',
     ItemLabel: 'div',
     ItemIcon: 'div',
-  }
+    SearchList: 'div',
+    SearchItem: 'div',
+    SearchMatched: 'span',
+  },
 }, (props: BaseCascaderProps, nodes) => {
   /**
    * Component Nodes Spread
@@ -65,6 +72,7 @@ export const Cascader = UUI.FunctionComponent({
   const {
     Root, Dropdown, DropdownIcon, Input,
     LevelList, ItemList, Item, ItemLabel, ItemIcon,
+    SearchList, SearchItem, SearchMatched,
   } = nodes
 
   /**
@@ -72,6 +80,7 @@ export const Cascader = UUI.FunctionComponent({
    */
   const finalProps = {
     expandTriggerType: props.expandTriggerType || 'click',
+    enableSearch: props.enableSearch === undefined ? false : props.enableSearch,
     changeOnFinalSelect: props.changeOnFinalSelect === undefined ? true : props.changeOnFinalSelect,
   }
 
@@ -107,22 +116,25 @@ export const Cascader = UUI.FunctionComponent({
     return data
   }, [props.options, innerValue])
 
-  const value = useMemo(() => {
-    if (isEqual(innerValue, props.value)) {
-      const selectedOptions = findSelectedOptions(props.value, props.options)
-      return generateLabel(selectedOptions)
-    } else {
-      return null
-    }
-  }, [innerValue, props.value, props.options])
   const placeholder = useMemo(() => {
-    if (isEqual(innerValue, props.value)) {
-      return props.placeholder
-    } else {
+    if (popoverActive && !inputValue && props.value) {
       const selectedOptions = findSelectedOptions(props.value, props.options)
       return generateLabel(selectedOptions) || props.placeholder
+    } else {
+      return props.placeholder
     }
-  }, [innerValue, props.value, props.options, props.placeholder])
+  }, [popoverActive, inputValue, props.value, props.options, props.placeholder])
+
+  const searchMatchedOptions = useMemo(() => {
+    if (!inputValue) return []
+    return searchInOptions(inputValue, props.options)
+  }, [inputValue, props.options])
+
+  const [showSearchList, showLevelList] = useMemo(() => {
+    if (!finalProps.enableSearch) return [false, true]
+    if (inputValue) return [true, false]
+    else return [false, true]
+  }, [finalProps.enableSearch, inputValue])
 
   return (
     <Root
@@ -135,12 +147,14 @@ export const Cascader = UUI.FunctionComponent({
         placement={'bottom-start'}
         onClickAway={() => {
           setPopoverActive(false)
+          const selectedOptions = findSelectedOptions(props.value, props.options)
+          setInputValue(generateLabel(selectedOptions))
           resetInnerValue()
         }}
         activator={
           <Input
             placeholder={placeholder}
-            value={value}
+            value={inputValue}
             onChange={(value) => {
               setInputValue(value.length > 0 ? value : null)
             }}
@@ -157,58 +171,89 @@ export const Cascader = UUI.FunctionComponent({
                 )
               },
               Input: {
-                readOnly: true,
+                readOnly: !finalProps.enableSearch,
               },
             }}
           />
         }
       >
-        <LevelList>
-          {levels.map((options, levelIndex) => {
-            return (
-              <ItemList key={levelIndex}>
-                {options.map((option, optionIndex) => {
-                  return (
-                    <Item
-                      className={classNames({
-                        'Selected': option.selected,
-                        'Disabled': option.disabled,
-                      })}
-                      key={optionIndex}
-                      onClick={() => {
-                        if (option.disabled) return
-
-                        if (option.children) {
-                          console.log('AAA', !finalProps.changeOnFinalSelect)
-                          setInnerValue(option.selectedOption.map((i) => i.value), !finalProps.changeOnFinalSelect)
-                        } else if (!option.children) {
-                          setPopoverActive(false)
-                          setInnerValue(option.selectedOption.map((i) => i.value), true)
-                        }
-                      }}
-                      onMouseEnter={() => {
-                        if (finalProps.expandTriggerType !== 'hover') return
-                        if (option.disabled) return
-                        if (!option.children) return
-                        setInnerValue(option.selectedOption.map((i) => i.value))
-                      }}
-                    >
-                      <ItemLabel>{option.label}</ItemLabel>
-                      <ItemIcon>
-                        <Icons.ChevronRight
-                          className={classNames({
-                            'Hidden': !option.children,
-                          })}
-                          svgrProps={{ strokeWidth: 1 }}
-                        />
-                      </ItemIcon>
-                    </Item>
-                  )
-                })}
-              </ItemList>
-            )
-          })}
-        </LevelList>
+        {showLevelList && (
+          <LevelList>
+            {levels.map((options, levelIndex) => {
+              return (
+                <ItemList key={levelIndex}>
+                  {options.map((option, optionIndex) => {
+                    return (
+                      <Item
+                        className={classNames({
+                          'Selected': option.selected,
+                          'Disabled': option.disabled,
+                        })}
+                        key={optionIndex}
+                        onClick={() => {
+                          if (option.disabled) return
+                          const newValue = option.selectedOption.map((i) => i.value)
+                          if (option.children) {
+                            setInnerValue(newValue, !finalProps.changeOnFinalSelect)
+                          } else if (!option.children) {
+                            setPopoverActive(false)
+                            setInnerValue(newValue, true)
+                            const selectedOptions = findSelectedOptions(newValue, props.options)
+                            setInputValue(generateLabel(selectedOptions))
+                          }
+                        }}
+                        onMouseEnter={() => {
+                          if (finalProps.expandTriggerType !== 'hover') return
+                          if (option.disabled) return
+                          if (!option.children) return
+                          const newValue = option.selectedOption.map((i) => i.value)
+                          setInnerValue(newValue)
+                        }}
+                      >
+                        <ItemLabel>{option.label}</ItemLabel>
+                        <ItemIcon>
+                          <Icons.ChevronRight
+                            className={classNames({
+                              'Hidden': !option.children,
+                            })}
+                            svgrProps={{ strokeWidth: 1 }}
+                          />
+                        </ItemIcon>
+                      </Item>
+                    )
+                  })}
+                </ItemList>
+              )
+            })}
+          </LevelList>
+        )}
+        {showSearchList && (
+          <SearchList>
+            {searchMatchedOptions.map((group, groupIndex) => {
+              return (
+                <SearchItem
+                  key={groupIndex}
+                  onClick={() => {
+                    setPopoverActive(false)
+                    const newValue = group.map((i) => i.value)
+                    setInnerValue(newValue, true)
+                    const selectedOptions = findSelectedOptions(newValue, props.options)
+                    setInputValue(generateLabel(selectedOptions))
+                  }}
+                >
+                  {group.map((option, index) => {
+                    if (!isString(option.label)) return null
+                    const highlighted = highlightKeyword(option.label, inputValue || '', SearchMatched)
+                    return <>
+                      {index !== 0 && ' / '}
+                      {highlighted.map((i) => i)}
+                    </>
+                  })}
+                </SearchItem>
+              )
+            })}
+          </SearchList>
+        )}
       </Dropdown>
     </Root>
   )
@@ -233,6 +278,44 @@ function findSelectedOptions(value: string[] | null, options: CascaderOption[]) 
   return data
 }
 
+function highlightKeyword(text: string, keyword: string, HighlightComponent: any) {
+  const data = text.split(keyword).map((node, index) => {
+    if (index === 0) return node
+    else return <>
+      <HighlightComponent key={keyword}>{keyword}</HighlightComponent>
+      {node}
+    </>
+  })
+  return data.map((i) => <>{i}</>)
+}
+
+function searchInOptions(q: string, options: CascaderOption[]) {
+  const current: CascaderOption[] = []
+  const flatOptions: CascaderOption[][] = []
+  const initialOption: CascaderOption = {
+    label: '', value: '',
+    children: options
+  }
+  const backtracking = (current: CascaderOption[], flatOptions: CascaderOption[][], option: CascaderOption) => {
+    if (!option.children) {
+      const searched = current.some((i) => {
+        if (isString(i.label)) return i.label.includes(q)
+        else return false
+      })
+      if (searched) flatOptions.push(clone(current))
+      return
+    }
+    for (const child of option.children) {
+      current.push(child)
+      backtracking(current, flatOptions, child)
+      current.pop()
+    }
+  }
+  backtracking(current, flatOptions, initialOption)
+
+  return flatOptions
+}
+
 function generateLabel(options: CascaderOption[]) {
-  return options.map((i) => i.label || i.value).join(' / ')
+  return options.map((i) => i.label).join(' / ')
 }

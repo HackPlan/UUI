@@ -90,6 +90,49 @@ import { useState, useEffect } from 'react';
   </Story>
 </Preview>
 
+### 可搜索选项
+
+当启用搜索时（即 `props.enableSearch`），只有当 `CascaderOption.label` 传入字符串时，才会被搜索到。
+
+<Preview>
+  <Story name="Cascader with search">
+    {() => {
+      const [value, setValue] = useState([])
+      const alp = 'abcdefghi'
+      const options = alp
+        .split('')
+        .map((i) => {
+          return {
+            label: i.toUpperCase(),
+            value: i,
+            children: alp.split('').map((j) => {
+              return {
+                label: i.toUpperCase() + j.toUpperCase(),
+                value: i + j,
+                children: alp.split('').map((k) => {
+                  return {
+                    label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
+                    value: i + j + k,
+                  }
+                })
+              }
+            })
+          }
+        })
+      return (
+        <Cascader
+          placeholder={'Please select'}
+          options={options}
+          value={value}
+          onChange={(value) => { console.log('onChange', value); setValue(value) }}
+          enableSearch
+        >
+        </Cascader>
+      )
+    }}
+  </Story>
+</Preview>
+
 ### Props
 
 <Props components={{ Cascader }} />
