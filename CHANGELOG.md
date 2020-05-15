@@ -2,6 +2,13 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.zh-CN.md)
 
+### v0.3.4
+
+- `Cascader` `Select` add icons
+- `Cascader` changeOnFinalSelect Allow only select final level options.
+- `Cascader` enableSearch Cascader can input text to search options.
+- `Cascader` onSearch custom search function
+
 ### v0.3.3
 
 - fix Toaster 0 to disable the timeout

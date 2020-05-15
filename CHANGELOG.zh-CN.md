@@ -2,6 +2,13 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.4
+
+- `Cascader` `Select` 添加图标
+- `Cascader` changeOnFinalSelect 允许限制只能选择最后一级选项
+- `Cascader` enableSearch 可以搜索选项
+- `Cascader` onSearch 自定义搜索方法
+
 ### v0.3.3
 
 - 修复 `Toast` timeout 0 的问题
