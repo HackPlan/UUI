@@ -14,7 +14,7 @@ Universal Utility-first React UI Library
 ![](https://img.shields.io/github/languages/top/HackPlan/UUI)
 ![](https://img.shields.io/github/license/HackPlan/UUI)
 
-> **UUI is under development in heavily**, it means the interface of components may be changed later.
+> **UUI is still heavily under development.** Specifications and Usage might change in the future and, as of now, no backwards compatibility is guaranteed!
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/README.zh-CN.md)
 
@@ -22,7 +22,7 @@ English | [简体中文](https://github.com/HackPlan/UUI/blob/master/README.zh-C
 
 * A set of useful components out of the box.
 * TypeScript based full type safety.
-* Powerful style customization of components.
+* Highly customizable.
 
 ## Installation
 
