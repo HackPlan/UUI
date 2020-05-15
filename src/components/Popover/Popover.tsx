@@ -120,13 +120,6 @@ export const Popover = UUI.FunctionComponent({
     modifiers: finalProps.modifiers,
   });
 
-  useEffect(() => {
-    if (popperElement) {
-      popperElement.style.opacity = props.active ? '1' : '0'
-      popperElement.style.pointerEvents = props.active ? 'auto' : 'none'
-    }
-  }, [props.active, popperElement])
-
   const activator = useMemo(() => {
     return <Activator ref={setReferenceElement}>{props.activator}</Activator>
   }, [props.activator, setReferenceElement])
@@ -139,13 +132,21 @@ export const Popover = UUI.FunctionComponent({
 
     return finalProps.usePortal ? ReactDOM.createPortal((
       <Portal>
-        <Content ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+        <Content
+          className={classNames({ 'Active': props.active })}
+          ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
+          style={{...styles.popper}} {...attributes.popper}
+        >{props.children}</Content>
       </Portal>
     ), finalProps.portalContainer) : (
-      <Content ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }} style={{...styles.popper}} {...attributes.popper}>{props.children}</Content>
+      <Content
+        className={classNames({ 'Active': props.active })}
+        ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
+        style={{...styles.popper}} {...attributes.popper}
+      >{props.children}</Content>
     )
   }, [
-    props.lazy, finalProps.portalContainer, neverOpened,
+    props.lazy, props.active, finalProps.portalContainer, neverOpened,
     finalProps.usePortal, props.children,
     styles, attributes, setPopperElement,
   ])
