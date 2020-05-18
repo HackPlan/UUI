@@ -15,7 +15,7 @@ export interface BaseDialogProps {
   /**
    * Callback invoked when user click outside of content view.
    */
-  onDismiss?: () => void;
+  onClickAway?: () => void;
   focusTrap?: boolean;
   /**
    * Whether the content of Dialog should be rendered inside a `Portal` where appending inside `portalContainer`(if it provided) or `document.body`.
@@ -62,7 +62,7 @@ export const Dialog = UUI.FunctionComponent({
 
   const containerRef = useRef<any>(null)
   useClickAway(containerRef, () => {
-    props.open && props.onDismiss && props.onDismiss()
+    props.open && props.onClickAway && props.onClickAway()
   })
 
   const ref = useFocusTrap(props.open && !!props.focusTrap)
