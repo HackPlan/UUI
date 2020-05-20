@@ -181,6 +181,10 @@ export type UUIComponentCustomizeProps<
       : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
   };
 }
+export type UUIComponentProps<
+  P,
+  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
+> = P & UUIConvenienceProps & UUIComponentCustomizeProps<X>
 
 export type UUIComponentNodes<
   X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },

@@ -1,11 +1,7 @@
 import React from 'react';
 import { BaseRadioProps } from './Radio';
-import { UUI } from '../../utils/uui';
+import { UUI, UUIComponentProps } from '../../utils/uui';
 
-export interface RadioGroupOptions {
-  label: string;
-  value: string;
-}
 export interface BaseRadioGroupProps<T extends string | number> {
   /**
    * The name of a group of radios
@@ -32,26 +28,28 @@ const RadioGroupNodes = {
   Root: 'div'
 } as const
 
-export class RadioGroup<K extends string | number> extends UUI.ClassComponent({
+const BaseRadioGroup = UUI.FunctionComponent({
   name: "RadioGroup",
   nodes: RadioGroupNodes,
-})<BaseRadioGroupProps<K>, {}> {
+}, (props: BaseRadioGroupProps<any>, nodes) => {
+  const { Root } = nodes
+  return (
+    <Root>
+      {React.Children.map(props.children, (child: any) => {
+        return React.cloneElement<BaseRadioProps<any>>(child, {
+          ...child.props,
+          ...(props.name ? { name: props.name } : {}),
+          checked: child.props.value === props.value,
+          onChange: () => {
+            props.onChange(child.props.value)
+          },
+        })
+      })}
+    </Root>
+  )
+})
 
-  render() {
-    const { Root } = this.nodes
-    return (
-      <Root>
-        {React.Children.map(this.props.children, (child: any) => {
-          return React.cloneElement<BaseRadioProps<K>>(child, {
-            ...child.props,
-            ...(this.props.name ? { name: this.props.name } : {}),
-            checked: child.props.value === this.props.value,
-            onChange: () => {
-              this.props.onChange(child.props.value)
-            },
-          })
-        })}
-      </Root>
-    )
-  }
+export function RadioGroup<T extends string | number>(props: UUIComponentProps<BaseRadioGroupProps<T>, typeof RadioGroupNodes>) {
+  return <BaseRadioGroup {...props} />
 }
+export type RadioGroupProps = Parameters<typeof RadioGroup>[0]

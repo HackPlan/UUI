@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI, UUIComponentProps } from '../../utils/uui';
 import { Button as UUIButton } from '../Button';
 import classNames from 'classnames';
 
@@ -25,37 +25,39 @@ export interface BaseSegmentControlProps<T extends string | number> {
   onChange: (value: T) => void;
 }
 
-export interface BaseSegmentControlState {}
+const SegmentControlNodes = {
+  Root: 'div',
+  Button: UUIButton,
+} as const
 
-export class SegmentControl<T extends string | number> extends UUI.ClassComponent({
+const BaseSegmentControl = UUI.FunctionComponent({
   name: 'SegmentControl',
-  nodes: {
-    Root: 'div',
-    Button: UUIButton,
-  }
-})<BaseSegmentControlProps<T>, BaseSegmentControlState> {
+  nodes: SegmentControlNodes
+}, (props: BaseSegmentControlProps<any>, nodes) => {
+  const { Root, Button } = nodes;
 
-  render() {
-    const { Root, Button } = this.nodes;
+  return (
+    <Root>
+      {props.options.map((option) => {
+        return (
+          <Button
+            key={option.value}
+            className={classNames({
+              'Active': props.value === option.value
+            })}
+            onClick={() => {
+              if (props.value !== option.value) {
+                props.onChange(option.value)
+              }
+            }}
+          >{option.label}</Button>
+        )
+      })}
+    </Root>
+  )
+})
 
-    return (
-      <Root>
-        {this.props.options.map((option) => {
-          return (
-            <Button
-              key={option.value}
-              className={classNames({
-                'Active': this.props.value === option.value
-              })}
-              onClick={() => {
-                if (this.props.value !== option.value) {
-                  this.props.onChange(option.value)
-                }
-              }}
-            >{option.label}</Button>
-          )
-        })}
-      </Root>
-    )
-  }
+export function SegmentControl<T extends string | number>(props: UUIComponentProps<BaseSegmentControlProps<T>, typeof SegmentControlNodes>) {
+  return <BaseSegmentControl {...props} />
 }
+export type SegmentControlProps = Parameters<typeof SegmentControl>[0]

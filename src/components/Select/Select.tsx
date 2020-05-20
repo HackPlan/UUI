@@ -1,5 +1,5 @@
-import React from 'react';
-import { UUI } from '../../utils/uui';
+import React, { useState, useRef, useCallback } from 'react';
+import { UUI, UUIComponentProps } from '../../utils/uui';
 import { Popover as UUIPopover, TextField } from '../..';
 import { flatMap } from 'lodash';
 import classNames from 'classnames';
@@ -12,7 +12,7 @@ interface SelectItem<T extends string | number> {
   value: T;
 }
 
-interface BaseSelectProps<T extends string | number> {
+interface BaseCommonSelectProps<T extends string | number> {
   /**
    * Selected item.
    */
@@ -28,14 +28,14 @@ interface BaseSelectProps<T extends string | number> {
   placeholder?: string;
 }
 
-interface SelectItemsProps<T extends string | number> extends BaseSelectProps<T> {
+interface SelectItemsProps<T extends string | number> extends BaseCommonSelectProps<T> {
   /**
    * Option items of Select.
    */
   items: SelectItem<T>[];
 }
 
-interface SelectSectionsProps<T extends string | number> extends BaseSelectProps<T> {
+interface SelectSectionsProps<T extends string | number> extends BaseCommonSelectProps<T> {
   /**
    * Option items of Select.
    */
@@ -45,13 +45,7 @@ interface SelectSectionsProps<T extends string | number> extends BaseSelectProps
   }[];
 }
 
-export type SelectProps<T extends string | number> = SelectSectionsProps<T> | SelectItemsProps<T>
-
-export interface SelectState<T> {
-  active: boolean;
-  text: string;
-  textPlaceholder?: string;
-}
+export type BaseSelectProps<T extends string | number> = SelectSectionsProps<T> | SelectItemsProps<T>
 
 const SelectNodes = {
   Root: 'div',
@@ -66,115 +60,38 @@ const SelectNodes = {
   Item: 'div',
 } as const
 
-export class Select<T extends string | number> extends UUI.ClassComponent({
+const BaseSelect = UUI.FunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
-})<SelectProps<T>, SelectState<T>> {
+}, (props: BaseSelectProps<any>, nodes) => {
+  const { Root, Dropdown, DropdownIcon, Selector, Input, SectionList, Section, SectionHeader, ItemList, Item } = nodes
 
-  state: SelectState<T> = {
-    active: false,
-    text: '',
-    textPlaceholder: undefined,
-  }
+  const [active, setActive] = useState<boolean>(false)
+  const [text, setText] = useState<string>('')
+  const [textPlaceholder, setTextPlaceholder] = useState<string | undefined>(props.placeholder)
+  const inputRef = useRef<any | null>(null)
 
-  inputRef = React.createRef<any>()
-
-  constructor(props: SelectProps<T>) {
-    super(props)
-    const allItems = this.getAllItems()
-    const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
-    const textPlaceholder = props.placeholder
-    this.state = {
-      active: false,
-      text,
-      textPlaceholder,
-    }
-  }
-
-  render() {
-    const { Root, Dropdown, DropdownIcon, Selector, Input, SectionList } = this.nodes
-
-    return (
-      <Root
-        className={classNames({
-          'Active': this.state.active,
-        })}
-      >
-        <Dropdown
-          active={this.state.active}
-          placement={'bottom-start'}
-          onClickAway={() => { this.setState({ active: false }) }}
-          activator={
-            <Selector
-              onClick={() => {
-                this.setState({ active: true });
-                this.inputRef.current && this.inputRef.current.focus && this.inputRef.current.focus();
-              }}>
-              <Input
-                value={this.state.text}
-                onChange={(value) => {
-                  this.setState({ text: value })
-                  if (value === '') {
-                    this.props.onChange(null)
-                  }
-                }}
-                placeholder={this.state.textPlaceholder}
-                customize={{
-                  Root: {
-                    extendChildrenAfter: (
-                      <DropdownIcon>
-                        <Icons.ChevronDown width={20} height={20} svgrProps={{ strokeWidth: 1 }}></Icons.ChevronDown>
-                      </DropdownIcon>
-                    )
-                  },
-                  Input: {
-                    ref: this.inputRef,
-                    onFocus: () => {
-                      const allItems = this.getAllItems()
-                      const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
-                      this.setState({ text: '', textPlaceholder: text })
-                    },
-                    onBlur: () => {
-                      const allItems = this.getAllItems()
-                      const text = this.props.value && allItems.find((i) => i.value === this.props.value)?.label || ''
-                      this.setState({ text, textPlaceholder: this.props.placeholder })
-                    },
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Selector>
-          }
-        >
-          <SectionList>
-            {this.renderSection()}
-          </SectionList>
-        </Dropdown>
-      </Root>
-    )
-  }
-
-  private getAllItems(): SelectItem<T>[] {
-    if ((this.props as any)['items']) {
-      const props = this.props as SelectItemsProps<T>
-      return props.items
-    } else if ((this.props as any)['sections']) {
-      const props = this.props as SelectSectionsProps<T>
-      return flatMap(props.sections, (i) => i.items)
+  const getAllItems = useCallback(() => {
+    if ((props as any)['items']) {
+      const _props = props as SelectItemsProps<any>
+      return _props.items
+    } else if ((props as any)['sections']) {
+      const _props = props as SelectSectionsProps<any>
+      return flatMap(_props.sections, (i) => i.items)
     } else {
       return []
     }
-  }
+  }, [props])
 
-  private renderItemList(items: SelectItem<T>[]) {
-    const { ItemList, Item } = this.nodes
+  const renderItemList = useCallback((items: SelectItem<any>[]) => {
     return items.map((item, index) => {
       return (
         <ItemList key={index}>
           <Item
             onClick={() => {
-              this.props.onChange(item.value)
-              this.setState({ active: false, text: item.label })
+              props.onChange(item.value)
+              setActive(false)
+              setText(item.label)
             }}
           >
             {item.content || item.label}
@@ -182,23 +99,88 @@ export class Select<T extends string | number> extends UUI.ClassComponent({
         </ItemList>
       )
     })
-  }
+  }, [props])
 
-  private renderSection() {
-    const { Section, SectionHeader } = this.nodes
-    if ((this.props as any)['items']) {
-      const props = this.props as SelectItemsProps<T>
-      return this.renderItemList(props.items)
-    } else if ((this.props as any)['sections']) {
-      const props = this.props as SelectSectionsProps<T>
-      return props.sections.map((section, index) => {
+  const renderSection = useCallback(() => {
+    if ((props as any)['items']) {
+      const _props = props as SelectItemsProps<any>
+      return renderItemList(_props.items)
+    } else if ((props as any)['sections']) {
+      const _props = props as SelectSectionsProps<any>
+      return _props.sections.map((section, index) => {
         return (
           <Section key={index}>
             <SectionHeader>{section.label}</SectionHeader>
-            {this.renderItemList(section.items)}
+            {renderItemList(section.items)}
           </Section>
         )
       })
     }
-  }
+  }, [props, renderItemList])
+
+  return (
+    <Root
+      className={classNames({
+        'Active': active,
+      })}
+    >
+      <Dropdown
+        active={active}
+        placement={'bottom-start'}
+        onClickAway={() => { setActive(false) }}
+        activator={
+          <Selector
+            onClick={() => {
+              setActive(true)
+              inputRef.current && inputRef.current.focus && inputRef.current.focus();
+            }}>
+            <Input
+              value={text}
+              onChange={(value) => {
+                setText(value)
+                if (value === '') {
+                  props.onChange(null)
+                }
+              }}
+              placeholder={textPlaceholder}
+              customize={{
+                Root: {
+                  extendChildrenAfter: (
+                    <DropdownIcon>
+                      <Icons.ChevronDown width={20} height={20} svgrProps={{ strokeWidth: 1 }}></Icons.ChevronDown>
+                    </DropdownIcon>
+                  )
+                },
+                Input: {
+                  ref:  inputRef,
+                  onFocus: () => {
+                    const allItems = getAllItems()
+                    const text =  props.value && allItems.find((i) => i.value === props.value)?.label || ''
+                    setText('')
+                    setTextPlaceholder(text)
+                  },
+                  onBlur: () => {
+                    const allItems = getAllItems()
+                    const text =  props.value && allItems.find((i) => i.value === props.value)?.label || ''
+                    setText(text)
+                    setTextPlaceholder(props.placeholder)
+                  },
+                  readOnly: true,
+                },
+              }}
+            />
+          </Selector>
+        }
+      >
+        <SectionList>
+          {renderSection()}
+        </SectionList>
+      </Dropdown>
+    </Root>
+  )
+})
+
+export function Select<T extends string | number>(props: UUIComponentProps<BaseSelectProps<T>, typeof SelectNodes>) {
+  return <BaseSelect {...props} />
 }
+export type SelectProps = Parameters<typeof Select>[0]

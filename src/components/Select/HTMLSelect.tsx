@@ -1,6 +1,5 @@
 import React from 'react';
-import { UUI } from '../../utils/uui';
-
+import { UUI, UUIComponentProps } from '../../utils/uui';
 
 export interface HTMLSelectOption<T> {
   label: string;
@@ -30,27 +29,29 @@ const HTMLSelectNodes = {
   Option: 'option',
 } as const
 
-export class HTMLSelect<K extends string | number> extends UUI.ClassComponent({
+export const BaseHTMLSelect = UUI.FunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
-})<BaseHTMLSelectProps<K>, {}> {
-  render() {
-    const { Root, Select, Option } = this.nodes
-    return (
-      <Root>
-        <Select
-          value={this.props.value}
-          onChange={(event) => {
-            this.props.onChange(event.target.value as any)
-          }}
-        >
-          {this.props.options.map((i) => {
-            return (
-              <Option key={i.value} value={i.value}>{i.label}</Option>
-            )
-          })}
-        </Select>
-      </Root>
-    )
-  }
+}, (props: BaseHTMLSelectProps<any>, nodes) => {
+  const { Root, Select, Option } = nodes
+  return (
+    <Root>
+      <Select
+        value={props.value}
+        onChange={(event) => {
+          props.onChange(event.target.value)
+        }}
+      >
+        {props.options.map((i) => {
+          return (
+            <Option key={i.value} value={i.value}>{i.label}</Option>
+          )
+        })}
+      </Select>
+    </Root>
+  )
+})
+
+export function HTMLSelect<T extends string | number>(props: UUIComponentProps<BaseHTMLSelectProps<T>, typeof HTMLSelectNodes>) {
+  return <BaseHTMLSelect {...props} />
 }
