@@ -16,6 +16,10 @@ export interface BasePageJumperProps {
    * Callback invokes when user entered.
    */
   onJumped: (page: number) => void;
+  /**
+     *custom jumper label text.
+  */
+  labelText?: string;
 }
 
 export const PageJumper = UUI.FunctionComponent({
@@ -29,7 +33,7 @@ export const PageJumper = UUI.FunctionComponent({
   const { Root, Label, NumberField } = nodes
   return (
     <Root>
-      <Label>Jump to</Label>
+      <Label>{props.labelText ? props.labelText : 'Jump to'}</Label>
       <NumberField
         customize={{
           Root: {

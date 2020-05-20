@@ -14,6 +14,10 @@ export interface BasePageInfoProps {
    * Total item number
    */
   totalItem: number;
+  /**
+   * custom info display
+   */
+  onRender?: (startItem: number, endItem: number, totalItem: number) => JSX.Element
 }
 
 export const PageInfo = UUI.FunctionComponent({
@@ -30,7 +34,7 @@ export const PageInfo = UUI.FunctionComponent({
 
   return (
     <Root>
-      {text}
+      {props.onRender ? props.onRender(startItem, endItem, props.totalItem) : text}
     </Root>
   )
 })

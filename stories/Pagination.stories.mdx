@@ -38,6 +38,7 @@ import { range } from 'lodash';
               page={page}
               pageSize={pageSize}
               totalItem={totalItem}
+              onRender={(startItem,endItem,totalItem)=>{return `${startItem}-${endItem} 共计${totalItem}项`}}
             ></PageInfo>
             <PageList
               page={page}
@@ -52,6 +53,7 @@ import { range } from 'lodash';
               onJumped={(page) => {
                 setOffset((page - 1) * limit)
               }}
+              labelText="跳转至"
             ></PageJumper>
           </Pagination>
         </div>
