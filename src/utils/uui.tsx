@@ -11,6 +11,9 @@ import React, { JSXElementConstructor } from 'react';
 import { mapValues, pick, isString, omit, merge, clone, uniq } from 'lodash';
 import classNames from 'classnames';
 
+// ---------------------------------------------------------------
+// Customize Extra Props
+// ---------------------------------------------------------------
 
 export interface NodeCustomizeClassNameProps {
   className?: string;
@@ -34,6 +37,9 @@ export type NodeCustomizeProps =
   & NodeCustomizeChildrenProps
 
 
+// ---------------------------------------------------------------
+// Customize Extra Props Helper
+// ---------------------------------------------------------------
 
 function compileNodeName(nodeName: string, options?: { prefix?: string; separator?: string }) {
   return [options?.prefix, nodeName].filter((i) => i && i.length > 0).join(options?.separator || '-')
@@ -54,7 +60,9 @@ function getCompiledChildren(
   }
 }
 
-
+// ---------------------------------------------------------------
+// IntrinsicNode
+// ---------------------------------------------------------------
 
 type IntrinsicNodeCustomizeProps =
   & NodeCustomizeClassNameProps
@@ -146,6 +154,10 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
   return Node
 }
 
+// ---------------------------------------------------------------
+// ComponentNode
+// ---------------------------------------------------------------
+
 type ComponentNodeCustomizeProps<M extends string | number | symbol> = {
   [key in M]: IntrinsicNodeCustomizeProps
 }
@@ -172,19 +184,9 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
   return Node
 }
 
-export type UUIComponentCustomizeProps<
-  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT }
-> = {
-  customize?: {
-    [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
-      ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
-      : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
-  };
-}
-export type UUIComponentProps<
-  P,
-  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
-> = P & UUIConvenienceProps & UUIComponentCustomizeProps<X>
+// ---------------------------------------------------------------
+// Type Helper
+// ---------------------------------------------------------------
 
 export type UUIComponentNodes<
   X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
@@ -193,7 +195,19 @@ export type UUIComponentNodes<
     ? ReturnType<IntrinsicNode<X[key], key>>
     : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, any>> : never)
 }
-
+export type UUIComponentCustomizeProps<
+  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
+> = {
+  /**
+   * Customize component nodes
+   * @default none
+   */
+  customize?: {
+    [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
+      ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
+      : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
+  };
+}
 export type UUIConvenienceProps = {
   /**
    * Convenience className props,
@@ -208,9 +222,13 @@ export type UUIConvenienceProps = {
    */
   style?: React.CSSProperties;
 }
-
+export type UUIComponentProps<P, X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT }> = P & UUIConvenienceProps & UUIComponentCustomizeProps<X>
 export type UUIFunctionComponentProps<T extends (...args: any) => any> = Parameters<T>[0]
 export type UUIClassComponentProps<T extends JSXElementConstructor<any>> = React.ComponentProps<T>
+
+// ---------------------------------------------------------------
+// UUI Component Util
+// ---------------------------------------------------------------
 
 export abstract class UUI {
   /**
