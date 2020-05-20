@@ -17,7 +17,7 @@ export interface BasePageInfoProps {
   /**
    * custom info display
    */
-  onRender?: (startItem: number, endItem: number, totalItem: number) => JSX.Element
+  onRender?: (startItem: number, endItem: number, totalItem: number) => JSX.Element;
 }
 
 export const PageInfo = UUI.FunctionComponent({
