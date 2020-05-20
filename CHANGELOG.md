@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.zh-CN.md)
 
+### v0.3.5
+
+- `Pagination` custom label
+- update Dialog props onDismiss to onClickAway
+
 ### v0.3.4
 
 - `Cascader` `Select` add icons

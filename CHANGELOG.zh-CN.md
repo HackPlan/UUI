@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.5
+
+- `Pagination` 自定义文本
+- 更新 `Dialog` 组件参数名字 onDismiss 到 onClickAway
+
 ### v0.3.4
 
 - `Cascader` `Select` 添加图标
