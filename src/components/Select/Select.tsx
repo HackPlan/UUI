@@ -141,6 +141,9 @@ const BaseSelect = UUI.FunctionComponent({
       return (
         <OptionList key={index}>
           <Option
+            className={classNames({
+              'Disabled': option.disabled,
+            })}
             onClick={() => {
               if (option.disabled) return
               setActive(false)

@@ -66,5 +66,14 @@
     &:hover {
       background-color: #dcf0ff;
     }
+
+    &.Disabled {
+      color: $disabledTextColor;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: inherit;
+      }
+    }
   }
 }
