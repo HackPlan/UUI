@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { UUI, UUIComponentProps } from '../../utils/uui';
 import { Popover as UUIPopover, TextField } from '../..';
-import { flatMap } from 'lodash';
+import { flatMap, cloneDeep } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 
@@ -67,13 +67,18 @@ const SelectNodes = {
   SectionHeader: 'div',
   OptionList: 'div',
   Option: 'div',
+  SearchMatched: 'span',
 } as const
 
 const BaseSelect = UUI.FunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
 }, (props: BaseSelectProps<any>, nodes) => {
-  const { Root, Dropdown, DropdownIcon, Selector, Input, SectionList, Section, SectionHeader, OptionList, Option } = nodes
+  const {
+    Root, Dropdown, DropdownIcon, Selector, Input,
+    SectionList, Section, SectionHeader,
+    OptionList, Option, SearchMatched,
+  } = nodes
 
   const finalProps = {
     enableSearch: props.enableSearch === undefined ? false : props.enableSearch,
@@ -114,11 +119,15 @@ const BaseSelect = UUI.FunctionComponent({
     const _props = props as SelectOptionsProps<any>
 
     if (!inputValue) return _props.options
-    return _props.options.filter((i) => props.onSearch
-      ? props.onSearch(i, inputValue)
-      : i.label.includes(inputValue)
-    )
-  }, [inputValue, props])
+    const matchedOptions = searchInOptions(inputValue, _props.options, props.onSearch)
+        .map((option) => {
+          option.content = (
+            <>{highlightKeyword(option.label, inputValue, SearchMatched)}</>
+          )
+          return option
+        })
+    return matchedOptions
+  }, [SearchMatched, inputValue, props])
 
   const finalSections = useMemo(() => {
     if (!(props as any)['sections']) return undefined
@@ -126,15 +135,19 @@ const BaseSelect = UUI.FunctionComponent({
 
     if (!inputValue) return _props.sections
     return _props.sections.map((section) => {
+      const matchedOptions = searchInOptions(inputValue, section.options, props.onSearch)
+        .map((option) => {
+          option.content = (
+            <>{highlightKeyword(option.label, inputValue, SearchMatched)}</>
+          )
+          return option
+        })
       return {
         ...section,
-        options: section.options.filter((i) => props.onSearch
-          ? props.onSearch(i, inputValue)
-          : i.label.includes(inputValue)
-        )
+        options: matchedOptions,
       }
     }).filter((section) => section.options.length > 0)
-  }, [inputValue, props])
+  }, [SearchMatched, inputValue, props])
 
   const renderOptionList = useCallback((options: SelectOption<any>[]) => {
     return options.map((option, index) => {
@@ -230,6 +243,26 @@ const BaseSelect = UUI.FunctionComponent({
     </Root>
   )
 })
+
+function highlightKeyword(text: string, keyword: string, HighlightComponent: any) {
+  const data = text.split(keyword).map((node, index) => {
+    if (index === 0) return node
+    else return <>
+      <HighlightComponent key={keyword}>{keyword}</HighlightComponent>
+      {node}
+    </>
+  })
+  return data.map((i) => <>{i}</>)
+}
+
+function searchInOptions(q: string, options: SelectOption<any>[], predicate?: BaseSelectProps<any>['onSearch']) {
+  return cloneDeep(
+    options.filter((i) => predicate
+      ? predicate(i, q)
+      : i.label.includes(q)
+    )
+  )
+}
 
 export function Select<T extends string | number>(props: UUIComponentProps<BaseSelectProps<T>, typeof SelectNodes>) {
   return <BaseSelect {...props} />
