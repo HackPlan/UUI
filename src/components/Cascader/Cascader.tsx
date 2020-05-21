@@ -52,8 +52,9 @@ export interface BaseCascaderProps {
   changeOnFinalSelect: boolean;
   /**
    * enable inputting text to search options.
+   * @default false
    */
-  enableSearch?: boolean;
+  searchable?: boolean;
   /**
    * The custom search function, it invoked per option iteration.
    */
@@ -92,7 +93,7 @@ export const Cascader = UUI.FunctionComponent({
    */
   const finalProps = {
     expandTriggerType: props.expandTriggerType || 'click',
-    enableSearch: props.enableSearch === undefined ? false : props.enableSearch,
+    searchable: props.searchable === undefined ? false : props.searchable,
     changeOnFinalSelect: props.changeOnFinalSelect === undefined ? true : props.changeOnFinalSelect,
   }
 
@@ -143,15 +144,16 @@ export const Cascader = UUI.FunctionComponent({
   }, [inputValue, props.onSearch, props.options])
 
   const [showSearchList, showLevelList] = useMemo(() => {
-    if (!finalProps.enableSearch) return [false, true]
+    if (!finalProps.searchable) return [false, true]
     if (inputValue) return [true, false]
     else return [false, true]
-  }, [finalProps.enableSearch, inputValue])
+  }, [finalProps.searchable, inputValue])
 
   return (
     <Root
       className={classNames({
         'Active': popoverActive,
+        'Searchable': finalProps.searchable,
       })}
     >
       <Dropdown
@@ -183,7 +185,7 @@ export const Cascader = UUI.FunctionComponent({
                 )
               },
               Input: {
-                readOnly: !finalProps.enableSearch,
+                readOnly: !finalProps.searchable,
               },
             }}
           />

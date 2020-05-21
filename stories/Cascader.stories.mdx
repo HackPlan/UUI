@@ -92,7 +92,7 @@ import { useState, useEffect } from 'react';
 
 ### 可搜索选项
 
-当启用搜索时（即 `props.enableSearch`），只有当 `CascaderOption.label` 传入字符串时，才会被搜索到。
+当启用搜索时（即 `props.searchable`），只有当 `CascaderOption.label` 传入字符串时，才会被搜索到。
 
 <Preview>
   <Story name="Cascader with search">
@@ -125,7 +125,7 @@ import { useState, useEffect } from 'react';
           options={options}
           value={value}
           onChange={(value) => { console.log('onChange', value); setValue(value) }}
-          enableSearch
+          searchable
         >
         </Cascader>
       )
@@ -175,7 +175,7 @@ import { useState, useEffect } from 'react';
           options={options}
           value={value}
           onChange={(value) => { console.log('onChange', value); setValue(value) }}
-          enableSearch
+          searchable
           onSearch={(option, q) => {
             return (new RegExp(q, 'i')).test(option.label)
           }}

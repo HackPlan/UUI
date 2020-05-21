@@ -30,7 +30,7 @@ interface BaseCommonSelectProps<T extends string | number> {
     /**
    * enable inputting text to search options.
    */
-  enableSearch?: boolean;
+  searchable?: boolean;
   /**
    * The custom search function, it invoked per option iteration.
    */
@@ -81,7 +81,7 @@ const BaseSelect = UUI.FunctionComponent({
   } = nodes
 
   const finalProps = {
-    enableSearch: props.enableSearch === undefined ? false : props.enableSearch,
+    searchable: props.searchable === undefined ? false : props.searchable,
   }
 
   const [active, setActive] = useState<boolean>(false)
@@ -192,7 +192,7 @@ const BaseSelect = UUI.FunctionComponent({
     <Root
       className={classNames({
         'Active': active,
-        'Searchable': finalProps.enableSearch,
+        'Searchable': finalProps.searchable,
       })}
     >
       <Dropdown
@@ -229,7 +229,7 @@ const BaseSelect = UUI.FunctionComponent({
                 },
                 Input: {
                   ref:  inputRef,
-                  readOnly: !finalProps.enableSearch,
+                  readOnly: !finalProps.searchable,
                 },
               }}
             />

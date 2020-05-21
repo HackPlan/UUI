@@ -21,15 +21,13 @@
     }
   }
   .UUI-Cascader-Input {
-    cursor: pointer;
     padding: 0.25rem;
     border: none;
     box-shadow: none;
     box-sizing: border-box;
-
-    .UUI-TextField-Input {
-      cursor: pointer;
-    }
+  }
+  .UUI-Cascader-Input, input {
+    cursor: pointer;
   }
 
   .UUI-Cascader-DropdownIcon {
@@ -44,6 +42,12 @@
   &.Active {
     .UUI-Cascader-DropdownIcon {
       transform: rotate(180deg);
+    }
+  }
+
+  &.Searchable {
+    .UUI-Cascader-Input, input {
+      cursor: text;
     }
   }
 }

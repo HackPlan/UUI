@@ -12,17 +12,14 @@
   @include focusWithinBorder;
 
   .UUI-Select-Selector {
-    cursor: pointer;
     padding: 0.25rem;
 
     .UUI-Select-Input {
       border: none;
       box-shadow: none;
-      pointer-events: none;
-
-      &.editable {
-        pointer-events: inherit;
-      }
+    }
+    .UUI-Select-Input, input {
+      cursor: pointer;
     }
   }
 
@@ -42,7 +39,7 @@
   }
 
   &.Searchable {
-    .UUI-Select-Selector {
+    .UUI-Select-Input, input {
       cursor: text;
     }
   }
