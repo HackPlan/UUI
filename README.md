@@ -16,7 +16,7 @@ Universal Utility-first React UI Library
 
 > **UUI is still heavily under development.** Specifications and Usage might change in the future and, as of now, no backwards compatibility is guaranteed!
 
-English | [简体中文](https://github.com/HackPlan/UUI/blob/master/README.zh-CN.md)
+English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/README.zh-CN.md)
 
 ## Features
 

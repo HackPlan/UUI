@@ -52,11 +52,11 @@ function App() {
 ## 链接
 
 * [文档](https://doc.uui.cool)
-* [项目贡献指南](https://github.com/HackPlan/UUI/blob/master/CONTRIBUTING.zh-CN.md)
+* [项目贡献指南](https://github.com/HackPlan/UUI/blob/master/docs/CONTRIBUTING.zh-CN.md)
 * [风格自定义教程](https://uui.cool/?path=/docs/customize-tutorial--demo-stepper)
 * [开发笔记](https://github.com/HackPlan/UUI/blob/master/DEVNOTES.zh-CN.md)
-* [更新日志](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.zh-CN.md)
-* [生产部署指南](https://github.com/HackPlan/UUI/blob/master/DEPLOYMENT.zh-CN.md)
+* [更新日志](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
+* [生产部署指南](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOYMENT.zh-CN.md)
 
 
 ## 本地开发
