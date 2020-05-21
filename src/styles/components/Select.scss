@@ -19,7 +19,6 @@
       border: none;
       box-shadow: none;
       pointer-events: none;
-      cursor: pointer;
 
       &.editable {
         pointer-events: inherit;
@@ -39,6 +38,12 @@
   &.Active {
     .UUI-Select-DropdownIcon {
       transform: rotate(180deg);
+    }
+  }
+
+  &.Searchable {
+    .UUI-Select-Selector {
+      cursor: text;
     }
   }
 }

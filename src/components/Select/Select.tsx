@@ -10,6 +10,7 @@ interface SelectOption<T extends string | number> {
   label: string;
   content?: React.ReactNode;
   value: T;
+  disabled?: boolean;
 }
 
 interface BaseCommonSelectProps<T extends string | number> {
@@ -74,7 +75,12 @@ const BaseSelect = UUI.FunctionComponent({
 }, (props: BaseSelectProps<any>, nodes) => {
   const { Root, Dropdown, DropdownIcon, Selector, Input, SectionList, Section, SectionHeader, OptionList, Option } = nodes
 
+  const finalProps = {
+    enableSearch: props.enableSearch === undefined ? false : props.enableSearch,
+  }
+
   const [active, setActive] = useState<boolean>(false)
+  const [inputValue, setInputValue] = useState<string | null>(null)
   const inputRef = useRef<any | null>(null)
 
   const getAllOptions = useCallback(() => {
@@ -89,14 +95,57 @@ const BaseSelect = UUI.FunctionComponent({
     }
   }, [props])
 
+  const findSelectedOption = useCallback(() => {
+    const allOptions = getAllOptions()
+    return allOptions.find((i) => i.value === props.value)
+  }, [props, getAllOptions])
+
+  const placeholder = useMemo(() => {
+    if (active && !inputValue && props.value) {
+      const selectedOption = findSelectedOption()
+      return selectedOption?.label
+    } else {
+      return props.placeholder
+    }
+  }, [active, inputValue, props.value, props.placeholder, findSelectedOption])
+
+  const finalOptions = useMemo(() => {
+    if (!(props as any)['options']) return undefined
+    const _props = props as SelectOptionsProps<any>
+
+    if (!inputValue) return _props.options
+    return _props.options.filter((i) => props.onSearch
+      ? props.onSearch(i, inputValue)
+      : i.label.includes(inputValue)
+    )
+  }, [inputValue, props])
+
+  const finalSections = useMemo(() => {
+    if (!(props as any)['sections']) return undefined
+    const _props = props as SelectSectionsProps<any>
+
+    if (!inputValue) return _props.sections
+    return _props.sections.map((section) => {
+      return {
+        ...section,
+        options: section.options.filter((i) => props.onSearch
+          ? props.onSearch(i, inputValue)
+          : i.label.includes(inputValue)
+        )
+      }
+    }).filter((section) => section.options.length > 0)
+  }, [inputValue, props])
+
   const renderOptionList = useCallback((options: SelectOption<any>[]) => {
     return options.map((option, index) => {
       return (
         <OptionList key={index}>
           <Option
             onClick={() => {
-              props.onChange(option.value)
+              if (option.disabled) return
               setActive(false)
+              setInputValue(option.label)
+              props.onChange(option.value)
             }}
           >
             {option.content || option.label}
@@ -107,12 +156,10 @@ const BaseSelect = UUI.FunctionComponent({
   }, [props])
 
   const renderSection = useCallback(() => {
-    if ((props as any)['options']) {
-      const _props = props as SelectOptionsProps<any>
-      return renderOptionList(_props.options)
-    } else if ((props as any)['sections']) {
-      const _props = props as SelectSectionsProps<any>
-      return _props.sections.map((section, index) => {
+    if (finalOptions) {
+      return renderOptionList(finalOptions)
+    } else if (finalSections) {
+      return finalSections.map((section, index) => {
         return (
           <Section key={index}>
             <SectionHeader>{section.label}</SectionHeader>
@@ -120,24 +167,26 @@ const BaseSelect = UUI.FunctionComponent({
           </Section>
         )
       })
+    } else {
+      return null
     }
-  }, [props, renderOptionList])
-
-  const selectedOption = useMemo(() => {
-    const allOptions = getAllOptions()
-    return allOptions.find((i) => i.value === props.value)
-  }, [props, getAllOptions])
+  }, [finalOptions, finalSections, renderOptionList])
 
   return (
     <Root
       className={classNames({
         'Active': active,
+        'Searchable': finalProps.enableSearch,
       })}
     >
       <Dropdown
         active={active}
         placement={'bottom-start'}
-        onClickAway={() => { setActive(false) }}
+        onClickAway={() => {
+          setActive(false)
+          const selectedOption = findSelectedOption()
+          setInputValue(selectedOption?.label || null)
+        }}
         activator={
           <Selector
             onClick={() => {
@@ -145,15 +194,17 @@ const BaseSelect = UUI.FunctionComponent({
               inputRef.current && inputRef.current.focus && inputRef.current.focus();
             }}>
             <Input
-              value={selectedOption?.label}
+              value={inputValue}
+              placeholder={placeholder}
               onChange={(value) => {
-                if (value === '') {
-                  props.onChange(null)
-                }
+                setInputValue(value.length > 0 ? value : null)
               }}
-              placeholder={props.placeholder}
               customize={{
                 Root: {
+                  onFocus: () => {
+                    setActive(true)
+                    setInputValue('')
+                  },
                   extendChildrenAfter: (
                     <DropdownIcon>
                       <Icons.ChevronDown width={20} height={20} svgrProps={{ strokeWidth: 1 }}></Icons.ChevronDown>
@@ -162,7 +213,7 @@ const BaseSelect = UUI.FunctionComponent({
                 },
                 Input: {
                   ref:  inputRef,
-                  readOnly: true,
+                  readOnly: !finalProps.enableSearch,
                 },
               }}
             />
