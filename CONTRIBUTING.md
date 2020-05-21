@@ -35,6 +35,7 @@ A typical contributor workflow looks like this:
 2. Run `yarn storybook` in the root project directory to start storybook dev app at `http://localhost:6006`.
 3. Write some code, do some changes. Refer to the docs in the repo for detailed instructions on:
     * [UUI Principle](https://github.com/HackPlan/UUI/blob/master/docs/PRINCIPLE.md)
+    * [Development Practices](https://github.com/HackPlan/UUI/blob/master/docs/DEVELOPMENT.md)
 4. Ensure your code is **tested** and **linted**.
     * Linting is best handled by your editor for real-time feedback. Run yarn lint to be 100% safe.
     * Some TypeScript lint errors can often be automatically fixed by ESLint. Run lint fixes with `yarn lint --fix`.
