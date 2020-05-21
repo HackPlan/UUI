@@ -193,9 +193,17 @@ import { useState, useEffect } from 'react';
 ### CascaderOption
 
 ```tsx
-export interface CascaderOption {
+interface CascaderOption {
   value: string;
-  label?: React.ReactNode;
+  /**
+   * for input text display.
+   */
+  label: string;
+  /**
+   * for custom render view.
+   * if content and label are both provided, priority display content in option view.
+   */
+  content?: React.ReactNode;
   disabled?: boolean;
   children?: CascaderOption[];
 }

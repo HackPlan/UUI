@@ -2,14 +2,22 @@ import React, { useState, useMemo } from 'react';
 import { UUI } from '../../utils/uui';
 import { Popover } from '../Popover';
 import { TextField } from '../Input';
-import { pick, clone, isString } from 'lodash';
+import { pick, clone } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
 
 export interface CascaderOption {
   value: string;
-  label: React.ReactNode | string;
+  /**
+   * for input text display.
+   */
+  label: string;
+  /**
+   * for custom render view.
+   * if content and label are both provided, priority display content in option view.
+   */
+  content?: React.ReactNode;
   disabled?: boolean;
   children?: CascaderOption[];
 }
@@ -214,7 +222,7 @@ export const Cascader = UUI.FunctionComponent({
                           setInnerValue(newValue)
                         }}
                       >
-                        <ItemLabel>{option.label}</ItemLabel>
+                        <ItemLabel>{option.content || option.label}</ItemLabel>
                         <ItemIcon>
                           <Icons.ChevronRight
                             className={classNames({
@@ -251,7 +259,6 @@ export const Cascader = UUI.FunctionComponent({
                   }}
                 >
                   {group.map((option, index) => {
-                    if (!isString(option.label)) return null
                     const highlighted = highlightKeyword(option.label, inputValue || '', SearchMatched)
                     return <>
                       {index !== 0 && ' / '}
@@ -315,10 +322,7 @@ function searchInOptions(q: string, options: CascaderOption[], predicate?: BaseC
       return
     }
     for (const child of option.children) {
-      (child as any)['matched'] = (() => {
-        if (isString(child.label)) return predicate ? predicate(child, q) : child.label.includes(q)
-        else return false
-      })()
+      (child as any)['matched'] = (() => { return predicate ? predicate(child, q) : child.label.includes(q) })()
       current.push(child)
       backtracking(current, flatOptions, child)
       current.pop()
