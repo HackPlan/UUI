@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { UUI, UUIComponentProps } from '../../utils/uui';
 import { Popover as UUIPopover, TextField } from '../..';
 import { flatMap } from 'lodash';
@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 
 
-interface SelectItem<T extends string | number> {
+interface SelectOption<T extends string | number> {
   label: string;
   content?: React.ReactNode;
   value: T;
@@ -26,26 +26,34 @@ interface BaseCommonSelectProps<T extends string | number> {
    * @default none
    */
   placeholder?: string;
+    /**
+   * enable inputting text to search options.
+   */
+  enableSearch?: boolean;
+  /**
+   * The custom search function, it invoked per option iteration.
+   */
+  onSearch?: (option: SelectOption<T>, q: string) => boolean;
 }
 
-interface SelectItemsProps<T extends string | number> extends BaseCommonSelectProps<T> {
+interface SelectOptionsProps<T extends string | number> extends BaseCommonSelectProps<T> {
   /**
-   * Option items of Select.
+   * Options of Select.
    */
-  items: SelectItem<T>[];
+  options: SelectOption<T>[];
 }
 
 interface SelectSectionsProps<T extends string | number> extends BaseCommonSelectProps<T> {
   /**
-   * Option items of Select.
+   * Sections of Options of Select.
    */
   sections: {
     label: React.ReactNode;
-    items: SelectItem<T>[];
+    options: SelectOption<T>[];
   }[];
 }
 
-export type BaseSelectProps<T extends string | number> = SelectSectionsProps<T> | SelectItemsProps<T>
+export type BaseSelectProps<T extends string | number> = SelectSectionsProps<T> | SelectOptionsProps<T>
 
 const SelectNodes = {
   Root: 'div',
@@ -56,67 +64,69 @@ const SelectNodes = {
   SectionList: 'div',
   Section: 'div',
   SectionHeader: 'div',
-  ItemList: 'div',
-  Item: 'div',
+  OptionList: 'div',
+  Option: 'div',
 } as const
 
 const BaseSelect = UUI.FunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
 }, (props: BaseSelectProps<any>, nodes) => {
-  const { Root, Dropdown, DropdownIcon, Selector, Input, SectionList, Section, SectionHeader, ItemList, Item } = nodes
+  const { Root, Dropdown, DropdownIcon, Selector, Input, SectionList, Section, SectionHeader, OptionList, Option } = nodes
 
   const [active, setActive] = useState<boolean>(false)
-  const [text, setText] = useState<string>('')
-  const [textPlaceholder, setTextPlaceholder] = useState<string | undefined>(props.placeholder)
   const inputRef = useRef<any | null>(null)
 
-  const getAllItems = useCallback(() => {
-    if ((props as any)['items']) {
-      const _props = props as SelectItemsProps<any>
-      return _props.items
+  const getAllOptions = useCallback(() => {
+    if ((props as any)['options']) {
+      const _props = props as SelectOptionsProps<any>
+      return _props.options
     } else if ((props as any)['sections']) {
       const _props = props as SelectSectionsProps<any>
-      return flatMap(_props.sections, (i) => i.items)
+      return flatMap(_props.sections, (i) => i.options)
     } else {
       return []
     }
   }, [props])
 
-  const renderItemList = useCallback((items: SelectItem<any>[]) => {
-    return items.map((item, index) => {
+  const renderOptionList = useCallback((options: SelectOption<any>[]) => {
+    return options.map((option, index) => {
       return (
-        <ItemList key={index}>
-          <Item
+        <OptionList key={index}>
+          <Option
             onClick={() => {
-              props.onChange(item.value)
+              props.onChange(option.value)
               setActive(false)
-              setText(item.label)
             }}
           >
-            {item.content || item.label}
-          </Item>
-        </ItemList>
+            {option.content || option.label}
+          </Option>
+        </OptionList>
       )
     })
   }, [props])
 
   const renderSection = useCallback(() => {
-    if ((props as any)['items']) {
-      const _props = props as SelectItemsProps<any>
-      return renderItemList(_props.items)
+    if ((props as any)['options']) {
+      const _props = props as SelectOptionsProps<any>
+      return renderOptionList(_props.options)
     } else if ((props as any)['sections']) {
       const _props = props as SelectSectionsProps<any>
       return _props.sections.map((section, index) => {
         return (
           <Section key={index}>
             <SectionHeader>{section.label}</SectionHeader>
-            {renderItemList(section.items)}
+            {renderOptionList(section.options)}
           </Section>
         )
       })
     }
-  }, [props, renderItemList])
+  }, [props, renderOptionList])
+
+  const selectedOption = useMemo(() => {
+    const allOptions = getAllOptions()
+    return allOptions.find((i) => i.value === props.value)
+  }, [props, getAllOptions])
 
   return (
     <Root
@@ -135,14 +145,13 @@ const BaseSelect = UUI.FunctionComponent({
               inputRef.current && inputRef.current.focus && inputRef.current.focus();
             }}>
             <Input
-              value={text}
+              value={selectedOption?.label}
               onChange={(value) => {
-                setText(value)
                 if (value === '') {
                   props.onChange(null)
                 }
               }}
-              placeholder={textPlaceholder}
+              placeholder={props.placeholder}
               customize={{
                 Root: {
                   extendChildrenAfter: (
@@ -153,18 +162,6 @@ const BaseSelect = UUI.FunctionComponent({
                 },
                 Input: {
                   ref:  inputRef,
-                  onFocus: () => {
-                    const allItems = getAllItems()
-                    const text =  props.value && allItems.find((i) => i.value === props.value)?.label || ''
-                    setText('')
-                    setTextPlaceholder(text)
-                  },
-                  onBlur: () => {
-                    const allItems = getAllItems()
-                    const text =  props.value && allItems.find((i) => i.value === props.value)?.label || ''
-                    setText(text)
-                    setTextPlaceholder(props.placeholder)
-                  },
                   readOnly: true,
                 },
               }}
