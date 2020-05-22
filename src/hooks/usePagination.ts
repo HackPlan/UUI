@@ -1,4 +1,5 @@
-import { useMemo, useState, useRef } from 'react';
+import { useMemo } from 'react';
+import { clamp } from 'lodash';
 
 export interface IPagination {
   offset: number;
@@ -46,10 +47,10 @@ export function usePagination(
     onChange({ offset: Math.max(0, prevOffset), limit: value.limit, count: value.count })
   }
   const toNthPage = (n: number) => {
-    onChange({ offset: Math.min((n-1) * value.limit, value.count), limit: value.limit, count: value.count })
+    onChange({ offset: clamp((n - 1) * value.limit, 0, value.count), limit: value.limit, count: value.count })
   }
   const changePageSize = (size: number) => {
-    onChange({ ...value, limit: size })
+    onChange({ ...value, limit: Math.max(size, 0) })
   }
 
   return {

@@ -33,6 +33,7 @@ export const PageJumper = UUI.FunctionComponent({
             extendStyle: { height: 34, width: 80 }
           }
         }}
+        min={1}
         value={inputValue}
         onChange={(value) => { setInputValue(value) }}
         onKeyDown={(event) => {
