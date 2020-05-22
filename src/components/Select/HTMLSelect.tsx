@@ -1,5 +1,6 @@
 import React from 'react';
 import { UUI, UUIComponentProps } from '../../utils/uui';
+import { isString } from 'lodash';
 
 export interface HTMLSelectOption<T> {
   label: string;
@@ -29,7 +30,7 @@ const HTMLSelectNodes = {
   Option: 'option',
 } as const
 
-export const BaseHTMLSelect = UUI.FunctionComponent({
+const BaseHTMLSelect = UUI.FunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
 }, (props: BaseHTMLSelectProps<any>, nodes) => {
@@ -39,7 +40,11 @@ export const BaseHTMLSelect = UUI.FunctionComponent({
       <Select
         value={props.value}
         onChange={(event) => {
-          props.onChange(event.target.value)
+          if (isString(props.value)) {
+            props.onChange(event.target.value)
+          } else {
+            props.onChange(Number(event.target.value))
+          }
         }}
       >
         {props.options.map((i) => {

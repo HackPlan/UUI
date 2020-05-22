@@ -1,19 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { UUI } from '../../utils/uui';
+import { PaginationContext } from './Pagination';
 
 export interface BasePageInfoProps {
-  /**
-   * Current page
-   */
-  page: number;
-  /**
-   * The Size of per page
-   */
-  pageSize: number;
-  /**
-   * Total item number
-   */
-  totalItem: number;
   /**
    * custom info display
    */
@@ -28,13 +17,19 @@ export const PageInfo = UUI.FunctionComponent({
 }, (props: BasePageInfoProps, nodes) => {
   const { Root } = nodes
 
-  const startItem = Math.max((props.page - 1) * props.pageSize + 1, 1)
-  const endItem = Math.min(startItem + props.pageSize - 1, props.totalItem)
-  const text = `${startItem}-${endItem} of ${props.totalItem} items`
+  const pagination = useContext(PaginationContext)
+  if (!pagination) {
+    console.warn('[UUI] please use <PageInfo> in <Pagination>')
+    return <></>
+  }
+
+  const startItem = Math.max((pagination.currentPage - 1) * pagination.limit + 1, 1)
+  const endItem = Math.min(startItem + pagination.limit - 1, pagination.count)
+  const text = `${startItem}-${endItem} of ${pagination.count} items`
 
   return (
     <Root>
-      {props.onRender ? props.onRender(startItem, endItem, props.totalItem) : text}
+      {props.onRender ? props.onRender(startItem, endItem, pagination.count) : text}
     </Root>
   )
 })

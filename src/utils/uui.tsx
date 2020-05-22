@@ -193,7 +193,7 @@ export type UUIComponentNodes<
 > = {
   [key in keyof X]: X[key] extends keyof IntrinsicNodeT
     ? ReturnType<IntrinsicNode<X[key], key>>
-    : (X[key] extends ComponentNodeT ? ReturnType<ComponentNode<Parameters<X[key]>[0], key, any>> : never)
+    : (X[key] extends ComponentNodeT ? X[key] : never)
 }
 export type UUIComponentCustomizeProps<
   X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
