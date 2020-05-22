@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Pagination, PageInfo, PageList, PageJumper } from '../src';
+import { Pagination, PageInfo, PageList, PageJumper, PageSize } from '../src';
 import { useState, useMemo } from 'react';
 import { range } from 'lodash';
 
@@ -26,6 +26,7 @@ import { range } from 'lodash';
             value={pagination}
             onChange={(value) => { setPagination(value) }}
           >
+            <PageSize pageSizeOptions={[10, 30, 50, 100, 200]} />
             <PageList />
             <PageJumper labelText="跳转至" />
             <PageInfo />
@@ -38,4 +39,4 @@ import { range } from 'lodash';
 
 ### Props
 
-<Props components={{ Pagination, PageInfo, PageList, PageJumper }} />
+<Props components={{ Pagination, PageInfo, PageList, PageJumper, PageSize }} />

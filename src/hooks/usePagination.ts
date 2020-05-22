@@ -48,6 +48,9 @@ export function usePagination(
   const toNthPage = (n: number) => {
     onChange({ offset: Math.min((n-1) * value.limit, value.count), limit: value.limit, count: value.count })
   }
+  const changePageSize = (size: number) => {
+    onChange({ ...value, limit: size })
+  }
 
   return {
     ...value,
@@ -56,6 +59,7 @@ export function usePagination(
     toNextPage,
     toPrevPage,
     toNthPage,
+    changePageSize,
     hasPrevious,
     hasNext,
   }

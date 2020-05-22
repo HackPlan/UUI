@@ -25,8 +25,7 @@ export const PageList = UUI.FunctionComponent({
   const pagination = useContext(PaginationContext)
 
   const pageList = useMemo(() => {
-    const pageList = getEllipsisPageData(pagination.currentPage, pagination.totalPage)
-    return pageList
+    return getEllipsisPageData(pagination.currentPage, pagination.totalPage)
   }, [pagination.currentPage, pagination.totalPage]);
 
   return (
