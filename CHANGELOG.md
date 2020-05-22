@@ -1,6 +1,6 @@
 # Changelog
 
-English | [简体中文](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.zh-CN.md)
+English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
 ### v0.3.5
 
