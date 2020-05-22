@@ -17,6 +17,10 @@ export const PageSize = UUI.FunctionComponent({
   const { Root, Select } = nodes
 
   const pagination = useContext(PaginationContext)
+  if (!pagination) {
+    console.warn('[UUI] please use <PageSize> in <Pagination>')
+    return <></>
+  }
 
   return (
     <Root>

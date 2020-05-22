@@ -18,6 +18,10 @@ export const PageInfo = UUI.FunctionComponent({
   const { Root } = nodes
 
   const pagination = useContext(PaginationContext)
+  if (!pagination) {
+    console.warn('[UUI] please use <PageInfo> in <Pagination>')
+    return <></>
+  }
 
   const startItem = Math.max((pagination.currentPage - 1) * pagination.limit + 1, 1)
   const endItem = Math.min(startItem + pagination.limit - 1, pagination.count)

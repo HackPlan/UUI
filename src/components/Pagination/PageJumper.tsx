@@ -21,6 +21,10 @@ export const PageJumper = UUI.FunctionComponent({
   const { Root, Label, NumberField } = nodes
 
   const pagination = useContext(PaginationContext)
+  if (!pagination) {
+    console.warn('[UUI] please use <PageJumper> in <Pagination>')
+    return <></>
+  }
 
   const [inputValue, setInputValue] = useState<number | null>(null)
 

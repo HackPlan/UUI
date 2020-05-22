@@ -23,6 +23,10 @@ export const PageList = UUI.FunctionComponent({
   const { Root, PrevButton, PageButton, NextButton } = nodes
 
   const pagination = useContext(PaginationContext)
+  if (!pagination) {
+    console.warn('[UUI] please use <PageList> in <Pagination>')
+    return <></>
+  }
 
   const pageList = useMemo(() => {
     return getEllipsisPageData(pagination.currentPage, pagination.totalPage)

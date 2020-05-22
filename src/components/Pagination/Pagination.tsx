@@ -11,7 +11,7 @@ export interface BasePaginationProps {
   children: React.ReactNode;
 }
 
-export const PaginationContext = React.createContext<PaginationContext>({} as any)
+export const PaginationContext = React.createContext<PaginationContext | null>(null)
 
 export const Pagination = UUI.FunctionComponent({
   name: 'Pagination',
