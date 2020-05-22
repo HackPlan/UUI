@@ -12,49 +12,23 @@ import { range } from 'lodash';
 <Preview>
   <Story name="Pagination">
     {() => {
-      const [rows, setRows] = useState(range(1, 5))
-      const [count, setCount] = useState(43)
-      const [offset, setOffset] = useState(0)
-      const [limit, setLimit] = useState(5)
-      const { page, pageSize, totalPage, totalItem } = useMemo(() => {
-        return {
-          page: Math.ceil((offset + 0.1) / limit),
-          pageSize: limit,
-          totalPage: Math.ceil(count / limit),
-          totalItem: count
-        }
-      }, [rows, count, offset, limit])
-      const [jumpPage, setJumpPage] = useState(null)
+      const [pagination, setPagination] = useState({
+        offset: 0,
+        limit: 5,
+        count: 163,
+      })
       return (
         <div>
           <div className="my-4">
-            <div>Current Page: {page}</div>
-            <div>Page Size: {pageSize}</div>
-            <div>Total Page: {totalPage}</div>
-            <div>Total Item: {totalItem}</div>
+            <div>{JSON.stringify(pagination, null, 2)}</div>
           </div>
-          <Pagination>
-            <PageInfo
-              page={page}
-              pageSize={pageSize}
-              totalItem={totalItem}
-              onRender={(startItem,endItem,totalItem)=>{return `${startItem}-${endItem} 共计${totalItem}项`}}
-            ></PageInfo>
-            <PageList
-              page={page}
-              totalPage={totalPage}
-              onPageChange={(value) => {
-                setOffset((value - 1) * limit)
-              }}
-            ></PageList>
-            <PageJumper
-              jumpPage={jumpPage}
-              onJumpPageChange={(page) => setJumpPage(page)}
-              onJumped={(page) => {
-                setOffset((page - 1) * limit)
-              }}
-              labelText="跳转至"
-            ></PageJumper>
+          <Pagination
+            value={pagination}
+            onChange={(value) => { setPagination(value) }}
+          >
+            <PageList />
+            <PageJumper labelText="跳转至" />
+            <PageInfo />
           </Pagination>
         </div>
       )

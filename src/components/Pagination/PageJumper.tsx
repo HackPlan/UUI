@@ -1,24 +1,12 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { NumberField as UUINumberField } from '../Input';
 import { UUI } from '../../utils/uui';
-
+import { PaginationContext } from './Pagination';
 
 export interface BasePageJumperProps {
   /**
-   * The target page to jump.
+   * Custom jumper label text.
    */
-  jumpPage: number | null;
-  /**
-   * Callback invokes when user change target page number
-   */
-  onJumpPageChange: (page: number | null) => void;
-  /**
-   * Callback invokes when user entered.
-   */
-  onJumped: (page: number) => void;
-  /**
-     *custom jumper label text.
-  */
   labelText?: string;
 }
 
@@ -31,6 +19,11 @@ export const PageJumper = UUI.FunctionComponent({
   }
 }, (props: BasePageJumperProps, nodes) => {
   const { Root, Label, NumberField } = nodes
+
+  const pagination = useContext(PaginationContext)
+
+  const [inputValue, setInputValue] = useState<number | null>(null)
+
   return (
     <Root>
       <Label>{props.labelText ? props.labelText : 'Jump to'}</Label>
@@ -40,11 +33,11 @@ export const PageJumper = UUI.FunctionComponent({
             extendStyle: { height: 34, width: 80 }
           }
         }}
-        value={props.jumpPage}
-        onChange={(value) => { props.onJumpPageChange(value) }}
+        value={inputValue}
+        onChange={(value) => { setInputValue(value) }}
         onKeyDown={(event) => {
-          if (event.key === 'Enter' && props.jumpPage) {
-            props.onJumped(props.jumpPage)
+          if (event.key === 'Enter' && inputValue !== null && inputValue !== undefined) {
+            pagination.toNthPage(inputValue)
           }
         }}
       ></NumberField>
