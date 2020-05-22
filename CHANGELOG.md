@@ -2,6 +2,12 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.6
+
+- convert some class based components (`Radio`, `RadioGroup`, `SegmentControl`, `HTMLSelect`, `Select`) to FunctionComponent
+- `Select` support search
+- reimplement `Pagination`
+
 ### v0.3.5
 
 - `Pagination` custom label

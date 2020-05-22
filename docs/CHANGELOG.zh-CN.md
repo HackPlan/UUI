@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.6
+
+- 部分 ClassComponent-Based 组件 (`Radio`, `RadioGroup`, `SegmentControl`, `HTMLSelect`, `Select`) 改为 FunctionComponent 实现
+- `Select` 支持搜索
+- 重新实现 `Pagination`
+
 ### v0.3.5
 
 - `Pagination` 自定义文本
