@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.7
+
+- fix `Select` and `Cascader` click to show popover menu issue
+
 ### v0.3.6
 
 - convert some class based components (`Radio`, `RadioGroup`, `SegmentControl`, `HTMLSelect`, `Select`) to FunctionComponent

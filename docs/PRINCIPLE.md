@@ -1,4 +1,6 @@
-# Principle
+# Principle & Implementation
+
+English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/PRINCIPLE.zh-CN.md)
 
 We wrote this document so that you can know the basic design ideas of UUI and how UUI components are constructed. While we are glad to see community contributions, we are not likely to choose a path that violates one or more of these principles. And, since UUI is in the early development stage, we also welcome your comments and suggestions about these principles.
 

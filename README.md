@@ -52,11 +52,10 @@ function App() {
 ## Links
 
 * [Documentation](https://doc.uui.cool)
+* [Changelog](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md)
 * [Contributing](https://github.com/HackPlan/UUI/blob/master/CONTRIBUTING.md)
 * [Customization Tutorial](https://uui.cool/?path=/docs/customize-tutorial--demo-stepper)
-* [Development Notes](https://github.com/HackPlan/UUI/blob/master/DEVNOTES.md)
-* [Changelog](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md)
-* [Deployment](https://github.com/HackPlan/UUI/blob/master/DEPLOYMENT.md)
+* [Deployment](https://github.com/HackPlan/UUI/blob/master/src/DEPLOYMENT.md)
 
 
 ## Development

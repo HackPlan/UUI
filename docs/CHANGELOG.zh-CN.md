@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.7
+
+- 修复 `Select` 和 `Cascader` 点击弹出菜单框的问题
+
 ### v0.3.6
 
 - 部分 ClassComponent-Based 组件 (`Radio`, `RadioGroup`, `SegmentControl`, `HTMLSelect`, `Select`) 改为 FunctionComponent 实现

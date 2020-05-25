@@ -1,6 +1,6 @@
 # DEPLOYMENT
 
-English | [简体中文](https://github.com/HackPlan/UUI/blob/master/DEPLOYMENT.zh-CN.md)
+English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOYMENT.zh-CN.md)
 
 (for maintainer)
 

@@ -1,6 +1,6 @@
 # 生产部署指南
 
-[English](https://github.com/HackPlan/UUI/blob/master/DEPLOYMENT.md) | 简体中文
+[English](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOYMENT.md) | 简体中文
 
 写给项目维护者
 
