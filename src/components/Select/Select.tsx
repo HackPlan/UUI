@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { UUI, UUIComponentProps } from '../../core/uui';
-import { Popover as UUIPopover, TextField } from '../..';
+import { Popover as UUIPopover } from '../../components/Popover';
+import { TextField } from '../../components/Input';
 import { flatMap, cloneDeep } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
@@ -217,9 +218,11 @@ const BaseSelect = UUI.FunctionComponent({
               }}
               customize={{
                 Root: {
-                  onFocus: () => {
-                    setActive(true)
-                    setInputValue('')
+                  onClick: () => {
+                    setActive((value) => !value)
+                    if (!active) {
+                      setInputValue('')
+                    }
                   },
                   extendChildrenAfter: (
                     <DropdownIcon>

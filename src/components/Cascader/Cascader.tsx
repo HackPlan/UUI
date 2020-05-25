@@ -174,9 +174,11 @@ export const Cascader = UUI.FunctionComponent({
             }}
             customize={{
               Root: {
-                onFocus: () => {
-                  setPopoverActive(true)
-                  setInputValue('')
+                onClick: () => {
+                  setPopoverActive((value) => !value)
+                  if (!popoverActive) {
+                    setInputValue('')
+                  }
                 },
                 extendChildrenAfter: (
                   <DropdownIcon>
