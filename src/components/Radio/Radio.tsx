@@ -1,7 +1,7 @@
 import React from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
-import { UUI, UUIComponentProps } from '../../utils/uui';
+import { UUI, UUIComponentProps } from '../../core/uui';
 
 type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,

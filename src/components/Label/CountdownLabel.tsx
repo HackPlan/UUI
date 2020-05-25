@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { useInterval } from 'react-use';
 import { DateTime } from 'luxon';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { SkeletonParagraph } from './Paragraph';
 import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 
 export interface BaseSkeletonProps {

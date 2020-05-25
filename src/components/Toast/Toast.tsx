@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { omit } from 'lodash';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 export enum ToastNodeName {
   Toast = "toast",

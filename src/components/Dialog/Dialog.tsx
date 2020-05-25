@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useFocusTrap, useLockBodyScroll } from '../../hooks'
 
 import classNames from 'classnames';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { useClickAway } from 'react-use';
 import ReactDOM from 'react-dom';
 

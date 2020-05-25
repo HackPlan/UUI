@@ -1,6 +1,6 @@
 import React from 'react';
 import { BaseRadioProps } from './Radio';
-import { UUI, UUIComponentProps } from '../../utils/uui';
+import { UUI, UUIComponentProps } from '../../core/uui';
 
 export interface BaseRadioGroupProps<T extends string | number> {
   /**

@@ -1,6 +1,6 @@
 
 import React, { useMemo, useRef, useCallback, useState, useEffect } from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { useEvent } from 'react-use';
 import { clamp, clone, inRange } from 'lodash';
 import classNames from 'classnames';

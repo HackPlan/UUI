@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 export interface BaseTextAreaProps {
   /**

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { Placement, Modifier } from '@popperjs/core';

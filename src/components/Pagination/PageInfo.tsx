@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { PaginationContext } from './Pagination';
 
 export interface BasePageInfoProps {

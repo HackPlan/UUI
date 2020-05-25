@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import classNames from 'classnames';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 export enum ToasterPosition {
   Top = "top",

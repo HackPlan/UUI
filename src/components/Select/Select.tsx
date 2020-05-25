@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
-import { UUI, UUIComponentProps } from '../../utils/uui';
+import { UUI, UUIComponentProps } from '../../core/uui';
 import { Popover as UUIPopover, TextField } from '../..';
 import { flatMap, cloneDeep } from 'lodash';
 import classNames from 'classnames';

@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { range, omit } from 'lodash';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
 
 export interface TableColumn {

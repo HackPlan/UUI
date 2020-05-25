@@ -27,5 +27,5 @@ export * from './components/Toast'
  * Util Export
  */
 
-export { UUI } from './utils/uui'
-export type { UUIClassComponentProps, UUIFunctionComponentProps, UUIComponentCustomizeProps } from './utils/uui'
+export { UUI } from './core/uui'
+export type { UUIClassComponentProps, UUIFunctionComponentProps, UUIComponentCustomizeProps } from './core/uui'

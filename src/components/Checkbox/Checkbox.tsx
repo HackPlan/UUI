@@ -1,7 +1,7 @@
 import React from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 export interface BaseCheckboxProps {
   /**

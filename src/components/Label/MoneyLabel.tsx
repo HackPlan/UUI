@@ -1,7 +1,7 @@
 import React from 'react';
 import { omit } from 'lodash';
 import accounting from 'accounting';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 export interface BaseMoneyLabelProps {
   /**

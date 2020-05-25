@@ -1,7 +1,7 @@
 import React, { useMemo, useContext } from 'react';
 import { range } from 'lodash';
 import { Button as UUIButton } from '../Button';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { Icons } from '../../icons/Icons';
 import { PaginationContext } from './Pagination';
 import classNames from 'classnames';

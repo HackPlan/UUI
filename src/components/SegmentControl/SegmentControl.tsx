@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI, UUIComponentProps } from '../../utils/uui';
+import { UUI, UUIComponentProps } from '../../core/uui';
 import { Button as UUIButton } from '../Button';
 import classNames from 'classnames';
 

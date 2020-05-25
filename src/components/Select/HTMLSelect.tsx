@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI, UUIComponentProps } from '../../utils/uui';
+import { UUI, UUIComponentProps } from '../../core/uui';
 import { isString } from 'lodash';
 
 export interface HTMLSelectOption<T> {

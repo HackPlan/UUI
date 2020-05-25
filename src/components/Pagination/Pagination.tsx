@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { usePagination, IPagination } from '../../hooks/usePagination';
 
 export interface PaginationContext extends ReturnType<typeof usePagination> {

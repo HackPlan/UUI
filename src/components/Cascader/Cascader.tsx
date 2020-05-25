@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { Popover } from '../Popover';
 import { TextField } from '../Input';
 import { pick, clone } from 'lodash';

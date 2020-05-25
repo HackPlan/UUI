@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateFormatterLocale, DateFormatterLocaleKinds, dateFormat } from '../../utils/dateFormatter';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 export interface BaseDateLabelProps<T extends DateFormatterLocale> {
   /**

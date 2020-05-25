@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { IntrinsicNodeT, ComponentNodeT } from '../../src/utils/uui';
+import { IntrinsicNodeT, ComponentNodeT } from '../../src/core/uui';
 import { mapValues, isString } from 'lodash';
 import '../style/Nodes.scss';
 

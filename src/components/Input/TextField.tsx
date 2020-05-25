@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 import { Button } from '../Button';
 import { Icons } from '../../icons/Icons';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TimeFormatterLocale, TimeFormatterLocaleKinds, timeFormat } from '../../utils/timeFormatter';
-import { UUI } from '../../utils/uui';
+import { UUI } from '../../core/uui';
 
 export interface BaseTimeLabelProps<T extends TimeFormatterLocale> {
   /**
