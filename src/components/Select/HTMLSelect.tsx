@@ -9,6 +9,10 @@ export interface HTMLSelectOption<T> {
 
 export interface BaseHTMLSelectProps<T extends string | number> {
   /**
+   * Form control name
+   */
+  name?: string;
+  /**
    * The options of select
    */
   options: HTMLSelectOption<T>[];
@@ -17,11 +21,11 @@ export interface BaseHTMLSelectProps<T extends string | number> {
    *
    * T should be string or string.
    */
-  value: T;
+  value?: T;
   /**
    * Callback invokes when user change to select option.
    */
-  onChange: (value: T) => void;
+  onChange?: (value: T) => void;
 }
 
 const HTMLSelectNodes = {
@@ -38,14 +42,17 @@ const BaseHTMLSelect = UUI.FunctionComponent({
   return (
     <Root>
       <Select
-        value={props.value}
-        onChange={(event) => {
-          if (isString(props.value)) {
-            props.onChange(event.target.value)
-          } else {
-            props.onChange(Number(event.target.value))
+        name={props.name}
+        value={props.value === undefined ? undefined : props.value}
+        onChange={props.onChange === undefined ? undefined : (
+          (event) => {
+            if (isString(props.value)) {
+              props.onChange && props.onChange(event.target.value)
+            } else {
+              props.onChange && props.onChange(Number(event.target.value))
+            }
           }
-        }}
+        )}
       >
         {props.options.map((i) => {
           return (

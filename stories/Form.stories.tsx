@@ -121,6 +121,17 @@ export const FormUncontrolledMode = () => {
         <Radio name={'gender'} label={'其他'} value={'other'} className={"mr-2"}></Radio>
       </LabeledControl>
       <LabeledControl>
+        <Label>学校</Label>
+        <HTMLSelect
+          name={'school'}
+          className="w-64"
+          options={[
+            { label: 'Peking University', value: 'Peking University' },
+            { label: 'Chongqing University', value: 'Chongqing University' },
+          ]}
+        />
+      </LabeledControl>
+      <LabeledControl>
         <Label>技能</Label>
         <div className="flex flex-col">
           <Checkbox
