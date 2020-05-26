@@ -105,7 +105,7 @@ FormControlledMode.story = {
 
 export const FormUncontrolledMode = () => {
   return (
-    <form action={'http://localhost:10086/answer'} method="post">
+    <form action={'#'} method="post">
       <LabeledControl>
         <Label>名字</Label>
         <TextField className="w-64" name="name" />
