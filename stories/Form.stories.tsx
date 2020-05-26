@@ -115,6 +115,12 @@ export const FormUncontrolledMode = () => {
         <TextArea className="w-64" name="introduction" />
       </LabeledControl>
       <LabeledControl>
+        <Label>性别</Label>
+        <Radio name={'gender'} label={'男'} value={'male'} className={"mr-2"}></Radio>
+        <Radio name={'gender'} label={'女'} value={'female'} className={"mr-2"}></Radio>
+        <Radio name={'gender'} label={'其他'} value={'other'} className={"mr-2"}></Radio>
+      </LabeledControl>
+      <LabeledControl>
         <Label></Label>
         <Button type="submit">提交</Button>
       </LabeledControl>

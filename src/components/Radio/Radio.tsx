@@ -9,6 +9,10 @@ type InputHTMLAttributes = Pick<
 >
 export interface BaseRadioProps<T extends string | number> extends InputHTMLAttributes {
   /**
+   * Form control name
+   */
+  name?: string;
+  /**
    * The value of radio.
    *
    * T should be string or number.
@@ -33,20 +37,19 @@ const BaseRadio = UUI.FunctionComponent({
   nodes: RadioNodes,
 }, (props: BaseRadioProps<any>, nodes) => {
   const { Root, Input, Indicator, Label } = nodes
+
   return (
     <Root
       className={classNames({
         'disabled': props.disabled,
-        'checked': props.checked,
       })}
     >
       <Input
-        {...omit(props, 'type', 'customize')}
+        {...omit(props, 'type', 'label', 'customize')}
+        name={props.name}
         type='radio'
       />
-      <Indicator className={classNames([
-        props.checked ? 'checked' : ''
-      ])}></Indicator>
+      <Indicator></Indicator>
       <Label>{props.label}</Label>
     </Root>
   )
