@@ -1,0 +1,26 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { DatePicker } from '../src';
+import { useState } from 'react';
+
+<Meta title="DatePicker" component={DatePicker} />
+
+# 日期选择器 DatePicker
+
+日期选择器目前是通过 date-input-polyfill 来实现的，所以弹出框部分的 UI 不支持 UUI 自定义功能。
+
+### 简单使用
+
+<Preview>
+  <Story name="DatePicker">
+    {() => {
+      const [dateValue, setDateValue] = useState(null)
+      return (
+        <DatePicker value={dateValue} onChange={(value) => { setDateValue(value) }} />
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ DatePicker }} />

@@ -1,0 +1,23 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.UUI-DatePicker-Root {
+  display: inline-block;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+
+  color: $textDarkColor;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-DatePicker-Input {
+    padding: .5rem;
+    color: $textDarkColor;
+    @include radius;
+  }
+}

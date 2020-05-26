@@ -25,6 +25,8 @@
     "@charlietango/use-focus-trap": "^1.2.6",
     "@popperjs/core": "^2.2.2",
     "accounting": "^0.4.1",
+    "better-dateinput-polyfill": "^3.3.0",
+    "better-dom": "^4.1.0",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "luxon": "^1.22.0",
