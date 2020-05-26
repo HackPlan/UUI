@@ -101,3 +101,27 @@ export const FormControlledMode = () => {
 FormControlledMode.story = {
   name: 'Form (Controlled Mode)',
 };
+
+
+export const FormUncontrolledMode = () => {
+  return (
+    <form action={'http://localhost:10086/answer'} method="post">
+      <LabeledControl>
+        <Label>名字</Label>
+        <TextField className="w-64" name="name" />
+      </LabeledControl>
+      <LabeledControl>
+        <Label>介绍</Label>
+        <TextArea className="w-64" name="introduction" />
+      </LabeledControl>
+      <LabeledControl>
+        <Label></Label>
+        <Button type="submit">提交</Button>
+      </LabeledControl>
+    </form>
+  )
+}
+
+FormUncontrolledMode.story = {
+  name: 'Form (Uncontrolled Mode)',
+};

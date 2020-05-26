@@ -91,7 +91,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       })
     })()
     const children = (() => {
-      const isInput = ['input'].indexOf(tagName) !== -1
+      const isInput = ['input', 'textarea'].indexOf(tagName) !== -1
       const isSelectOption = tagName === 'option'
       // input tag do not support to pass children props
       let children: string | React.ReactNode | undefined = undefined

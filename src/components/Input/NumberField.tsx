@@ -4,6 +4,10 @@ import { limitPrecision, limitRange } from '../../utils/numberHelper';
 
 export interface BaseNumberFieldProps {
   /**
+   * Form control name
+   */
+  name?: string;
+  /**
    * The minimum value of the input.
    * @default none
    */
@@ -31,11 +35,11 @@ export interface BaseNumberFieldProps {
   /**
    * The value to display in the input field.
    */
-  value: number | null | undefined;
+  value?: number | null | undefined;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void;
 
   /**
    * Deprecated.
@@ -62,18 +66,22 @@ export const NumberField = UUI.FunctionComponent({
         min={props.min}
         step={props.step}
         disabled={props.disabled}
-        value={props.value == null ? '' : parseFloat(props.value.toPrecision(10))}
-        onChange={(event) => {
-          let value = event.target.value
-          value = limitPrecision(value, props.precision)
-          let finalValue = parseFloat(value)
-          if (isNaN(finalValue)) {
-            props.onChange(null, event)
-          } else {
-            finalValue = limitRange(finalValue, props.min, props.max)
-            props.onChange(finalValue, event)
+        value={props.value === undefined ? undefined : (
+          props.value == null ? '' : parseFloat(props.value.toPrecision(10))
+        )}
+        onChange={props.onChange === undefined ? undefined : (
+          (event) => {
+            let value = event.target.value
+            value = limitPrecision(value, props.precision)
+            let finalValue = parseFloat(value)
+            if (isNaN(finalValue)) {
+              props.onChange && props.onChange(null, event)
+            } else {
+              finalValue = limitRange(finalValue, props.min, props.max)
+              props.onChange && props.onChange(finalValue, event)
+            }
           }
-        }}
+        )}
       />
     </Root>
 

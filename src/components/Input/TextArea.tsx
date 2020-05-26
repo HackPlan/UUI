@@ -3,6 +3,10 @@ import { UUI } from '../../core/uui';
 
 export interface BaseTextAreaProps {
   /**
+   * Form control name
+   */
+  name?: string;
+  /**
    * Placeholder text when there is no value.
    * @default none
    */
@@ -15,11 +19,11 @@ export interface BaseTextAreaProps {
   /**
    * The value to display in the input field.
    */
-  value: string | null | undefined;
+  value?: string | null | undefined;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange?: (value: string, event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   /**
    * The maximum length of the input.
    * @default none
@@ -44,17 +48,21 @@ export const TextArea = UUI.FunctionComponent({
 
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
 
+  console.log(props.value)
   return (
     <Root>
       <Textarea
+        name={props.name}
         placeholder={props.placeholder}
         disabled={props.disabled}
         maxLength={props.maxLength}
-        value={props.value || ''}
-        onChange={(event) => {
-          props.onChange(event.target.value, event)
-        }}
-      ></Textarea>
+        value={props.value === undefined ? undefined : (props.value || undefined)}
+        onChange={props.onChange === undefined ? undefined : (
+          (event) => {
+            props.onChange && props.onChange(event.target.value, event)
+          }
+        )}
+      />
       {props.maxLength && props.showLengthIndicator && (
         <LengthIndicator>
           {lengthIndicatorText}
