@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.8
+
+- 新组件 `DatePicker`
+- 表单组件支持非受控模式
+
 ### v0.3.7
 
 - 修复 `Select` 和 `Cascader` 点击弹出菜单框的问题

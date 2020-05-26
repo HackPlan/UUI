@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.8
+
+- new component `DatePicker`
+- form components support uncontrolled mode
+
 ### v0.3.7
 
 - fix `Select` and `Cascader` click to show popover menu issue
