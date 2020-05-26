@@ -16,6 +16,8 @@
   @include focusWithinBorder;
 
   .UUI-DatePicker-Input {
+    box-sizing: border-box;
+    width: 100%;
     padding: .5rem;
     color: $textDarkColor;
     @include radius;
