@@ -6,13 +6,17 @@ import { DateTime } from 'luxon';
 
 export interface BaseDatePickerProps {
   /**
+   * Form control name
+   */
+  name?: string;
+  /**
    * The value to display in the input field.
    */
-  value: Date | null;
+  value?: Date | null;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: Date, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: Date, event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const DatePicker = UUI.FunctionComponent({
@@ -33,8 +37,11 @@ export const DatePicker = UUI.FunctionComponent({
     <Root>
       <Input
         type="date"
-        value={dateValue}
-        onChange={(event) => { props.onChange(new Date(event.target.value), event) }}
+        name={props.name}
+        value={props.value === undefined ? undefined : dateValue}
+        onChange={props.onChange === undefined ? undefined : (
+          (event) => { props.onChange && props.onChange(new Date(event.target.value), event) }
+        )}
       ></Input>
     </Root>
   )

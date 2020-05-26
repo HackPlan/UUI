@@ -36,14 +36,14 @@ import { useState } from 'react';
           <Checkbox
             className="mr-2"
             label={'Apple'}
-            value={flag}
+            checked={flag}
             onChange={(value) => { console.log(value); setFlag(value) }}
             disabled
           />
           <Checkbox
             className="mr-2"
             label={'Banana'}
-            value={!flag}
+            checked={!flag}
             onChange={(value) => { console.log(value); setFlag(value) }}
             disabled
           />

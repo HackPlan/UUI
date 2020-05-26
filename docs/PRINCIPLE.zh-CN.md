@@ -54,8 +54,9 @@ UUI 提供了两个 HOC 方法（`UUI.FunctionComponent` 和 `UUI.ClassComponent
 * `name` 定义组件的名字
 * `nodes` 定义这个组件包含有哪些 Node，包括 Node 的名字和内容。这个参数接受一个 Object：`key` 只能是 string；value 可以是 `div`、`p`、`span` 和 `h1` 等这样的 HTML 内置组件，也可以是一个 UUI 的组件。
 
-## 组件样式
+## 组件
 
+* 所有组件都应该尽量以受控模式（Controlled Mode）实现，另外表单相关的组件还应该支持非受控模式（Uncontrolled Mode）。
 * UUI 组件的样式代码应该和功能代码完全分离，组件内部不应该写静态的样式代码。
 * 所有的样式代码应该写进独立的样式文件并且放在 `src/styles` 里面。
 

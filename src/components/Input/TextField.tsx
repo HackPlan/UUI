@@ -5,6 +5,10 @@ import { Icons } from '../../icons/Icons';
 
 export interface BaseTextFieldProps {
   /**
+   * Form control name
+   */
+  name?: string;
+  /**
    * The type of user input.
    * TextField only support string kind type
    * @default text
@@ -23,11 +27,11 @@ export interface BaseTextFieldProps {
   /**
    * The value to display in the input field.
    */
-  value: string | null | undefined;
+  value?: string | null | undefined;
   /**
    * Event handler invoked when input value is changed.
    */
-  onChange: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * The maximum length of the input.
    * @default none
@@ -93,14 +97,17 @@ export const TextField = UUI.FunctionComponent({
   return (
     <Root>
       <Input
+        name={props.name}
         placeholder={props.placeholder}
         disabled={props.disabled}
         maxLength={props.maxLength}
         type={finalType}
-        value={props.value || ''}
-        onChange={(event) => {
-          props.onChange(event.target.value, event)
-        }}
+        value={props.value === undefined ? undefined : (props.value || undefined)}
+        onChange={props.onChange === undefined ? undefined : (
+          (event) => {
+            props.onChange && props.onChange(event.target.value, event)
+          }
+        )}
       ></Input>
       {props.maxLength && props.showLengthIndicator && (
         <LengthIndicator>

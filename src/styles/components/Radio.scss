@@ -39,12 +39,12 @@
     cursor: not-allowed;
   }
 
-  &.checked .UUI-Radio-Indicator {
+  input[type=radio]:checked+.UUI-Radio-Indicator {
     background-color: white;
     border-color: $primaryColor;
   }
 
-  &.checked .UUI-Radio-Indicator:after {
+  input[type=radio]:checked+.UUI-Radio-Indicator:after {
     position: absolute;
     content: '';
     width: 9px;

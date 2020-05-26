@@ -54,8 +54,9 @@ The first parameter `options` of these two methods accepts the same type of data
 * `name` defines the name of the component
 * `nodes` defines which Nodes this component contains, including Node name and content. This parameter accepts an Object: `key` can only be a string; value can be a built-in HTML component such as `div`, `p`, `span`, and `h1`, or a UUI component.
 
-## Component style
+## Component
 
+* All components should be implemented in Controlled Mode as much as possible. In addition, components related to forms should also support Uncontrolled Mode.
 * The style code of the UUI component should be completely separated from the function code, and static style code should not be written inside the component.
 * All style codes should be written in separate style files and placed in `src/styles`.
 

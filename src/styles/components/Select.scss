@@ -11,6 +11,10 @@
   @include focusWithinShadow;
   @include focusWithinBorder;
 
+  .UUI-Popover-Root {
+    width: 100%;
+  }
+
   .UUI-Select-Selector {
     padding: 0.25rem;
 
