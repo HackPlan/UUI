@@ -5,6 +5,10 @@ import { UUI } from '../../core/uui';
 
 export interface BaseCheckboxProps {
   /**
+   * Form control name
+   */
+  name?: string;
+  /**
    * The label of checkbox.
    * @default none
    */
@@ -12,12 +16,16 @@ export interface BaseCheckboxProps {
   /**
    * Whether this checkbox is selected.
    */
-  value: boolean;
+  checked?: boolean;
+  /**
+   * value of this checkbox.
+   */
+  value?: string;
   /**
    * Callback invoked when user changes select state.
    * @default none
    */
-  onChange: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: boolean, event: React.ChangeEvent<HTMLInputElement>) => void;
   /**
    * Whether the control is non-interactive.
    * @default false
@@ -45,10 +53,13 @@ export const Checkbox = UUI.FunctionComponent({
       <Input
         {...omit(props, 'type', 'value', 'onChange', 'customize')}
         type='checkbox'
-        checked={props.value}
-        onChange={(event) => {
-          props.onChange(event.target.checked, event)
-        }}
+        checked={props.checked === undefined ? undefined : props.checked}
+        value={props.value}
+        onChange={props.onChange === undefined ? undefined : (
+          (event) => {
+            props.onChange && props.onChange(event.target.checked, event)
+          }
+        )}
       />
       <Indicator
         className={classNames({

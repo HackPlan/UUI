@@ -70,22 +70,22 @@ export const FormControlledMode = () => {
         <div className="flex flex-col">
           <Checkbox
             label={'Web'}
-            value={skillsWeb}
+            checked={skillsWeb}
             onChange={(value) => { setSkillsWeb(value) }}
           />
           <Checkbox
             label={'Mobile'}
-            value={skillsMobile}
+            checked={skillsMobile}
             onChange={(value) => { setSkillsMobile(value) }}
           />
           <Checkbox
             label={'Server'}
-            value={skillsServer}
+            checked={skillsServer}
             onChange={(value) => { setSkillsServer(value) }}
           />
           <Checkbox
             label={'AI'}
-            value={skillsAI}
+            checked={skillsAI}
             onChange={(value) => { setSkillsAI(value) }}
           />
         </div>
@@ -119,6 +119,31 @@ export const FormUncontrolledMode = () => {
         <Radio name={'gender'} label={'男'} value={'male'} className={"mr-2"}></Radio>
         <Radio name={'gender'} label={'女'} value={'female'} className={"mr-2"}></Radio>
         <Radio name={'gender'} label={'其他'} value={'other'} className={"mr-2"}></Radio>
+      </LabeledControl>
+      <LabeledControl>
+        <Label>技能</Label>
+        <div className="flex flex-col">
+          <Checkbox
+            name={'skills[]'}
+            label={'Web'}
+            value={'web'}
+          />
+          <Checkbox
+            name={'skills[]'}
+            label={'Mobile'}
+            value={'mobile'}
+          />
+          <Checkbox
+            name={'skills[]'}
+            label={'Server'}
+            value={'server'}
+          />
+          <Checkbox
+            name={'skills[]'}
+            label={'AI'}
+            value={'ai'}
+          />
+        </div>
       </LabeledControl>
       <LabeledControl>
         <Label></Label>

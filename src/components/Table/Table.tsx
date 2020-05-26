@@ -148,7 +148,7 @@ export const Table = UUI.FunctionComponent({
               {props.selectedIndexes && rowIndex === 0 && (
                 <HeadCell rowSpan={9999}>
                   <Checkbox
-                    value={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
+                    checked={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
                     onChange={(value) => {
                       if (props.rows.length > 0) {
                         props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
@@ -219,7 +219,7 @@ export const Table = UUI.FunctionComponent({
                       {props.selectedIndexes && (
                         <DataCell>
                           <Checkbox
-                            value={props.selectedIndexes.indexOf(rowIndex) !== -1}
+                            checked={props.selectedIndexes.indexOf(rowIndex) !== -1}
                             onChange={(value) => {
                               const indexesSet = new Set(props.selectedIndexes)
                               if (value)  indexesSet.add(rowIndex)
