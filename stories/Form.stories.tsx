@@ -121,6 +121,10 @@ export const FormUncontrolledMode = () => {
         <Radio name={'gender'} label={'其他'} value={'other'} className={"mr-2"}></Radio>
       </LabeledControl>
       <LabeledControl>
+        <Label>生日</Label>
+        <DatePicker name={'birthday'} className="w-64" />
+      </LabeledControl>
+      <LabeledControl>
         <Label>学校</Label>
         <HTMLSelect
           name={'school'}
