@@ -58,9 +58,7 @@ export const IconSource = () => {
   )
 }
 
-IconSource.story = {
-  name: 'Icon',
-};
+IconSource.storyName = 'Icon'
 
 export const IconSvgProps = () => {
   return (
@@ -98,9 +96,7 @@ export const IconSize = () => {
   )
 }
 
-IconSize.story = {
-  name: 'Icon with custom size',
-};
+IconSize.storyName = 'Icon with custom size'
 
 export const IconIconGallery = () => {
   const Icons = IconGallery({
@@ -117,6 +113,4 @@ export const IconIconGallery = () => {
   )
 }
 
-IconIconGallery.story = {
-  name: 'Icon with IconGallery',
-};
+IconIconGallery.storyName = 'Icon with IconGallery'

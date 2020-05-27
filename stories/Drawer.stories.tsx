@@ -24,6 +24,4 @@ export const Drawer1 = () => {
   )
 }
 
-Drawer1.story = {
-  name: 'Drawer',
-};
+Drawer1.storyName = 'Drawer'

@@ -29,9 +29,7 @@ export const Toast = () => {
   )
 }
 
-Toast.story = {
-  name: 'Toast',
-};
+Toast.storyName = 'Toast'
 
 export const ToastCustomStyle = () => {
   return (
@@ -51,6 +49,4 @@ export const ToastCustomStyle = () => {
   )
 }
 
-ToastCustomStyle.story = {
-  name: 'CustomStyle Toast',
-};
+ToastCustomStyle.storyName = 'CustomStyle Toast'

@@ -5,14 +5,14 @@ export default {
   title: 'Form',
 };
 
-const LabeledControl = (props) => {
+const LabeledControl = (props: any) => {
   return (
     <div className="flex row mb-4">
       {props.children}
     </div>
   )
 }
-const Label = (props) => {
+const Label = (props: any) => {
   return (
     <label className="flex justify-end items-center mr-2 w-24 h-8">
       {props.children}
@@ -24,15 +24,29 @@ export const FormControlledMode = () => {
   const [name, setName] = useState('')
   const [introduction, setIntroduction] = useState('')
   const [gender, setGender] = useState('male')
-  const [birthday, setBirthday] = useState(null)
+  const [birthday, setBirthday] = useState<Date | null>(null)
   const [school, setSchool] = useState('Peking University')
   const [skillsWeb, setSkillsWeb] = useState(false)
   const [skillsMobile, setSkillsMobile] = useState(false)
   const [skillsServer, setSkillsServer] = useState(false)
   const [skillsAI, setSkillsAI] = useState(false)
 
+  const [active, setActive] = useState(false)
+
   return (
     <div>
+      <Popover
+        active={active}
+        activator={(
+          <Button style={{ width: 112, fontSize: 15, height: 40 }} onClick={() => { setActive(!active) }}>Activator</Button>
+        )}
+        onClickAway={() => { setActive(false) }}
+      >
+        <div className="m-4 w-48 h-24">
+          <p>Popover content header</p>
+          <p>Popover test content</p>
+        </div>
+      </Popover>
       <LabeledControl>
         <Label>名字</Label>
         <TextField className="w-64" value={name} onChange={(value) => setName(value)} />
@@ -98,9 +112,7 @@ export const FormControlledMode = () => {
   )
 }
 
-FormControlledMode.story = {
-  name: 'Form (Controlled Mode)',
-};
+FormControlledMode.storyName = 'Form (Controlled Mode)'
 
 
 export const FormUncontrolledMode = () => {
@@ -168,6 +180,4 @@ export const FormUncontrolledMode = () => {
   )
 }
 
-FormUncontrolledMode.story = {
-  name: 'Form (Uncontrolled Mode)',
-};
+FormUncontrolledMode.storyName = 'Form (Uncontrolled Mode)'
