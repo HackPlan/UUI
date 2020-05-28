@@ -1,8 +1,12 @@
 import React, { useMemo } from 'react';
 import { UUI } from '../../core/uui';
-import 'better-dom/dist/better-dom';
-import 'better-dateinput-polyfill/dist/better-dateinput-polyfill';
 import { DateTime } from 'luxon';
+
+// only import polyfill when global variable `window` is exist.
+if (window) {
+  require('better-dom/dist/better-dom');
+  require('better-dateinput-polyfill/dist/better-dateinput-polyfill');
+}
 
 export interface BaseDatePickerProps {
   /**
