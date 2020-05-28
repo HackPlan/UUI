@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.9
+
+- `SegmentControl` 新样式和新的 DOM 结构
+- 修复 `DatePicker` polyfill 依赖 window 全局变量的问题
+
 ### v0.3.8
 
 - 新组件 `DatePicker`
