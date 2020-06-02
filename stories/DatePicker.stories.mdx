@@ -6,7 +6,11 @@ import { useState } from 'react';
 
 # 日期选择器 DatePicker
 
-日期选择器目前是通过 date-input-polyfill 来实现的，所以弹出框部分的 UI 不支持 UUI 自定义功能。
+日期选择器目前是通过 [`better-dateinput-polyfill`](https://github.com/chemerisuk/better-dateinput-polyfill) 来实现的，所以弹出框部分的 UI 不支持 UUI 自定义功能。
+
+> 如果你是在 Next.js 项目里使用这个组件，需要注意的是默认不支持 Safari for Mac 浏览器（Safari for iOS 支持）。
+>
+> 你可以在 next.js 项目里手动引入 [`better-dateinput-polyfill`](https://github.com/chemerisuk/better-dateinput-polyfill) 。
 
 ### 简单使用
 

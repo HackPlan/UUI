@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.10
+
+- fix datepicker polyfill issue `window is undefined` in next.js
+
 ### v0.3.9
 
 - `SegmentControl` new style and dom structure.

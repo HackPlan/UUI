@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { DateTime } from 'luxon';
 
 // only import polyfill when global variable `window` is exist.
-if (window) {
+if (typeof window !== 'undefined') {
   require('better-dom/dist/better-dom');
   require('better-dateinput-polyfill/dist/better-dateinput-polyfill');
 }
