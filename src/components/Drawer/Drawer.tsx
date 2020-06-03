@@ -31,7 +31,7 @@ export interface BaseDrawerProps {
    */
   portalContainer?: HTMLElement;
   /**
-   * Wether lock scrolling on the body element while Drawer is active
+   * Whether lock scrolling on the body element while Drawer is active
    */
   lockBodyScroll?: boolean;
   /**

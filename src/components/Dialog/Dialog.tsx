@@ -29,7 +29,7 @@ export interface BaseDialogProps {
    */
   portalContainer?: HTMLElement;
   /**
-   * Wether lock scrolling on the body element while Dialog is active
+   * Whether lock scrolling on the body element while Dialog is active
    */
   lockBodyScroll?: boolean;
   /**
