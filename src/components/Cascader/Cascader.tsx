@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { UUI } from '../../core/uui';
-import { Popover } from '../Popover';
+import { Popover, PopoverPlacement } from '../Popover';
 import { TextField } from '../Input';
 import { pick, clone } from 'lodash';
 import classNames from 'classnames';
@@ -59,6 +59,10 @@ export interface BaseCascaderProps {
    * The custom search function, it invoked per option iteration.
    */
   onSearch?: (option: CascaderOption, q: string) => boolean;
+  /**
+   * dropdown placement
+   */
+  dropdownPlacement?: PopoverPlacement;
 }
 
 export const Cascader = UUI.FunctionComponent({
@@ -95,6 +99,7 @@ export const Cascader = UUI.FunctionComponent({
     expandTriggerType: props.expandTriggerType || 'click',
     searchable: props.searchable === undefined ? false : props.searchable,
     changeOnFinalSelect: props.changeOnFinalSelect === undefined ? true : props.changeOnFinalSelect,
+    dropdownPlacement: props.dropdownPlacement === undefined ? 'bottom-start' : props.dropdownPlacement
   }
 
   /**
@@ -158,7 +163,7 @@ export const Cascader = UUI.FunctionComponent({
     >
       <Dropdown
         active={popoverActive}
-        placement={'bottom-start'}
+        placement={finalProps.dropdownPlacement}
         onClickAway={() => {
           setPopoverActive(false)
           const selectedOptions = findSelectedOptions(props.value, props.options)

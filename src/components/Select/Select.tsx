@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { UUI, UUIComponentProps } from '../../core/uui';
-import { Popover as UUIPopover } from '../../components/Popover';
+import { Popover as UUIPopover, PopoverPlacement } from '../../components/Popover';
 import { TextField } from '../../components/Input';
 import { flatMap, cloneDeep } from 'lodash';
 import classNames from 'classnames';
@@ -36,6 +36,10 @@ interface BaseCommonSelectProps<T extends string | number> {
    * The custom search function, it invoked per option iteration.
    */
   onSearch?: (option: SelectOption<T>, q: string) => boolean;
+  /**
+   * dropdown placement
+   */
+  dropdownPlacement?: PopoverPlacement;
 }
 
 interface SelectOptionsProps<T extends string | number> extends BaseCommonSelectProps<T> {
@@ -83,6 +87,7 @@ const BaseSelect = UUI.FunctionComponent({
 
   const finalProps = {
     searchable: props.searchable === undefined ? false : props.searchable,
+    dropdownPlacement: props.dropdownPlacement === undefined ? 'bottom-start' : props.dropdownPlacement
   }
 
   const [active, setActive] = useState<boolean>(false)
@@ -198,7 +203,7 @@ const BaseSelect = UUI.FunctionComponent({
     >
       <Dropdown
         active={active}
-        placement={'bottom-start'}
+        placement={finalProps.dropdownPlacement}
         onClickAway={() => {
           setActive(false)
           const selectedOption = findSelectedOption()
