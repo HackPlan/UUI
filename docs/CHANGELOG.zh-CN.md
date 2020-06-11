@@ -2,9 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
-### v0.3.10
+### v0.3.12
 
-- 修复 datepicker polyfill 在 next.js 中报错 `window is undefined` 不能使用的问题
+- `AppDialog` 支持返回数据
+- 修复了一些小问题
 
 ### v0.3.11
 
@@ -13,7 +14,7 @@
 
 ### v0.3.10
 
-- 修复 datepicker polyfill 在 Next.js 项目里无法使用，依赖 window 的问题
+- 修复 datepicker polyfill 在 next.js 中报错 `window is undefined` 不能使用的问题
 
 ### v0.3.9
 

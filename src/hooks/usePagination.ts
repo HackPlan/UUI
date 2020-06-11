@@ -13,15 +13,6 @@ export const EmptyPagination = (): IPagination => ({
   count: 0,
 })
 
-/**
- * There are two states inside the hooks: `pagination` and `pagination`.
- * `pagination` used for current pagination status,
- * `pagination` used for next pagination status returned by the server.
- *
- * To change page, you should call `toNextPage`, `toPrevPage` or `toNthPage` to update offset.
- * To update server returned pagination, you should call `setServerPagination`.
- * @param _pagination initial pagination - Default: `EmptyPagination`
- */
 export function usePagination(
   value: IPagination,
   onChange: (pagination: IPagination) => void,
