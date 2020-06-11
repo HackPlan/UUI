@@ -35,18 +35,6 @@ export const FormControlledMode = () => {
 
   return (
     <div>
-      <Popover
-        active={active}
-        activator={(
-          <Button style={{ width: 112, fontSize: 15, height: 40 }} onClick={() => { setActive(!active) }}>Activator</Button>
-        )}
-        onClickAway={() => { setActive(false) }}
-      >
-        <div className="m-4 w-48 h-24">
-          <p>Popover content header</p>
-          <p>Popover test content</p>
-        </div>
-      </Popover>
       <LabeledControl>
         <Label>名字</Label>
         <TextField className="w-64" value={name} onChange={(value) => setName(value)} />
