@@ -1,10 +1,10 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Dialog, Button } from '../src';
+import { Dialog, AppDialog, Button } from '../src';
 import { useState } from 'react';
 
 <Meta title="Dialog" component={Dialog} />
 
-# 对话框 Dialog
+## 对话框 Dialog
 
 ### 简单使用
 
@@ -39,9 +39,65 @@ import { useState } from 'react';
               >
                 Confirm
               </Button>
-              </div>
+            </div>
           </Dialog>
         </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+## 对话框 AppDialog
+
+AppDialog 内部直接使用 Dialog 了，包装成了一个全局函数，主要是为了方便进行消息提示、确认消息和提交内容。
+
+AppDialog 相比 Dialog 使用上更加方便。不需要管理状态，也不需要插入 Dialog 到 DOM 里，只需要调用一个 Promise 方法。
+
+如果 Dialog 内部要显示很复杂的内容，还是推荐使用 Dialog。
+
+```tsx
+function AppDialog(ContentComponent: (props: {
+    onConfirm: () => void;
+    onCancel: () => void;
+}) => JSX.Element, options?: {
+    cancelOnClickAway?: boolean;
+    container?: HTMLElement;
+}): Promise<boolean>
+```
+
+<Preview>
+  <Story name="AppDialog">
+    {() => {
+      return (
+        <Button
+          onClick={async () => {
+            const result = await AppDialog((props) => {
+              return (
+                <>
+                  <div style={{ width: 400, height: 300 }}>
+                    <h1 style={{ marginTop: 0 }}>Lorem Ipsum</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lorem nulla, malesuada ut sagittis sit amet, vulputate in leo.</p>
+                  </div>
+                  <div className="flex flex-row justify-end">
+                    <Button
+                      className="bg-red-500"
+                      onClick={() => { props.onCancel() }}
+                    >
+                      Close
+                    </Button>
+                    <Button
+                      className="ml-2"
+                      onClick={() => { props.onConfirm() }}
+                    >
+                      Confirm
+                    </Button>
+                  </div>
+                </>
+              )
+            }, { cancelOnClickAway: true })
+            console.log(result)
+          }}
+        >Click me!</Button>
       )
     }}
   </Story>
