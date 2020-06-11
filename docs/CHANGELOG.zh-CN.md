@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.13
+
+- `Pagination` PageSize 组件新参数 labelRender
+
 ### v0.3.12
 
 - `AppDialog` 支持返回数据

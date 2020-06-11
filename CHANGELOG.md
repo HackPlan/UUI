@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.13
+
+- `Pagination` pageSize new prop labelRender
+
 ### v0.3.12
 
 - `AppDialog` support return data
