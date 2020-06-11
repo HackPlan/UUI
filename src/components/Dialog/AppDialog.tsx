@@ -3,16 +3,24 @@ import ReactDOM from 'react-dom';
 import { Dialog } from './Dialog';
 
 const AppDialogRootClassName = "UUI-AppDialog-Root"
-export function AppDialog(ContentComponent: (
-  props: {
-    onConfirm: () => void;
-    onCancel: () => void;
-  }) => JSX.Element,
-  options?: {
-    cancelOnClickAway?: boolean;
-    container?: HTMLElement;
-  }
-): Promise<boolean> {
+
+export interface AppDialogOptions {
+  cancelOnClickAway?: boolean;
+  container?: HTMLElement;
+}
+
+export function AppDialog(ContentComponent: (props: {
+  onConfirm: () => void;
+  onCancel: () => void;
+}) => JSX.Element, options?: AppDialogOptions): Promise<boolean>
+export function AppDialog<T>(ContentComponent: (props: {
+  onConfirm: (value: T) => void;
+  onCancel: () => void;
+}) => JSX.Element, options?: AppDialogOptions): Promise<T | false>
+export function AppDialog<T>(ContentComponent: (props: {
+  onConfirm: (value?: T) => void;
+  onCancel: () => void;
+}) => JSX.Element, options?: AppDialogOptions): Promise<T | boolean> {
   const finalOptions = {
     cancelOnClickAway: options?.cancelOnClickAway !== undefined ? options.cancelOnClickAway : false,
     container: options?.container !== undefined ? options.container : document.body,
@@ -27,8 +35,8 @@ export function AppDialog(ContentComponent: (
     document.body.removeChild(containerElement)
   }
 
+  setup()
   return new Promise((resolve) => {
-    setup()
 
     const DialogComponent = () => {
       return (
@@ -42,8 +50,12 @@ export function AppDialog(ContentComponent: (
             }
           }}>
           <ContentComponent
-            onConfirm={() => {
-              resolve(true)
+            onConfirm={(data) => {
+              if (data !== undefined) {
+                resolve(data)
+              } else {
+                resolve(true)
+              }
               clearup()
             }}
             onCancel={() => {

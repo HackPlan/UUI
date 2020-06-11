@@ -56,13 +56,28 @@ AppDialog 相比 Dialog 使用上更加方便。不需要管理状态，也不�
 如果 Dialog 内部要显示很复杂的内容，还是推荐使用 Dialog。
 
 ```tsx
+interface AppDialogOptions {
+  cancelOnClickAway?: boolean;
+  container?: HTMLElement;
+}
+
 function AppDialog(ContentComponent: (props: {
-    onConfirm: () => void;
-    onCancel: () => void;
-}) => JSX.Element, options?: {
-    cancelOnClickAway?: boolean;
-    container?: HTMLElement;
-}): Promise<boolean>
+  onConfirm: () => void;
+  onCancel: () => void;
+}) => JSX.Element, options?: AppDialogOptions): Promise<boolean>
+
+function AppDialog<T>(ContentComponent: (props: {
+  onConfirm: (value: T) => void;
+  onCancel: () => void;
+}) => JSX.Element, options?: AppDialogOptions): Promise<T | false>
+```
+
+如果希望在 confirm 的时候顺带返回数据，则需要指定一下返回数据的类型
+
+```tsx
+async function run() {
+  const result = await AppDialog<{ data1: string; data2: number; }>(/* ... */)
+}
 ```
 
 <Preview>
