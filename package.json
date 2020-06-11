@@ -31,7 +31,8 @@
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "luxon": "^1.22.0",
-    "react-popper": "^2.2.3",
+    "react-beautiful-dnd": "^13.0.0",
+    "react-popper-2": "npm:react-popper@^2.2.1",
     "react-use": "^13.12.2",
     "uuid": "^7.0.2"
   },
