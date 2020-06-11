@@ -138,6 +138,7 @@ module.exports = {
      */
     new Without([
       /base.js/,
+      /AppDialog.js$/,
       /Button.js$/,
       /Cascader.js$/,
       /Checkbox.js$/,

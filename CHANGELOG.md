@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.11
+
+- Select and Cascader new props dropdownPlacement
+- new component `AppDialog`
+
 ### v0.3.10
 
 - fix datepicker polyfill issue `window is undefined` in next.js

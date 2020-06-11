@@ -6,6 +6,15 @@
 
 - 修复 datepicker polyfill 在 next.js 中报错 `window is undefined` 不能使用的问题
 
+### v0.3.11
+
+- `Select` and `Cascader` 新属性 `dropdownPlacement`
+- 新组件 `AppDialog`
+
+### v0.3.10
+
+- 修复 datepicker polyfill 在 Next.js 项目里无法使用，依赖 window 的问题
+
 ### v0.3.9
 
 - `SegmentControl` 新样式和新的 DOM 结构
