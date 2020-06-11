@@ -5,6 +5,7 @@ import { HTMLSelect } from '../Select';
 
 export interface BasePageSizeProps {
   pageSizeOptions: number[];
+  labelRender?: (pageSize: number) => string;
 }
 
 export const PageSize = UUI.FunctionComponent({
@@ -27,7 +28,7 @@ export const PageSize = UUI.FunctionComponent({
       <Select
         options={props.pageSizeOptions.map((i) => {
           return {
-            label: `${i} / Page`,
+            label: props.labelRender ? props.labelRender(i) : `${i} / Page`,
             value: i,
           }
         })}
