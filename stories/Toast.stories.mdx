@@ -6,16 +6,46 @@ import { useState, useRef } from 'react';
 
 # 全局提示 Toast
 
-### Toast
+### 简单使用
+
+`Toast` 和 `Toaster` 是两个不同的组件，分别负责不同的功能。`Toast` 是具体的功能实现，负责渲染和管理内部状态；`Toaster` 则负责全局管理所有的提示。
+
+通过 `Toaster` 创建出一个示例，可以直接导出全局使用。`Toaster` 可以创建出多个示例，这些示例之间互相不影响。
+
+```tsx
+const AppToaster1 = Toaster.create({
+  maxToasts: 5,
+  position: ToasterPosition.TopRight,
+})
+const AppToaster2 = Toaster.create({
+  maxToasts: 5,
+  position: ToasterPosition.TopRight,
+})
+```
 
 <Preview>
   <Story name="Toast1" id="toast--toast" />
 </Preview>
 
-### Custom Style Toast
+### 手动关闭提示
+
+通过调用 `AppToaster1.show` 可以显示出一个提示。
+这个方法接受第二个可选参数，手动设置当前这个提示（Toast）的 id。
+有了这个 id，就可以调用 `AppToaster1.dismiss(id)` 来手动关闭当前提示。
+
+```tsx
+AppToaster1.show(props: any, id?: string | undefined): string | undefined
+
+const id = AppToaster1.show({
+  message: 'Ohiyo!',
+})
+AppToaster1.dismiss(id)
+```
+
+### 自定义样式
 
 <Preview>
-   <Story name="Custom Style Toast" id="toast--toast-custom-style" />
+  <Story name="Custom Style Toast" id="toast--toast-custom-style" />
 </Preview>
 
 ### Props

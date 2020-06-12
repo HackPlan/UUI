@@ -1,11 +1,11 @@
 @import '../mixins.scss';
 
 .UUI-Toaster-Portal {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 100%;
+  bottom: 0;
   box-sizing: border-box;
   pointer-events: none;
 }
@@ -13,8 +13,9 @@
 .UUI-Toaster-Root {
   pointer-events: none;
   z-index: 999;
-  padding: 1rem;
+  padding: 0.5rem;
   height: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 
@@ -57,7 +58,7 @@
   width: fit-content;
   pointer-events: all;
   padding: 0.5rem 0.75rem;
-  margin-bottom: 1rem;
+  margin: 0.5rem 0.5rem;
   background-color: white;
   @include border;
   @include shadow;

@@ -10,7 +10,7 @@ export default {
 
 const AppToaster1 = Toaster.create({
   maxToasts: 5,
-  position: ToasterPosition.TopRight,
+  position: ToasterPosition.BottomLeft,
 })
 const AppToaster2 = Toaster.create({
   maxToasts: 5,
