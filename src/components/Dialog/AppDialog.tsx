@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Dialog } from './Dialog';
+import { Dialog, DialogProps } from './Dialog';
 
 const AppDialogRootClassName = "UUI-AppDialog-Root"
 
 export interface AppDialogOptions {
   cancelOnClickAway?: boolean;
   container?: HTMLElement;
+  customize?: DialogProps['customize'];
 }
 
 export function AppDialog(ContentComponent: (props: {
@@ -24,6 +25,7 @@ export function AppDialog<T>(ContentComponent: (props: {
   const finalOptions = {
     cancelOnClickAway: options?.cancelOnClickAway !== undefined ? options.cancelOnClickAway : false,
     container: options?.container !== undefined ? options.container : document.body,
+    customize: options?.customize !== undefined ? options.customize : undefined,
   }
   const containerElement = document.createElement("div")
   const setup = () => {
@@ -48,7 +50,9 @@ export function AppDialog<T>(ContentComponent: (props: {
               resolve(false)
               clearup()
             }
-          }}>
+          }}
+          customize={finalOptions.customize}
+        >
           <ContentComponent
             onConfirm={(data) => {
               if (data !== undefined) {
