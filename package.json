@@ -1,8 +1,9 @@
 {
   "name": "@hackplan/uui",
   "version": "0.3.13",
-  "description": "UUI Framework",
-  "repository": "git@lab.hackplan.com:tinyapps/uui.git",
+  "description": "UUI - Universal Utility-first UI Library",
+  "homepage": "https://uui.cool",
+  "repository": "https://github.com/HackPlan/UUI",
   "author": "HackPlan <npm@hackplan.com>",
   "license": "MIT",
   "private": false,
