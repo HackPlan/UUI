@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.14
+
+- 修复 `Toaster` 样式
+- `AppDialog` 支持自定义 customize
+
 ### v0.3.13
 
 - `Pagination` PageSize 组件新参数 labelRender
