@@ -91,8 +91,17 @@ const BaseSelect = UUI.FunctionComponent({
   }
 
   const [active, setActive] = useState<boolean>(false)
-  const [inputValue, setInputValue] = useState<string | null>(findSelectedOption(props)?.label || null)
+  const [inputValue, setInputValue] = useState<string | null>(null)
   const inputRef = useRef<any | null>(null)
+
+  const value = useMemo(() => {
+    if (active) {
+      return inputValue
+    } else {
+      const option = findSelectedOption(props)
+      return option?.label || null
+    }
+  }, [props, inputValue, active])
 
   const placeholder = useMemo(() => {
     if (active && !inputValue && props.value) {
@@ -199,7 +208,7 @@ const BaseSelect = UUI.FunctionComponent({
               inputRef.current && inputRef.current.focus && inputRef.current.focus();
             }}>
             <Input
-              value={inputValue}
+              value={value}
               placeholder={placeholder}
               onChange={(value) => {
                 setInputValue(value.length > 0 ? value : null)

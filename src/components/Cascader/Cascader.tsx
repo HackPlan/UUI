@@ -109,6 +109,14 @@ export const Cascader = UUI.FunctionComponent({
   const [popoverActive, setPopoverActive] = useState(false)
   const [inputValue, setInputValue] = useState<string | null>(generateLabel(findSelectedOptions(props.value, props.options)))
 
+  const value = useMemo(() => {
+    if (popoverActive) {
+      return inputValue
+    } else {
+      return generateLabel(findSelectedOptions(props.value, props.options))
+    }
+  }, [popoverActive, inputValue, props.value, props.options])
+
   /**
    * Generate tree hierarchy data of cascade options for rendering.
    */
@@ -173,7 +181,7 @@ export const Cascader = UUI.FunctionComponent({
         activator={
           <Input
             placeholder={placeholder}
-            value={inputValue}
+            value={value}
             onChange={(value) => {
               setInputValue(value.length > 0 ? value : null)
             }}
