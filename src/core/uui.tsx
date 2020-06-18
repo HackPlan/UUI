@@ -151,6 +151,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       className, style,
     }, children)
   })
+  Node.displayName = `<UUI> [IntrinsicNode] ${nodeName}`
   return Node
 }
 
@@ -181,6 +182,7 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
       customize={merge(_props.customize, customizeProps.customize)}
     />
   })
+  Node.displayName = `<UUI> [ComponentNode] ${nodeName}`
   return Node
 }
 
@@ -280,11 +282,13 @@ export abstract class UUI {
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
     const nodes = compileNodes(options)
-    return (props: P & UUIConvenienceProps & Z) => {
+    const component = (props: P & UUIConvenienceProps & Z) => {
       const compiledProps = compileProps(props, options, undefined)
       injectCustomizeProps(nodes, compiledProps)
       return WrappedComponent(compiledProps, nodes)
     }
+    component.displayName = `<UUI> [Component] ${options.name}`
+    return component
   }
 
   /**
@@ -332,8 +336,10 @@ export abstract class UUI {
     const nodes = compileNodes(options)
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P & UUIConvenienceProps & Z, S> {
       nodes: UUIComponentNodes<X>
+      displayName: string
       constructor(props: P & UUIConvenienceProps & Z) {
         super(props)
+        this.displayName = `<UUI> [Component] ${options.name}`
         const compiledProps = compileProps(props, options, (props as any).innerRef || undefined)
         injectCustomizeProps(nodes, compiledProps)
         this.nodes = nodes

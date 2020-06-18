@@ -58,4 +58,5 @@ const BaseRadio = UUI.FunctionComponent({
 export function Radio<T extends string | number>(props: UUIComponentProps<BaseRadioProps<T>, typeof RadioNodes>) {
   return <BaseRadio {...props} />
 }
+Radio.displayName = `<UUI> [GenericComponent] Radio`
 export type RadioProps = Parameters<typeof Radio>[0]
