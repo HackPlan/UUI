@@ -91,34 +91,17 @@ const BaseSelect = UUI.FunctionComponent({
   }
 
   const [active, setActive] = useState<boolean>(false)
-  const [inputValue, setInputValue] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState<string | null>(findSelectedOption(props)?.label || null)
   const inputRef = useRef<any | null>(null)
-
-  const getAllOptions = useCallback(() => {
-    if ((props as any)['options']) {
-      const _props = props as SelectOptionsProps<any>
-      return _props.options
-    } else if ((props as any)['sections']) {
-      const _props = props as SelectSectionsProps<any>
-      return flatMap(_props.sections, (i) => i.options)
-    } else {
-      return []
-    }
-  }, [props])
-
-  const findSelectedOption = useCallback(() => {
-    const allOptions = getAllOptions()
-    return allOptions.find((i) => i.value === props.value)
-  }, [props, getAllOptions])
 
   const placeholder = useMemo(() => {
     if (active && !inputValue && props.value) {
-      const selectedOption = findSelectedOption()
+      const selectedOption = findSelectedOption(props)
       return selectedOption?.label
     } else {
       return props.placeholder
     }
-  }, [active, inputValue, props.value, props.placeholder, findSelectedOption])
+  }, [active, inputValue, props])
 
   const finalOptions = useMemo(() => {
     if (!(props as any)['options']) return undefined
@@ -206,7 +189,7 @@ const BaseSelect = UUI.FunctionComponent({
         placement={finalProps.dropdownPlacement}
         onClickAway={() => {
           setActive(false)
-          const selectedOption = findSelectedOption()
+          const selectedOption = findSelectedOption(props)
           setInputValue(selectedOption?.label || null)
         }}
         activator={
@@ -270,6 +253,23 @@ function searchInOptions(q: string, options: SelectOption<any>[], predicate?: Ba
       : i.label.includes(q)
     )
   )
+}
+
+const getAllOptions = <T extends string | number>(props: BaseSelectProps<T>) => {
+  if ((props as any)['options']) {
+    const _props = props as SelectOptionsProps<any>
+    return _props.options
+  } else if ((props as any)['sections']) {
+    const _props = props as SelectSectionsProps<any>
+    return flatMap(_props.sections, (i) => i.options)
+  } else {
+    return []
+  }
+}
+
+const findSelectedOption = <T extends string | number>(props: BaseSelectProps<T>) => {
+  const allOptions = getAllOptions(props)
+  return allOptions.find((i) => i.value === props.value)
 }
 
 export function Select<T extends string | number>(props: UUIComponentProps<BaseSelectProps<T>, typeof SelectNodes>) {

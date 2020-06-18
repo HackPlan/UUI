@@ -107,7 +107,7 @@ export const Cascader = UUI.FunctionComponent({
    */
   const [innerValue, setInnerValue, resetInnerValue] = usePendingValue(props.value, (finalValue) => { props.onChange(finalValue) })
   const [popoverActive, setPopoverActive] = useState(false)
-  const [inputValue, setInputValue] = useState<string | null>(null)
+  const [inputValue, setInputValue] = useState<string | null>(generateLabel(findSelectedOptions(props.value, props.options)))
 
   /**
    * Generate tree hierarchy data of cascade options for rendering.
