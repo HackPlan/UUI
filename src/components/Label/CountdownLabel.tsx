@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { UUI } from '../../core/uui';
 import { useInterval } from 'react-use';
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 
 export interface BaseCountdownLabelProps {
   /**
@@ -19,6 +19,11 @@ export interface BaseCountdownLabelProps {
    * @default 1000
    */
   frequency?: number;
+  /**
+   * Whether the time could be a negative value.
+   * @default false
+   */
+  allowNegative?: boolean;
 }
 
 export const CountdownLabel = UUI.FunctionComponent({
@@ -32,16 +37,25 @@ export const CountdownLabel = UUI.FunctionComponent({
   const finalProps = {
     frequency: props.frequency || 1000,
     format: props.format || 'hh:mm:ss',
+    allowNegative: props.allowNegative || false,
   }
 
-  const [text, setText] = useState(DateTime.fromJSDate(props.until).diffNow().toFormat(finalProps.format))
+  const generateLabelText = useCallback(() => {
+    const diff = DateTime.fromJSDate(props.until).diffNow()
+    const duration = props.allowNegative ? diff : Duration.fromMillis(0)
+    return duration.toFormat(finalProps.format)
+  }, [finalProps.format, props.allowNegative, props.until])
+
+  const [text, setText] = useState(generateLabelText())
   useInterval(() => {
-    setText(DateTime.fromJSDate(props.until).diffNow().toFormat(finalProps.format))
+    setText(generateLabelText())
   }, finalProps.frequency)
 
   return (
     <Root>{text}</Root>
   )
 })
+
+
 
 export type CountdownLabelProps = Parameters<typeof CountdownLabel>[0]
