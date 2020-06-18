@@ -2,6 +2,12 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.16
+
+- fix `Select` `Cascader` initial value again.
+- add displayName for UUI components and nodes (convenience for dev, displayed in React Dev Tools)
+- UUI Component Util: IntrinsicNode merge Refs
+
 ### v0.3.15
 
 - fix `Select` `Cascader` initial value

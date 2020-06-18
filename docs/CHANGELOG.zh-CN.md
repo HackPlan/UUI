@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.16
+
+- 再次修复 `Select` `Cascader` 初始值显示问题
+- 给 UUI 组件和组件内部节点添加名字（方便调试，在 React Dev Tools 里显示）
+- UUI 工具，合并 refs
+
 ### v0.3.15
 
 - 修复 `Select` `Cascader` 初始值显示问题
