@@ -17,6 +17,7 @@
     "cleanbuild": "rimraf lib && yarn build",
     "pack:uui": "yarn cleanbuild && yarn pack",
     "publish:uui": "yarn cleanbuild && yarn publish",
+    "inject": "NODE_ENV=development webpack --mode development --output-path ",
     "storybook": "start-storybook -p 6006",
     "build:storybook": "build-storybook",
     "cleanbuild:storybook": "rimraf lib && build:storybook",
