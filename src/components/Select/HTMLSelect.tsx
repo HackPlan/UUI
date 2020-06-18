@@ -67,3 +67,5 @@ const BaseHTMLSelect = UUI.FunctionComponent({
 export function HTMLSelect<T extends string | number>(props: UUIComponentProps<BaseHTMLSelectProps<T>, typeof HTMLSelectNodes>) {
   return <BaseHTMLSelect {...props} />
 }
+HTMLSelect.displayName = `<UUI> [GenericComponent] HTMLSelect`
+

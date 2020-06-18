@@ -52,4 +52,5 @@ const BaseRadioGroup = UUI.FunctionComponent({
 export function RadioGroup<T extends string | number>(props: UUIComponentProps<BaseRadioGroupProps<T>, typeof RadioGroupNodes>) {
   return <BaseRadioGroup {...props} />
 }
+RadioGroup.displayName = `<UUI> [GenericComponent] RadioGroup`
 export type RadioGroupProps = Parameters<typeof RadioGroup>[0]

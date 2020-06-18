@@ -70,4 +70,5 @@ const BaseSegmentControl = UUI.FunctionComponent({
 export function SegmentControl<T extends string | number>(props: UUIComponentProps<BaseSegmentControlProps<T>, typeof SegmentControlNodes>) {
   return <BaseSegmentControl {...props} />
 }
+SegmentControl.displayName = `<UUI> [GenericComponent] SegmentControl`
 export type SegmentControlProps = Parameters<typeof SegmentControl>[0]

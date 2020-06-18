@@ -284,4 +284,5 @@ const findSelectedOption = <T extends string | number>(props: BaseSelectProps<T>
 export function Select<T extends string | number>(props: UUIComponentProps<BaseSelectProps<T>, typeof SelectNodes>) {
   return <BaseSelect {...props} />
 }
+Select.displayName = `<UUI> [GenericComponent] Select`
 export type SelectProps = Parameters<typeof Select>[0]

@@ -7,9 +7,10 @@
  */
 
 
-import React, { JSXElementConstructor } from 'react';
+import React, { JSXElementConstructor, RefAttributes } from 'react';
 import { mapValues, pick, isString, omit, merge, clone, uniq } from 'lodash';
 import classNames from 'classnames';
+import { mergeRefs } from '../utils/mergeRefs';
 
 // ---------------------------------------------------------------
 // Customize Extra Props
@@ -35,7 +36,7 @@ export type NodeCustomizeProps =
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
-
+  & RefAttributes<any>
 
 // ---------------------------------------------------------------
 // Customize Extra Props Helper
@@ -64,11 +65,8 @@ function getCompiledChildren(
 // IntrinsicNode
 // ---------------------------------------------------------------
 
-type IntrinsicNodeCustomizeProps =
-  & NodeCustomizeClassNameProps
-  & NodeCustomizeStyleProps
-  & NodeCustomizeChildrenProps
-type IntrinsicNodeCustomizeOptions= {
+type IntrinsicNodeCustomizeProps = NodeCustomizeProps
+type IntrinsicNodeCustomizeOptions = {
   prefix?: string;
   separator?: string;
 }
@@ -77,7 +75,7 @@ export type IntrinsicNodeT = JSX.IntrinsicElements
 type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
 function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
   const Node = React.forwardRef((_props: JSX.IntrinsicElements[T], _ref) => {
-    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<N> } & UUIConvenienceProps
+    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: IntrinsicNodeCustomizeProps } & UUIConvenienceProps
     const className = (() => {
       return getCompiledClassNames(compileNodeName(nodeName, pick(options, ['prefix', 'separator'])), {
         ...pick(customizeProps.customize, ['overrideClassName', 'extendClassName']),
@@ -108,10 +106,19 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       return children
     })()
 
-    const ref = customizeProps.customize && (customizeProps.customize as any).ref ? (customizeProps.customize as any).ref : _ref
+    /**
+     * Merge both customize ref and component inner ref.
+     */
+    const ref = (() => {
+      const refs: any[] = []
+      const customizeRef = customizeProps.customize && customizeProps.customize.ref
+      if (customizeRef) refs.push(customizeRef)
+      if (_ref) refs.push(_ref)
+      return mergeRefs(refs)
+    })()
 
     /**
-     * Merge both customize functions and component inner functions.
+     * Merge both customize functions and component inner onXXX callback functions.
      */
     const mergedFunctions = (() => {
       const data: any = {}
@@ -151,6 +158,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       className, style,
     }, children)
   })
+  Node.displayName = `<UUI> [IntrinsicNode] ${nodeName}`
   return Node
 }
 
@@ -175,12 +183,13 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
     const nodeClassName = [options.prefix, nodeName].join(options.separator)
 
     return <_Target
-      {...omit(_props, 'customize')}
-      ref={ref as any}
+      {...omit(_props, 'customize', 'ref')}
+      ref={ref}
       className={classNames(nodeClassName, _props.className, customizeProps.className)}
       customize={merge(_props.customize, customizeProps.customize)}
     />
   })
+  Node.displayName = `<UUI> [ComponentNode] ${nodeName}`
   return Node
 }
 
@@ -280,11 +289,13 @@ export abstract class UUI {
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
     const nodes = compileNodes(options)
-    return (props: P & UUIConvenienceProps & Z) => {
+    const component = (props: P & UUIConvenienceProps & Z) => {
       const compiledProps = compileProps(props, options, undefined)
       injectCustomizeProps(nodes, compiledProps)
       return WrappedComponent(compiledProps, nodes)
     }
+    component.displayName = `<UUI> [Component] ${options.name}`
+    return component
   }
 
   /**
@@ -332,8 +343,10 @@ export abstract class UUI {
     const nodes = compileNodes(options)
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P & UUIConvenienceProps & Z, S> {
       nodes: UUIComponentNodes<X>
+      displayName: string
       constructor(props: P & UUIConvenienceProps & Z) {
         super(props)
+        this.displayName = `<UUI> [Component] ${options.name}`
         const compiledProps = compileProps(props, options, (props as any).innerRef || undefined)
         injectCustomizeProps(nodes, compiledProps)
         this.nodes = nodes
