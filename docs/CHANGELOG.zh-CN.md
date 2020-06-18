@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.15
+
+- 修复 `Select` `Cascader` 初始值显示问题
+- `CountdownLabel` 默认不会显示负时间
+
 ### v0.3.14
 
 - 修复 `Toaster` 样式
