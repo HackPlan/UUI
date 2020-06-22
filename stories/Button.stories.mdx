@@ -1,5 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Button } from '../src';
+import { useState } from 'react';
 
 <Meta title="Button" component={Button} />
 
@@ -29,6 +30,30 @@ import { Button } from '../src';
     >
       Disabled
     </Button>
+  </Story>
+</Preview>
+
+### 加载状态
+
+<Preview>
+  <Story name="Loading Button">
+    {() => {
+      const [loading, setLoading] = useState(true)
+      return (
+        <>
+          <Button
+            onClick={() => { console.log('clicked!') }}
+            loading={loading}>
+              {loading?'loading text':'loading'}
+          </Button>
+          <Button
+            onClick={() => { console.log('clicked!') }}
+            loading={loading}>
+              {loading? null :'loading'}
+          </Button>
+        </>
+      )
+    }}
   </Story>
 </Preview>
 

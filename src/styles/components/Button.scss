@@ -7,13 +7,40 @@
   color: $textLightColor;
   padding: .5rem 1rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @include radius;
   @include focusWithinShadow;
 
+  div:nth-child(2) {
+    margin-left: 10px;
+  }
+
+  &.loading {
+    .UUI-Button-LoadingIcon {
+      animation-iteration-count: infinite;
+      animation-fill-mode: forwards;
+      animation: rotate .8s linear infinite;
+      -webkit-animation: rotate .8s linear infinite;
+
+      @keyframes rotate {
+        from {
+          transform: rotate(0);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+
   &:hover {
     background-color: darken($primaryColor, 10%);
   }
+
   &:active {
     background-color: darken($primaryColor, 20%);
   }
@@ -24,8 +51,5 @@
     border-color: gray;
     cursor: not-allowed;
   }
-
-  transition:
-    background-color 0.2s ease-in-out,
-    box-shadow 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
