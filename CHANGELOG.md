@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.17
+
+- add loading state for `Button`
+
 ### v0.3.16
 
 - fix `Select` `Cascader` initial value again.
