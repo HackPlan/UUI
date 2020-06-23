@@ -21,7 +21,7 @@ export const Button = UUI.FunctionComponent({
 
   return (
     <Root
-      {...omit(props, 'customize', 'className', 'style')}
+      {...omit(props, 'customize', 'className', 'style', 'loading')}
       className={classNames({
         'disabled': disabled || loading,
         'loading': loading,
