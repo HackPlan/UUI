@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.17
+
+- 为 `Button` 组件增加了“加载中”（loading） 的状态
+
 ### v0.3.16
 
 - 再次修复 `Select` `Cascader` 初始值显示问题
