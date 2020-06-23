@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+
+### v0.3.18
+
+- fix `Button` loading warning
+
 ### v0.3.17
 
 - add loading state for `Button`
