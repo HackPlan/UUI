@@ -4474,16 +4474,6 @@ before-after-hook@^2.0.0:
   resolved "https://registry.yarnpkg.com/before-after-hook/-/before-after-hook-2.1.0.tgz#b6c03487f44e24200dd30ca5e6a1979c5d2fb635"
   integrity sha512-IWIbu7pMqyw3EAJHzzHbWa85b6oud/yfKYg5rqB5hNE8CeMi3nX+2C2sj0HswfblST86hpVEOAb9x34NZd6P7A==
 
-better-dateinput-polyfill@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/better-dateinput-polyfill/-/better-dateinput-polyfill-3.3.0.tgz#e626c121cee41ed32191fb0e16cc800ce070836f"
-  integrity sha512-Pa/0xkOZMTNWFjX2Phd3ZMcosiq8R7dL7L2qfLkLad6t3S5ismm61C/fdCgXM3DaNqR1zs230970r6A1aISYEQ==
-
-better-dom@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/better-dom/-/better-dom-4.1.0.tgz#9442c4b15cb6d039ca79476d3970ed9dd4122899"
-  integrity sha512-utIBMnDzNj8mdIy9NL/FUebXtAdhEiwUW4tArHJBORkJqA9HYI8oKOY4LU6j4LzXannY5e5jJbXsJtjBZZXWGQ==
-
 big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
