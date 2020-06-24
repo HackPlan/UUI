@@ -2,7 +2,6 @@ import React, { useMemo, useContext } from 'react';
 import { range } from 'lodash';
 import { Button as UUIButton } from '../Button';
 import { UUI } from '../../core/uui';
-import { Icons } from '../../icons/Icons';
 import { PaginationContext } from './Pagination';
 import classNames from 'classnames';
 
@@ -15,12 +14,10 @@ export const PageList = UUI.FunctionComponent({
   name: 'PageList',
   nodes: {
     Root: 'div',
-    PrevButton: UUIButton,
     PageButton: UUIButton,
-    NextButton: UUIButton,
   }
 }, (props: BasePageListProps, nodes) => {
-  const { Root, PrevButton, PageButton, NextButton } = nodes
+  const { Root, PageButton } = nodes
 
   const pagination = useContext(PaginationContext)
   if (!pagination) {
@@ -34,12 +31,6 @@ export const PageList = UUI.FunctionComponent({
 
   return (
     <Root>
-      <PrevButton
-        disabled={pagination.currentPage === 1}
-        onClick={() => { pagination.toPrevPage() }}
-      >
-        <Icons.ChevronLeft></Icons.ChevronLeft>
-      </PrevButton>
       {pageList.map((item, index) => {
         const isPage = item.type === 'page'
         const isActive = item.type === 'active'
@@ -56,12 +47,6 @@ export const PageList = UUI.FunctionComponent({
           >{item.title}</PageButton>
         )
       })}
-      <NextButton
-        disabled={pagination.currentPage === pagination.totalPage}
-        onClick={() => { pagination.toNextPage() }}
-      >
-        <Icons.ChevronRight></Icons.ChevronRight>
-      </NextButton>
     </Root>
   )
 })

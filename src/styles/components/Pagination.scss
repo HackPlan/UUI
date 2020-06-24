@@ -1,0 +1,81 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+
+.UUI-PageList-Root {
+  display: flex;
+  flex-direction: row;
+
+  .UUI-PageList-PageButton {
+    padding: 0.5rem 0.25rem;
+    min-width: 3em;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+
+    &.Active {
+      border: 1px solid #4299e1;
+      color: #4299e1;
+    }
+  }
+}
+
+.UUI-PagePrevButton-Root,
+.UUI-PageNextButton-Root {
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.25rem;
+  min-width: 3em;
+}
+
+.UUI-PagePrevButton-Root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.25rem;
+}
+
+.UUI-PageNextButton-Root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.25rem;
+}
+
+.UUI-PagePrevButton-Root.UUI-Button-Root,
+.UUI-PageNextButton-Root.UUI-Button-Root,
+.UUI-PageList-Root .UUI-Button-Root {
+  & {
+    background-color: white;
+    color: $textDarkColor;
+    @include border;
+  }
+  &:not([disabled]) {
+    @include hoverBorder;
+  }
+}
+
+.UUI-PageJumper-Root {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  align-items: center;
+
+  .UUI-PageJumper-Label {
+    flex-wrap: nowrap;
+    padding-right: 0.25rem;
+  }
+}
+
+.UUI-PageInfo-Root {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.UUI-PageSize-Root,
+.UUI-PageSelector-Root {
+  .UUI-HTMLSelect-Root {
+    padding: 0.35rem;
+  }
+}

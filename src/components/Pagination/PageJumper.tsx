@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { NumberField as UUINumberField } from '../Input';
 import { UUI } from '../../core/uui';
 import { PaginationContext } from './Pagination';
@@ -26,6 +26,10 @@ export const PageJumper = UUI.FunctionComponent({
     return <></>
   }
 
+  useEffect(() => {
+    setInputValue(null)
+  }, [pagination.currentPage])
+
   const [inputValue, setInputValue] = useState<number | null>(null)
 
   return (
@@ -37,6 +41,7 @@ export const PageJumper = UUI.FunctionComponent({
             extendStyle: { height: 34, width: 80 }
           }
         }}
+        placeholder={`${pagination.currentPage}`}
         min={1}
         value={inputValue}
         onChange={(value) => { setInputValue(value) }}

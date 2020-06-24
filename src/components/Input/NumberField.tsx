@@ -28,6 +28,11 @@ export interface BaseNumberFieldProps {
    */
   step?: string | number;
   /**
+   * Placeholder text when there is no value.
+   * @default none
+   */
+  placeholder?: string;
+  /**
    * Whether the control is non-interactive.
    * @default false
    */
@@ -61,6 +66,7 @@ export const NumberField = UUI.FunctionComponent({
     <Root>
       <Input
         onKeyDown={props.onKeyDown}
+        placeholder={props.placeholder}
         type='number'
         max={props.max}
         min={props.min}

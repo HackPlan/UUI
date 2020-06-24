@@ -1,6 +1,13 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 import { usePagination, IPagination } from '../../hooks/usePagination';
+import { PageSize } from './PageSize';
+import { PageInfo } from './PageInfo';
+import { PageList } from './PageList';
+import { PagePrevButton } from './PagePrevButton';
+import { PageNextButton } from './PageNextButton';
+import { PageSelector } from './PageSelector';
+import { PageJumper } from './PageJumper';
 
 export interface PaginationContext extends ReturnType<typeof usePagination> {
 }
@@ -13,7 +20,7 @@ export interface BasePaginationProps {
 
 export const PaginationContext = React.createContext<PaginationContext | null>(null)
 
-export const Pagination = UUI.FunctionComponent({
+export const _Pagination = UUI.FunctionComponent({
   name: 'Pagination',
   nodes: {
     Root: 'div'
@@ -32,4 +39,24 @@ export const Pagination = UUI.FunctionComponent({
   )
 })
 
-export type PaginationProps = Parameters<typeof Pagination>[0]
+export type PaginationProps = Parameters<typeof _Pagination>[0]
+
+const Pagination = _Pagination as typeof _Pagination & {
+  PageSize: typeof PageSize;
+  PageInfo: typeof PageInfo;
+  PageList: typeof PageList;
+  PagePrevButton: typeof PagePrevButton;
+  PageNextButton: typeof PageNextButton;
+  PageSelector: typeof PageSelector;
+  PageJumper: typeof PageJumper;
+}
+
+Pagination.PageSize = PageSize;
+Pagination.PageInfo = PageInfo;
+Pagination.PageList = PageList;
+Pagination.PagePrevButton = PagePrevButton;
+Pagination.PageNextButton = PageNextButton;
+Pagination.PageSelector = PageSelector;
+Pagination.PageJumper = PageJumper;
+
+export { Pagination }

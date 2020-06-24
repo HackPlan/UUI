@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Pagination, PageInfo, PageList, PageJumper, PageSize } from '../src';
+import { Pagination } from '../src';
 import { useState, useMemo } from 'react';
 import { range } from 'lodash';
 
@@ -7,7 +7,9 @@ import { range } from 'lodash';
 
 # 分页 Pagination
 
-### Pagination
+### 简单使用
+
+分页组件被分割成了很多个小的子组件，这样你可以很方便自由的选择需要显示哪些功能部件，以及控制这些功能部件的显示顺序。
 
 <Preview>
   <Story name="Pagination">
@@ -26,18 +28,58 @@ import { range } from 'lodash';
             value={pagination}
             onChange={(value) => { setPagination(value) }}
           >
-            <PageSize pageSizeOptions={[10, 30, 50, 100, 200]} labelRender={(i)=>`${i}/Page`} />
-            <PageList />
-            <PageJumper labelText="跳转至" />
-            <PageInfo />
+            <Pagination.PageSize pageSizeOptions={[10, 30, 50, 100, 200]} labelRender={(i)=>`${i}/Page`} />
+            <Pagination.PagePrevButton />
+            <Pagination.PageList />
+            <Pagination.PageNextButton />
+            <Pagination.PageJumper labelText="跳转至" />
+            <Pagination.PageInfo />
           </Pagination>
-          <PageInfo />
         </div>
       )
     }}
   </Story>
 </Preview>
 
+### 移动端布局
+
+<Preview>
+  <Story name="Pagination with mobile layout">
+    {() => {
+      const [pagination, setPagination] = useState({
+        offset: 0,
+        limit: 5,
+        count: 163,
+      })
+      return (
+        <div>
+          <div className="my-4">
+            <div>{JSON.stringify(pagination, null, 2)}</div>
+          </div>
+          <Pagination
+            value={pagination}
+            onChange={(value) => { setPagination(value) }}
+          >
+            <Pagination.PagePrevButton />
+            <Pagination.PageSelector />
+            <Pagination.PageNextButton />
+          </Pagination>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+
 ### Props
 
-<Props components={{ Pagination, PageInfo, PageList, PageJumper, PageSize }} />
+<Props components={{
+  Pagination: Pagination,
+  PageInfo: Pagination.PageInfo,
+  PageList: Pagination.PageList,
+  PageJumper: Pagination.PageJumper,
+  PageSize: Pagination.PageSize,
+  PageSelector: Pagination.PageSelector,
+  PagePrevButton: Pagination.PagePrevButton,
+  PageNextButton: Pagination.PageNextButton,
+}} />
