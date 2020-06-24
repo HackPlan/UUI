@@ -14,7 +14,7 @@
 ![](https://img.shields.io/github/languages/top/HackPlan/UUI)
 ![](https://img.shields.io/github/license/HackPlan/UUI)
 
-> **UUI 正处于频繁开发更新中**，这意味着库组件的接口之后可能会被改变。
+> **UUI 正处于频繁开发更新中**，接口和用法在将来可能会改变，目前暂时无法保证向后兼容。
 
 [English](https://github.com/HackPlan/UUI) | 简体中文
 
