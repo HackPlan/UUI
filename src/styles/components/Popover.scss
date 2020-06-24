@@ -12,12 +12,15 @@
   z-index: 9999;
   background-color: white;
 
-  opacity: 0;
   transition: opacity 0s ease-in-out;
+
+  visibility: hidden;
   pointer-events: none;
+
   &.Active {
-    opacity: 1;
     transition: opacity 0.1s ease-in-out;
-    pointer-events: auto;
+
+    visibility: inherit;
+    pointer-events: inherit;
   }
 }
