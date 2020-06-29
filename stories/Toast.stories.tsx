@@ -1,12 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Toaster, ToasterPosition } from '../src';
 import { Button } from '../src';
-import { withKnobs } from "@storybook/addon-knobs";
-
-export default {
-  title: 'Toast',
-  decorators: [withKnobs]
-};
 
 const AppToaster1 = Toaster.create({
   maxToasts: 5,

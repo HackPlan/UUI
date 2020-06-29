@@ -1,4 +1,5 @@
 import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+import { FormControlledMode, FormUncontrolledMode } from './Form.stories.tsx';
 
 <Meta title="Form" component={{}} />
 
@@ -9,13 +10,11 @@ import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
 ### Controlled mode
 
 <Preview>
-  <Story name="Form (Controlled Mode)" id="form--form-controlled-mode">
-  </Story>
+  <Story name="Form (Controlled Mode)">{FormControlledMode()}</Story>
 </Preview>
 
 ### Uncontrolled mode
 
 <Preview>
-  <Story name="Form (Uncontrolled Mode)" id="form--form-uncontrolled-mode">
-  </Story>
+  <Story name="Form (Uncontrolled Mode)">{FormUncontrolledMode()}</Story>
 </Preview>

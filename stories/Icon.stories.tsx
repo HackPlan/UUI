@@ -1,6 +1,5 @@
 import React from 'react';
 import { Icon } from '../src';
-import { withKnobs } from "@storybook/addon-knobs";
 
 const cookiesPng = require('./assets/cookies.png');
 import cookiesUrl, { ReactComponent as cookies } from './assets/cookies.svg';
@@ -18,11 +17,6 @@ import sushiUrl, { ReactComponent as sushi } from './assets/sushi.svg';
 import { ReactComponent as email } from './assets/email.svg';
 
 import { IconGallery } from "../src";
-
-export default {
-  title: 'Icon',
-  decorators: [withKnobs]
-};
 
 export const IconSource = () => {
   return (
@@ -69,9 +63,7 @@ export const IconSvgProps = () => {
   )
 }
 
-IconSvgProps.story = {
-  name: 'Icon with svgProps',
-};
+IconSvgProps.storyName = 'Icon with svgProps'
 
 export const IconSize = () => {
   return (
