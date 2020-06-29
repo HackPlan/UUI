@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.19
+
+- 修复 `Popover` 样式
+- 移除 `DatePicker` polyfill
+- `Pagination` 分页组件新的子组件 `PageSelector`
+
 ### v0.3.18
 
 - 修复 `Button` 的 loading 状态引发的 warning

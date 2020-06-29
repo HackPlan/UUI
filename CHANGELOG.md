@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.19
+
+- fix popover style
+- remove DatePicker polyfill
+- `Pagination` new sub component `PageSelector`
 
 ### v0.3.18
 
