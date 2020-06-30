@@ -42,7 +42,7 @@ export const CountdownLabel = UUI.FunctionComponent({
 
   const generateLabelText = useCallback(() => {
     const diff = DateTime.fromJSDate(props.until).diffNow()
-    const duration = props.allowNegative ? diff : Duration.fromMillis(0)
+    const duration = (!props.allowNegative && diff.milliseconds < 0) ? Duration.fromMillis(0) : diff
     return duration.toFormat(finalProps.format)
   }, [finalProps.format, props.allowNegative, props.until])
 
