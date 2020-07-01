@@ -14,12 +14,14 @@
 
   transition: opacity 0s ease-in-out;
 
+  display: none;
   visibility: hidden;
   pointer-events: none;
 
   &.Active {
     transition: opacity 0.1s ease-in-out;
 
+    display: inherit;
     visibility: inherit;
     pointer-events: inherit;
   }
