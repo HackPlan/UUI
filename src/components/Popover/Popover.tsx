@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { UUI } from '../../core/uui';
+import { Modifier, Placement } from '@popperjs/core';
+import classNames from 'classnames';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
-import { Placement, Modifier } from '@popperjs/core';
 import { useClickAway } from 'react-use';
-import classNames from 'classnames';
+import { UUI, UUIComponentProps } from '../../core/uui';
 
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'
@@ -60,7 +60,7 @@ export interface BasePopoverProps {
   /**
    * Popper.js props. reference: https://popper.js.org/docs/v2/modifiers/
    */
-  modifiers?: Array<Partial<Modifier<any>>>;
+  modifiers?: ReadonlyArray<Modifier<any, object>>;
 }
 
 export const Popover = UUI.FunctionComponent({
@@ -70,7 +70,7 @@ export const Popover = UUI.FunctionComponent({
     Activator: 'div',
     Portal: 'div',
     Content: 'div',
-  }
+  },
 }, (props: BasePopoverProps, nodes) => {
   const { Root, Activator, Portal, Content } = nodes
 
@@ -114,11 +114,17 @@ export const Popover = UUI.FunctionComponent({
 
   const [referenceElement, setReferenceElement] = React.useState<any>(null);
   const [popperElement, setPopperElement] = React.useState<any>(null);
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  const { styles, attributes, update: updatePopper } = usePopper(referenceElement, popperElement, {
     placement: finalProps.placement,
     strategy: finalProps.strategy,
     modifiers: finalProps.modifiers,
   });
+
+  useEffect(() => {
+    if (updatePopper) {
+      updatePopper()
+    }
+  }, [props.active, updatePopper])
 
   const activator = useMemo(() => {
     return <Activator ref={setReferenceElement}>{props.activator}</Activator>

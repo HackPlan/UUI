@@ -1854,10 +1854,10 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@popperjs/core@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.2.2.tgz#2e254f5eb31f3abc35470060fb7116937d837739"
-  integrity sha512-LaSssaO8QHSAnRI4ZZB+jTD/hmndqOzwabDwKuySS1ME0pj+La6pV77i5CIQ61kVtz3pE13DhmkaYFGtrrCMeg==
+"@popperjs/core@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.2.tgz#7c6dc4ecef16149fd7a736710baa1b811017fdca"
+  integrity sha512-JlGTGRYHC2QK+DDbePyXdBdooxFq2+noLfWpRqJtkxcb/oYWzOF0kcbfvvbWrwevCC1l6hLUg1wHYT+ona5BWQ==
 
 "@reach/router@^1.2.1", "@reach/router@^1.3.3":
   version "1.3.3"
@@ -13824,10 +13824,10 @@ react-popper@^1.3.7:
     typed-styles "^0.0.7"
     warning "^4.0.2"
 
-react-popper@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.1.tgz#c5fdd3f58450f1144850381dca2aa0cb8db62248"
-  integrity sha512-nkO8lDzj2ZPO+fSK+gqo/dxEHBw4JZAE57tlS0Dm2EaPd7/C7Qs2bWXQUNAvzMf6X2s7LlyhQSzuvycOSyACPQ==
+react-popper@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.2.3.tgz#33d425fa6975d4bd54d9acd64897a89d904b9d97"
+  integrity sha512-mOEiMNT1249js0jJvkrOjyHsGvqcJd3aGW/agkiMoZk3bZ1fXN1wQszIQSjHIai48fE67+zwF8Cs+C4fWqlfjw==
   dependencies:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
