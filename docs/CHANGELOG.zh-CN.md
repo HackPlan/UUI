@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.20
+
+- 修复 CountdownLabel
+- 修复 Popover 位置更新
+
 ### v0.3.19
 
 - 修复 `Popover` 样式
