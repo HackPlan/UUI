@@ -70,14 +70,14 @@ export const Cascader = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
     Dropdown: Popover,
-    DropdownIcon: 'div',
+    DropdownIcon: Icons.ChevronDown,
     Input: TextField,
     LevelList: 'div',
     SectionList: 'div',
     ItemList: 'div',
     Item: 'div',
     ItemLabel: 'div',
-    ItemIcon: 'div',
+    ItemIcon: Icons.ChevronRight,
     SearchList: 'div',
     SearchItem: 'div',
     SearchMatched: 'span',
@@ -194,9 +194,7 @@ export const Cascader = UUI.FunctionComponent({
                   }
                 },
                 extendChildrenAfter: (
-                  <DropdownIcon>
-                    <Icons.ChevronDown width={20} height={20} svgrProps={{ strokeWidth: 1 }}></Icons.ChevronDown>
-                  </DropdownIcon>
+                  <DropdownIcon width={20} height={20} svgrProps={{ strokeWidth: 1 }} />
                 )
               },
               Input: {
@@ -240,14 +238,12 @@ export const Cascader = UUI.FunctionComponent({
                         }}
                       >
                         <ItemLabel>{option.content || option.label}</ItemLabel>
-                        <ItemIcon>
-                          <Icons.ChevronRight
-                            className={classNames({
-                              'Hidden': !option.children,
-                            })}
-                            svgrProps={{ strokeWidth: 1 }}
-                          />
-                        </ItemIcon>
+                        <ItemIcon
+                          className={classNames({
+                            'Hidden': !option.children,
+                          })}
+                          svgrProps={{ strokeWidth: 1 }}
+                        />
                       </Item>
                     )
                   })}

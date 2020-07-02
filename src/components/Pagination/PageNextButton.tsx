@@ -11,9 +11,10 @@ export const PageNextButton = UUI.FunctionComponent({
   name: 'PageNextButton',
   nodes: {
     Root: UUIButton,
+    NextIcon: Icons.ChevronRight,
   }
 }, (props: BasePageNextButtonProps, nodes) => {
-  const { Root } = nodes
+  const { Root, NextIcon } = nodes
 
   const pagination = useContext(PaginationContext)
   if (!pagination) {
@@ -26,7 +27,7 @@ export const PageNextButton = UUI.FunctionComponent({
       disabled={pagination.currentPage === pagination.totalPage}
       onClick={() => { pagination.toNextPage() }}
     >
-      <Icons.ChevronRight></Icons.ChevronRight>
+      <NextIcon />
     </Root>
   )
 })

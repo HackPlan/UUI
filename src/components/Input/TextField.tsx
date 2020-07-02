@@ -69,11 +69,14 @@ export const TextField = UUI.FunctionComponent({
     Input: 'input',
     LengthIndicator: 'div',
     TogglePasswordVisibleButton: Button,
+    ShowPasswordIcon: Icons.Eye,
+    HidePasswordIcon: Icons.EyeOff,
   }
 }, (props: BaseTextFieldProps, nodes) => {
   const {
     Root, Input,
     LengthIndicator, TogglePasswordVisibleButton,
+    ShowPasswordIcon, HidePasswordIcon
   } = nodes
 
   /**
@@ -125,8 +128,8 @@ export const TextField = UUI.FunctionComponent({
           }}
         >
           {passwordVisible
-            ? <Icons.Eye></Icons.Eye>
-            : <Icons.EyeOff></Icons.EyeOff>
+            ? <ShowPasswordIcon />
+            : <HidePasswordIcon />
           }
         </TogglePasswordVisibleButton>
       )}

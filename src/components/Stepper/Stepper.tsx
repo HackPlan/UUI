@@ -59,9 +59,16 @@ export const Stepper = UUI.FunctionComponent({
     PlusButton: Button,
     Input: NumberField,
     RightControlsContainer: 'div',
+    PlusUpIcon: Icons.ChevronUp,
+    PlusRightIcon: Icons.ChevronRight,
+    MinusDownIcon: Icons.ChevronDown,
+    MinusLeftIcon: Icons.ChevronLeft,
   }
 }, (props: BaseStepperProps, nodes) => {
-  const { Root, MinusButton, PlusButton, Input, RightControlsContainer } = nodes
+  const {
+    Root, MinusButton, PlusButton, Input, RightControlsContainer,
+    PlusUpIcon, PlusRightIcon, MinusDownIcon, MinusLeftIcon,
+  } = nodes
 
   const finalProps = {
     step: props.step || 1,
@@ -77,9 +84,9 @@ export const Stepper = UUI.FunctionComponent({
       disabled={props.disabled || (props.min && props.value && props.value - props.min <= 0 || false)}
     >
       {props.controlPosition === 'right' ? (
-        <Icons.ChevronDown width={14} height={14} />
+        <MinusDownIcon width={14} height={14} />
       ) : (
-        <Icons.ChevronLeft width={16} height={16} />
+        <MinusLeftIcon width={16} height={16} />
       )}
     </MinusButton>
   )
@@ -92,9 +99,9 @@ export const Stepper = UUI.FunctionComponent({
       disabled={props.disabled || (props.max && props.value && props.value - props.max >= 0 || false)}
     >
       {props.controlPosition === 'right' ? (
-        <Icons.ChevronUp width={14} height={14} />
+        <PlusUpIcon width={14} height={14} />
       ) : (
-        <Icons.ChevronRight width={16} height={16} />
+        <PlusRightIcon width={16} height={16} />
       )}
     </PlusButton>)
   const input = (

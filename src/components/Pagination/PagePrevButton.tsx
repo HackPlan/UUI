@@ -11,9 +11,10 @@ export const PagePrevButton = UUI.FunctionComponent({
   name: 'PagePrevButton',
   nodes: {
     Root: UUIButton,
+    PrevIcon: Icons.ChevronLeft,
   }
 }, (props: BasePagePrevButtonProps, nodes) => {
-  const { Root } = nodes
+  const { Root, PrevIcon } = nodes
 
   const pagination = useContext(PaginationContext)
   if (!pagination) {
@@ -26,7 +27,7 @@ export const PagePrevButton = UUI.FunctionComponent({
       disabled={pagination.currentPage === 1}
       onClick={() => { pagination.toPrevPage() }}
     >
-      <Icons.ChevronLeft></Icons.ChevronLeft>
+      <PrevIcon />
     </Root>
   )
 })

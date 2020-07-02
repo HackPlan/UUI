@@ -64,7 +64,7 @@ export type BaseSelectProps<T extends string | number> = SelectSectionsProps<T> 
 const SelectNodes = {
   Root: 'div',
   Dropdown: UUIPopover,
-  DropdownIcon: 'div',
+  DropdownIcon: Icons.ChevronDown,
   Selector: 'div',
   Input: TextField,
   SectionList: 'div',
@@ -222,9 +222,7 @@ const BaseSelect = UUI.FunctionComponent({
                     }
                   },
                   extendChildrenAfter: (
-                    <DropdownIcon>
-                      <Icons.ChevronDown width={20} height={20} svgrProps={{ strokeWidth: 1 }}></Icons.ChevronDown>
-                    </DropdownIcon>
+                    <DropdownIcon width={20} height={20} svgrProps={{ strokeWidth: 1 }} />
                   )
                 },
                 Input: {
