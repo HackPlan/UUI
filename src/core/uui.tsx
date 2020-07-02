@@ -89,7 +89,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       })
     })()
     const children = (() => {
-      const isInput = ['input', 'textarea'].indexOf(tagName) !== -1
+      const noChildren = ['input', 'textarea', 'hr'].indexOf(tagName) !== -1
       const isSelectOption = tagName === 'option'
       // input tag do not support to pass children props
       let children: string | React.ReactNode | undefined = undefined
@@ -97,7 +97,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
         // select option tag only support string type children,
         // if pass Fragments to children, it will show [Object Object] in html.
         children = _props.children
-      } else if (!isInput) {
+      } else if (!noChildren) {
         children = getCompiledChildren({
           ...pick(customizeProps.customize, ['overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter']),
           ...pick(_props, ['children']),
