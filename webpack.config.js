@@ -63,6 +63,7 @@ module.exports = {
     Toaster: ['./src/styles/components/Toaster.scss'],
   },
   output: {
+    library: 'UUI',
     libraryTarget: 'umd',
     filename: '[name].js',
     path: path.resolve(__dirname, 'lib'),
@@ -190,5 +191,13 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js']
   },
-  externals: ["react", "react-dom"],
+  externals: [
+    "react", "react-dom",
+    "@charlietango/use-focus-trap", "react-use",
+    "@popperjs/core", "react-popper",
+    "accounting", "classnames",
+    "lodash", "luxon",
+    "react-beautiful-dnd",
+    "uuid",
+  ],
 };
