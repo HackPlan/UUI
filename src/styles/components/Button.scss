@@ -11,6 +11,12 @@
   align-items: center;
   justify-content: center;
 
+  .UUI-Button-Content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   @include radius;
   @include focusWithinShadow;
 
