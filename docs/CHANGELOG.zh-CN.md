@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.22
+
+- 修复了一些小问题
+
 ### v0.3.21
 
 - 修复 Popover 样式
