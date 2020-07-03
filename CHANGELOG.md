@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.23
+
+- new component `Layout`
+
 ### v0.3.22
 
 - fix some issues
