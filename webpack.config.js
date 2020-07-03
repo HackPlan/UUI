@@ -61,6 +61,7 @@ module.exports = {
     Table: ['./src/styles/components/Table.scss'],
     Tag: ['./src/styles/components/Tag.scss'],
     Toaster: ['./src/styles/components/Toaster.scss'],
+    Layout: ['./src/styles/components/Layout.scss'],
   },
   output: {
     library: 'UUI',
@@ -161,6 +162,7 @@ module.exports = {
       /Table.js$/,
       /Tag.js$/,
       /Toaster.js$/,
+      /Layout.js$/,
     ]),
     /**
      * Copy sass source style files.
