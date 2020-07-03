@@ -1,0 +1,32 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Layout, Header, Content, Footer, Sider } from '../src';
+import { useState } from 'react';
+
+<Meta title="Layout" component={Layout} />
+
+# 框架 Layout
+
+<Preview>
+  <Story name="Layout" id="layout--layout-1">
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Layout" id="layout--layout-2">
+  </Story>
+</Preview>
+
+<Preview>
+  <Story name="Layout" id="layout--layout-3">
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{
+  Layout,
+  LayoutSider: Layout.Sider,
+  LayoutTopBar: Layout.TopBar,
+  LayoutContent: Layout.Content,
+  LayoutBottomBar: Layout.BottomBar,
+}} />

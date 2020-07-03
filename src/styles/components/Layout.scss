@@ -1,0 +1,75 @@
+.UUI-Layout {
+  &-Root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    &.HasSider {
+      flex-direction: row;
+    }
+    &.HasSider > .UUI-LayoutContent-Root {
+      margin-left: 200px;
+    }
+
+    &.HasTopBar > .UUI-LayoutContent-Root {
+      margin-top: 60px;
+    }
+
+    &.HasBottomBar > .UUI-LayoutContent-Root {
+      margin-bottom: 60px;
+    }
+  }
+}
+
+.UUI-LayoutSider {
+  &-Root {
+    width: 200px;
+  }
+
+  &-Root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.UUI-LayoutTopBar {
+  &-Root {
+    height: 60px;
+    width: 100%;
+  }
+
+  &-Root {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+}
+
+.UUI-LayoutContent {
+  &-Root {
+    width: 100%;
+    overflow: auto;
+  }
+}
+
+.UUI-LayoutBottomBar {
+  &-Root {
+    height: 60px;
+    width: 100%;
+  }
+
+  &-Root {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+
