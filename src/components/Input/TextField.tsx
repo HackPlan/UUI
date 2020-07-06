@@ -105,7 +105,7 @@ export const TextField = UUI.FunctionComponent({
         disabled={props.disabled}
         maxLength={props.maxLength}
         type={finalType}
-        value={props.value === undefined ? undefined : (props.value || undefined)}
+        value={props.value === undefined ? undefined : (props.value || '')}
         onChange={props.onChange === undefined ? undefined : (
           (event) => {
             props.onChange && props.onChange(event.target.value, event)
