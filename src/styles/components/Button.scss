@@ -20,16 +20,15 @@
   @include radius;
   @include focusWithinShadow;
 
-  div:nth-child(2) {
-    margin-left: 10px;
+  .UUI-Button-LoadingIcon {
+    margin-right: 0.5rem;
   }
 
   &.loading {
-    .UUI-Button-LoadingIcon {
+    .UUI-Button-LoadingIcon .UUI-Icon-Container {
       animation-iteration-count: infinite;
       animation-fill-mode: forwards;
       animation: rotate .8s linear infinite;
-      -webkit-animation: rotate .8s linear infinite;
 
       @keyframes rotate {
         from {
