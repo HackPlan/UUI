@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.24
+
+- fix components style issues
+- remove Table drag and drop feature
+
 ### v0.3.23
 
 - new component `Layout`

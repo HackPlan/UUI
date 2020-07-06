@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.3.24
+
+- 修复组件样式问题
+- 移除表格组件行拖拽功能
+
 ### v0.3.23
 
 - 新组件 `Layout`
