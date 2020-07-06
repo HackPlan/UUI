@@ -133,36 +133,6 @@ import { Nodes } from './utils/Nodes';
   </Story>
 </Preview>
 
-### 表格行拖拽
-
-**这个功能现在是坏的，暂时不要用**
-
-<Preview>
-  <Story name="Table with drag and drop">
-    {() => {
-      const columns = [{ title: "Name" }, { title: "Age" }, { title: "Gender" }, { title: "Mobile" }, { title: "Email" }, { title: "Profession" }]
-      const [rows, setRow] = useState([
-        ["Bobby P. Morton", "63", "male", "785-481-2375", "morton@example.com", "Doctor"],
-        ["Levi R. Oglesby", "35", "female", "631-285-1780", "oglesby@example.com", "Police"],
-        ["John S. Cassidy", "19", "male", "719-328-5475", "cassidy@example.com", "Student"],
-      ])
-      return (
-        <Table
-          columns={columns}
-          rows={rows}
-          onDragged={(from, to) => {
-            setRow((value) => {
-              const newValue = Array.from(value)
-              newValue.splice(to, 0, newValue.splice(from, 1)[0])
-              return newValue
-            })
-          }}
-        ></Table>
-      )
-    }}
-  </Story>
-</Preview>
-
 ### Table Types
 
 ```typescript

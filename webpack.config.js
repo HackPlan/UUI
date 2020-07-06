@@ -199,7 +199,6 @@ module.exports = {
     "@popperjs/core", "react-popper",
     "accounting", "classnames",
     "lodash", "luxon",
-    "react-beautiful-dnd",
     "uuid",
   ],
 };

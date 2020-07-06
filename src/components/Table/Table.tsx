@@ -1,7 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
 import { range, omit } from 'lodash';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
-
 import { UUI } from '../../core/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
 
@@ -45,13 +43,6 @@ export interface BaseTableProps {
    * @default none
    */
   emptyView?: React.ReactNode;
-
-  /**
-   * Called when one row of table was dragged and released.
-   * if this prop is provided, the rows of table can be dragged.
-   * @default none
-   */
-  onDragged?: (fromIndex: number, toIndex: number) => void;
 }
 
 export const TableNodes = {
@@ -102,34 +93,6 @@ export const Table = UUI.FunctionComponent({
     }))
   }, [props.columns])
 
-  /**
-   * Drag and Drop
-   */
-  const onBeforeDragStart = useCallback(() => {
-    const elements = Array.from(document.getElementsByTagName('td'))
-    for (const element of elements) {
-      element.setAttribute('UUI_TABLE_FIXED_WIDTH', 'yes')
-      element.setAttribute('UUI_TABLE_FIXED_HEIGHT', 'yes')
-      element.style.width = `${element.offsetWidth}px`
-      element.style.height = `${element.offsetHeight}px`
-    }
-  }, [])
-  const onDragEnd = useCallback((result: DropResult) => {
-    props.onDragged && result.destination && props.onDragged(result.source.index, result.destination.index)
-
-    const elements = Array.from(document.getElementsByTagName('td'))
-    for (const element of elements) {
-      if (element.getAttribute('UUI_TABLE_FIXED_WIDTH')) {
-        element.style.width = 'undefined'
-        element.removeAttribute('UUI_TABLE_FIXED_WIDTH')
-      }
-      if (element.getAttribute('UUI_TABLE_FIXED_HEIGHT')) {
-        element.style.height = 'undefined'
-        element.removeAttribute('UUI_TABLE_FIXED_HEIGHT')
-      }
-    }
-  }, [props])
-
   return (
     <Root
       {...omit(props,
@@ -170,84 +133,46 @@ export const Table = UUI.FunctionComponent({
           ))}
         </Head>
       )}
+      <Body>
+        {props.rows.length === 0 ? (
+          <Row>
+            <DataCell colSpan={9999}>
+              <EmptyView>
+                {props.emptyView || 'No Data'}
+              </EmptyView>
+            </DataCell>
+          </Row>
+        ) : props.rows.map((row, rowIndex) => {
+          const draggableId = `RowDraggable-${rowIndex}`
+          return (
+            <Row>
 
-      <DragDropContext
-        onBeforeDragStart={onBeforeDragStart}
-        onDragEnd={onDragEnd}
-      >
-      <Droppable droppableId="RowDroppable" type="ROW">
-        {(provided) => (
-          <Body ref={provided.innerRef} {...provided.droppableProps}>
-            {props.rows.length === 0 ? (
-              <Row>
-                <DataCell colSpan={9999}>
-                  <EmptyView>
-                    {props.emptyView || 'No Data'}
-                  </EmptyView>
-                </DataCell>
-              </Row>
-            ) : props.rows.map((row, rowIndex) => {
-              const draggableId = `RowDraggable-${rowIndex}`
-              return (
-                <Draggable
-                  key={`row-${rowIndex}`}
-                  draggableId={draggableId}
-                  index={rowIndex}
-                  isDragDisabled={!props.onDragged}
-                >
-                  {(provided) => {
-                    const draggableStyle = provided.draggableProps.style;
-                    const transform = draggableStyle ? draggableStyle.transform : null;
-
-                    return (
-                      <Row ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={{
-                          ...provided.draggableProps.style,
-                          ...(transform && {
-                            transform: `translate(0, ${transform.substring(
-                              transform.indexOf(',') + 1,
-                              transform.indexOf(')'),
-                            )})`,
-                          }),
-                          width: 1000,
-                        }}
-                      >
-
-                      {/* Selection Head Cell */}
-                      {props.selectedIndexes && (
-                        <DataCell>
-                          <Checkbox
-                            checked={props.selectedIndexes.indexOf(rowIndex) !== -1}
-                            onChange={(value) => {
-                              const indexesSet = new Set(props.selectedIndexes)
-                              if (value)  indexesSet.add(rowIndex)
-                              else        indexesSet.delete(rowIndex)
-                              props.onSelected && props.onSelected(Array.from(indexesSet))
-                            }}
-                          />
-                        </DataCell>
-                      )}
-
-                      {/* Data Cell */}
-                      {row.map((cell, index) => {
-                        return (
-                          <DataCell key={`cell-${index}`}>{cell}</DataCell>
-                        )
-                      })}
-
-                      </Row>
-                    )
+            {/* Selection Head Cell */}
+            {props.selectedIndexes && (
+              <DataCell>
+                <Checkbox
+                  checked={props.selectedIndexes.indexOf(rowIndex) !== -1}
+                  onChange={(value) => {
+                    const indexesSet = new Set(props.selectedIndexes)
+                    if (value)  indexesSet.add(rowIndex)
+                    else        indexesSet.delete(rowIndex)
+                    props.onSelected && props.onSelected(Array.from(indexesSet))
                   }}
-                </Draggable>
+                />
+              </DataCell>
+            )}
+
+            {/* Data Cell */}
+            {row.map((cell, index) => {
+              return (
+                <DataCell key={`cell-${index}`}>{cell}</DataCell>
               )
             })}
-            {provided.placeholder}
-          </Body>
-        )}
-      </Droppable>
-      </DragDropContext>
+
+            </Row>
+          )
+        })}
+      </Body>
     </Root>
   )
 })
