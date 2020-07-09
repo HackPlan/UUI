@@ -1,0 +1,27 @@
+.UUI-Breadcrumb {
+  &-Root {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &-Item, &-Separator {
+    margin-right: 0.5rem;
+  }
+
+  &-Item, &-ItemLink, &-Separator {
+    color: #b3b3b3;
+  }
+
+  &-Item.active, &-Item.active &-ItemLink {
+    color: #333333;
+  }
+
+  &-Item.interactive:hover, &-Item.interactive &-ItemLink:hover {
+    color: #2f65d1;
+    cursor: pointer;
+  }
+
+  &-ItemLink {
+    text-decoration: none;
+  }
+}

@@ -9,5 +9,6 @@ export const Icons = IconGallery({
   ChevronUp: { source: require('./assets/chevron-up.svg').ReactComponent },
   ChevronDown: { source: require('./assets/chevron-down.svg').ReactComponent },
   Spinner: { source: require('./assets/spinner.svg').ReactComponent },
+  Home: { source: require('./assets/home.svg').ReactComponent },
 
 }, { width: 16, height: 16, mode: 'svg' })

@@ -1,0 +1,28 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Breadcrumb } from '../src';
+import { useState } from 'react';
+import { Icons } from '../src/icons/Icons';
+
+<Meta title="Breadcrumb" component={Breadcrumb} />
+
+# 面包屑 Breadcrumb
+
+面包屑用于显示当前页面在网页应用层级结构中的位置，并且能向上级某个层级返回。
+
+### 简单使用
+
+<Preview>
+  <Story name="Breadcrumb">
+    <Breadcrumb
+      items={[
+        { key: 'home', path: '/', label: <div className="flex flex-row items-center"><Icons.Home /><div className="ml-1">Home</div></div> },
+        { key: 'form', label: 'Form', onAction: () => {} },
+        { key: 'login', label: 'Login', active: true },
+      ]}
+    />
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ Breadcrumb }} />

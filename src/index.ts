@@ -2,6 +2,7 @@
  * Component Export
  */
 
+export * from './components/Breadcrumb'
 export * from './components/Button'
 export * from './components/Cascader'
 export * from './components/Checkbox'
