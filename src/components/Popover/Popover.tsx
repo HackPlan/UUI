@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { useClickAway } from 'react-use';
-import { UUI, UUIComponentProps } from '../../core/uui';
+import { UUI } from '../../core/uui';
 
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'

@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { range, omit } from 'lodash';
 import { UUI } from '../../core/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
@@ -143,9 +143,8 @@ export const Table = UUI.FunctionComponent({
             </DataCell>
           </Row>
         ) : props.rows.map((row, rowIndex) => {
-          const draggableId = `RowDraggable-${rowIndex}`
           return (
-            <Row>
+            <Row key={rowIndex}>
 
             {/* Selection Head Cell */}
             {props.selectedIndexes && (
