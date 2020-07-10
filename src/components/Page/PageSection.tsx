@@ -1,0 +1,25 @@
+import React from 'react';
+import { UUI } from '../../core/uui';
+
+export interface BasePageSectionProps {
+  /**
+   * The content of tag.
+   */
+  children?: React.ReactNode;
+}
+
+export const PageSection = UUI.FunctionComponent({
+  name: 'PageSection',
+  nodes: {
+    Root: 'div',
+  },
+}, (props: BasePageSectionProps, nodes) => {
+  const { Root } = nodes
+  return (
+    <Root>
+      {props.children}
+    </Root>
+  )
+})
+
+export type PageSectionProps = Parameters<typeof PageSection>[0]

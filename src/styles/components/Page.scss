@@ -1,0 +1,96 @@
+.UUI-Page {
+  &-Root {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &-Header {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    // border-bottom: 1px solid #dfe3e8;
+  }
+
+  &-HeaderWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-InfoWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &-Thumbnail {
+    width: 100px;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+
+  &-Title {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  &-Description {
+    margin: 0;
+    font-size: 1rem;
+    color: #212b36;
+    font-weight: 400;
+  }
+
+  &-PrimaryActions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+  }
+
+  &-SecondaryActions {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+  }
+
+  &-Container {
+    margin: 2rem 0;
+  }
+}
+
+.UUI-PageSection-Root, .UUI-PageAnnotatedSection-Root {
+  border-top: 1px solid #dfe3e8;
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.UUI-PageAnnotatedSection {
+  &-Root {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  &-InfoWrapper {
+    width: 300px;
+    padding: 1rem 1rem 1rem 0;
+  }
+
+  &-Title {
+    margin: 0;
+  }
+
+  &-Description {
+    margin: 0;
+    margin-top: 1rem;
+    color: #637381;
+  }
+
+  &-Container {
+    flex: 1;
+    padding: 1rem 0 1rem 1rem;
+  }
+}

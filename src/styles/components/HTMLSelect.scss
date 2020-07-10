@@ -1,6 +1,7 @@
 @import '../mixins.scss';
 
 .UUI-HTMLSelect-Root {
+  display: flex;
   padding: 0.5rem;
 
   cursor: pointer;
