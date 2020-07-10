@@ -37,6 +37,7 @@ module.exports = {
   entry: {
     index: ['./src/styles/index.scss', './src/index.ts'],
     base: ['./src/styles/base.scss'],
+    Breadcrumb: ['./src/styles/components/Breadcrumb.scss'],
     Button: ['./src/styles/components/Button.scss'],
     Cascader: ['./src/styles/components/Cascader.scss'],
     Checkbox: ['./src/styles/components/Checkbox.scss'],
@@ -62,6 +63,7 @@ module.exports = {
     Tag: ['./src/styles/components/Tag.scss'],
     Toaster: ['./src/styles/components/Toaster.scss'],
     Layout: ['./src/styles/components/Layout.scss'],
+    Page: ['./src/styles/components/Page.scss'],
   },
   output: {
     library: 'UUI',
@@ -138,6 +140,7 @@ module.exports = {
     new Without([
       /base.js/,
       /AppDialog.js$/,
+      /Breadcrumb.js$/,
       /Button.js$/,
       /Cascader.js$/,
       /Checkbox.js$/,
@@ -149,6 +152,7 @@ module.exports = {
       /NumberField.js$/,
       /TextArea.js$/,
       /Pagination.js$/,
+      /Page.js$/,
       /Popover.js$/,
       /RadioGroup.js$/,
       /Radio.js$/,
