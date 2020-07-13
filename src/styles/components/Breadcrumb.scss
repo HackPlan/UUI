@@ -4,6 +4,12 @@
     flex-direction: row;
   }
 
+  &-Item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &-Item, &-Separator {
     margin-right: 0.5rem;
   }

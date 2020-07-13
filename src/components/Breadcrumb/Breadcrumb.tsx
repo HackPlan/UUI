@@ -14,7 +14,6 @@ export interface BreadcrumbItem {
 export interface BaseBreadcrumbProps {
   separator?: React.ReactNode;
   items: BreadcrumbItem[];
-  activeItem: string;
 }
 
 export const Breadcrumb = UUI.FunctionComponent({
