@@ -18,6 +18,15 @@
     padding: 0.75rem;
   }
 
+  .UUI-Table-HeadCell.selection,
+  .UUI-Table-DataCell.selection {
+    width: 1px;
+
+    .UUI-Checkbox-Root {
+      vertical-align: middle;
+    }
+  }
+
   .UUI-Table-HeadCell {
     color: rgba(0,0,0,.85);
     text-align: left;

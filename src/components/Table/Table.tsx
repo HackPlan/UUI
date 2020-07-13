@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { range, omit } from 'lodash';
 import { UUI } from '../../core/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
+import classNames from 'classnames';
 
 export interface TableColumn {
   title: React.ReactNode;
@@ -109,7 +110,7 @@ export const Table = UUI.FunctionComponent({
             <Row key={`column-row-${rowIndex}`}>
               {/* Selection Head Cell */}
               {props.selectedIndexes && rowIndex === 0 && (
-                <HeadCell rowSpan={9999}>
+                <HeadCell className={classNames('selection')} rowSpan={9999}>
                   <Checkbox
                     checked={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
                     onChange={(value) => {
@@ -148,7 +149,7 @@ export const Table = UUI.FunctionComponent({
 
             {/* Selection Head Cell */}
             {props.selectedIndexes && (
-              <DataCell>
+              <DataCell className={classNames('selection')}>
                 <Checkbox
                   checked={props.selectedIndexes.indexOf(rowIndex) !== -1}
                   onChange={(value) => {

@@ -66,7 +66,7 @@ export const Checkbox = UUI.FunctionComponent({
           'checked': props.value,
         })}
       ></Indicator>
-      <Label>{props.label}</Label>
+      {props.label && <Label>{props.label}</Label>}
     </Root>
   )
 })
