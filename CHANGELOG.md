@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.3.26
+
+- fix issues
+
 ### v0.3.25
 
 - new component `Page`
