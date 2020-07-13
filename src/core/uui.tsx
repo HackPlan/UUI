@@ -146,13 +146,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     })()
 
     return React.createElement(tagName, {
-      ...omit(_props, 'children'),
-      ...omit(customizeProps.customize,
-        'ref',
-        'overrideClassName', 'extendClassName',
-        'overrideStyle', 'extendStyle',
-        'overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter',
-      ),
+      ...omit(_props, 'children', 'ref', 'className', 'style'),
       ...mergedFunctions,
       ref,
       className, style,

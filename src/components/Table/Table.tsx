@@ -97,6 +97,7 @@ export const Table = UUI.FunctionComponent({
   return (
     <Root
       {...omit(props,
+        'customize',
         'columns', 'rows',
         'selectedIndexes', 'onSelected',
         'hideHeader', 'emptyView',
