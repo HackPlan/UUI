@@ -2,9 +2,12 @@
 @import '../mixins.scss';
 
 .UUI-Table-Root {
-  width: 100%;
-  border: 1px solid $borderColor;
-  border-collapse: collapse;
+
+  .UUI-Table-Table {
+    width: 100%;
+    border: 1px solid $borderColor;
+    border-collapse: collapse;
+  }
 
   .UUI-Table-Row {
     &:hover {

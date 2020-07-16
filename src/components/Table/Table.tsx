@@ -1,12 +1,19 @@
 import React, { useMemo } from 'react';
-import { range, omit } from 'lodash';
+import { range } from 'lodash';
 import { UUI } from '../../core/uui';
 import { Checkbox as UUICheckbox } from '../Checkbox';
 import classNames from 'classnames';
 
 export interface TableColumn {
+  key: string;
   title: React.ReactNode;
   children?: TableColumn[];
+}
+
+export type TableCell = React.ReactNode;
+export interface TableRow {
+  id: string;
+  cells: TableCell[];
 }
 
 export interface BaseTableProps {
@@ -19,7 +26,7 @@ export interface BaseTableProps {
    * Cells of table
    * @default []
    */
-  rows: React.ReactNode[][];
+  rows: TableRow[];
 
   /**
    * Indicate which rows are selected,
@@ -47,7 +54,8 @@ export interface BaseTableProps {
 }
 
 export const TableNodes = {
-  Root: 'table',
+  Root: 'div',
+  Table: 'table',
   Head: 'thead',
   Body: 'tbody',
   Row: 'tr',
@@ -61,7 +69,7 @@ export const Table = UUI.FunctionComponent({
   name: 'Table',
   nodes: TableNodes,
 }, (props: BaseTableProps, nodes) => {
-  const { Root, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
+  const { Root, Table, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
 
   const groupColumns = useMemo(() => {
     const groupCells: (TableColumn & { colspan?: number; rowspan?: number })[][] = []
@@ -95,85 +103,97 @@ export const Table = UUI.FunctionComponent({
   }, [props.columns])
 
   return (
-    <Root
-      {...omit(props,
-        'customize',
-        'columns', 'rows',
-        'selectedIndexes', 'onSelected',
-        'hideHeader', 'emptyView',
-        'onDragged',
-      )}
-    >
-      {!props.hideHeader && (
-        <Head>
-          {/* Grouping Head Cells */}
-          {groupColumns.map((row, rowIndex) => (
-            <Row key={`column-row-${rowIndex}`}>
-              {/* Selection Head Cell */}
-              {props.selectedIndexes && rowIndex === 0 && (
-                <HeadCell className={classNames('selection')} rowSpan={9999}>
-                  <Checkbox
-                    checked={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
-                    onChange={(value) => {
-                      if (props.rows.length > 0) {
-                        props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
-                      }
-                    }}
-                  />
-                </HeadCell>
-              )}
-              {row.map((cell, cellIndex) => (
-                <HeadCell
-                  key={`column-row${rowIndex}-cell-${cellIndex}`}
-                  colSpan={cell.colspan}
-                  rowSpan={cell.rowspan}
-                >
-                  {cell.title}
-                </HeadCell>
-              ))}
-            </Row>
-          ))}
-        </Head>
-      )}
-      <Body>
-        {props.rows.length === 0 ? (
-          <Row>
-            <DataCell colSpan={9999}>
-              <EmptyView>
-                {props.emptyView || 'No Data'}
-              </EmptyView>
-            </DataCell>
-          </Row>
-        ) : props.rows.map((row, rowIndex) => {
-          return (
-            <Row key={rowIndex}>
-
-            {/* Selection Head Cell */}
-            {props.selectedIndexes && (
-              <DataCell className={classNames('selection')}>
-                <Checkbox
-                  checked={props.selectedIndexes.indexOf(rowIndex) !== -1}
-                  onChange={(value) => {
-                    const indexesSet = new Set(props.selectedIndexes)
-                    if (value)  indexesSet.add(rowIndex)
-                    else        indexesSet.delete(rowIndex)
-                    props.onSelected && props.onSelected(Array.from(indexesSet))
-                  }}
-                />
-              </DataCell>
-            )}
-
-            {/* Data Cell */}
-            {row.map((cell, index) => {
+    <Root>
+      <Table>
+        {!props.hideHeader && (
+          <Head>
+            {/* Grouping Head Cells */}
+            {groupColumns.map((row, rowIndex) => {
+              const rowKey = `row:head${rowIndex}`
+              const selectionCellKey = `${rowKey}-column:selection`
+              const selectionCellClassName = 'selection'
               return (
-                <DataCell key={`cell-${index}`}>{cell}</DataCell>
+                <Row className={classNames([rowKey])} key={rowKey}>
+                  {/* Selection Head Cell */}
+                  {props.selectedIndexes && rowIndex === 0 && (
+                    <HeadCell key={selectionCellKey} className={classNames([selectionCellClassName])} rowSpan={9999}>
+                      <Checkbox
+                        checked={props.selectedIndexes.length === props.rows.length && props.rows.length > 0}
+                        onChange={(value) => {
+                          if (props.rows.length > 0) {
+                            props.onSelected && props.onSelected(value ? range(0, props.rows.length) : [])
+                          }
+                        }}
+                      />
+                    </HeadCell>
+                  )}
+                  {row.map((cell) => {
+                    const cellKey = `${rowKey}-column:${cell.key}`
+                    const cellKeyClassName = cell.key
+                    return (
+                      <HeadCell
+                        key={cellKey}
+                        className={classNames([cellKeyClassName])}
+                        colSpan={cell.colspan}
+                        rowSpan={cell.rowspan}
+                      >
+                        {cell.title}
+                      </HeadCell>
+                    )
+                  })}
+                </Row>
               )
             })}
-
+          </Head>
+        )}
+        <Body>
+          {props.rows.length === 0 ? (
+            <Row>
+              <DataCell colSpan={9999}>
+                <EmptyView>
+                  {props.emptyView || 'No Data'}
+                </EmptyView>
+              </DataCell>
             </Row>
-          )
-        })}
-      </Body>
+          ) : props.rows.map((row, rowIndex) => {
+            const rowKey = `row:${row.id}`
+            const rowKeyClassName = row.id
+            const selectionCellKey = `${rowKey}-column:selection`
+            const selectionCellClassName = 'selection'
+            return (
+              <Row key={rowKey} className={classNames([rowKeyClassName])}>
+
+              {/* Selection Head Cell */}
+              {props.selectedIndexes && (
+                <DataCell key={selectionCellKey} className={classNames([selectionCellClassName])}>
+                  <Checkbox
+                    checked={props.selectedIndexes.indexOf(rowIndex) !== -1}
+                    onChange={(value) => {
+                      const indexesSet = new Set(props.selectedIndexes)
+                      if (value)  indexesSet.add(rowIndex)
+                      else        indexesSet.delete(rowIndex)
+                      props.onSelected && props.onSelected(Array.from(indexesSet))
+                    }}
+                  />
+                </DataCell>
+              )}
+
+              {/* Data Cell */}
+              {row.cells.map((cell, cellIndex) => {
+                const column = groupColumns[groupColumns.length - 1][cellIndex]
+                const columnKey = column?.key || `index-${cellIndex}`
+                const cellKey = `${rowKey}-column:${columnKey}`
+                const cellKeyClassName = columnKey
+                return (
+                  <DataCell key={cellKey} className={classNames([cellKeyClassName])}>{cell}</DataCell>
+                )
+              })}
+
+              </Row>
+            )
+          })}
+        </Body>
+      </Table>
     </Root>
   )
 })
