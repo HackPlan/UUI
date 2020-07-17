@@ -39,19 +39,33 @@ import { useState } from 'react';
   <Story name="Loading Button">
     {() => {
       const [loading, setLoading] = useState(true)
+      const [loading2, setLoading2] = useState(false)
       return (
-        <>
+        <div>
           <Button
+            className="m-2"
             onClick={() => { console.log('clicked!') }}
             loading={loading}>
               {loading?'loading text':'loading'}
           </Button>
           <Button
+            className="m-2"
             onClick={() => { console.log('clicked!') }}
             loading={loading}>
               {loading? null :'loading'}
           </Button>
-        </>
+          <Button
+            className="m-2"
+            onClick={() => {
+              setLoading2(true)
+              setTimeout(() => {
+                setLoading2(false)
+              }, 3000)
+            }}
+            loading={loading2}>
+              click to loading
+          </Button>
+        </div>
       )
     }}
   </Story>

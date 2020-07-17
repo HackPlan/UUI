@@ -1,8 +1,8 @@
+import classNames from 'classnames';
+import { omit } from 'lodash';
 import React from 'react';
 import { UUI } from '../../core/uui';
-import { omit } from 'lodash';
-import classNames from 'classnames';
-import { Icons } from '../../icons/Icons';
+import { LoadingSpinner } from '../Loading';
 
 export type BaseButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
@@ -16,11 +16,11 @@ export const Button = UUI.FunctionComponent({
   name: 'Button',
   nodes: {
     Root: 'button',
-    LoadingIcon: Icons.Spinner,
+    LoadingSpinner: LoadingSpinner,
     Content: 'div'
   }
 }, (props: BaseButtonProps, nodes) => {
-  const { Root, LoadingIcon, Content } = nodes
+  const { Root, LoadingSpinner, Content } = nodes
   const { disabled, loading } = props
 
   return (
@@ -30,7 +30,7 @@ export const Button = UUI.FunctionComponent({
         'disabled': disabled || loading,
         'loading': loading,
       })}>
-      {loading ? <LoadingIcon width={14} height={14} /> : null}
+      {loading ? <LoadingSpinner animate width={14} height={14} /> : null}
       {props.children ? <Content>{props.children}</Content> : null}
     </Root>
   )
