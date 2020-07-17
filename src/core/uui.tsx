@@ -8,7 +8,7 @@
 
 
 import React, { JSXElementConstructor, RefAttributes } from 'react';
-import { mapValues, pick, isString, omit, merge, clone, uniq } from 'lodash';
+import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
 
@@ -83,10 +83,11 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       })
     })()
     const style = (() => {
-      return getCompiledStyles({
+      const data = getCompiledStyles({
         ...pick(customizeProps.customize, ['overrideStyle', 'extendStyle']),
         ...pick(_props, ['style']),
       })
+      return isEmpty(data) ? undefined : data
     })()
     const children = (() => {
       const noChildren = ['input', 'textarea', 'hr'].indexOf(tagName) !== -1
