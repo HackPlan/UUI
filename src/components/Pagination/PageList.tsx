@@ -19,11 +19,12 @@ export const PageList = UUI.FunctionComponent({
 }, (props: BasePageListProps, nodes) => {
   const { Root, PageButton } = nodes
 
-  const pagination = useContext(PaginationContext)
-  if (!pagination) {
+  const context = useContext(PaginationContext)
+  if (!context) {
     console.warn('[UUI] please use <PageList> in <Pagination>')
     return <></>
   }
+  const { pagination, loading } = context
 
   const pageList = useMemo(() => {
     return getEllipsisPageData(pagination.currentPage, pagination.totalPage)
@@ -41,7 +42,8 @@ export const PageList = UUI.FunctionComponent({
               'Active': isActive,
               'Ellipsis': isEllipsis,
             })}
-            disabled={!isPage}
+            loading={loading && isActive}
+            disabled={!isPage || loading}
             key={`page-item-${index}`}
             onClick={() => { if (isPage) pagination.toNthPage(Number(item.title)) }}
           >{item.title}</PageButton>

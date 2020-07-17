@@ -26,6 +26,11 @@ export interface BaseHTMLSelectProps<T extends string | number> {
    * Callback invokes when user change to select option.
    */
   onChange?: (value: T) => void;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
+  disabled?: boolean;
 }
 
 const HTMLSelectNodes = {
@@ -42,6 +47,7 @@ const BaseHTMLSelect = UUI.FunctionComponent({
   return (
     <Root>
       <Select
+        disabled={props.disabled}
         name={props.name}
         value={props.value === undefined ? undefined : props.value}
         onChange={props.onChange === undefined ? undefined : (

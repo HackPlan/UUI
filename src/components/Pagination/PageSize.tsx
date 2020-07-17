@@ -17,15 +17,17 @@ export const PageSize = UUI.FunctionComponent({
 }, (props: BasePageSizeProps, nodes) => {
   const { Root, Select } = nodes
 
-  const pagination = useContext(PaginationContext)
-  if (!pagination) {
+  const context = useContext(PaginationContext)
+  if (!context) {
     console.warn('[UUI] please use <PageSize> in <Pagination>')
     return <></>
   }
+  const { pagination, loading } = context
 
   return (
     <Root>
       <Select
+        disabled={loading}
         options={props.pageSizeOptions.map((i) => {
           return {
             label: props.labelRender ? props.labelRender(i) : `${i} / Page`,
