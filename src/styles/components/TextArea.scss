@@ -24,10 +24,25 @@
     min-height: 120px;
   }
 
-  .UUI-TextArea-LengthIndicator {
+  &.hasCornerIndicator {
+    .UUI-TextArea-Textarea {
+      padding-bottom: 2rem;
+    }
+  }
+  .UUI-TextArea-Info {
     position: absolute;
     right: 0.5rem;
-    bottom: 0.25rem;
+    bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .UUI-TextArea-LengthIndicator {
+    padding-left: 0.5rem;
+    color: gray;
+  }
+
+  .UUI-TextArea-LoadingSpinner {
     color: gray;
   }
 }

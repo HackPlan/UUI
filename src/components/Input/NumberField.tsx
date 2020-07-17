@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 import { limitPrecision, limitRange } from '../../utils/numberHelper';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
 export interface BaseNumberFieldProps {
   /**
@@ -33,6 +34,11 @@ export interface BaseNumberFieldProps {
    */
   placeholder?: string;
   /**
+   * Whether the control is loading.
+   * @default false
+   */
+  loading?: boolean;
+  /**
    * Whether the control is non-interactive.
    * @default false
    */
@@ -58,9 +64,10 @@ export const NumberField = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
     Input: 'input',
+    LoadingSpinner: LoadingSpinner,
   }
 }, (props: BaseNumberFieldProps, nodes) => {
-  const { Root, Input } = nodes
+  const { Root, Input, LoadingSpinner } = nodes
 
   return (
     <Root>
@@ -89,6 +96,9 @@ export const NumberField = UUI.FunctionComponent({
           }
         )}
       />
+      {props.loading && (
+        <LoadingSpinner width={16} height={16} />
+      )}
     </Root>
 
   )

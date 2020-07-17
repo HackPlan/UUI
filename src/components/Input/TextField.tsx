@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UUI } from '../../core/uui';
 import { Button } from '../Button';
 import { Icons } from '../../icons/Icons';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
 export interface BaseTextFieldProps {
   /**
@@ -19,6 +20,11 @@ export interface BaseTextFieldProps {
    * @default none
    */
   placeholder?: string;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
+  loading?: boolean;
   /**
    * Whether the control is non-interactive.
    * @default false
@@ -71,12 +77,14 @@ export const TextField = UUI.FunctionComponent({
     TogglePasswordVisibleButton: Button,
     ShowPasswordIcon: Icons.Eye,
     HidePasswordIcon: Icons.EyeOff,
+    LoadingSpinner: LoadingSpinner,
   }
 }, (props: BaseTextFieldProps, nodes) => {
   const {
     Root, Input,
     LengthIndicator, TogglePasswordVisibleButton,
-    ShowPasswordIcon, HidePasswordIcon
+    ShowPasswordIcon, HidePasswordIcon,
+    LoadingSpinner,
   } = nodes
 
   /**
@@ -112,6 +120,9 @@ export const TextField = UUI.FunctionComponent({
           }
         )}
       ></Input>
+      {props.loading && (
+        <LoadingSpinner width={16} height={16} />
+      )}
       {props.maxLength && props.showLengthIndicator && (
         <LengthIndicator>
           {lengthIndicatorText}

@@ -1,5 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import classNames from 'classnames';
 
 export interface BaseTextAreaProps {
   /**
@@ -11,6 +13,11 @@ export interface BaseTextAreaProps {
    * @default none
    */
   placeholder?: string;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
+  loading?: boolean;
   /**
    * Whether the control is non-interactive.
    * @default false
@@ -41,16 +48,22 @@ export const TextArea = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
     Textarea: 'textarea',
+    Info: 'div',
     LengthIndicator: 'div',
+    LoadingSpinner: LoadingSpinner,
   }
 }, (props: BaseTextAreaProps, nodes) => {
-  const { Root, Textarea, LengthIndicator } = nodes
+  const { Root, Textarea, Info, LengthIndicator, LoadingSpinner } = nodes
 
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
 
-  console.log(props.value)
+  const hasCornerIndicator = !!props.loading || props.showLengthIndicator
   return (
-    <Root>
+    <Root
+      className={classNames({
+        'hasCornerIndicator': hasCornerIndicator,
+      })}
+    >
       <Textarea
         name={props.name}
         placeholder={props.placeholder}
@@ -63,11 +76,16 @@ export const TextArea = UUI.FunctionComponent({
           }
         )}
       />
-      {props.maxLength && props.showLengthIndicator && (
-        <LengthIndicator>
-          {lengthIndicatorText}
-        </LengthIndicator>
-      )}
+      <Info>
+        {props.loading && (
+          <LoadingSpinner width={16} height={16} />
+        )}
+        {props.maxLength && props.showLengthIndicator && (
+          <LengthIndicator>
+            {lengthIndicatorText}
+          </LengthIndicator>
+        )}
+      </Info>
     </Root>
   )
 })
