@@ -5,6 +5,10 @@ import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 
 export type BaseButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
   loading?: boolean;
 }
 

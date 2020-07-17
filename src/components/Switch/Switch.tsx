@@ -12,7 +12,15 @@ export enum SwitchNodeName {
 export type SwitchSize = 'small' | 'default';
 
 export interface BaseSwitchProps {
+  /**
+   * Whether the control is non-interactive.
+   * @default false
+   */
   disabled?: boolean;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
   loading?: boolean;
   value: boolean;
   onChange: (flag: boolean) => void;

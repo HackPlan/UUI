@@ -11,6 +11,10 @@ interface SelectOption<T extends string | number> {
   label: string;
   content?: React.ReactNode;
   value: T;
+  /**
+   * Whether the option of select is non-interactive.
+   * @default false
+   */
   disabled?: boolean;
 }
 

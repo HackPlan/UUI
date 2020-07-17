@@ -18,6 +18,10 @@ export interface CascaderOption {
    * if content and label are both provided, priority display content in option view.
    */
   content?: React.ReactNode;
+  /**
+   * Whether the option of cascader is non-interactive.
+   * @default false
+   */
   disabled?: boolean;
   children?: CascaderOption[];
 }
