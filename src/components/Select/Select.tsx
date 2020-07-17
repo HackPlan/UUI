@@ -5,6 +5,7 @@ import { TextField } from '../../components/Input';
 import { flatMap, cloneDeep } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
 
 interface SelectOption<T extends string | number> {
@@ -44,6 +45,11 @@ interface BaseCommonSelectProps<T extends string | number> {
    * dropdown placement
    */
   dropdownPlacement?: PopoverPlacement;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
+  loading?: boolean;
 }
 
 interface SelectOptionsProps<T extends string | number> extends BaseCommonSelectProps<T> {
@@ -77,6 +83,7 @@ const SelectNodes = {
   OptionList: 'div',
   Option: 'div',
   SearchMatched: 'span',
+  LoadingSpinner: LoadingSpinner,
 } as const
 
 const BaseSelect = UUI.FunctionComponent({
@@ -87,6 +94,7 @@ const BaseSelect = UUI.FunctionComponent({
     Root, Dropdown, DropdownIcon, Selector, Input,
     SectionList, Section, SectionHeader,
     OptionList, Option, SearchMatched,
+    LoadingSpinner,
   } = nodes
 
   const finalProps = {
@@ -226,7 +234,12 @@ const BaseSelect = UUI.FunctionComponent({
                     }
                   },
                   extendChildrenAfter: (
+                    <>
+                    {props.loading && (
+                      <LoadingSpinner width={16} height={16} />
+                    )}
                     <DropdownIcon width={20} height={20} svgrProps={{ strokeWidth: 1 }} />
+                    </>
                   )
                 },
                 Input: {

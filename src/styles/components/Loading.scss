@@ -1,13 +1,17 @@
 @import '../variables.scss';
 
 .UUI-LoadingSpinner-Root {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
   &.animate {
-    animation-iteration-count: infinite;
-    animation-fill-mode: forwards;
-    animation: rotate .8s linear infinite;
-    @keyframes rotate { 100% { transform: rotate(360deg); } }
+    .UUI-LoadingSpinner-Icon {
+      animation-iteration-count: infinite;
+      animation-fill-mode: forwards;
+      animation: rotate .8s linear infinite;
+      @keyframes rotate { 100% { transform: rotate(360deg); } }
+    }
   }
 }
 

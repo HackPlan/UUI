@@ -2,7 +2,9 @@
 @import '../mixins.scss';
 
 .UUI-Select-Root {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
   color: $textDarkColor;
 
   @include border;
@@ -46,6 +48,11 @@
     .UUI-Select-Input, input {
       cursor: text;
     }
+  }
+
+  .UUI-Select-LoadingSpinner {
+    color: gray;
+    padding-right: 0.5rem;
   }
 }
 

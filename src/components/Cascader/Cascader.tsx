@@ -6,6 +6,7 @@ import { pick, clone } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
 export interface CascaderOption {
   value: string;
@@ -67,6 +68,11 @@ export interface BaseCascaderProps {
    * dropdown placement
    */
   dropdownPlacement?: PopoverPlacement;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
+  loading?: boolean;
 }
 
 export const Cascader = UUI.FunctionComponent({
@@ -85,6 +91,7 @@ export const Cascader = UUI.FunctionComponent({
     SearchList: 'div',
     SearchItem: 'div',
     SearchMatched: 'span',
+    LoadingSpinner: LoadingSpinner,
   },
 }, (props: BaseCascaderProps, nodes) => {
   /**
@@ -94,6 +101,7 @@ export const Cascader = UUI.FunctionComponent({
     Root, Dropdown, DropdownIcon, Input,
     LevelList, ItemList, Item, ItemLabel, ItemIcon,
     SearchList, SearchItem, SearchMatched,
+    LoadingSpinner,
   } = nodes
 
   /**
@@ -198,7 +206,12 @@ export const Cascader = UUI.FunctionComponent({
                   }
                 },
                 extendChildrenAfter: (
-                  <DropdownIcon width={20} height={20} svgrProps={{ strokeWidth: 1 }} />
+                  <>
+                    {props.loading && (
+                      <LoadingSpinner width={16} height={16} />
+                    )}
+                    <DropdownIcon width={20} height={20} svgrProps={{ strokeWidth: 1 }} />
+                  </>
                 )
               },
               Input: {
