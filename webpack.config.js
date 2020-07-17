@@ -63,6 +63,7 @@ module.exports = {
     Tag: ['./src/styles/components/Tag.scss'],
     Toaster: ['./src/styles/components/Toaster.scss'],
     Layout: ['./src/styles/components/Layout.scss'],
+    Loading: ['./src/styles/components/Loading.scss'],
     Page: ['./src/styles/components/Page.scss'],
   },
   output: {
@@ -167,6 +168,7 @@ module.exports = {
       /Tag.js$/,
       /Toaster.js$/,
       /Layout.js$/,
+      /Loading.js$/,
     ]),
     /**
      * Copy sass source style files.

@@ -1,0 +1,67 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { LoadingSpinner, LoadingCover, Table, Switch } from '../src';
+import { useState } from 'react';
+
+<Meta title="Loading" />
+
+# 加载 Loading
+
+
+### 加载指示器
+
+<Preview>
+  <Story name="LoadingSpinner">
+    <LoadingSpinner />
+  </Story>
+</Preview>
+
+### 加载区域
+
+<Preview>
+  <Story name="LoadingCover">
+    {() => {
+      const [loading, switchLoading] = useState(true)
+      const data = [
+        { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
+        { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
+        { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
+      ]
+      const columns = [
+        { key: 'name', title: "Name" },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
+      ]
+      const rows = data.map((i) => {
+        return {
+          id: i.id,
+          cells: [
+            i.name,
+            i.age,
+            i.gender,
+            i.mobile,
+            i.email,
+            i.profession,
+          ],
+        }
+      })
+      return (
+        <div>
+          <Switch value={loading} onChange={(value) => switchLoading(value)} />
+          <LoadingCover loading={loading} label={'loading...'}>
+            <Table
+              columns={columns}
+              rows={rows}
+            />
+          </LoadingCover>
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ LoadingSpinner, LoadingCover }} />

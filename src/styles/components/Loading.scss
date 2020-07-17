@@ -1,0 +1,45 @@
+@import '../variables.scss';
+
+.UUI-LoadingSpinner-Root {
+  display: inline-block;
+
+  &.animate {
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation: rotate .8s linear infinite;
+    @keyframes rotate { 100% { transform: rotate(360deg); } }
+  }
+}
+
+.UUI-LoadingCover-Root {
+  position: relative;
+  user-select: none;
+
+  .UUI-LoadingCover-Mask {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: hsla(0,0%,100%,.9);
+    transition: opacity .3s;
+    justify-content: center;
+    align-items: center;
+
+    .UUI-LoadingCover-Spinner {
+      color: $primaryLighten1;
+    }
+    .UUI-LoadingCover-Label {
+      margin-left: 0.5rem;
+      color: $primaryLighten1;
+    }
+  }
+
+  &.loading {
+    .UUI-LoadingCover-Mask {
+      display: flex;
+    }
+
+  }
+}
