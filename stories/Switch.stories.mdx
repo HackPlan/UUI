@@ -16,6 +16,7 @@ import { useState } from 'react';
       return (
         <div className="flex flex-col">
           <Switch
+            loading
             value={checked}
             onChange={(value) => { setChecked(value); console.log('onChange', value) }}
           >
