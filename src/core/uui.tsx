@@ -100,7 +100,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
         children = _props.children
       } else if (!noChildren) {
         children = getCompiledChildren({
-          ...pick(customizeProps.customize, ['overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter']),
+          ...pick(customizeProps.customize, ['overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter'] as const),
           ...pick(_props, ['children']),
         })
       }
@@ -357,13 +357,13 @@ function compileProps(props: any, options: any, ref: any): any {
    * style will be injected into customize.Root { extendStyle: ... }
    */
   const compiledProps = clone(props)
+  if (!compiledProps.customize) {
+    compiledProps.customize = {}
+  }
   if (
     (options.nodes as any)['Root'] && isString((options.nodes as any)['Root']) &&
     (compiledProps.className || compiledProps.style)
   ) {
-    if (!compiledProps.customize) {
-      compiledProps.customize = {}
-    }
     const rootCustomizeProps: any = (compiledProps.customize as any)['Root'] || {};
     if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
     if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle) as any;
