@@ -1,3 +1,5 @@
 stories
 *.config.js
 .storybook
+tests
+jest.config.js
