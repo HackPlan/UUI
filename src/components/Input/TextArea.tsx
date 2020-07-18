@@ -56,7 +56,7 @@ export const TextArea = UUI.FunctionComponent({
         placeholder={props.placeholder}
         disabled={props.disabled}
         maxLength={props.maxLength}
-        value={props.value === undefined ? undefined : (props.value || undefined)}
+        value={props.value === undefined ? undefined : (props.value || '')}
         onChange={props.onChange === undefined ? undefined : (
           (event) => {
             props.onChange && props.onChange(event.target.value, event)
