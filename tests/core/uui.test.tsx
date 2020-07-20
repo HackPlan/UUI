@@ -98,6 +98,72 @@ it('UUIComponentHOC', () => {
   expect(tree3).toMatchSnapshot();
 });
 
+it('UUIComponentHOC [more options]', () => {
+  const XUITestFunctionComponent = UUI.FunctionComponent({
+    name: 'XUITestFunctionComponent',
+    prefix: 'XUI',
+    separator: '=',
+    nodes: {
+      Root: 'div',
+      Container: 'div',
+      Article: 'article',
+      Title: 'h1',
+      Paragraph: 'p',
+    }
+  }, (props: {}, nodes) => {
+    const { Root, Container, Article, Title, Paragraph } = nodes
+    return (
+      <Root>
+        <Container>
+          <Article>
+            <Title>Lorem ipsum</Title>
+            <Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis magna finibus lorem semper malesuada. Maecenas vel tristique odio. Duis non nisi turpis. Nam malesuada condimentum ultrices. Mauris lectus ante, sollicitudin in odio ac, elementum euismod ipsum. Nulla semper mattis erat, nec sollicitudin turpis gravida ut. Donec aliquet sit amet enim at consequat. Duis lacinia libero ipsum, in faucibus sapien egestas quis. Pellentesque pretium gravida elit sed viverra. Morbi vitae enim at quam cursus dapibus non ac erat. Phasellus ligula lectus, tempor ut ultricies nec, ornare cursus mauris.</Paragraph>
+            <Paragraph>Proin mollis, dui in volutpat consectetur, quam sapien eleifend eros, ut consectetur neque mauris vel velit. Aliquam sed ultrices ex. Nam sed augue ligula. Cras et enim lorem. Maecenas eget lacus diam. Praesent nec lectus ut ante suscipit semper. Vestibulum congue justo eu rutrum tempus. Maecenas imperdiet neque sapien, vitae pretium dui aliquam et. Suspendisse potenti. Curabitur euismod nisi a urna auctor, quis viverra tellus euismod. Nulla facilisi. Proin eleifend nunc a nisi venenatis scelerisque. Aliquam erat volutpat. Etiam finibus laoreet ipsum, a rutrum odio venenatis vel.</Paragraph>
+          </Article>
+        </Container>
+      </Root>
+    )
+  })
+
+  const tree1 = renderer
+    .create(<XUITestFunctionComponent></XUITestFunctionComponent>)
+    .toJSON();
+
+  expect(tree1).toMatchSnapshot();
+});
+
+it('UUIComponentHOC [no Root node]', () => {
+  const UUITestComponent = UUI.FunctionComponent({
+    name: 'UUITestComponent',
+    nodes: {
+      Container: 'div',
+    }
+  }, (props: {}, nodes) => {
+    const { Container } = nodes
+    return (
+      <Container>
+      </Container>
+    )
+  })
+
+  const tree1 = renderer
+    .create((
+      <UUITestComponent
+        customize={{
+          Container: {
+            extendClassName: 'TestingClassName',
+            extendStyle: {
+              width: 100,
+            }
+          }
+        }}
+      ></UUITestComponent>
+    ))
+    .toJSON();
+
+  expect(tree1).toMatchSnapshot();
+});
+
 /**
  * UUI Component customize [className, style, children]
  * 测试 customize.extendClassName、customize.overrideClassName 是否能拼接出正确的 className string；
@@ -336,19 +402,25 @@ it('UUIComponent [special IntrinsicNodes children]', () => {
  * 测试 onXXX 回掉函数类型的 customize 参数是否按正常顺序被调用。
  */
 it('UUIComponent [customize onXXX callback function]', () => {
-  const mockOnClick = jest.fn((name: string) => {});
+  const mockOnClick1 = jest.fn((name: string) => {});
+  const mockOnClick2 = jest.fn((name: string) => {});
+  const mockOnClick3 = jest.fn((name: string) => {});
 
   const UUITestComponent = UUI.FunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
-      Button: 'div',
+      Trigger1: 'div',
+      Trigger2: 'div',
+      Trigger3: 'div',
     }
   }, (props: {}, nodes) => {
-    const { Root, Button } = nodes
+    const { Root, Trigger1, Trigger2, Trigger3 } = nodes
     return (
       <Root>
-        <Button id="UUITestComponentButton" onClick={() => { mockOnClick('FirstCall Inner') }} />
+        <Trigger1 id="UUITestComponentTrigger1" onClick={() => { mockOnClick1('FirstCall Inner') }} />
+        <Trigger2 id="UUITestComponentTrigger2" onClick={() => { mockOnClick2('FirstCall Inner') }} />
+        <Trigger3 id="UUITestComponentTrigger3" />
       </Root>
     )
   })
@@ -356,19 +428,29 @@ it('UUIComponent [customize onXXX callback function]', () => {
   const wrapper = mount((
     <UUITestComponent
       customize={{
-        Button: {
-          extendClassName: 'ss',
-          onClick: () => { mockOnClick('SecondCall Customize') },
+        Trigger1: {
+          onClick: () => { mockOnClick1('SecondCall Customize') },
+        },
+        Trigger3: {
+          onClick: () => { mockOnClick3('SecondCall Customize') },
         },
       }}
     />
   ));
 
-  wrapper.find('#UUITestComponentButton').at(0).simulate('click')
+  wrapper.find('#UUITestComponentTrigger1').at(0).simulate('click')
+  wrapper.find('#UUITestComponentTrigger2').at(0).simulate('click')
+  wrapper.find('#UUITestComponentTrigger3').at(0).simulate('click')
 
-  expect(mockOnClick.mock.calls.length).toBe(2);
-  expect(mockOnClick.mock.calls[0][0]).toBe('FirstCall Inner');
-  expect(mockOnClick.mock.calls[1][0]).toBe('SecondCall Customize');
+  expect(mockOnClick1.mock.calls.length).toBe(2);
+  expect(mockOnClick1.mock.calls[0][0]).toBe('FirstCall Inner');
+  expect(mockOnClick1.mock.calls[1][0]).toBe('SecondCall Customize');
+
+  expect(mockOnClick2.mock.calls.length).toBe(1);
+  expect(mockOnClick2.mock.calls[0][0]).toBe('FirstCall Inner');
+
+  expect(mockOnClick3.mock.calls.length).toBe(1);
+  expect(mockOnClick3.mock.calls[0][0]).toBe('SecondCall Customize');
 })
 
 /**

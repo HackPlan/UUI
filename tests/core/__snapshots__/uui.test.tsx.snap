@@ -111,6 +111,47 @@ exports[`UUIComponent customize [convenience][className, style] 1`] = `
 </div>
 `;
 
+exports[`UUIComponentHOC [more options] 1`] = `
+<div
+  className="XUI=XUITestFunctionComponent=Root"
+>
+  <div
+    className="XUI=XUITestFunctionComponent=Container"
+  >
+    <article
+      className="XUI=XUITestFunctionComponent=Article"
+    >
+      <h1
+        className="XUI=XUITestFunctionComponent=Title"
+      >
+        Lorem ipsum
+      </h1>
+      <p
+        className="XUI=XUITestFunctionComponent=Paragraph"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis magna finibus lorem semper malesuada. Maecenas vel tristique odio. Duis non nisi turpis. Nam malesuada condimentum ultrices. Mauris lectus ante, sollicitudin in odio ac, elementum euismod ipsum. Nulla semper mattis erat, nec sollicitudin turpis gravida ut. Donec aliquet sit amet enim at consequat. Duis lacinia libero ipsum, in faucibus sapien egestas quis. Pellentesque pretium gravida elit sed viverra. Morbi vitae enim at quam cursus dapibus non ac erat. Phasellus ligula lectus, tempor ut ultricies nec, ornare cursus mauris.
+      </p>
+      <p
+        className="XUI=XUITestFunctionComponent=Paragraph"
+      >
+        Proin mollis, dui in volutpat consectetur, quam sapien eleifend eros, ut consectetur neque mauris vel velit. Aliquam sed ultrices ex. Nam sed augue ligula. Cras et enim lorem. Maecenas eget lacus diam. Praesent nec lectus ut ante suscipit semper. Vestibulum congue justo eu rutrum tempus. Maecenas imperdiet neque sapien, vitae pretium dui aliquam et. Suspendisse potenti. Curabitur euismod nisi a urna auctor, quis viverra tellus euismod. Nulla facilisi. Proin eleifend nunc a nisi venenatis scelerisque. Aliquam erat volutpat. Etiam finibus laoreet ipsum, a rutrum odio venenatis vel.
+      </p>
+    </article>
+  </div>
+</div>
+`;
+
+exports[`UUIComponentHOC [no Root node] 1`] = `
+<div
+  className="UUI-UUITestComponent-Container TestingClassName"
+  style={
+    Object {
+      "width": 100,
+    }
+  }
+/>
+`;
+
 exports[`UUIComponentHOC 1`] = `
 <div
   className="UUI-UUITestFunctionComponent-Root"

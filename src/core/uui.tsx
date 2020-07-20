@@ -42,22 +42,20 @@ export type NodeCustomizeProps =
 // Customize Extra Props Helper
 // ---------------------------------------------------------------
 
-function compileNodeName(nodeName: string, options?: { prefix?: string; separator?: string }) {
-  return [options?.prefix, nodeName].filter((i) => i && i.length > 0).join(options?.separator || '-')
+function getCompiledNodeName(nodeName: string, options: { prefix: string; separator: string; name: string }) {
+  return [options.prefix, options.name, nodeName].join(options.separator)
 }
-function getCompiledClassNames(nodeClassName: string, props?: NodeCustomizeClassNameProps): string {
-  return props?.overrideClassName ? props?.overrideClassName : classNames(nodeClassName, props?.className || '', props?.extendClassName || '')
+function getCompiledClassNames(nodeClassName: string, props: NodeCustomizeClassNameProps): string {
+  return props.overrideClassName ? classNames(props.overrideClassName) : classNames(nodeClassName, props.className, props.extendClassName)
 }
-function getCompiledStyles(props?: NodeCustomizeStyleProps): React.CSSProperties {
-  return props?.overrideStyle ? props?.overrideStyle : Object.assign(props?.style || {}, props?.extendStyle || {})
+function getCompiledStyles(props: NodeCustomizeStyleProps): React.CSSProperties {
+  return props.overrideStyle ? merge(props.overrideStyle) : merge(props.style, props.extendStyle)
 }
-function getCompiledChildren(
-  props?: NodeCustomizeChildrenProps,
-): JSX.Element | null {
-  if (props?.overrideChildren) {
-    return <>{props?.overrideChildren}</>
+function getCompiledChildren(props: NodeCustomizeChildrenProps): JSX.Element | null {
+  if (props.overrideChildren) {
+    return <>{props.overrideChildren}</>
   } else {
-    return <>{props?.extendChildrenBefore}{props?.children}{props?.extendChildrenAfter}</>
+    return <>{props.extendChildrenBefore}{props.children}{props.extendChildrenAfter}</>
   }
 }
 
@@ -67,8 +65,9 @@ function getCompiledChildren(
 
 type IntrinsicNodeCustomizeProps = NodeCustomizeProps
 type IntrinsicNodeCustomizeOptions = {
-  prefix?: string;
-  separator?: string;
+  name: string;
+  prefix: string;
+  separator: string;
 }
 
 export type IntrinsicNodeT = JSX.IntrinsicElements
@@ -77,7 +76,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
   const Node = React.forwardRef((_props: JSX.IntrinsicElements[T], _ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as { customize?: IntrinsicNodeCustomizeProps } & UUIConvenienceProps
     const className = (() => {
-      return getCompiledClassNames(compileNodeName(nodeName, pick(options, ['prefix', 'separator'])), {
+      return getCompiledClassNames(getCompiledNodeName(nodeName, pick(options, 'name', 'prefix', 'separator')), {
         ...pick(customizeProps.customize, ['overrideClassName', 'extendClassName']),
         ...pick(_props, ['className']),
       })
@@ -121,24 +120,26 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     /**
      * Merge both customize functions and component inner onXXX callback functions.
      */
-    const mergedFunctions = (() => {
+    const mergedCallbackFunctions = (() => {
+      const propsObj = _props as any
+      const customizeObj = (customizeProps.customize || {}) as any
+
       const data: any = {}
       const attrs = uniq([
-        ...Object.keys(_props),
-        ...Object.keys(customizeProps.customize || {}),
+        ...Object.keys(propsObj),
+        ...Object.keys(customizeObj),
       ])
       for (const attr of attrs) {
-        if (
-          attr.startsWith('on') &&
-          (typeof (_props as any)[attr] === 'function') ||
-          (customizeProps.customize && typeof (customizeProps.customize as any)[attr] === 'function')
-        ) {
+        if (attr.startsWith('on')) {
+          const propsObjFunctionExist = !!(propsObj[attr] && typeof propsObj[attr] === 'function')
+          const customizeObjFunctionExist = !!(customizeObj[attr] && typeof customizeObj[attr] === 'function')
+
           data[attr] = (...args: any[]) => {
-            if ((_props as any)[attr]) {
-              (_props as any)[attr](...args);
+            if (propsObjFunctionExist) {
+              propsObj[attr](...args);
             }
-            if (customizeProps.customize && (customizeProps.customize as any)[attr]) {
-              (customizeProps.customize as any)[attr](...args);
+            if (customizeObjFunctionExist) {
+              customizeObj[attr](...args);
             }
           };
         }
@@ -148,7 +149,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
 
     return React.createElement(tagName, {
       ...omit(_props, 'children', 'ref', 'className', 'style'),
-      ...mergedFunctions,
+      ...mergedCallbackFunctions,
       ref,
       className, style,
     }, children)
@@ -165,8 +166,9 @@ type ComponentNodeCustomizeProps<M extends string | number | symbol> = {
   [key in M]: IntrinsicNodeCustomizeProps
 }
 type ComponentNodeCustomizeOptions= {
-  prefix?: string;
-  separator?: string;
+  name: string;
+  prefix: string;
+  separator: string;
 }
 
 export type ComponentNodeT = (props: any, ...args: any) => any
@@ -175,7 +177,7 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
   const _Target = Target as any
   const Node = React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> } & UUIConvenienceProps
-    const nodeClassName = [options.prefix, nodeName].join(options.separator)
+    const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
 
     return <_Target
       {...omit(_props, 'customize', 'ref')}
@@ -283,13 +285,14 @@ export abstract class UUI {
     },
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
-    const nodes = compileNodes(options)
+    const finalOptions: Required<typeof options> = getFinalOptions(options)
+    const nodes = compileNodes(finalOptions)
     const component = (props: P & UUIConvenienceProps & Z) => {
-      const compiledProps = compileProps(props, options, undefined)
+      const compiledProps = compileProps(props, finalOptions, undefined)
       injectCustomizeProps(nodes, compiledProps)
       return WrappedComponent(compiledProps, nodes)
     }
-    component.displayName = `<UUI> [Component] ${options.name}`
+    component.displayName = `<UUI> [Component] ${finalOptions.name}`
     return component
   }
 
@@ -335,18 +338,27 @@ export abstract class UUI {
       nodes: X;
     },
   ) {
-    const nodes = compileNodes(options)
+    const finalOptions: Required<typeof options> = getFinalOptions(options)
+    const nodes = compileNodes(finalOptions)
     return class WrappedComponent<P = {}, S = {}> extends React.Component<P & UUIConvenienceProps & Z, S> {
       nodes: UUIComponentNodes<X>
       displayName: string
       constructor(props: P & UUIConvenienceProps & Z) {
         super(props)
-        this.displayName = `<UUI> [Component] ${options.name}`
-        const compiledProps = compileProps(props, options, (props as any).innerRef || undefined)
+        this.displayName = `<UUI> [Component] ${finalOptions.name}`
+        const compiledProps = compileProps(props, finalOptions, (props as any).innerRef || undefined)
         injectCustomizeProps(nodes, compiledProps)
         this.nodes = nodes
       }
     }
+  }
+}
+
+function getFinalOptions(options: any) {
+  return {
+    ...options,
+    prefix: options.prefix || 'UUI',
+    separator: options.separator || '-',
   }
 }
 
@@ -360,9 +372,11 @@ function compileProps(props: any, options: any, ref: any): any {
   if (!compiledProps.customize) {
     compiledProps.customize = {}
   }
+
+  // Generally, UUI component should contain a Root node.
   if (
-    (options.nodes as any)['Root'] && isString((options.nodes as any)['Root']) &&
-    (compiledProps.className || compiledProps.style)
+    (options.nodes as any)['Root'] &&
+    isString((options.nodes as any)['Root'])
   ) {
     const rootCustomizeProps: any = (compiledProps.customize as any)['Root'] || {};
     if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
@@ -375,13 +389,11 @@ function compileProps(props: any, options: any, ref: any): any {
 }
 
 function compileNodes(options: any): any {
-  const separator = options.separator || '-'
-  const prefix = [options.prefix || 'UUI', options.name].join(separator)
   return mapValues(options.nodes, (nodeElement, nodeName) => {
     if (isString(nodeElement)) {
-      return IntrinsicNode(nodeElement as any, nodeName, { prefix, separator })
+      return IntrinsicNode(nodeElement as any, nodeName, options)
     } else {
-      return ComponentNode(nodeElement as any, nodeName, { prefix, separator })
+      return ComponentNode(nodeElement as any, nodeName, options)
     }
   })
 }
