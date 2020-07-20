@@ -2,6 +2,16 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.0
+
+- new component ProgressBar
+- update Table props.rows type - add id & key for row and column
+- fixed the potentially uncontrolled problem of TextArea
+- add loading props for some components
+- add unit test for core utils
+- migrating to Storybook 6.0.0-rc11
+- update production dependencies version
+
 ### v0.3.26
 
 - fix issues

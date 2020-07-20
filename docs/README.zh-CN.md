@@ -13,6 +13,7 @@
 ![](https://img.shields.io/github/issues-raw/HackPlan/UUI)
 ![](https://img.shields.io/github/languages/top/HackPlan/UUI)
 ![](https://img.shields.io/github/license/HackPlan/UUI)
+[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://doc.uui.cool/)
 
 > **UUI 正处于频繁开发更新中**，接口和用法在将来可能会改变，目前暂时无法保证向后兼容。
 
@@ -54,7 +55,7 @@ function App() {
 * [文档](https://doc.uui.cool)
 * [更新日志](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 * [项目贡献指南](https://github.com/HackPlan/UUI/blob/master/docs/CONTRIBUTING.zh-CN.md)
-* [风格自定义教程](https://uui.cool/?path=/docs/customize-tutorial--demo-stepper)
+* [样式自定义示例](https://doc.uui.cool/?path=/docs/customize-tutorial--demo-stepper)
 * [生产部署指南](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOYMENT.zh-CN.md)
 
 

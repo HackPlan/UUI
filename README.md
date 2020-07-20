@@ -13,6 +13,7 @@ Universal Utility-first React UI Library
 ![](https://img.shields.io/github/issues-raw/HackPlan/UUI)
 ![](https://img.shields.io/github/languages/top/HackPlan/UUI)
 ![](https://img.shields.io/github/license/HackPlan/UUI)
+[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://doc.uui.cool/)
 
 > **UUI is still heavily under development.** Specifications and Usage might change in the future and, as of now, no backwards compatibility is guaranteed!
 
@@ -54,7 +55,7 @@ function App() {
 * [Documentation](https://doc.uui.cool)
 * [Changelog](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md)
 * [Contributing](https://github.com/HackPlan/UUI/blob/master/CONTRIBUTING.md)
-* [Customization Tutorial](https://uui.cool/?path=/docs/customize-tutorial--demo-stepper)
+* [Customization Demo](https://doc.uui.cool/?path=/docs/customize-tutorial--demo-stepper)
 * [Deployment](https://github.com/HackPlan/UUI/blob/master/src/DEPLOYMENT.md)
 
 

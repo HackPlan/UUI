@@ -2,6 +2,16 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.0
+
+- 新组件 ProgressBar
+- 更新表格 props.rows 类型 - 给行和列添加 id 和 key
+- 修复 TextArea 非受控模式的潜在问题
+- 给部分组件添加加载状态显示
+- 给核心工具添加单元测试
+- 迁移到 Storybook 6.0.0-rc11
+- 更新生产环境依赖的版本
+
 ### v0.3.26
 
 - 修复了一些小问题
