@@ -34,7 +34,7 @@
     "react-beautiful-dnd": "^13.0.0",
     "react-popper-2": "npm:react-popper@^2.2.1",
     "react-use": "^15.3.2",
-    "uuid": "^7.0.2"
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",
