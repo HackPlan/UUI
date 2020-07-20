@@ -1,0 +1,45 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ProgressBar } from "../src";
+import { useState } from "react";
+
+<Meta title="ProgressBar" component={ProgressBar} />
+
+# 进度条 ProgressBar
+
+### 水平进度条 Horizontal ProgressBar
+
+<Preview>
+  <Story name="ProgressBar">
+    {() => {
+      const [value, setValue] = useState(0);
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2">
+            <ProgressBar value={0.3} barWidth="8px" backgroundColor="rgba(0, 0, 0, 0.05)" />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 环形进度条 Circular ProgressBar
+
+<Preview>
+  <Story name="ProgressBar circular">
+    {() => {
+      const [value, setValue] = useState(0);
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2" style={{ width: "200px" }}>
+            <ProgressBar circular value={0.7} barWidth="8px" backgroundColor="rgba(0, 0, 0, 0.05)" />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ ProgressBar }} />
