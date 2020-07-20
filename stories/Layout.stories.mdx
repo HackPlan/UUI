@@ -1,24 +1,22 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Layout, Header, Content, Footer, Sider } from '../src';
 import { useState } from 'react';
+import { Layout1, Layout2, Layout3 } from './Layout.stories.tsx';
 
 <Meta title="Layout" component={Layout} />
 
 # 框架 Layout
 
 <Preview>
-  <Story name="Layout" id="layout--layout-1">
-  </Story>
+  <Story name="Layout 1">{Layout1()}</Story>
 </Preview>
 
 <Preview>
-  <Story name="Layout" id="layout--layout-2">
-  </Story>
+  <Story name="Layout 2">{Layout2()}</Story>
 </Preview>
 
 <Preview>
-  <Story name="Layout" id="layout--layout-3">
-  </Story>
+  <Story name="Layout 3">{Layout3()}</Story>
 </Preview>
 
 ### Props

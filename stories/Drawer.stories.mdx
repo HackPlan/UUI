@@ -1,5 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Drawer } from '../src';
+import { Drawer1 } from './Drawer.stories.tsx';
 
 <Meta title="Drawer" component={Drawer} />
 
@@ -10,7 +11,7 @@ import { Drawer } from '../src';
 ### 简单使用
 
 <Preview>
-  <Story name="Drawer1" id="drawer--drawer-1" />
+  <Story name="Drawer">{Drawer1()}</Story>
 </Preview>
 
 ### Props

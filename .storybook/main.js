@@ -1,5 +1,5 @@
 module.exports = {
-  stories: ['../stories/**/*.stories.(tsx|mdx)'],
+  stories: ['../stories/**/*.stories.@(tsx|mdx)'],
   addons: [
     '@storybook/addon-actions',
     '@storybook/addon-links',
@@ -9,6 +9,14 @@ module.exports = {
     'storybook-addon-performance',
     '@storybook/addon-a11y',
   ],
+  // typescript: {
+  //   check: false,
+  //   checkOptions: {},
+  //   reactDocgen: 'react-docgen-typescript',
+  //   reactDocgenTypescriptOptions: {
+  //     propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+  //   },
+  // },
   webpackFinal: (config) => {
 
     // ===================

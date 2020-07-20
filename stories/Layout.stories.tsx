@@ -1,10 +1,6 @@
 import React from 'react';
 import { Layout } from '../src';
 
-export default {
-  title: 'Layout',
-};
-
 export const Layout1 = () => {
   return (
     <div className="w-full bg-gray-300" style={{ height: 600 }}>
@@ -17,10 +13,7 @@ export const Layout1 = () => {
   )
 }
 
-Layout1.story = {
-  name: 'Layout with Vertical Header Footer',
-};
-
+Layout1.storyName = 'Layout with Vertical Header Footer'
 
 export const Layout2 = () => {
   return (
@@ -33,9 +26,7 @@ export const Layout2 = () => {
   )
 }
 
-Layout2.story = {
-  name: 'Layout with Horizontal Sider',
-};
+Layout2.storyName = 'Layout with Horizontal Sider'
 
 export const Layout3 = () => {
   return (
@@ -55,6 +46,4 @@ export const Layout3 = () => {
   )
 }
 
-Layout3.story = {
-  name: 'Layout with Mixed',
-};
+Layout3.storyName = 'Layout with Mixed'

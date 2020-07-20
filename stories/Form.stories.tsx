@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { TextField, TextArea, RadioGroup, Radio, Checkbox, DatePicker, Button, HTMLSelect, Popover } from '../src';
+import { TextField, TextArea, RadioGroup, Radio, Checkbox, DatePicker, Button, HTMLSelect } from '../src';
 
-export default {
-  title: 'Form',
-};
-
-const LabeledControl = (props) => {
+const LabeledControl = (props: any) => {
   return (
     <div className="flex row mb-4">
       {props.children}
     </div>
   )
 }
-const Label = (props) => {
+const Label = (props: any) => {
   return (
     <label className="flex justify-end items-center mr-2 w-24 h-8">
       {props.children}
@@ -24,12 +20,14 @@ export const FormControlledMode = () => {
   const [name, setName] = useState('')
   const [introduction, setIntroduction] = useState('')
   const [gender, setGender] = useState('male')
-  const [birthday, setBirthday] = useState(null)
+  const [birthday, setBirthday] = useState<Date | null>(null)
   const [school, setSchool] = useState('Peking University')
   const [skillsWeb, setSkillsWeb] = useState(false)
   const [skillsMobile, setSkillsMobile] = useState(false)
   const [skillsServer, setSkillsServer] = useState(false)
   const [skillsAI, setSkillsAI] = useState(false)
+
+  const [active, setActive] = useState(false)
 
   return (
     <div>
@@ -98,9 +96,7 @@ export const FormControlledMode = () => {
   )
 }
 
-FormControlledMode.story = {
-  name: 'Form (Controlled Mode)',
-};
+FormControlledMode.storyName = 'Form (Controlled Mode)'
 
 
 export const FormUncontrolledMode = () => {
@@ -168,6 +164,4 @@ export const FormUncontrolledMode = () => {
   )
 }
 
-FormUncontrolledMode.story = {
-  name: 'Form (Uncontrolled Mode)',
-};
+FormUncontrolledMode.storyName = 'Form (Uncontrolled Mode)'

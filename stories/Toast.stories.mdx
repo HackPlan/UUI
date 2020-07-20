@@ -1,6 +1,7 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Toast, Toaster, ToasterPosition } from '../src';
 import { useState, useRef } from 'react';
+import { Toast as Toast1, ToastCustomStyle } from './Toast.stories.tsx';
 
 <Meta title="Toast" component={Toast} />
 
@@ -24,7 +25,7 @@ const AppToaster2 = Toaster.create({
 ```
 
 <Preview>
-  <Story name="Toast1" id="toast--toast" />
+  <Story name="Toast">{Toast1()}</Story>
 </Preview>
 
 ### 手动关闭提示
@@ -45,7 +46,7 @@ AppToaster1.dismiss(id)
 ### 自定义样式
 
 <Preview>
-  <Story name="Custom Style Toast" id="toast--toast-custom-style" />
+  <Story name="Custom Style Toast">{ToastCustomStyle()}</Story>
 </Preview>
 
 ### Props

@@ -2,7 +2,7 @@ import { Modifier, Placement } from '@popperjs/core';
 import classNames from 'classnames';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { usePopper } from 'react-popper';
+import { usePopper } from 'react-popper-2';
 import { useClickAway } from 'react-use';
 import { UUI } from '../../core/uui';
 
