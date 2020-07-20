@@ -33,7 +33,7 @@
     "luxon": "^1.22.0",
     "react-beautiful-dnd": "^13.0.0",
     "react-popper-2": "npm:react-popper@^2.2.1",
-    "react-use": "^13.12.2",
+    "react-use": "^15.3.2",
     "uuid": "^7.0.2"
   },
   "devDependencies": {
