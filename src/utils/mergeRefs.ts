@@ -7,8 +7,10 @@ export function mergeRefs(refs: any[]): (instance: unknown) => void {
     refs.forEach((ref: any) => {
       if (typeof ref === 'function') {
         ref(instance)
-      } else if (ref != null) {
+      } else if (ref != null && typeof ref === 'object') {
         ref.current = instance
+      } else {
+        // DO NOTHING
       }
     })
   }

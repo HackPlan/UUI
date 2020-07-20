@@ -1,0 +1,247 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UUIComponent [special IntrinsicNodes children] 1`] = `
+<div
+  className="UUI-UUITestComponent-Root"
+>
+  <input
+    className="UUI-UUITestComponent-Input"
+  />
+  <textarea
+    className="UUI-UUITestComponent-Textarea"
+  />
+  <hr
+    className="UUI-UUITestComponent-Hr"
+  />
+  <select
+    className="UUI-UUITestComponent-Select"
+  >
+    <option
+      className="UUI-UUITestComponent-Option"
+    >
+      option 1
+    </option>
+    <option
+      className="UUI-UUITestComponent-Option"
+    >
+      option 2
+    </option>
+  </select>
+</div>
+`;
+
+exports[`UUIComponent customize [className, style, children] 1`] = `
+<div
+  className="UUI-UUITestComponent-Root InnerRootClassName OutterRootClassName"
+  style={
+    Object {
+      "backgroundColor": "blue",
+      "color": "green",
+      "width": 100,
+    }
+  }
+>
+  <div>
+    Asuka
+  </div>
+  <div
+    className="UUI-UUITestComponent-Extra"
+  />
+  <div>
+    Shinji
+  </div>
+  <div
+    className="UUI-UUITestChild-Root InnerChildRootClassName UUI-UUITestComponent-Child OutterChildRootClassName"
+    style={
+      Object {
+        "backgroundColor": "blue",
+        "color": "green",
+        "width": 100,
+      }
+    }
+  >
+    <div>
+      Yūko
+    </div>
+    <div>
+      Mio
+    </div>
+    <div>
+      Mai
+    </div>
+  </div>
+  <div>
+    Rei
+  </div>
+</div>
+`;
+
+exports[`UUIComponent customize [className, style, children] 2`] = `
+<div
+  className="OutterOverridedRootClassName"
+  style={
+    Object {
+      "display": "flex",
+    }
+  }
+>
+  <div>
+    Neon Genesis Evangelion
+  </div>
+</div>
+`;
+
+exports[`UUIComponent customize [convenience][className, style] 1`] = `
+<div
+  className="UUI-UUITestComponent-Root InnerRootClassName ConvenienceClassName ExtendClassName"
+  style={
+    Object {
+      "backgroundColor": "orange",
+      "borderRadius": 4,
+      "borderWidth": 1,
+      "color": "pink",
+    }
+  }
+>
+  <div
+    className="UUI-UUITestComponent-Child ChildInnerClassName"
+  >
+    Child
+  </div>
+</div>
+`;
+
+exports[`UUIComponentHOC [more options] 1`] = `
+<div
+  className="XUI=XUITestFunctionComponent=Root"
+>
+  <div
+    className="XUI=XUITestFunctionComponent=Container"
+  >
+    <article
+      className="XUI=XUITestFunctionComponent=Article"
+    >
+      <h1
+        className="XUI=XUITestFunctionComponent=Title"
+      >
+        Lorem ipsum
+      </h1>
+      <p
+        className="XUI=XUITestFunctionComponent=Paragraph"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis magna finibus lorem semper malesuada. Maecenas vel tristique odio. Duis non nisi turpis. Nam malesuada condimentum ultrices. Mauris lectus ante, sollicitudin in odio ac, elementum euismod ipsum. Nulla semper mattis erat, nec sollicitudin turpis gravida ut. Donec aliquet sit amet enim at consequat. Duis lacinia libero ipsum, in faucibus sapien egestas quis. Pellentesque pretium gravida elit sed viverra. Morbi vitae enim at quam cursus dapibus non ac erat. Phasellus ligula lectus, tempor ut ultricies nec, ornare cursus mauris.
+      </p>
+      <p
+        className="XUI=XUITestFunctionComponent=Paragraph"
+      >
+        Proin mollis, dui in volutpat consectetur, quam sapien eleifend eros, ut consectetur neque mauris vel velit. Aliquam sed ultrices ex. Nam sed augue ligula. Cras et enim lorem. Maecenas eget lacus diam. Praesent nec lectus ut ante suscipit semper. Vestibulum congue justo eu rutrum tempus. Maecenas imperdiet neque sapien, vitae pretium dui aliquam et. Suspendisse potenti. Curabitur euismod nisi a urna auctor, quis viverra tellus euismod. Nulla facilisi. Proin eleifend nunc a nisi venenatis scelerisque. Aliquam erat volutpat. Etiam finibus laoreet ipsum, a rutrum odio venenatis vel.
+      </p>
+    </article>
+  </div>
+</div>
+`;
+
+exports[`UUIComponentHOC [no Root node] 1`] = `
+<div
+  className="UUI-UUITestComponent-Container TestingClassName"
+  style={
+    Object {
+      "width": 100,
+    }
+  }
+/>
+`;
+
+exports[`UUIComponentHOC 1`] = `
+<div
+  className="UUI-UUITestFunctionComponent-Root"
+>
+  <div
+    className="UUI-UUITestFunctionComponent-Container"
+  >
+    <article
+      className="UUI-UUITestFunctionComponent-Article"
+    >
+      <h1
+        className="UUI-UUITestFunctionComponent-Title"
+      >
+        Lorem ipsum
+      </h1>
+      <p
+        className="UUI-UUITestFunctionComponent-Paragraph"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis magna finibus lorem semper malesuada. Maecenas vel tristique odio. Duis non nisi turpis. Nam malesuada condimentum ultrices. Mauris lectus ante, sollicitudin in odio ac, elementum euismod ipsum. Nulla semper mattis erat, nec sollicitudin turpis gravida ut. Donec aliquet sit amet enim at consequat. Duis lacinia libero ipsum, in faucibus sapien egestas quis. Pellentesque pretium gravida elit sed viverra. Morbi vitae enim at quam cursus dapibus non ac erat. Phasellus ligula lectus, tempor ut ultricies nec, ornare cursus mauris.
+      </p>
+      <p
+        className="UUI-UUITestFunctionComponent-Paragraph"
+      >
+        Proin mollis, dui in volutpat consectetur, quam sapien eleifend eros, ut consectetur neque mauris vel velit. Aliquam sed ultrices ex. Nam sed augue ligula. Cras et enim lorem. Maecenas eget lacus diam. Praesent nec lectus ut ante suscipit semper. Vestibulum congue justo eu rutrum tempus. Maecenas imperdiet neque sapien, vitae pretium dui aliquam et. Suspendisse potenti. Curabitur euismod nisi a urna auctor, quis viverra tellus euismod. Nulla facilisi. Proin eleifend nunc a nisi venenatis scelerisque. Aliquam erat volutpat. Etiam finibus laoreet ipsum, a rutrum odio venenatis vel.
+      </p>
+    </article>
+  </div>
+</div>
+`;
+
+exports[`UUIComponentHOC 2`] = `
+<div
+  className="UUI-UUITestClassComponent-Root"
+>
+  <div
+    className="UUI-UUITestClassComponent-Container"
+  >
+    <article
+      className="UUI-UUITestClassComponent-Article"
+    >
+      <h1
+        className="UUI-UUITestClassComponent-Title"
+      >
+        Lorem ipsum
+      </h1>
+      <p
+        className="UUI-UUITestClassComponent-Paragraph"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis magna finibus lorem semper malesuada. Maecenas vel tristique odio. Duis non nisi turpis. Nam malesuada condimentum ultrices. Mauris lectus ante, sollicitudin in odio ac, elementum euismod ipsum. Nulla semper mattis erat, nec sollicitudin turpis gravida ut. Donec aliquet sit amet enim at consequat. Duis lacinia libero ipsum, in faucibus sapien egestas quis. Pellentesque pretium gravida elit sed viverra. Morbi vitae enim at quam cursus dapibus non ac erat. Phasellus ligula lectus, tempor ut ultricies nec, ornare cursus mauris.
+      </p>
+      <p
+        className="UUI-UUITestClassComponent-Paragraph"
+      >
+        Proin mollis, dui in volutpat consectetur, quam sapien eleifend eros, ut consectetur neque mauris vel velit. Aliquam sed ultrices ex. Nam sed augue ligula. Cras et enim lorem. Maecenas eget lacus diam. Praesent nec lectus ut ante suscipit semper. Vestibulum congue justo eu rutrum tempus. Maecenas imperdiet neque sapien, vitae pretium dui aliquam et. Suspendisse potenti. Curabitur euismod nisi a urna auctor, quis viverra tellus euismod. Nulla facilisi. Proin eleifend nunc a nisi venenatis scelerisque. Aliquam erat volutpat. Etiam finibus laoreet ipsum, a rutrum odio venenatis vel.
+      </p>
+    </article>
+  </div>
+</div>
+`;
+
+exports[`UUIComponentHOC 3`] = `
+<div
+  className="UUI-UUITestUnionComponent-Root"
+>
+  <div
+    className="UUI-UUITestFunctionComponent-Root UUI-UUITestUnionComponent-FunctionComponent"
+  >
+    <div
+      className="UUI-UUITestFunctionComponent-Container"
+    >
+      <article
+        className="UUI-UUITestFunctionComponent-Article"
+      >
+        <h1
+          className="UUI-UUITestFunctionComponent-Title"
+        >
+          Lorem ipsum
+        </h1>
+        <p
+          className="UUI-UUITestFunctionComponent-Paragraph"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis magna finibus lorem semper malesuada. Maecenas vel tristique odio. Duis non nisi turpis. Nam malesuada condimentum ultrices. Mauris lectus ante, sollicitudin in odio ac, elementum euismod ipsum. Nulla semper mattis erat, nec sollicitudin turpis gravida ut. Donec aliquet sit amet enim at consequat. Duis lacinia libero ipsum, in faucibus sapien egestas quis. Pellentesque pretium gravida elit sed viverra. Morbi vitae enim at quam cursus dapibus non ac erat. Phasellus ligula lectus, tempor ut ultricies nec, ornare cursus mauris.
+        </p>
+        <p
+          className="UUI-UUITestFunctionComponent-Paragraph"
+        >
+          Proin mollis, dui in volutpat consectetur, quam sapien eleifend eros, ut consectetur neque mauris vel velit. Aliquam sed ultrices ex. Nam sed augue ligula. Cras et enim lorem. Maecenas eget lacus diam. Praesent nec lectus ut ante suscipit semper. Vestibulum congue justo eu rutrum tempus. Maecenas imperdiet neque sapien, vitae pretium dui aliquam et. Suspendisse potenti. Curabitur euismod nisi a urna auctor, quis viverra tellus euismod. Nulla facilisi. Proin eleifend nunc a nisi venenatis scelerisque. Aliquam erat volutpat. Etiam finibus laoreet ipsum, a rutrum odio venenatis vel.
+        </p>
+      </article>
+    </div>
+  </div>
+</div>
+`;

@@ -17,3 +17,6 @@ hackplan-uui-*.tgz
 .eslintrc.js
 .github
 .DS_Store
+tests
+coverage
+jest.config.js
