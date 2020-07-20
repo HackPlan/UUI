@@ -14,6 +14,10 @@
     padding-right: 2px;
     border-color: $primaryColor;
     background-color: $borderColor;
+
+    .UUI-Button-Content {
+      display: inline-block;
+    }
   }
 
   .UUI-Switch-Thumb {
@@ -28,13 +32,8 @@
     transition: margin 0.2s ease-in-out;
   }
 
-  .UUI-Switch-Loading {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: $borderColor;
-    visibility: hidden;
+  .UUI-Switch-LoadingSpinner {
+    color: gray;
   }
 
   &.checked {
@@ -45,6 +44,10 @@
     .UUI-Switch-Thumb {
       margin-left: calc(50%);
       background-color: white;
+    }
+
+    .UUI-Switch-LoadingSpinner {
+      color: $primaryColor;
     }
   }
 
@@ -57,22 +60,5 @@
         box-shadow: none;
       }
     }
-  }
-
-  &.loading {
-    &.checked {
-      .UUI-Switch-Loading {
-        border-top-color: $primaryColor;
-        color: black;
-      }
-    }
-    .UUI-Switch-Loading {
-      border-top-color: $borderColor;
-      visibility: visible;
-      color: white;
-      font-size: 10px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
   }
 }

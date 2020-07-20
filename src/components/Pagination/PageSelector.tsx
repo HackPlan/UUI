@@ -17,17 +17,19 @@ export const PageSelector = UUI.FunctionComponent({
 }, (props: BasePageSelectorProps, nodes) => {
   const { Root, Select } = nodes
 
-  const pagination = useContext(PaginationContext)
-  if (!pagination) {
+  const context = useContext(PaginationContext)
+  if (!context) {
     console.warn('[UUI] please use <PageSelector> in <Pagination>')
     return <></>
   }
+  const { pagination, loading } = context
 
   const pageNumbers = range(1, pagination.totalPage+1)
 
   return (
     <Root>
       <Select
+        disabled={loading}
         options={pageNumbers.map((i) => {
           return {
             label: props.labelRender ? props.labelRender(i, pagination.totalPage) : `${i} / ${pagination.totalPage}`,

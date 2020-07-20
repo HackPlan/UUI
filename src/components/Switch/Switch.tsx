@@ -2,6 +2,7 @@ import React from 'react';
 import { UUI } from '../../core/uui';
 import { Button as UUIButton } from '../Button/Button';
 import classNames from 'classnames';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
 export enum SwitchNodeName {
   Root = "switch",
@@ -32,10 +33,10 @@ export const Switch = UUI.FunctionComponent({
     Root: 'div',
     Button: UUIButton,
     Thumb: 'div',
-    Loading: 'div',
+    LoadingSpinner: LoadingSpinner,
   }
 }, (props: BaseSwitchProps, nodes) => {
-  const { Root, Button, Thumb, Loading } = nodes
+  const { Root, Button, Thumb, LoadingSpinner } = nodes
 
   return (
     <Root
@@ -47,7 +48,7 @@ export const Switch = UUI.FunctionComponent({
     >
       <Button onClick={() => { !props.disabled && props.onChange(!props.value) }}>
         <Thumb>
-          <Loading></Loading>
+          {props.loading && <LoadingSpinner width={12} height={12} />}
         </Thumb>
       </Button>
     </Root>

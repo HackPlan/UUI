@@ -7,7 +7,7 @@
   color: $textLightColor;
   padding: .5rem 1rem;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 
@@ -15,31 +15,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   @include radius;
   @include focusWithinShadow;
 
-  .UUI-Button-LoadingIcon {
+  .UUI-Button-LoadingSpinner {
     margin-right: 0.5rem;
   }
 
-  &.loading {
-    .UUI-Button-LoadingIcon .UUI-Icon-Container {
-      animation-iteration-count: infinite;
-      animation-fill-mode: forwards;
-      animation: rotate .8s linear infinite;
-
-      @keyframes rotate {
-        from {
-          transform: rotate(0);
-        }
-
-        to {
-          transform: rotate(360deg);
-        }
-      }
-    }
+  .UUI-Button-LoadingSpinner:first-child:nth-last-child(1) {
+    margin-right: 0;
   }
 
   &:hover {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUI, UUIComponentProps } from '../../core/uui';
 import { isString } from 'lodash';
+import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
 export interface HTMLSelectOption<T> {
   label: string;
@@ -26,22 +27,34 @@ export interface BaseHTMLSelectProps<T extends string | number> {
    * Callback invokes when user change to select option.
    */
   onChange?: (value: T) => void;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
+  loading?: boolean;
+  /**
+   * Whether the control is loading.
+   * @default false
+   */
+  disabled?: boolean;
 }
 
 const HTMLSelectNodes = {
   Root: 'div',
   Select: 'select',
   Option: 'option',
+  LoadingSpinner: LoadingSpinner,
 } as const
 
 const BaseHTMLSelect = UUI.FunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
 }, (props: BaseHTMLSelectProps<any>, nodes) => {
-  const { Root, Select, Option } = nodes
+  const { Root, Select, Option, LoadingSpinner } = nodes
   return (
     <Root>
       <Select
+        disabled={props.disabled}
         name={props.name}
         value={props.value === undefined ? undefined : props.value}
         onChange={props.onChange === undefined ? undefined : (
@@ -60,6 +73,9 @@ const BaseHTMLSelect = UUI.FunctionComponent({
           )
         })}
       </Select>
+      {props.loading && (
+        <LoadingSpinner width={16} height={16} />
+      )}
     </Root>
   )
 })

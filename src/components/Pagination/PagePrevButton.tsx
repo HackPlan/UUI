@@ -16,15 +16,16 @@ export const PagePrevButton = UUI.FunctionComponent({
 }, (props: BasePagePrevButtonProps, nodes) => {
   const { Root, PrevIcon } = nodes
 
-  const pagination = useContext(PaginationContext)
-  if (!pagination) {
+  const context = useContext(PaginationContext)
+  if (!context) {
     console.warn('[UUI] please use <PagePrevButton> in <Pagination>')
     return <></>
   }
+  const { pagination, loading } = context
 
   return (
     <Root
-      disabled={pagination.currentPage === 1}
+      disabled={pagination.currentPage === 1 || loading}
       onClick={() => { pagination.toPrevPage() }}
     >
       <PrevIcon />

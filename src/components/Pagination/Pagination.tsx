@@ -15,10 +15,19 @@ export interface PaginationContext extends ReturnType<typeof usePagination> {
 export interface BasePaginationProps {
   value: IPagination;
   onChange: (value: IPagination) => void;
+  /**
+   * Whether the pagination is loading.
+   * @default false
+   */
+  loading?: boolean;
   children: React.ReactNode;
 }
 
-export const PaginationContext = React.createContext<PaginationContext | null>(null)
+export interface PaginationContextValue {
+  pagination: PaginationContext;
+  loading?: boolean;
+}
+export const PaginationContext = React.createContext<PaginationContextValue | null>(null)
 
 export const _Pagination = UUI.FunctionComponent({
   name: 'Pagination',
@@ -31,7 +40,7 @@ export const _Pagination = UUI.FunctionComponent({
   const pagination = usePagination(props.value, props.onChange)
 
   return (
-    <PaginationContext.Provider value={pagination}>
+    <PaginationContext.Provider value={{ pagination, loading: props.loading }}>
       <Root className={"flex flex-row items-center"}>
         {props.children}
       </Root>

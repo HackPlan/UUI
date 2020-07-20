@@ -20,11 +20,12 @@ export const PageJumper = UUI.FunctionComponent({
 }, (props: BasePageJumperProps, nodes) => {
   const { Root, Label, NumberField } = nodes
 
-  const pagination = useContext(PaginationContext)
-  if (!pagination) {
+  const context = useContext(PaginationContext)
+  if (!context) {
     console.warn('[UUI] please use <PageJumper> in <Pagination>')
     return <></>
   }
+  const { pagination, loading } = context
 
   useEffect(() => {
     setInputValue(null)
@@ -41,6 +42,7 @@ export const PageJumper = UUI.FunctionComponent({
             extendStyle: { height: 34, width: 80 }
           }
         }}
+        disabled={loading}
         placeholder={`${pagination.currentPage}`}
         min={1}
         value={inputValue}

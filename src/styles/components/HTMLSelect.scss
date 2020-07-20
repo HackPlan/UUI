@@ -9,14 +9,26 @@
 
   @include border;
   @include radius;
-  @include hoverBorder;
   @include focusWithinShadow;
   @include focusWithinBorder;
+
+  &:not(.UUI-HTMLSelect-Select:disabled) {
+    @include hoverBorder;
+  }
 
   .UUI-HTMLSelect-Select {
     padding: 0.5rem;
     background-color: white;
     width: 100%;
     cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .UUI-HTMLSelect-LoadingSpinner {
+    margin-left: 0.5rem;
+    color: gray;
   }
 }

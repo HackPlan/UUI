@@ -16,15 +16,16 @@ export const PageNextButton = UUI.FunctionComponent({
 }, (props: BasePageNextButtonProps, nodes) => {
   const { Root, NextIcon } = nodes
 
-  const pagination = useContext(PaginationContext)
-  if (!pagination) {
+  const context = useContext(PaginationContext)
+  if (!context) {
     console.warn('[UUI] please use <PageNextButton> in <Pagination>')
     return <></>
   }
+  const { pagination, loading } = context
 
   return (
     <Root
-      disabled={pagination.currentPage === pagination.totalPage}
+      disabled={pagination.currentPage === pagination.totalPage || loading}
       onClick={() => { pagination.toNextPage() }}
     >
       <NextIcon />
