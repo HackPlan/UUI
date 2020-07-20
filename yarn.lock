@@ -1803,9 +1803,9 @@
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
 "@charlietango/use-focus-trap@^1.2.6":
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/@charlietango/use-focus-trap/-/use-focus-trap-1.2.10.tgz#091e15c91f0942bd0f53b2d4e1c1c926a2b69b9e"
-  integrity sha512-2nqBx2trC/PcYvsMRpXsqsbVkv4zbNNdW/9LnZjXjM69JHhrzAAckyF7VithMN2PQIB5XgnAgaL7oOQr42zPaA==
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/@charlietango/use-focus-trap/-/use-focus-trap-1.2.11.tgz#084732394043af3e0499d0cc754561a40005a081"
+  integrity sha512-zgwz7OqRaxvCNj3fSPA31Y+1bC/Ub0GL/KbKiausCa52qPhRTpA0+4M4Mmx5a+7y+FBW5FM3KZyO8TIdqmVP2Q==
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
