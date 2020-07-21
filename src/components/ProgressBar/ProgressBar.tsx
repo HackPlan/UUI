@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useMemo, useRef, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { UUI } from "../../core/uui";
 
 export interface BaseProgressBarProps {
@@ -8,47 +8,20 @@ export interface BaseProgressBarProps {
    */
   value: number;
   /**
-   * Event handler invoked when input value is changed.
-   */
-  onChange: (value: [number, number] | number) => void;
-  /**
-   * The minimum value of the input.
-   */
-  min: number;
-  /**
-   * The maximum value of the input.
-   */
-  max: number;
-  /**
-   * Line width of the progress bar.
-   * @default '5px'
-   */
-  barWidth?: string;
-  /**
-   * Progress bar color.
-   * @default ''
-   */
-  barColor?: string;
-  /**
-   * Background color.
-   * @default 'transparent'
-   */
-  backgroundColor?: string;
-  /**
    * Whether the control is non-interactive.
    * @default false
    */
   disabled?: boolean;
   /**
-   * Whether to render the Slider vertically. Defaults to rendering horizontal.
-   * @default false
-   */
-  vertical?: boolean;
-  /**
    * Whether this ProgressBar is shown in the circular style or not.
    * @default fales
    */
   circular?: boolean;
+  /**
+   * Whether the ProgressBar is indeterminate or not.
+   * @default false
+   */
+  indeterminate?: boolean;
 }
 
 export const ProgressBar = UUI.FunctionComponent(
@@ -59,10 +32,11 @@ export const ProgressBar = UUI.FunctionComponent(
       Container: "div",
       BarFill: "div",
       CircularWrapper: "div",
+      CircularBackground: "div",
       CircularLeftWrapper: "div",
       CircularRightWrapper: "div",
-      CircularFill: "div",
-      CircularSpinner: "div",
+      CircularLeft: "div",
+      CircularRight: "div",
     },
   },
   (props: BaseProgressBarProps, nodes) => {
@@ -71,76 +45,62 @@ export const ProgressBar = UUI.FunctionComponent(
       Container,
       BarFill,
       CircularWrapper,
+      CircularBackground,
       CircularLeftWrapper,
       CircularRightWrapper,
-      CircularFill,
-      CircularSpinner,
+      CircularLeft,
+      CircularRight,
     } = nodes;
-
-    const rootRef = useRef<any>();
 
     /**
      * Calculate the position and size of thumbs, remarks and lines.
      */
     const styles = useMemo(() => {
       const value = Math.max(0, Math.min(1, props.value));
-      const barWidth = props.barWidth || "5px";
-      const backgroundColor = props.backgroundColor || "transparent";
 
       switch (props.circular) {
         case false:
         case undefined:
           return {
-            Container: {
-              borderRadius: `${barWidth}`,
-              backgroundColor: backgroundColor,
-            },
             BarFill: {
               width: toPercentage(value),
-              borderWidth: barWidth,
-              borderRadius: `${barWidth}`,
             },
           };
         case true:
           return {
-            CircularWrapper: {
-              borderWidth: barWidth,
-              borderColor: props.barColor,
+            CircularLeft: {
+              ...(!props.indeterminate
+                ? {
+                    opacity: props.value < 0.5 ? 0 : 1,
+                    transform: value >= 0.5 ? `rotate(-${(1 - (value - 0.5) / 0.5) * 180}deg)` : "none",
+                  }
+                : null),
             },
-            CircularFill: {
-              width: `calc(100% - ${barWidth})`,
-              height: `calc(100% - 2 * ${barWidth})`,
-              borderWidth: barWidth,
-              transform: value > 0.5 ? "none" : `rotate(-${(1 - value / 0.5) * 180}deg)`,
-            },
-            CircularSpinner: {
-              opacity: props.value < 0.5 ? 0 : 1,
-              width: `calc(100% - ${barWidth})`,
-              height: `calc(100% - 2 * ${barWidth})`,
-              borderWidth: barWidth,
-              transform: value >= 0.5 ? `rotate(-${(1 - (value - 0.5) / 0.5) * 180}deg)` : "none",
+            CircularRight: {
+              transform: !props.indeterminate && value <= 0.5 ? `rotate(-${(1 - value / 0.5) * 180}deg)` : undefined,
             },
           };
       }
-    }, [props.value, props.circular, props.barWidth, props.barColor, props.backgroundColor]);
+    }, [props.value, props.circular, props.indeterminate]);
 
     return (
       <Root
         className={classNames({
           disabled: props.disabled,
           circular: props.circular,
+          indeterminate: props.indeterminate,
         })}
-        ref={rootRef}
       >
-        <Container style={{ ...styles.Container }}>
+        <Container>
           <BarFill style={{ ...styles.BarFill }} />
-          <CircularWrapper style={{ ...styles.CircularWrapper }}>
+          <CircularWrapper>
             <CircularLeftWrapper>
-              <CircularSpinner style={{ ...styles.CircularSpinner }} />
+              <CircularLeft style={{ ...styles.CircularLeft }} />
             </CircularLeftWrapper>
             <CircularRightWrapper>
-              <CircularFill style={{ ...styles.CircularFill }} />
+              <CircularRight style={{ ...styles.CircularRight }} />
             </CircularRightWrapper>
+            <CircularBackground />
           </CircularWrapper>
         </Container>
       </Root>

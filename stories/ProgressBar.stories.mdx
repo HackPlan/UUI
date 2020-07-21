@@ -9,13 +9,44 @@ import { useState } from "react";
 ### 水平进度条 Horizontal ProgressBar
 
 <Preview>
-  <Story name="ProgressBar">
+  <Story name="Horizontal ProgressBar">
     {() => {
-      const [value, setValue] = useState(0);
       return (
         <div>
           <div className="flex flex-row items-center my-2">
-            <ProgressBar value={0.3} barWidth="8px" backgroundColor="rgba(0, 0, 0, 0.05)" />
+            <ProgressBar value={0.3} />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不确定的水平进度条 Indeterminate horizontal ProgressBar
+
+<Preview>
+  <Story name="Indeterminate horizontal ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2">
+            <ProgressBar indeterminate />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不可用的水平进度条 Disabled horizontal ProgressBar
+
+<Preview>
+  <Story name="Disabled horizontal ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2">
+            <ProgressBar disabled value={0.3} />
           </div>
         </div>
       );
@@ -26,13 +57,44 @@ import { useState } from "react";
 ### 环形进度条 Circular ProgressBar
 
 <Preview>
-  <Story name="ProgressBar circular">
+  <Story name="Circular ProgressBar">
     {() => {
-      const [value, setValue] = useState(0);
       return (
         <div>
-          <div className="flex flex-row items-center my-2" style={{ width: "200px" }}>
-            <ProgressBar circular value={0.7} barWidth="8px" backgroundColor="rgba(0, 0, 0, 0.05)" />
+          <div className="flex flex-row items-center my-2" style={{ width: "120px" }}>
+            <ProgressBar circular value={0.7} />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不确定的环形进度条 Indeterminate circular ProgressBar
+
+<Preview>
+  <Story name="Indeterminate circular ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2" style={{ width: "120px" }}>
+            <ProgressBar circular indeterminate />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不可用的水平进度条 Disabled circular ProgressBar
+
+<Preview>
+  <Story name="Disabled circular ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2" style={{ width: "120px" }}>
+            <ProgressBar circular disabled value={0.7} />
           </div>
         </div>
       );
