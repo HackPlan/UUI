@@ -1,0 +1,185 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+.UUI-ProgressBar-Root {
+  width: 100%;
+
+  .UUI-ProgressBar-Container {
+    width: 100%;
+    overflow: hidden;
+
+    .UUI-ProgressBar-BarFill {
+      $barWidth: 4px;
+      box-sizing: border-box;
+      border-color: $primaryColor;
+      border-style: solid;
+      border-width: $barWidth;
+      border-radius: $barWidth;
+      overflow: hidden;
+      transition: width linear 100ms;
+    }
+
+    .UUI-ProgressBar-CircularWrapper {
+      $barWidth: 6px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      overflow: hidden;
+
+      .UUI-ProgressBar-CircularBackground {
+        position: absolute;
+        overflow: hidden;
+        border-width: $barWidth;
+        border-color: rgba(0, 0, 0, 0.05);
+        border-style: solid;
+        width: calc(100% - 2 * #{$barWidth});
+        height: calc(100% - 2 * #{$barWidth});
+        border-radius: 100%;
+      }
+
+      .UUI-ProgressBar-CircularRightWrapper {
+        left: 50%;
+        transform-origin: 0% 50%;
+      }
+
+      .UUI-ProgressBar-CircularLeftWrapper,
+      .UUI-ProgressBar-CircularRightWrapper {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+
+        .UUI-ProgressBar-CircularLeft,
+        .UUI-ProgressBar-CircularRight {
+          position: absolute;
+          overflow: hidden;
+          border-width: $barWidth;
+          border-color: $primaryColor;
+          border-style: solid;
+          width: calc(100% - #{$barWidth});
+          height: calc(100% - 2 * #{$barWidth});
+        }
+
+        .UUI-ProgressBar-CircularLeft {
+          transform-origin: 100% 50%;
+          border-radius: 100% 0 0 100% / 50% 0 0 50%;
+          border-right: none;
+        }
+
+        .UUI-ProgressBar-CircularRight {
+          transform-origin: 0 50%;
+          border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+          right: 0;
+          border-left: none;
+        }
+      }
+    }
+  }
+
+  &.disabled {
+    .UUI-ProgressBar-BarFill {
+      border-color: #7d7d7d;
+    }
+    .UUI-ProgressBar-CircularWrapper {
+      .UUI-ProgressBar-CircularLeftWrapper,
+      .UUI-ProgressBar-CircularRightWrapper {
+        .UUI-ProgressBar-CircularLeft,
+        .UUI-ProgressBar-CircularRight {
+          border-color: #7d7d7d;
+        }
+      }
+    }
+  }
+
+  &:not(.circular) {
+    .UUI-ProgressBar-Container {
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.05);
+      .UUI-ProgressBar-CircularWrapper {
+        display: none;
+      }
+    }
+  }
+
+  &.circular {
+    .UUI-ProgressBar-Container {
+      width: 100%;
+      position: relative;
+
+      &::after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
+
+      .UUI-ProgressBar-BarFill {
+        display: none;
+      }
+    }
+  }
+
+  &.indeterminate {
+    &.circular {
+      .UUI-ProgressBar-Container {
+        .UUI-ProgressBar-CircularWrapper {
+          transform-origin: center;
+          .UUI-ProgressBar-CircularLeftWrapper {
+            opacity: 0;
+          }
+          .UUI-ProgressBar-CircularRightWrapper {
+            animation: UUI-ProgressBar-Animation-CircularRightWrapper-Indeterminate 1s infinite;
+            animation-timing-function: linear;
+          }
+          .UUI-ProgressBar-CircularRight {
+            animation: UUI-ProgressBar-Animation-CircularRight-Indeterminate 3s infinite;
+            animation-timing-function: ease-in-out;
+          }
+        }
+      }
+    }
+    &:not(.circular) {
+      .UUI-ProgressBar-Container {
+        .UUI-ProgressBar-BarFill {
+          width: 10%;
+          animation: UUI-ProgressBar-Animation-BarFill-Indeterminate 4s infinite;
+          animation-timing-function: ease-in-out;
+        }
+      }
+    }
+  }
+
+  @keyframes UUI-ProgressBar-Animation-CircularRightWrapper-Indeterminate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes UUI-ProgressBar-Animation-CircularRight-Indeterminate {
+    0% {
+      transform: rotate(-180deg);
+    }
+    50% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(-180deg);
+    }
+  }
+
+  @keyframes UUI-ProgressBar-Animation-BarFill-Indeterminate {
+    0% {
+      width: 5%;
+      margin-left: -5%;
+    }
+    50% {
+      width: 20%;
+    }
+    100% {
+      width: 5%;
+      margin-left: calc(100% + 5%);
+    }
+  }
+}

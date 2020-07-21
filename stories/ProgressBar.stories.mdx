@@ -1,0 +1,107 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ProgressBar } from "../src";
+import { useState } from "react";
+
+<Meta title="ProgressBar" component={ProgressBar} />
+
+# 进度条 ProgressBar
+
+### 水平进度条 Horizontal ProgressBar
+
+<Preview>
+  <Story name="Horizontal ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2">
+            <ProgressBar value={0.3} />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不确定的水平进度条 Indeterminate horizontal ProgressBar
+
+<Preview>
+  <Story name="Indeterminate horizontal ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2">
+            <ProgressBar indeterminate />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不可用的水平进度条 Disabled horizontal ProgressBar
+
+<Preview>
+  <Story name="Disabled horizontal ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2">
+            <ProgressBar disabled value={0.3} />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 环形进度条 Circular ProgressBar
+
+<Preview>
+  <Story name="Circular ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2" style={{ width: "120px" }}>
+            <ProgressBar circular value={0.7} />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不确定的环形进度条 Indeterminate circular ProgressBar
+
+<Preview>
+  <Story name="Indeterminate circular ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2" style={{ width: "120px" }}>
+            <ProgressBar circular indeterminate />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### 不可用的水平进度条 Disabled circular ProgressBar
+
+<Preview>
+  <Story name="Disabled circular ProgressBar">
+    {() => {
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2" style={{ width: "120px" }}>
+            <ProgressBar circular disabled value={0.7} />
+          </div>
+        </div>
+      );
+    }}
+  </Story>
+</Preview>
+
+### Props
+
+<Props components={{ ProgressBar }} />
