@@ -19,7 +19,7 @@
   position: relative;
   user-select: none;
 
-  .UUI-LoadingCover-Mask {
+  & > .UUI-LoadingCover-Mask {
     display: none;
     position: absolute;
     top: 0;
@@ -31,17 +31,17 @@
     justify-content: center;
     align-items: center;
 
-    .UUI-LoadingCover-Spinner {
+    & > .UUI-LoadingCover-Spinner {
       color: $primaryLighten1;
     }
-    .UUI-LoadingCover-Label {
+    & > .UUI-LoadingCover-Label {
       margin-left: 0.5rem;
       color: $primaryLighten1;
     }
   }
 
   &.loading {
-    .UUI-LoadingCover-Mask {
+    & > .UUI-LoadingCover-Mask {
       display: flex;
     }
 
