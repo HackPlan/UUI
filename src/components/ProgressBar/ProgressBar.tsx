@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import { UUI } from "../../core/uui";
 
 export interface BaseProgressBarProps {
