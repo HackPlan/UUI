@@ -92,16 +92,19 @@ export const ProgressBar = UUI.FunctionComponent(
         })}
       >
         <Container>
-          <BarFill style={{ ...styles.BarFill }} />
-          <CircularWrapper>
-            <CircularLeftWrapper>
-              <CircularLeft style={{ ...styles.CircularLeft }} />
-            </CircularLeftWrapper>
-            <CircularRightWrapper>
-              <CircularRight style={{ ...styles.CircularRight }} />
-            </CircularRightWrapper>
-            <CircularBackground />
-          </CircularWrapper>
+          {!props.circular ? (
+            <BarFill style={{ ...styles.BarFill }} />
+          ) : (
+            <CircularWrapper>
+              <CircularLeftWrapper>
+                <CircularLeft style={{ ...styles.CircularLeft }} />
+              </CircularLeftWrapper>
+              <CircularRightWrapper>
+                <CircularRight style={{ ...styles.CircularRight }} />
+              </CircularRightWrapper>
+              <CircularBackground />
+            </CircularWrapper>
+          )}
         </Container>
       </Root>
     );
