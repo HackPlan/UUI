@@ -41,6 +41,7 @@ export interface StyledButtonProps extends ButtonFeatureProps {}
 export function StyledButton(props: StyledButtonProps) {
   return (
     <Button
+      {...props}
       customize={{
         Root: {
           backgroundColor: 'red',
