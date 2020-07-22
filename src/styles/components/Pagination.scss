@@ -45,19 +45,6 @@
   margin-left: 0.25rem;
 }
 
-.UUI-PagePrevButton-Root.UUI-Button-Root,
-.UUI-PageNextButton-Root.UUI-Button-Root,
-.UUI-PageList-Root .UUI-Button-Root {
-  & {
-    background-color: white;
-    color: $textDarkColor;
-    @include border;
-  }
-  &:not([disabled]) {
-    @include hoverBorder;
-  }
-}
-
 .UUI-PageJumper-Root {
   display: flex;
   flex-direction: row;

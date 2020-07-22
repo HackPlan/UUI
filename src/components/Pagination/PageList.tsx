@@ -43,9 +43,8 @@ export const PageList = UUI.FunctionComponent({
               'STATE_ellipsis': isEllipsis,
             })}
             loading={loading && isActive}
-            disabled={!isPage || loading}
             key={`page-item-${index}`}
-            onClick={() => { if (isPage) pagination.toNthPage(Number(item.title)) }}
+            onClick={() => { if (isPage && !isActive) pagination.toNthPage(Number(item.title)) }}
           >{item.title}</PageButton>
         )
       })}
