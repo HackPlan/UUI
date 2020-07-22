@@ -23,7 +23,7 @@ export const LoadingCover = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'loading': props.loading,
+        'STATE_loading': props.loading,
       })}
     >
       {props.children}

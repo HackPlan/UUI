@@ -3,6 +3,7 @@ import { UUI } from '../../core/uui';
 import { Button } from '../Button';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import classNames from 'classnames';
 
 export interface TextFieldFeatureProps {
   /**
@@ -106,7 +107,12 @@ export const TextField = UUI.FunctionComponent({
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
 
   return (
-    <Root>
+    <Root
+      className={classNames({
+        'STATE_disabled': props.disabled,
+        'STATE_loading': props.loading,
+      })}
+    >
       <Input
         name={props.name}
         placeholder={props.placeholder}

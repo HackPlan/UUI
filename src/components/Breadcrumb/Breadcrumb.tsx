@@ -37,8 +37,8 @@ export const Breadcrumb = UUI.FunctionComponent({
         const interactive = !!i.path || !!i.onAction
         return (
           <Item key={i.key} className={classNames({
-            'active': i.active,
-            'interactive': interactive,
+            'STATE_active': i.active,
+            'STATE_interactive': interactive,
           })} onClick={() => {
             if (i.onAction) i.onAction()
           }}>

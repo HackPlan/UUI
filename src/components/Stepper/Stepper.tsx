@@ -118,13 +118,13 @@ export const Stepper = UUI.FunctionComponent({
   switch (finalProps.controlPosition) {
     case 'separate':
       return (
-        <Root className={"ControlSeparate"}>
+        <Root className={"POSITION_controlSeparate"}>
           {minus}{input}{plus}
         </Root>
       )
     case 'right':
       return (
-        <Root className={"ControlRight"}>
+        <Root className={"POSITION_controlRight"}>
           {input}
           <RightControlsContainer>
             {plus}{minus}

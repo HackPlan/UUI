@@ -41,7 +41,7 @@ const BaseRadio = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'disabled': props.disabled,
+        'STATE_disabled': props.disabled,
       })}
     >
       <Input

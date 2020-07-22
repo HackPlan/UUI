@@ -39,8 +39,8 @@ export const PageList = UUI.FunctionComponent({
         return (
           <PageButton
             className={classNames({
-              'Active': isActive,
-              'Ellipsis': isEllipsis,
+              'STATE_active': isActive,
+              'STATE_ellipsis': isEllipsis,
             })}
             loading={loading && isActive}
             disabled={!isPage || loading}

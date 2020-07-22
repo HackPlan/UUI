@@ -86,9 +86,9 @@ export const ProgressBar = UUI.FunctionComponent(
     return (
       <Root
         className={classNames({
-          disabled: props.disabled,
-          circular: props.circular,
-          indeterminate: props.indeterminate,
+          'STATE_disabled': props.disabled,
+          'STATE_circular': props.circular,
+          'STATE_indeterminate': props.indeterminate,
         })}
       >
         <Container>

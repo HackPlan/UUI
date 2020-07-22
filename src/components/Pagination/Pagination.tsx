@@ -8,6 +8,7 @@ import { PagePrevButton } from './PagePrevButton';
 import { PageNextButton } from './PageNextButton';
 import { PageSelector } from './PageSelector';
 import { PageJumper } from './PageJumper';
+import classNames from 'classnames';
 
 export interface PaginationContext extends ReturnType<typeof usePagination> {
 }
@@ -41,7 +42,11 @@ export const _Pagination = UUI.FunctionComponent({
 
   return (
     <PaginationContext.Provider value={{ pagination, loading: props.loading }}>
-      <Root className={"flex flex-row items-center"}>
+      <Root
+        className={classNames({
+          'STATE_loading': props.loading,
+        })}
+      >
         {props.children}
       </Root>
     </PaginationContext.Provider>

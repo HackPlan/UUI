@@ -58,14 +58,14 @@
     content: ' ';
   }
 
-  &.disabled {
+  &.STATE_disabled {
     cursor: not-allowed;
 
     .UUI-Checkbox-Indicator {
       border-color: $disabledBorderColor;
       background-color: $disabledBackgroundColor;
 
-      &.checked::after {
+      &.STATE_checked::after {
         border-color: darken($disabledBackgroundColor, 30%);
       }
     }

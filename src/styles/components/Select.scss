@@ -38,13 +38,13 @@
     transition: transform 0.2s ease-in-out;
   }
 
-  &.Active {
+  &.STATE_active {
     .UUI-Select-DropdownIcon {
       transform: rotate(180deg);
     }
   }
 
-  &.Searchable {
+  &.STATE_searchable {
     .UUI-Select-Input, input {
       cursor: text;
     }
@@ -75,7 +75,7 @@
       background-color: #dcf0ff;
     }
 
-    &.Disabled {
+    &.STATE_disabled {
       color: $disabledTextColor;
       cursor: not-allowed;
 

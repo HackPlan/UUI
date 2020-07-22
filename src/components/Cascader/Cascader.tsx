@@ -177,8 +177,9 @@ export const Cascader = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'Active': popoverActive,
-        'Searchable': finalProps.searchable,
+        'STATE_active': popoverActive,
+        'STATE_loading': props.loading,
+        'STATE_searchable': finalProps.searchable,
       })}
     >
       <Dropdown
@@ -230,8 +231,8 @@ export const Cascader = UUI.FunctionComponent({
                     return (
                       <Item
                         className={classNames({
-                          'Selected': option.selected,
-                          'Disabled': option.disabled,
+                          'STATE_selected': option.selected,
+                          'STATE_disabled': option.disabled,
                         })}
                         key={optionIndex}
                         onClick={() => {
@@ -257,7 +258,7 @@ export const Cascader = UUI.FunctionComponent({
                         <ItemLabel>{option.content || option.label}</ItemLabel>
                         <ItemIcon
                           className={classNames({
-                            'Hidden': !option.children,
+                            'STATE_hidden': !option.children,
                           })}
                           svgrProps={{ strokeWidth: 1 }}
                         />
@@ -276,7 +277,7 @@ export const Cascader = UUI.FunctionComponent({
               return (
                 <SearchItem
                   className={classNames({
-                    'Disabled': disabled,
+                    'STATE_disabled': disabled,
                   })}
                   key={groupIndex}
                   onClick={() => {

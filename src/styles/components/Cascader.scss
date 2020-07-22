@@ -43,13 +43,13 @@
     transition: transform 0.2s ease-in-out;
   }
 
-  &.Active {
+  &.STATE_active {
     .UUI-Cascader-DropdownIcon {
       transform: rotate(180deg);
     }
   }
 
-  &.Searchable {
+  &.STATE_searchable {
     .UUI-Cascader-Input, input {
       cursor: text;
     }
@@ -87,11 +87,11 @@
         background-color: $hoverBackgroundColor;
       }
 
-      &.Selected {
+      &.STATE_selected {
         background-color: $activeBackgroundColor;
       }
 
-      &.Disabled {
+      &.STATE_disabled {
         .UUI-Cascader-ItemLabel {
           color: $disabledTextColor;
         }
@@ -110,7 +110,7 @@
         justify-content: center;
         align-items: center;
 
-        .UUI-Icon-Root.Hidden svg {
+        .UUI-Icon-Root.STATE_hidden svg {
           opacity: 0;
         }
 
@@ -138,7 +138,7 @@
       background-color: $hoverBackgroundColor;
     }
 
-    &.Disabled {
+    &.STATE_disabled {
       color: $disabledTextColor;
       &:hover {
         background-color: inherit;

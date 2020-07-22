@@ -14,12 +14,12 @@
     color: white;
   }
 
-  &.interactive {
+  &.STATE_interactive {
     cursor: pointer;
     user-select: none;
   }
 
-  &.interactive:hover {
+  &.STATE_interactive:hover {
     background-color: rgba(92,112,128,.85);
   }
 }

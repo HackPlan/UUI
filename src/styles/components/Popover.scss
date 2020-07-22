@@ -18,7 +18,7 @@
   visibility: hidden;
   pointer-events: none;
 
-  &.Active {
+  &.STATE_active {
     transition: opacity 0.1s ease-in-out;
 
     display: inherit;

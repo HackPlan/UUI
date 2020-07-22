@@ -47,7 +47,7 @@ export const Checkbox = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'disabled': props.disabled,
+        'STATE_disabled': props.disabled,
       })}
     >
       <Input
@@ -63,7 +63,7 @@ export const Checkbox = UUI.FunctionComponent({
       />
       <Indicator
         className={classNames({
-          'checked': props.value,
+          'STATE_checked': props.value,
         })}
       ></Indicator>
       {props.label && <Label>{props.label}</Label>}

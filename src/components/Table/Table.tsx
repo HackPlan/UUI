@@ -111,7 +111,11 @@ export const Table = UUI.FunctionComponent({
   }, [props.columns])
 
   return (
-    <Root>
+    <Root
+      className={classNames({
+        'STATE_loading': props.loading,
+      })}
+    >
       <LoadingCover loading={props.loading}>
         <Table>
           {!props.hideHeader && (
@@ -119,10 +123,11 @@ export const Table = UUI.FunctionComponent({
               {/* Grouping Head Cells */}
               {groupColumns.map((row, rowIndex) => {
                 const rowKey = `row:head${rowIndex}`
+                const rowClassName = `ROW_head`
                 const selectionCellKey = `${rowKey}-column:selection`
-                const selectionCellClassName = 'selection'
+                const selectionCellClassName = 'COLUMN_selection'
                 return (
-                  <Row className={classNames([rowKey])} key={rowKey}>
+                  <Row className={classNames([rowClassName])} key={rowKey}>
                     {/* Selection Head Cell */}
                     {props.selectedIndexes && rowIndex === 0 && (
                       <HeadCell key={selectionCellKey} className={classNames([selectionCellClassName])} rowSpan={9999}>
@@ -138,7 +143,7 @@ export const Table = UUI.FunctionComponent({
                     )}
                     {row.map((cell) => {
                       const cellKey = `${rowKey}-column:${cell.key}`
-                      const cellKeyClassName = cell.key
+                      const cellKeyClassName = `COLUMN_${cell.key}`
                       return (
                         <HeadCell
                           key={cellKey}
@@ -166,9 +171,9 @@ export const Table = UUI.FunctionComponent({
               </Row>
             ) : props.rows.map((row, rowIndex) => {
               const rowKey = `row:${row.id}`
-              const rowKeyClassName = row.id
+              const rowKeyClassName = `ROW_${row.id}`
               const selectionCellKey = `${rowKey}-column:selection`
-              const selectionCellClassName = 'selection'
+              const selectionCellClassName = 'COLUMN_selection'
               return (
                 <Row key={rowKey} className={classNames([rowKeyClassName])}>
 
@@ -192,7 +197,7 @@ export const Table = UUI.FunctionComponent({
                   const column = groupColumns[groupColumns.length - 1][cellIndex]
                   const columnKey = column?.key || `index-${cellIndex}`
                   const cellKey = `${rowKey}-column:${columnKey}`
-                  const cellKeyClassName = columnKey
+                  const cellKeyClassName = `COLUMN_${columnKey}`
                   return (
                     <DataCell key={cellKey} className={classNames([cellKeyClassName])}>{cell}</DataCell>
                   )

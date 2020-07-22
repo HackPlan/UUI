@@ -41,9 +41,9 @@ export const Switch = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'checked': props.value,
-        'disabled': props.disabled,
-        'loading': props.loading,
+        'STATE_checked': props.value,
+        'STATE_disabled': props.disabled,
+        'STATE_loading': props.loading,
       })}
     >
       <Button onClick={() => { !props.disabled && props.onChange(!props.value) }}>

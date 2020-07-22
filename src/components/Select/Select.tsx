@@ -165,7 +165,7 @@ const BaseSelect = UUI.FunctionComponent({
         <OptionList key={index}>
           <Option
             className={classNames({
-              'Disabled': option.disabled,
+              'STATE_disabled': option.disabled,
             })}
             onClick={() => {
               if (option.disabled) return
@@ -201,8 +201,9 @@ const BaseSelect = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'Active': active,
-        'Searchable': finalProps.searchable,
+        'STATE_active': active,
+        'STATE_loading': props.loading,
+        'STATE_searchable': finalProps.searchable,
       })}
     >
       <Dropdown

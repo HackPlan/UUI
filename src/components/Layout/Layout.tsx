@@ -37,9 +37,9 @@ export const _Layout = UUI.FunctionComponent({
 
   return (
     <Root className={classNames({
-      'HasSider': !!sider,
-      'HasTopBar': !!header,
-      'HasBottomBar': !!footer,
+      'STATE_hasSider': !!sider,
+      'STATE_hasTopBar': !!header,
+      'STATE_hasBottomBar': !!footer,
     })}>
       {props.children}
     </Root>

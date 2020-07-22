@@ -18,11 +18,11 @@
     color: #b3b3b3;
   }
 
-  &-Item.active, &-Item.active &-ItemLink {
+  &-Item.STATE_active, &-Item.STATE_active &-ItemLink {
     color: #333333;
   }
 
-  &-Item.interactive:hover, &-Item.interactive &-ItemLink:hover {
+  &-Item.STATE_interactive:hover, &-Item.STATE_interactive &-ItemLink:hover {
     color: #2f65d1;
     cursor: pointer;
   }

@@ -45,7 +45,8 @@
     white-space: nowrap;
 
     color: #666666;
-    &.Active {
+
+    &.STATE_active {
       color: $textDarkColor;
     }
 

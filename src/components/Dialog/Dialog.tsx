@@ -71,7 +71,7 @@ export const Dialog = UUI.FunctionComponent({
     <Backdrop
       ref={ref}
       className={classNames({
-        'opened': props.open
+        'STATE_opened': props.open
       })}
       role="presentation"
       tabIndex={-1}
@@ -80,7 +80,7 @@ export const Dialog = UUI.FunctionComponent({
         ref={containerRef}
         role="dialog"
         className={classNames({
-          'opened': props.open
+          'STATE_opened': props.open
         })}
       >
         <Content>{props.children}</Content>

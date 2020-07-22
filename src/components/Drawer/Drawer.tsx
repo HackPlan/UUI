@@ -71,7 +71,7 @@ export const Drawer = UUI.FunctionComponent({
 
   const content = useMemo(() => {
     return (
-      <Backdrop className={classNames({ 'active': props.active }, [finalProps.placement])}>
+      <Backdrop className={classNames({ 'STATE_active': props.active }, [`PLACEMENT_${finalProps.placement}`])}>
         <Content ref={contentRef}>{props.children}</Content>
       </Backdrop>
     )

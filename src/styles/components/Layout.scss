@@ -7,18 +7,18 @@
     height: 100%;
     box-sizing: border-box;
 
-    &.HasSider {
+    &.STATE_hasSider {
       flex-direction: row;
     }
-    &.HasSider > .UUI-LayoutContent-Root {
+    &.STATE_hasSider > .UUI-LayoutContent-Root {
       margin-left: 200px;
     }
 
-    &.HasTopBar > .UUI-LayoutContent-Root {
+    &.STATE_hasTopBar > .UUI-LayoutContent-Root {
       margin-top: 60px;
     }
 
-    &.HasBottomBar > .UUI-LayoutContent-Root {
+    &.STATE_hasBottomBar > .UUI-LayoutContent-Root {
       margin-bottom: 60px;
     }
   }

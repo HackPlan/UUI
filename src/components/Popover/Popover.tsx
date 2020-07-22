@@ -139,14 +139,14 @@ export const Popover = UUI.FunctionComponent({
     return finalProps.usePortal ? ReactDOM.createPortal((
       <Portal>
         <Content
-          className={classNames({ 'Active': props.active })}
+          className={classNames({ 'STATE_active': props.active })}
           ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
           style={{...styles.popper}} {...attributes.popper}
         >{props.children}</Content>
       </Portal>
     ), finalProps.portalContainer) : (
       <Content
-        className={classNames({ 'Active': props.active })}
+        className={classNames({ 'STATE_active': props.active })}
         ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
         style={{...styles.popper}} {...attributes.popper}
       >{props.children}</Content>
@@ -158,7 +158,7 @@ export const Popover = UUI.FunctionComponent({
   ])
 
   return (
-    <Root className={classNames({ 'Active': props.active })}>
+    <Root className={classNames({ 'STATE_active': props.active })}>
       {activator}
       {content}
     </Root>

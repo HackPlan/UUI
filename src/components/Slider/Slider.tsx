@@ -217,8 +217,8 @@ export const Slider = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'disabled': props.disabled,
-        'vertical': props.vertical,
+        'STATE_disabled': props.disabled,
+        'STATE_vertical': props.vertical,
       })}
     >
       <Container ref={containerRef}>
@@ -230,7 +230,7 @@ export const Slider = UUI.FunctionComponent({
           return (
             <Remark
               key={index}
-              className={classNames({ 'active': isActive })}
+              className={classNames({ 'STATE_active': isActive })}
               style={{ ...styles.Remark[index] }}
             >
               <RemarkLabel>{remark.label}</RemarkLabel>

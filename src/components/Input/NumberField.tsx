@@ -2,6 +2,7 @@ import React from 'react';
 import { UUI } from '../../core/uui';
 import { limitPrecision, limitRange } from '../../utils/numberHelper';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import classNames from 'classnames';
 
 export interface NumberFieldFeatureProps {
   /**
@@ -70,7 +71,12 @@ export const NumberField = UUI.FunctionComponent({
   const { Root, Input, LoadingSpinner } = nodes
 
   return (
-    <Root>
+    <Root
+      className={classNames({
+        'STATE_loading': props.loading,
+        'STATE_disabled': props.disabled,
+      })}
+    >
       <Input
         onKeyDown={props.onKeyDown}
         placeholder={props.placeholder}

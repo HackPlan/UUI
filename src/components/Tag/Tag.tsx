@@ -26,7 +26,7 @@ export const Tag = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'interactive': !!props.onClick,
+        'STATE_interactive': !!props.onClick,
       })}
       onClick={props.onClick ? (() => {
         props.onClick && props.onClick()

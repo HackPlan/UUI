@@ -1,6 +1,11 @@
 @import '../variables.scss';
 @import '../mixins.scss';
 
+.UUI-Pagination-Root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
 .UUI-PageList-Root {
   display: flex;
@@ -12,7 +17,7 @@
     margin-left: 0.25rem;
     margin-right: 0.25rem;
 
-    &.Active {
+    &.STATE_active {
       border: 1px solid #4299e1;
       color: #4299e1;
     }

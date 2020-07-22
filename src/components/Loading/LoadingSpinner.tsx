@@ -25,7 +25,7 @@ export const LoadingSpinner = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'animate': finalProps.animate,
+        'STATE_animate': finalProps.animate,
       })}
     >
       <Icon width={props.width} height={props.height} />

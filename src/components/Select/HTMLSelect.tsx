@@ -2,6 +2,7 @@ import React from 'react';
 import { UUI, UUIComponentProps } from '../../core/uui';
 import { isString } from 'lodash';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import classNames from 'classnames';
 
 export interface HTMLSelectOption<T> {
   label: string;
@@ -52,7 +53,12 @@ const BaseHTMLSelect = UUI.FunctionComponent({
 }, (props: HTMLSelectFeatureProps<any>, nodes) => {
   const { Root, Select, Option, LoadingSpinner } = nodes
   return (
-    <Root>
+    <Root
+      className={classNames({
+        'STATE_disabled': props.disabled,
+        'STATE_loading': props.loading,
+      })}
+    >
       <Select
         disabled={props.disabled}
         name={props.name}

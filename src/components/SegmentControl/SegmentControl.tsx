@@ -52,7 +52,7 @@ const BaseSegmentControl = UUI.FunctionComponent({
             <Option
               key={option.value}
               className={classNames({
-                'Active': props.value === option.value
+                'STATE_active': props.value === option.value
               })}
               onClick={() => {
                 if (props.value !== option.value) {

@@ -61,7 +61,9 @@ export const TextArea = UUI.FunctionComponent({
   return (
     <Root
       className={classNames({
-        'hasCornerIndicator': hasCornerIndicator,
+        'STATE_disabled': props.disabled,
+        'STATE_loading': props.loading,
+        'STATE_hasCornerIndicator': hasCornerIndicator,
       })}
     >
       <Textarea
