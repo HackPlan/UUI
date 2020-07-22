@@ -36,5 +36,5 @@
   &:focus-within {
     @include activeShadow;
   }
-  transition: border 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out;
 }

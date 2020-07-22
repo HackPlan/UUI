@@ -13,9 +13,25 @@ import { useState } from 'react';
 <Preview>
   <Story name="Button">
     <Button
+      className="mr-2"
+      styling={{ type: 'default' }}
       onClick={() => { console.log('clicked!'); window.alert('Button clicked!'); }}
     >
-      Button
+      Default
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'primary' }}
+      onClick={() => { console.log('clicked!'); window.alert('Button clicked!'); }}
+    >
+      Primary
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'text' }}
+      onClick={() => { console.log('clicked!'); window.alert('Button clicked!'); }}
+    >
+      Text
     </Button>
   </Story>
 </Preview>
@@ -25,10 +41,27 @@ import { useState } from 'react';
 <Preview>
   <Story name="Disabled Button">
     <Button
+      className="mr-2"
       onClick={() => { console.log('clicked!') }}
       disabled
     >
-      Disabled
+      Default
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'primary' }}
+      onClick={() => { console.log('clicked!') }}
+      disabled
+    >
+      Primary
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'text' }}
+      onClick={() => { console.log('clicked!') }}
+      disabled
+    >
+      Text
     </Button>
   </Story>
 </Preview>
@@ -42,29 +75,47 @@ import { useState } from 'react';
       const [loading2, setLoading2] = useState(false)
       return (
         <div>
-          <Button
-            className="m-2"
-            onClick={() => { console.log('clicked!') }}
-            loading={loading}>
-              {loading?'loading text':'loading'}
-          </Button>
-          <Button
-            className="m-2"
-            onClick={() => { console.log('clicked!') }}
-            loading={loading}>
-              {loading? null :'loading'}
-          </Button>
-          <Button
-            className="m-2"
-            onClick={() => {
-              setLoading2(true)
-              setTimeout(() => {
-                setLoading2(false)
-              }, 3000)
-            }}
-            loading={loading2}>
-              click to loading
-          </Button>
+          <div>
+            <Button
+              className="m-2"
+              onClick={() => { console.log('clicked!') }}
+              loading>
+                loading
+            </Button>
+            <Button
+              className="m-2"
+              styling={{ type: 'primary' }}
+              onClick={() => { console.log('clicked!') }}
+              loading>
+                loading
+            </Button>
+            <Button
+              className="m-2"
+              styling={{ type: 'text' }}
+              onClick={() => { console.log('clicked!') }}
+              loading>
+                loading
+            </Button>
+          </div>
+          <div>
+            <Button
+              className="m-2"
+              onClick={() => { console.log('clicked!') }}
+              loading={loading}>
+                {loading? null :'loading'}
+            </Button>
+            <Button
+              className="m-2"
+              onClick={() => {
+                setLoading2(true)
+                setTimeout(() => {
+                  setLoading2(false)
+                }, 3000)
+              }}
+              loading={loading2}>
+                click to loading
+            </Button>
+          </div>
         </div>
       )
     }}

@@ -4,6 +4,12 @@ import React from 'react';
 import { UUI } from '../../core/uui';
 import { LoadingSpinner } from '../Loading';
 
+export interface ButtonStylingProps {
+  styling?: {
+    type?: 'default' | 'primary' | 'text';
+  };
+}
+
 export interface ButtonFeatureProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Whether the control is loading.
@@ -19,18 +25,20 @@ export const Button = UUI.FunctionComponent({
     LoadingSpinner: LoadingSpinner,
     Content: 'div',
   },
-}, (props: ButtonFeatureProps, nodes) => {
+}, (props: ButtonFeatureProps & ButtonStylingProps, nodes) => {
   const { Root, LoadingSpinner, Content } = nodes
-  const { disabled, loading } = props
 
   return (
     <Root
-      {...omit(props, 'customize', 'className', 'style', 'loading')}
+      {...omit(props, 'customize', 'styling', 'className', 'style', 'loading')}
       className={classNames({
-        'disabled': disabled || loading,
-        'loading': loading,
+        ...(props.styling?.type ? {
+          [`TYPE_${props.styling?.type}`]: true,
+        } : {}),
+        'STATE_disabled': props.disabled || props.loading,
+        'STATE_loading': props.loading,
       })}>
-      {loading ? <LoadingSpinner animate width={14} height={14} /> : null}
+      {props.loading ? <LoadingSpinner animate width={14} height={14} /> : null}
       {props.children ? <Content>{props.children}</Content> : null}
     </Root>
   )
