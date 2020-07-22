@@ -5,7 +5,7 @@ import { isString } from 'lodash';
 export type SvgrComponentProps = React.SVGAttributes<SVGElement>
 export type SvgrComponent = React.StatelessComponent<SvgrComponentProps>
 
-interface BaseIconProps {
+interface BaseIconFeatureProps {
   /**
    * Icon render mode.
    */
@@ -29,19 +29,19 @@ interface BaseIconProps {
    */
   height?: number;
 }
-export interface IconImageProps extends BaseIconProps {
+export interface IconImageFeatureProps extends BaseIconFeatureProps {
   mode: 'image';
   source: string;
 }
-export interface IconSvgProps extends BaseIconProps {
+export interface IconSvgFeatureProps extends BaseIconFeatureProps {
   mode: 'svg';
   source: string | SvgrComponent;
   svgrProps?: SvgrComponentProps;
 }
-export interface IconAnyProps extends BaseIconProps {
+export interface IconAnyFeatureProps extends BaseIconFeatureProps {
   mode: 'any';
 }
-export type IconFeatureProps = IconImageProps | IconSvgProps | IconAnyProps
+export type IconFeatureProps = IconImageFeatureProps | IconSvgFeatureProps | IconAnyFeatureProps
 
 export const Icon = UUI.FunctionComponent({
   name: 'Icon',

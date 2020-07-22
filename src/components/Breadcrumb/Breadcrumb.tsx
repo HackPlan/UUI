@@ -11,7 +11,7 @@ export interface BreadcrumbItem {
   onAction?: () => void;
 }
 
-export interface BaseBreadcrumbProps {
+export interface BreadcrumbFeatureProps {
   separator?: React.ReactNode;
   items: BreadcrumbItem[];
 }
@@ -24,7 +24,7 @@ export const Breadcrumb = UUI.FunctionComponent({
     ItemLink: 'a',
     Separator: 'div',
   }
-}, (props: BaseBreadcrumbProps, nodes) => {
+}, (props: BreadcrumbFeatureProps, nodes) => {
   const { Root, Item, ItemLink, Separator } = nodes
 
   const finalProps = {

@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import classNames from 'classnames';
 
-export interface BaseTextAreaProps {
+export interface TextAreaFeatureProps {
   /**
    * Form control name
    */
@@ -52,7 +52,7 @@ export const TextArea = UUI.FunctionComponent({
     LengthIndicator: 'div',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: BaseTextAreaProps, nodes) => {
+}, (props: TextAreaFeatureProps, nodes) => {
   const { Root, Textarea, Info, LengthIndicator, LoadingSpinner } = nodes
 
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')

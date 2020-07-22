@@ -2,7 +2,7 @@ import React from 'react';
 import { TimeFormatterLocale, TimeFormatterLocaleKinds, timeFormat } from '../../utils/timeFormatter';
 import { UUI } from '../../core/uui';
 
-export interface BaseTimeLabelProps<T extends TimeFormatterLocale> {
+export interface TimeLabelFeatureProps<T extends TimeFormatterLocale> {
   /**
    * Date value to be displayed.
    *
@@ -27,7 +27,7 @@ export const TimeLabel = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
   }
-}, (props: BaseTimeLabelProps<TimeFormatterLocale>, nodes) => {
+}, (props: TimeLabelFeatureProps<TimeFormatterLocale>, nodes) => {
   const { Root } = nodes
 
   const text = timeFormat(props.value, props.locale, props.kind)

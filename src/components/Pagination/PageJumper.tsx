@@ -3,7 +3,7 @@ import { NumberField as UUINumberField } from '../Input';
 import { UUI } from '../../core/uui';
 import { PaginationContext } from './Pagination';
 
-export interface BasePageJumperProps {
+export interface PageJumperFeatureProps {
   /**
    * Custom jumper label text.
    */
@@ -17,7 +17,7 @@ export const PageJumper = UUI.FunctionComponent({
     Label: 'div',
     NumberField: UUINumberField,
   }
-}, (props: BasePageJumperProps, nodes) => {
+}, (props: PageJumperFeatureProps, nodes) => {
   const { Root, Label, NumberField } = nodes
 
   const context = useContext(PaginationContext)

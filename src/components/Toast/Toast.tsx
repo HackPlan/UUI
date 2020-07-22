@@ -2,13 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { omit } from 'lodash';
 import { UUI } from '../../core/uui';
 
-export enum ToastNodeName {
-  Toast = "toast",
-  Root = "root",
-}
-
-
-export interface BaseToastProps {
+export interface ToastFeatureProps {
   /** Message to display in the body of the toast. */
   message: React.ReactNode | string | number;
   /**
@@ -24,7 +18,7 @@ export interface BaseToastProps {
    */
   timeout?: number;
 }
-export type IToast = BaseToastProps & { id: string }
+export type IToast = ToastFeatureProps & { id: string }
 
 export const Toast = UUI.FunctionComponent({
   prefix: 'UUI',

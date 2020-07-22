@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 
-export interface BaseSkeletonPictureProps {
+export interface SkeletonPictureFeatureProps {
 }
 
 export const SkeletonPicture = UUI.FunctionComponent({
@@ -9,7 +9,7 @@ export const SkeletonPicture = UUI.FunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: BaseSkeletonPictureProps, nodes) => {
+}, (props: SkeletonPictureFeatureProps, nodes) => {
   const { Root } = nodes
   return (
     <Root></Root>

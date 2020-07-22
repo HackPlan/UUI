@@ -8,7 +8,7 @@ export interface HTMLSelectOption<T> {
   value: T;
 }
 
-export interface BaseHTMLSelectProps<T extends string | number> {
+export interface HTMLSelectFeatureProps<T extends string | number> {
   /**
    * Form control name
    */
@@ -49,7 +49,7 @@ const HTMLSelectNodes = {
 const BaseHTMLSelect = UUI.FunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
-}, (props: BaseHTMLSelectProps<any>, nodes) => {
+}, (props: HTMLSelectFeatureProps<any>, nodes) => {
   const { Root, Select, Option, LoadingSpinner } = nodes
   return (
     <Root>
@@ -80,7 +80,7 @@ const BaseHTMLSelect = UUI.FunctionComponent({
   )
 })
 
-export function HTMLSelect<T extends string | number>(props: UUIComponentProps<BaseHTMLSelectProps<T>, typeof HTMLSelectNodes>) {
+export function HTMLSelect<T extends string | number>(props: UUIComponentProps<HTMLSelectFeatureProps<T>, typeof HTMLSelectNodes>) {
   return <BaseHTMLSelect {...props} />
 }
 HTMLSelect.displayName = `<UUI> [GenericComponent] HTMLSelect`

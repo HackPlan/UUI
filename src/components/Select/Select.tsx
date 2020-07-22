@@ -19,7 +19,7 @@ interface SelectOption<T extends string | number> {
   disabled?: boolean;
 }
 
-interface BaseCommonSelectProps<T extends string | number> {
+interface BaseSelectFeatureProps<T extends string | number> {
   /**
    * Selected item.
    */
@@ -52,14 +52,14 @@ interface BaseCommonSelectProps<T extends string | number> {
   loading?: boolean;
 }
 
-interface SelectOptionsProps<T extends string | number> extends BaseCommonSelectProps<T> {
+interface SelectOptionsFeatureProps<T extends string | number> extends BaseSelectFeatureProps<T> {
   /**
    * Options of Select.
    */
   options: SelectOption<T>[];
 }
 
-interface SelectSectionsProps<T extends string | number> extends BaseCommonSelectProps<T> {
+interface SelectSectionsFeatureProps<T extends string | number> extends BaseSelectFeatureProps<T> {
   /**
    * Sections of Options of Select.
    */
@@ -69,7 +69,7 @@ interface SelectSectionsProps<T extends string | number> extends BaseCommonSelec
   }[];
 }
 
-export type BaseSelectProps<T extends string | number> = SelectSectionsProps<T> | SelectOptionsProps<T>
+export type SelectFeatureProps<T extends string | number> = SelectSectionsFeatureProps<T> | SelectOptionsFeatureProps<T>
 
 const SelectNodes = {
   Root: 'div',
@@ -89,7 +89,7 @@ const SelectNodes = {
 const BaseSelect = UUI.FunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
-}, (props: BaseSelectProps<any>, nodes) => {
+}, (props: SelectFeatureProps<any>, nodes) => {
   const {
     Root, Dropdown, DropdownIcon, Selector, Input,
     SectionList, Section, SectionHeader,
@@ -126,7 +126,7 @@ const BaseSelect = UUI.FunctionComponent({
 
   const finalOptions = useMemo(() => {
     if (!(props as any)['options']) return undefined
-    const _props = props as SelectOptionsProps<any>
+    const _props = props as SelectOptionsFeatureProps<any>
 
     if (!inputValue) return _props.options
     const matchedOptions = searchInOptions(inputValue, _props.options, props.onSearch)
@@ -141,7 +141,7 @@ const BaseSelect = UUI.FunctionComponent({
 
   const finalSections = useMemo(() => {
     if (!(props as any)['sections']) return undefined
-    const _props = props as SelectSectionsProps<any>
+    const _props = props as SelectSectionsFeatureProps<any>
 
     if (!inputValue) return _props.sections
     return _props.sections.map((section) => {
@@ -270,7 +270,7 @@ function highlightKeyword(text: string, keyword: string, HighlightComponent: any
   return data.map((i) => <>{i}</>)
 }
 
-function searchInOptions(q: string, options: SelectOption<any>[], predicate?: BaseSelectProps<any>['onSearch']) {
+function searchInOptions(q: string, options: SelectOption<any>[], predicate?: SelectFeatureProps<any>['onSearch']) {
   return cloneDeep(
     options.filter((i) => predicate
       ? predicate(i, q)
@@ -279,24 +279,24 @@ function searchInOptions(q: string, options: SelectOption<any>[], predicate?: Ba
   )
 }
 
-const getAllOptions = <T extends string | number>(props: BaseSelectProps<T>) => {
+const getAllOptions = <T extends string | number>(props: SelectFeatureProps<T>) => {
   if ((props as any)['options']) {
-    const _props = props as SelectOptionsProps<any>
+    const _props = props as SelectOptionsFeatureProps<any>
     return _props.options
   } else if ((props as any)['sections']) {
-    const _props = props as SelectSectionsProps<any>
+    const _props = props as SelectSectionsFeatureProps<any>
     return flatMap(_props.sections, (i) => i.options)
   } else {
     return []
   }
 }
 
-const findSelectedOption = <T extends string | number>(props: BaseSelectProps<T>) => {
+const findSelectedOption = <T extends string | number>(props: SelectFeatureProps<T>) => {
   const allOptions = getAllOptions(props)
   return allOptions.find((i) => i.value === props.value)
 }
 
-export function Select<T extends string | number>(props: UUIComponentProps<BaseSelectProps<T>, typeof SelectNodes>) {
+export function Select<T extends string | number>(props: UUIComponentProps<SelectFeatureProps<T>, typeof SelectNodes>) {
   return <BaseSelect {...props} />
 }
 Select.displayName = `<UUI> [GenericComponent] Select`

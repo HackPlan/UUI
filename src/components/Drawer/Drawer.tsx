@@ -6,7 +6,7 @@ import { useClickAway, useLockBodyScroll } from 'react-use';
 
 export type DrawerPlacement = 'top' | 'right' | 'bottom' | 'left'
 
-export interface BaseDrawerProps {
+export interface DrawerFeatureProps {
     /**
    * Whether this Drawer show content.
    */
@@ -49,7 +49,7 @@ export const Drawer = UUI.FunctionComponent({
     Backdrop: 'div',
     Content: 'div',
   }
-}, (props: BaseDrawerProps, nodes) => {
+}, (props: DrawerFeatureProps, nodes) => {
   const { Root, Portal, Backdrop, Content } = nodes
 
   /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 
-export interface BaseLayoutBottomBarProps {
+export interface LayoutBottomBarFeatureProps {
   /**
    * The container of LayoutBottomBar.
    */
@@ -13,7 +13,7 @@ export const LayoutBottomBar = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: BaseLayoutBottomBarProps, nodes) => {
+}, (props: LayoutBottomBarFeatureProps, nodes) => {
   const { Root } = nodes
   return (
     <Root>

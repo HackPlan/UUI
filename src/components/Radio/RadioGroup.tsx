@@ -1,8 +1,8 @@
 import React from 'react';
-import { BaseRadioProps } from './Radio';
+import { RadioFeatureProps } from './Radio';
 import { UUI, UUIComponentProps } from '../../core/uui';
 
-export interface BaseRadioGroupProps<T extends string | number> {
+export interface RadioGroupFeatureProps<T extends string | number> {
   /**
    * The name of a group of radios
    * @default none
@@ -21,7 +21,7 @@ export interface BaseRadioGroupProps<T extends string | number> {
   /**
    * Array of `Radio`
    */
-  children: React.ReactElement<BaseRadioProps<T>>[] | React.ReactElement<BaseRadioProps<T>>;
+  children: React.ReactElement<RadioFeatureProps<T>>[] | React.ReactElement<RadioFeatureProps<T>>;
 }
 
 const RadioGroupNodes = {
@@ -31,12 +31,12 @@ const RadioGroupNodes = {
 const BaseRadioGroup = UUI.FunctionComponent({
   name: "RadioGroup",
   nodes: RadioGroupNodes,
-}, (props: BaseRadioGroupProps<any>, nodes) => {
+}, (props: RadioGroupFeatureProps<any>, nodes) => {
   const { Root } = nodes
   return (
     <Root>
       {React.Children.map(props.children, (child: any) => {
-        return React.cloneElement<BaseRadioProps<any>>(child, {
+        return React.cloneElement<RadioFeatureProps<any>>(child, {
           ...child.props,
           ...(props.name ? { name: props.name } : {}),
           checked: child.props.value === props.value,
@@ -49,7 +49,7 @@ const BaseRadioGroup = UUI.FunctionComponent({
   )
 })
 
-export function RadioGroup<T extends string | number>(props: UUIComponentProps<BaseRadioGroupProps<T>, typeof RadioGroupNodes>) {
+export function RadioGroup<T extends string | number>(props: UUIComponentProps<RadioGroupFeatureProps<T>, typeof RadioGroupNodes>) {
   return <BaseRadioGroup {...props} />
 }
 RadioGroup.displayName = `<UUI> [GenericComponent] RadioGroup`

@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 
-export interface BaseLayoutTopBarProps {
+export interface LayoutTopBarFeatureProps {
   /**
    * The container of LayoutTopBar.
    */
@@ -13,7 +13,7 @@ export const LayoutTopBar = UUI.FunctionComponent({
   nodes: {
     Root: 'header',
   },
-}, (props: BaseLayoutTopBarProps, nodes) => {
+}, (props: LayoutTopBarFeatureProps, nodes) => {
   const { Root } = nodes
   return (
     <Root>

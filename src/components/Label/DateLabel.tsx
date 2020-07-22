@@ -2,7 +2,7 @@ import React from 'react';
 import { DateFormatterLocale, DateFormatterLocaleKinds, dateFormat } from '../../utils/dateFormatter';
 import { UUI } from '../../core/uui';
 
-export interface BaseDateLabelProps<T extends DateFormatterLocale> {
+export interface DateLabelFeatureProps<T extends DateFormatterLocale> {
   /**
    * Date value to be displayed.
    *
@@ -27,7 +27,7 @@ export const DateLabel = UUI.FunctionComponent({
   nodes: {
     Root: 'label',
   }
-}, (props: BaseDateLabelProps<DateFormatterLocale>, nodes) => {
+}, (props: DateLabelFeatureProps<DateFormatterLocale>, nodes) => {
   const { Root } = nodes
 
   const text = dateFormat(props.value, props.locale, props.kind)

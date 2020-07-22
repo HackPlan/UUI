@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 
-export interface BasePageAnnotatedSectionProps {
+export interface PageAnnotatedSectionFeatureProps {
   title: string;
   description?: string;
   /**
@@ -19,7 +19,7 @@ export const PageAnnotatedSection = UUI.FunctionComponent({
     Description: 'p',
     Container: 'div',
   },
-}, (props: BasePageAnnotatedSectionProps, nodes) => {
+}, (props: PageAnnotatedSectionFeatureProps, nodes) => {
   const { Root, InfoWrapper, Title, Description, Container } = nodes
   return (
     <Root>

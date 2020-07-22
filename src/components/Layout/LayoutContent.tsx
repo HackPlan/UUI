@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 
-export interface BaseLayoutContentProps {
+export interface LayoutContentFeatureProps {
   /**
    * The content of tag.
    */
@@ -13,7 +13,7 @@ export const LayoutContent = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: BaseLayoutContentProps, nodes) => {
+}, (props: LayoutContentFeatureProps, nodes) => {
   const { Root } = nodes
   return (
     <Root>

@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { UUI } from '../../core/uui';
 
-export interface BaseTagProps {
+export interface TagFeatureProps {
   /**
    * The content of tag.
    */
@@ -21,7 +21,7 @@ export const TagNodes = {
 export const Tag = UUI.FunctionComponent({
   name: 'Tag',
   nodes: TagNodes,
-}, (props: BaseTagProps, nodes) => {
+}, (props: TagFeatureProps, nodes) => {
   const { Root, Content } = nodes
   return (
     <Root

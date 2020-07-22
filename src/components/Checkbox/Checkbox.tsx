@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import classNames from 'classnames';
 import { UUI } from '../../core/uui';
 
-export interface BaseCheckboxProps {
+export interface CheckboxFeatureProps {
   /**
    * Form control name
    */
@@ -41,7 +41,7 @@ export const Checkbox = UUI.FunctionComponent({
     Indicator: 'span',
     Label: 'span',
   }
-}, (props: BaseCheckboxProps, nodes) => {
+}, (props: CheckboxFeatureProps, nodes) => {
   const { Root, Input, Indicator, Label } = nodes
 
   return (

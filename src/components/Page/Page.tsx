@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { PageAnnotatedSection } from './PageAnnotatedSection';
 import { PageSection } from './PageSection';
 
-export interface BasePageProps {
+export interface PageFeatureProps {
   title?: string;
   description?: string;
   thumbnail?: React.ReactNode;
@@ -33,7 +33,7 @@ export const _Page = UUI.FunctionComponent({
 
     Container: 'div',
   },
-}, (props: BasePageProps, nodes) => {
+}, (props: PageFeatureProps, nodes) => {
   const {
     Root,
     Thumbnail, Header, HeaderWrapper, InfoWrapper, TitleWrapper, Title, Description,

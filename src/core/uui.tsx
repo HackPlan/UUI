@@ -261,21 +261,8 @@ export abstract class UUI {
     X extends { [key in N]: T },
     /**
      * Generic type Z for component props.customize
-     *
-     * Do not replace these content with UUIComponentCustomizeProps<X>,
-     * this is to allow developers to see detailed node type information when using this kind of component.
      */
-    Z extends {
-      /**
-       * Customize component nodes
-       * @default none
-       */
-      customize?: {
-        [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
-          ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
-          : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
-      };
-    }
+    Z extends UUIComponentCustomizeProps<X>
   >(
     options: {
       prefix?: string;
@@ -287,7 +274,7 @@ export abstract class UUI {
   ) {
     const finalOptions: Required<typeof options> = getFinalOptions(options)
     const nodes = compileNodes(finalOptions)
-    const component = (props: P & UUIConvenienceProps & Z) => {
+    const component: React.FunctionComponent<P & UUIConvenienceProps & Z> = (props) => {
       const compiledProps = compileProps(props, finalOptions, undefined)
       injectCustomizeProps(nodes, compiledProps)
       return WrappedComponent(compiledProps, nodes)
@@ -315,21 +302,8 @@ export abstract class UUI {
     X extends { [key in N]: T },
     /**
      * Generic type Z for component props.customize
-     *
-     * Do not replace these content with UUIComponentCustomizeProps<X>,
-     * this is to allow developers to see detailed node type information when using this kind of component.
      */
-    Z extends {
-      /**
-       * Customize component nodes
-       * @default none
-       */
-      customize?: {
-        [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
-          ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
-          : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
-      };
-    }
+    Z extends UUIComponentCustomizeProps<X>
   >(
     options: {
       prefix?: string;
@@ -340,7 +314,7 @@ export abstract class UUI {
   ) {
     const finalOptions: Required<typeof options> = getFinalOptions(options)
     const nodes = compileNodes(finalOptions)
-    return class WrappedComponent<P = {}, S = {}> extends React.Component<P & UUIConvenienceProps & Z, S> {
+    return class WrappedComponent<P = {}, S = {}, SS = any> extends React.Component<P & UUIConvenienceProps & Z, S, SS> {
       nodes: UUIComponentNodes<X>
       displayName: string
       constructor(props: P & UUIConvenienceProps & Z) {

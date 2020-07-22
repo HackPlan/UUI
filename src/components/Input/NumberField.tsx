@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { limitPrecision, limitRange } from '../../utils/numberHelper';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
-export interface BaseNumberFieldProps {
+export interface NumberFieldFeatureProps {
   /**
    * Form control name
    */
@@ -66,7 +66,7 @@ export const NumberField = UUI.FunctionComponent({
     Input: 'input',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: BaseNumberFieldProps, nodes) => {
+}, (props: NumberFieldFeatureProps, nodes) => {
   const { Root, Input, LoadingSpinner } = nodes
 
   return (

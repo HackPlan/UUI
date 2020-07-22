@@ -4,7 +4,7 @@ import { Button } from '../Button';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 
-export interface BaseTextFieldProps {
+export interface TextFieldFeatureProps {
   /**
    * Form control name
    */
@@ -79,7 +79,7 @@ export const TextField = UUI.FunctionComponent({
     HidePasswordIcon: Icons.EyeOff,
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: BaseTextFieldProps, nodes) => {
+}, (props: TextFieldFeatureProps, nodes) => {
   const {
     Root, Input,
     LengthIndicator, TogglePasswordVisibleButton,
@@ -95,7 +95,7 @@ export const TextField = UUI.FunctionComponent({
   useEffect(() => {
     setPasswordVisible(props.passwordVisible || false)
   }, [props.passwordVisible])
-  const finalType = ((): BaseTextFieldProps['type'] => {
+  const finalType = ((): TextFieldFeatureProps['type'] => {
     if (props.type === 'password' && passwordVisible) {
       return 'text'
     } else {

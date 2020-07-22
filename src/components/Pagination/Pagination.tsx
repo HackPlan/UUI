@@ -12,7 +12,7 @@ import { PageJumper } from './PageJumper';
 export interface PaginationContext extends ReturnType<typeof usePagination> {
 }
 
-export interface BasePaginationProps {
+export interface PaginationFeatureProps {
   value: IPagination;
   onChange: (value: IPagination) => void;
   /**
@@ -34,7 +34,7 @@ export const _Pagination = UUI.FunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: BasePaginationProps, nodes) => {
+}, (props: PaginationFeatureProps, nodes) => {
   const { Root } = nodes
 
   const pagination = usePagination(props.value, props.onChange)

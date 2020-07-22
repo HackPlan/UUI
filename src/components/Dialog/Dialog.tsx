@@ -6,7 +6,7 @@ import { UUI } from '../../core/uui';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 import ReactDOM from 'react-dom';
 
-export interface BaseDialogProps {
+export interface DialogFeatureProps {
   /**
    * Toggles the visibility of the overlay and its children.
    * This prop is required because the component is controlled.
@@ -46,7 +46,7 @@ export const Dialog = UUI.FunctionComponent({
     Container: 'div',
     Content: 'div',
   }
-}, (props: BaseDialogProps, nodes) => {
+}, (props: DialogFeatureProps, nodes) => {
   const { Root, Backdrop, Container, Content } = nodes
 
   /**

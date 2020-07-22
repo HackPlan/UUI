@@ -7,7 +7,7 @@ type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,
   'checked' | 'disabled' | 'onChange'
 >
-export interface BaseRadioProps<T extends string | number> extends InputHTMLAttributes {
+export interface RadioFeatureProps<T extends string | number> extends InputHTMLAttributes {
   /**
    * Form control name
    */
@@ -35,7 +35,7 @@ const RadioNodes = {
 const BaseRadio = UUI.FunctionComponent({
   name: "Radio",
   nodes: RadioNodes,
-}, (props: BaseRadioProps<any>, nodes) => {
+}, (props: RadioFeatureProps<any>, nodes) => {
   const { Root, Input, Indicator, Label } = nodes
 
   return (
@@ -55,7 +55,7 @@ const BaseRadio = UUI.FunctionComponent({
   )
 })
 
-export function Radio<T extends string | number>(props: UUIComponentProps<BaseRadioProps<T>, typeof RadioNodes>) {
+export function Radio<T extends string | number>(props: UUIComponentProps<RadioFeatureProps<T>, typeof RadioNodes>) {
   return <BaseRadio {...props} />
 }
 Radio.displayName = `<UUI> [GenericComponent] Radio`

@@ -6,7 +6,7 @@ import { PaginationContext } from './Pagination';
 import classNames from 'classnames';
 
 
-export interface BasePageListProps {
+export interface PageListFeatureProps {
 }
 
 
@@ -16,7 +16,7 @@ export const PageList = UUI.FunctionComponent({
     Root: 'div',
     PageButton: UUIButton,
   }
-}, (props: BasePageListProps, nodes) => {
+}, (props: PageListFeatureProps, nodes) => {
   const { Root, PageButton } = nodes
 
   const context = useContext(PaginationContext)

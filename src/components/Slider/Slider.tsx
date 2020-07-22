@@ -10,7 +10,7 @@ export interface SliderRemark {
   label: React.ReactNode;
 }
 
-export interface BaseSliderProps {
+export interface SliderFeatureProps {
   /**
    * The value to display in the input field.
    */
@@ -59,7 +59,7 @@ export const Slider = UUI.FunctionComponent({
     Remark: 'div',
     RemarkLabel: 'div',
   }
-}, (props: BaseSliderProps, nodes) => {
+}, (props: SliderFeatureProps, nodes) => {
   const { Root, Container, ActiveLine, InactiveLine, Thumb, Remark, RemarkLabel } = nodes
 
   const finalProps = {

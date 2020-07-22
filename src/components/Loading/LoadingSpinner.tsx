@@ -3,7 +3,7 @@ import React from 'react';
 import { UUI } from '../../core/uui';
 import { Icons } from '../../icons/Icons';
 
-export type BaseLoadingSpinnerProps = {
+export type LoadingSpinnerFeatureProps = {
   width?: number;
   height?: number;
   animate?: boolean;
@@ -15,7 +15,7 @@ export const LoadingSpinner = UUI.FunctionComponent({
     Root: 'div',
     Icon: Icons.Spinner,
   }
-}, (props: BaseLoadingSpinnerProps, nodes) => {
+}, (props: LoadingSpinnerFeatureProps, nodes) => {
   const { Root, Icon } = nodes
 
   const finalProps = {

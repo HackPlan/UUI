@@ -17,7 +17,7 @@ export interface TableRow {
   cells: TableCell[];
 }
 
-export interface BaseTableProps {
+export interface TableFeatureProps {
   /**
    * Columns information of table
    * @default []
@@ -76,7 +76,7 @@ export const TableNodes = {
 export const Table = UUI.FunctionComponent({
   name: 'Table',
   nodes: TableNodes,
-}, (props: BaseTableProps, nodes) => {
+}, (props: TableFeatureProps, nodes) => {
   const { Root, LoadingCover, Table, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
 
   const groupColumns = useMemo(() => {

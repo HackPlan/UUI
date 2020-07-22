@@ -4,7 +4,7 @@ import { UUI } from '../../core/uui';
 import { Icons } from '../../icons/Icons';
 import { PaginationContext } from './Pagination';
 
-export interface BasePageNextButtonProps {
+export interface PageNextButtonFeatureProps {
 }
 
 export const PageNextButton = UUI.FunctionComponent({
@@ -13,7 +13,7 @@ export const PageNextButton = UUI.FunctionComponent({
     Root: UUIButton,
     NextIcon: Icons.ChevronRight,
   }
-}, (props: BasePageNextButtonProps, nodes) => {
+}, (props: PageNextButtonFeatureProps, nodes) => {
   const { Root, NextIcon } = nodes
 
   const context = useContext(PaginationContext)

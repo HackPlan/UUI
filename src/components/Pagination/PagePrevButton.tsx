@@ -4,7 +4,7 @@ import { UUI } from '../../core/uui';
 import { Icons } from '../../icons/Icons';
 import { PaginationContext } from './Pagination';
 
-export interface BasePagePrevButtonProps {
+export interface PagePrevButtonFeatureProps {
 }
 
 export const PagePrevButton = UUI.FunctionComponent({
@@ -13,7 +13,7 @@ export const PagePrevButton = UUI.FunctionComponent({
     Root: UUIButton,
     PrevIcon: Icons.ChevronLeft,
   }
-}, (props: BasePagePrevButtonProps, nodes) => {
+}, (props: PagePrevButtonFeatureProps, nodes) => {
   const { Root, PrevIcon } = nodes
 
   const context = useContext(PaginationContext)

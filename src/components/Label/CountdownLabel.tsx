@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { useInterval } from 'react-use';
 import { DateTime, Duration } from 'luxon';
 
-export interface BaseCountdownLabelProps {
+export interface CountdownLabelFeatureProps {
   /**
    * Time in countdown.
    */
@@ -31,7 +31,7 @@ export const CountdownLabel = UUI.FunctionComponent({
   nodes: {
     Root: 'label',
   }
-}, (props: BaseCountdownLabelProps, nodes) => {
+}, (props: CountdownLabelFeatureProps, nodes) => {
   const { Root } = nodes
 
   const finalProps = {

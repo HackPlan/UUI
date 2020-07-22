@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { PaginationContext } from './Pagination';
 import { HTMLSelect } from '../Select';
 
-export interface BasePageSizeProps {
+export interface PageSizeFeatureProps {
   pageSizeOptions: number[];
   labelRender?: (pageSize: number) => string;
 }
@@ -14,7 +14,7 @@ export const PageSize = UUI.FunctionComponent({
     Root: 'div',
     Select: HTMLSelect,
   }
-}, (props: BasePageSizeProps, nodes) => {
+}, (props: PageSizeFeatureProps, nodes) => {
   const { Root, Select } = nodes
 
   const context = useContext(PaginationContext)

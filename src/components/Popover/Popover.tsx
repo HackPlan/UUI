@@ -9,7 +9,7 @@ import { UUI } from '../../core/uui';
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'
 
-export interface BasePopoverProps {
+export interface PopoverFeatureProps {
   /**
    * Whether this popover show content.
    */
@@ -71,7 +71,7 @@ export const Popover = UUI.FunctionComponent({
     Portal: 'div',
     Content: 'div',
   },
-}, (props: BasePopoverProps, nodes) => {
+}, (props: PopoverFeatureProps, nodes) => {
   const { Root, Activator, Portal, Content } = nodes
 
   /**

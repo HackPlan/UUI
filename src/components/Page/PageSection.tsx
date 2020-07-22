@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 
-export interface BasePageSectionProps {
+export interface PageSectionFeatureProps {
   /**
    * The content of tag.
    */
@@ -13,7 +13,7 @@ export const PageSection = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: BasePageSectionProps, nodes) => {
+}, (props: PageSectionFeatureProps, nodes) => {
   const { Root } = nodes
   return (
     <Root>

@@ -12,7 +12,7 @@ export enum SwitchNodeName {
 
 export type SwitchSize = 'small' | 'default';
 
-export interface BaseSwitchProps {
+export interface SwitchFeatureProps {
   /**
    * Whether the control is non-interactive.
    * @default false
@@ -35,7 +35,7 @@ export const Switch = UUI.FunctionComponent({
     Thumb: 'div',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: BaseSwitchProps, nodes) => {
+}, (props: SwitchFeatureProps, nodes) => {
   const { Root, Button, Thumb, LoadingSpinner } = nodes
 
   return (

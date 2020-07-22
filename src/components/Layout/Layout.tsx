@@ -6,7 +6,7 @@ import { LayoutTopBarProps, LayoutTopBar } from './LayoutTopBar';
 import { LayoutSiderProps, LayoutSider } from './LayoutSider';
 import classNames from 'classnames';
 
-export interface BaseLayoutProps {
+export interface LayoutFeatureProps {
   /**
    * The content of tag.
    */
@@ -24,7 +24,7 @@ export const _Layout = UUI.FunctionComponent({
   nodes: {
     Root: 'section',
   },
-}, (props: BaseLayoutProps, nodes) => {
+}, (props: LayoutFeatureProps, nodes) => {
   const { Root } = nodes
 
   const { sider, header, footer } = useMemo(() => {

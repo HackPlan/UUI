@@ -1,7 +1,7 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
 
-export interface BaseLayoutSiderProps {
+export interface LayoutSiderFeatureProps {
   /**
    * The container of LayoutSider.
    */
@@ -13,7 +13,7 @@ export const LayoutSider = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: BaseLayoutSiderProps, nodes) => {
+}, (props: LayoutSiderFeatureProps, nodes) => {
   const { Root } = nodes
 
   return (

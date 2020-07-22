@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import accounting from 'accounting';
 import { UUI } from '../../core/uui';
 
-export interface BaseMoneyLabelProps {
+export interface MoneyLabelFeatureProps {
   /**
    * Money value to be displayed.
    */
@@ -39,7 +39,7 @@ export const MoneyLabel = UUI.FunctionComponent({
   nodes: {
     Root: 'label',
   }
-}, (props: BaseMoneyLabelProps, nodes) => {
+}, (props: MoneyLabelFeatureProps, nodes) => {
   const { Root } = nodes
 
   const text = accounting.formatMoney(props.value, omit(props, 'value', 'customize'))

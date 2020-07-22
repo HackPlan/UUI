@@ -7,7 +7,7 @@ export interface SegmentControlOption<T extends string | number> {
   value: T;
 }
 
-export interface BaseSegmentControlProps<T extends string | number> {
+export interface SegmentControlFeatureProps<T extends string | number> {
   /**
    * The options for the radios of the Segmented Control.
    */
@@ -34,7 +34,7 @@ const SegmentControlNodes = {
 const BaseSegmentControl = UUI.FunctionComponent({
   name: 'SegmentControl',
   nodes: SegmentControlNodes
-}, (props: BaseSegmentControlProps<any>, nodes) => {
+}, (props: SegmentControlFeatureProps<any>, nodes) => {
   const { Root, Container, Option, Thumb } = nodes;
 
   const selectedIndex = props.options.findIndex((i) => i.value === props.value)
@@ -67,7 +67,7 @@ const BaseSegmentControl = UUI.FunctionComponent({
   )
 })
 
-export function SegmentControl<T extends string | number>(props: UUIComponentProps<BaseSegmentControlProps<T>, typeof SegmentControlNodes>) {
+export function SegmentControl<T extends string | number>(props: UUIComponentProps<SegmentControlFeatureProps<T>, typeof SegmentControlNodes>) {
   return <BaseSegmentControl {...props} />
 }
 SegmentControl.displayName = `<UUI> [GenericComponent] SegmentControl`

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React, { useMemo } from "react";
 import { UUI } from "../../core/uui";
 
-export interface BaseProgressBarProps {
+export interface ProgressBarFeatureProps {
   /**
    * The value to display in the input field.
    */
@@ -39,7 +39,7 @@ export const ProgressBar = UUI.FunctionComponent(
       CircularRight: "div",
     },
   },
-  (props: BaseProgressBarProps, nodes) => {
+  (props: ProgressBarFeatureProps, nodes) => {
     const {
       Root,
       Container,

@@ -3,7 +3,7 @@ import React from 'react';
 import { UUI } from '../../core/uui';
 import { LoadingSpinner } from './LoadingSpinner';
 
-export interface BaseLoadingCoverProps {
+export interface LoadingCoverFeatureProps {
   loading?: boolean;
   label?: React.ReactNode;
   children: React.ReactNode;
@@ -17,7 +17,7 @@ export const LoadingCover = UUI.FunctionComponent({
     Spinner: LoadingSpinner,
     Label: 'div',
   }
-}, (props: BaseLoadingCoverProps, nodes) => {
+}, (props: LoadingCoverFeatureProps, nodes) => {
   const { Root, Mask, Spinner, Label } = nodes
 
   return (

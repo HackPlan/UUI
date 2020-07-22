@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { UUI } from '../../core/uui';
 import { DateTime } from 'luxon';
 
-export interface BaseDatePickerProps {
+export interface DatePickerFeatureProps {
   /**
    * Form control name
    */
@@ -23,7 +23,7 @@ export const DatePicker = UUI.FunctionComponent({
     Root: 'div',
     Input: 'input',
   }
-}, (props: BaseDatePickerProps, nodes) => {
+}, (props: DatePickerFeatureProps, nodes) => {
   const { Root, Input } = nodes
 
   const dateValue = useMemo(() => {

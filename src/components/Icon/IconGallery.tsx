@@ -1,13 +1,13 @@
 import React from "react"
-import { Icon, IconProps, IconImageProps, IconSvgProps, IconAnyProps, IconFeatureProps } from "./Icon"
+import { Icon, IconProps, IconImageFeatureProps, IconSvgFeatureProps, IconAnyFeatureProps, IconFeatureProps } from "./Icon"
 import { mapValues } from "lodash"
 
 export type LoadedIcon<T> = (props: Omit<IconProps, 'mode' | 'source'> & Omit<T, 'mode' | 'source'>) => JSX.Element
 
 type LoadedIconByMode<T extends IconProps['mode'] | undefined> =
-  T extends 'image' ? LoadedIcon<IconImageProps> : (
-  T extends 'svg' ? LoadedIcon<IconSvgProps> : (
-  T extends 'any' ? LoadedIcon<IconAnyProps> : undefined
+  T extends 'image' ? LoadedIcon<IconImageFeatureProps> : (
+  T extends 'svg' ? LoadedIcon<IconSvgFeatureProps> : (
+  T extends 'any' ? LoadedIcon<IconAnyFeatureProps> : undefined
   ))
 
 

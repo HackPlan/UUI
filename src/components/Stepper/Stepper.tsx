@@ -5,7 +5,7 @@ import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
 import { Icons } from '../../icons/Icons';
 
-export interface BaseStepperProps {
+export interface StepperFeatureProps {
   /**
    * The value to display in the input field.
    */
@@ -64,7 +64,7 @@ export const Stepper = UUI.FunctionComponent({
     MinusDownIcon: Icons.ChevronDown,
     MinusLeftIcon: Icons.ChevronLeft,
   }
-}, (props: BaseStepperProps, nodes) => {
+}, (props: StepperFeatureProps, nodes) => {
   const {
     Root, MinusButton, PlusButton, Input, RightControlsContainer,
     PlusUpIcon, PlusRightIcon, MinusDownIcon, MinusLeftIcon,

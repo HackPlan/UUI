@@ -27,7 +27,7 @@ export interface CascaderOption {
   children?: CascaderOption[];
 }
 
-export interface BaseCascaderProps {
+export interface CascaderFeatureProps {
   /**
    * Option items of Cascader.
    */
@@ -93,7 +93,7 @@ export const Cascader = UUI.FunctionComponent({
     SearchMatched: 'span',
     LoadingSpinner: LoadingSpinner,
   },
-}, (props: BaseCascaderProps, nodes) => {
+}, (props: CascaderFeatureProps, nodes) => {
   /**
    * Component Nodes Spread
    */
@@ -335,7 +335,7 @@ function highlightKeyword(text: string, keyword: string, HighlightComponent: any
   return data.map((i) => <>{i}</>)
 }
 
-function searchInOptions(q: string, options: CascaderOption[], predicate?: BaseCascaderProps['onSearch']) {
+function searchInOptions(q: string, options: CascaderOption[], predicate?: CascaderFeatureProps['onSearch']) {
   const current: CascaderOption[] = []
   const flatOptions: CascaderOption[][] = []
   const initialOption: CascaderOption = {

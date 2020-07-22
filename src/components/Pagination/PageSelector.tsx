@@ -4,7 +4,7 @@ import { PaginationContext } from './Pagination';
 import { HTMLSelect } from '../Select';
 import { range } from 'lodash';
 
-export interface BasePageSelectorProps {
+export interface PageSelectorFeatureProps {
   labelRender?: (currentPage: number, totalPage: number) => string;
 }
 
@@ -14,7 +14,7 @@ export const PageSelector = UUI.FunctionComponent({
     Root: 'div',
     Select: HTMLSelect,
   }
-}, (props: BasePageSelectorProps, nodes) => {
+}, (props: PageSelectorFeatureProps, nodes) => {
   const { Root, Select } = nodes
 
   const context = useContext(PaginationContext)

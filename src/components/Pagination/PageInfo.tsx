@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UUI } from '../../core/uui';
 import { PaginationContext } from './Pagination';
 
-export interface BasePageInfoProps {
+export interface PageInfoFeatureProps {
   /**
    * custom info display
    */
@@ -14,7 +14,7 @@ export const PageInfo = UUI.FunctionComponent({
   nodes: {
     Root: 'div',
   }
-}, (props: BasePageInfoProps, nodes) => {
+}, (props: PageInfoFeatureProps, nodes) => {
   const { Root } = nodes
 
   const context = useContext(PaginationContext)

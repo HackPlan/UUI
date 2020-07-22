@@ -4,7 +4,7 @@ import React from 'react';
 import { UUI } from '../../core/uui';
 import { LoadingSpinner } from '../Loading';
 
-export type BaseButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+export interface ButtonFeatureProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Whether the control is loading.
    * @default false
@@ -17,9 +17,9 @@ export const Button = UUI.FunctionComponent({
   nodes: {
     Root: 'button',
     LoadingSpinner: LoadingSpinner,
-    Content: 'div'
-  }
-}, (props: BaseButtonProps, nodes) => {
+    Content: 'div',
+  },
+}, (props: ButtonFeatureProps, nodes) => {
   const { Root, LoadingSpinner, Content } = nodes
   const { disabled, loading } = props
 

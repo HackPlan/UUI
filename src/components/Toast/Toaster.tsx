@@ -18,7 +18,7 @@ export enum ToasterPosition {
   Center = "center",
 }
 
-export interface ToasterProps {
+export interface ToasterFeatureProps {
   /**
    * Position of `Toaster` within its container.
    * @default ToasterPosition.Top
@@ -45,8 +45,8 @@ export class Toaster extends UUI.ClassComponent({
   nodes: {
     Root: 'div',
   },
-})<ToasterProps, ToasterState> {
-  constructor(props: ToasterProps) {
+})<ToasterFeatureProps, ToasterState> {
+  constructor(props: ToasterFeatureProps) {
     super(props)
   }
 
@@ -54,11 +54,11 @@ export class Toaster extends UUI.ClassComponent({
     toasts: [] as IToast[],
   };
 
-  static create(props: ToasterProps, container = document.body) {
+  static create(props: ToasterFeatureProps, container = document.body) {
     const containerElement = document.createElement("div");
     containerElement.className = ToasterPortalClassName
     container.appendChild(containerElement);
-    const toaster = ReactDOM.render<ToasterProps>(
+    const toaster = ReactDOM.render<ToasterFeatureProps>(
       <Toaster {...props} />,
       containerElement,
     ) as Toaster;
