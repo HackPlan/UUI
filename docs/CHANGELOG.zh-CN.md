@@ -2,6 +2,13 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.1
+
+- 更新组件 props 名字
+- 按钮 Button 添加 `styling` props
+- 更新组件的状态和类型代表的 className
+- 修复分页 Pagination 的样式
+
 ### v0.4.0
 
 - 新组件 ProgressBar

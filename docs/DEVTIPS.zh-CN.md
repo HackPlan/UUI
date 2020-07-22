@@ -17,3 +17,46 @@
 但是在 UUI 中，理论上我们不需要实现这一类的 props，由于 UUI 的所有组件都是通过 `UUI.FunctionComponent` 或者 `UUI.ClassComponent` HOC 方法来创建组件的，所以这些组件会自带一个 customize 属性，提供给用户用来自定义修改组件样式。
 
 所以在开发 UUI 组件的时候，（至少目前），我们把精力放在更好地实现组件功能上，而不是提供大量不同的样式，再提供props让用户从中做选择。
+
+## 组件 Props 类型
+
+UUI 提供的组件，props 类型并不完全是手写申明的，比如 props.customize 是根据组件提供的 nodes 信息自动生成的类型，所以相比其他框架的组件props类型要复杂一些。
+UUI 对这些 props 做了一些分组和命名，主要有这么几种类型组成：
+
+（XXXX 表示组件名）
+
+* XXXXFeatureProps 组件功能相关的 props
+* XXXXStyling 组件样式相关的 props（不常见，只在少数组件中存在）（这部分props理论上只影响样式，对DOM没有任何影响）
+* UUIConvenienceProps className 和 style props
+* UUIComponentCustomizeProps 由 UUI 生成的节点自定义 props
+
+`type XXXXProps = XXXXFeatureProps & XXXXStyling & UUIConvenienceProps & UUIComponentCustomizeProps`
+
+如果你在使用 UUI 组件的时候希望包装一层，在这个包装层传入相关的自定义参数，那么包装新生成的组件 props 类型可以直接继承 `XXXXFeatureProps`。
+
+示例 `StyledButton.tsx`：
+
+```tsx
+export interface StyledButtonProps extends ButtonFeatureProps {}
+export function StyledButton(props: StyledButtonProps) {
+  return (
+    <Button
+      customize={{
+        Root: {
+          backgroundColor: 'red',
+        }
+      }}
+    >
+      {props.children}
+    </Button>
+  )
+}
+```
+
+## 组件状态 className
+
+UUI 组件的 DOM 节点中存在一系列 className 用来描述组件的一些状态和类型，例如 `Button` 组件中的 `STATE_loading`、`STATE_disabled` 和 `TYPE_primary` 等等。
+
+可以很清晰的看出，这些 className 都有整齐的格式，用下划线来分割，左边表示这个className 的种类（全大写），右边表示当前值（全小写）。【本来想用 `:` 来做分隔符的，但是这样容易和CSS伪类冲突混淆，而且据说小程序也不支持 class 里面有 `:`】
+
+这些 className 用来方便开发者自定义样式。
