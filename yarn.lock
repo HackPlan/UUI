@@ -4365,10 +4365,9 @@ accepts@~1.3.7:
     mime-types "~2.1.24"
     negotiator "0.6.2"
 
-accounting@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/accounting/-/accounting-0.4.1.tgz#87dd4103eff7f4460f1e186f5c677ed6cf566883"
-  integrity sha1-h91BA+/39EYPHhhvXGd+1s9WaIM=
+accounting@HackPlan/accounting.js:
+  version "0.4.2"
+  resolved "https://codeload.github.com/HackPlan/accounting.js/tar.gz/e64ff236778442900e01ae7dab22c0e658123ade"
 
 acorn-globals@^3.0.0:
   version "3.1.0"

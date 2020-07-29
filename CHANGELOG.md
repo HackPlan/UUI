@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.2
+
+- fix accounting dependency
+
 ### v0.4.1
 
 - update component props name

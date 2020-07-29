@@ -27,7 +27,7 @@
   "dependencies": {
     "@charlietango/use-focus-trap": "^1.2.6",
     "@popperjs/core": "^2.4.2",
-    "accounting": "^0.4.1",
+    "accounting": "HackPlan/accounting.js",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "luxon": "^1.22.0",
