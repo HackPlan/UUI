@@ -44,6 +44,23 @@ import { useState } from 'react';
   </Story>
 </Preview>
 
+### 离散取值
+
+<Preview>
+  <Story name="Slider with step">
+    {() => {
+      const [value, setValue] = useState(3)
+      return (
+        <div className="flex flex-row items-center">
+          <Slider value={value} max={10} min={1} step={1} onChange={(value) => setValue(value)}
+            remarks={[1,2,3,4,5,6,7,8,9,10].map((i) => ({ label: `${i}`, value: i }))}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
 ### 刻度标记
 
 > 刻度标记 `Remark` 和拖动按钮 `Thumb` 使用了绝对定位，所以无法撑开组件的高度，使用的时候要根据标记的内容尺寸大小，自行加上外边距，避免元素之前重叠显示。

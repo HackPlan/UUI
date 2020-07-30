@@ -72,10 +72,10 @@ export const Slider = UUI.FunctionComponent({
    */
   const finalValue = useMemo(() => {
     return [
-      typeof props.value === 'number' ? 0 : props.value[0],
+      typeof props.value === 'number' ? props.min : props.value[0],
       typeof props.value === 'number' ? props.value : props.value[1],
     ] as const
-  }, [props.value])
+  }, [props.min, props.value])
   const onFinalChange = useCallback((value: [number, number]) => {
     const newValue: [number, number] = [Number(value[0].toFixed(8)), Number(value[1].toFixed(8))]
     if (typeof props.value === 'number') {
@@ -130,7 +130,7 @@ export const Slider = UUI.FunctionComponent({
     if (thumbDragging === null) return
     const newPosition = getPositionFromEvent(event)
     if (newPosition === null) return
-    const newValue = Math.round((props.max-props.min) / props.step * newPosition) * props.step
+    const newValue = Math.round((props.max-props.min) / props.step * newPosition) * props.step + props.min
     setFinalPosition((value) => {
       value[thumbDragging] = newPosition
       return value

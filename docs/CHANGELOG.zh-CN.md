@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.3
+
+- 修复 Slider
+
 ### v0.4.2
 
 - 更新 accounting.js 依赖（accounting.js 的 package.json dependencies 字段定义错误）
