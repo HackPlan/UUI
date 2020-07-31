@@ -1,14 +1,24 @@
 import { IconGallery } from "../components/Icon";
 
+import { ReactComponent as Eye } from './assets/eye.svg';
+import { ReactComponent as EyeOff } from './assets/eye-off.svg';
+import { ReactComponent as Loader } from './assets/loader.svg';
+import { ReactComponent as ChevronLeft } from './assets/chevron-left.svg';
+import { ReactComponent as ChevronRight } from './assets/chevron-right.svg';
+import { ReactComponent as ChevronUp } from './assets/chevron-up.svg';
+import { ReactComponent as ChevronDown } from './assets/chevron-down.svg';
+import { ReactComponent as Spinner } from './assets/spinner.svg';
+import { ReactComponent as Home } from './assets/home.svg';
+
 export const Icons = IconGallery({
-  Eye: { source: require('./assets/eye.svg').ReactComponent },
-  EyeOff: { source: require('./assets/eye-off.svg').ReactComponent },
-  Loader: { source: require('./assets/loader.svg').ReactComponent },
-  ChevronLeft: { source: require('./assets/chevron-left.svg').ReactComponent },
-  ChevronRight: { source: require('./assets/chevron-right.svg').ReactComponent },
-  ChevronUp: { source: require('./assets/chevron-up.svg').ReactComponent },
-  ChevronDown: { source: require('./assets/chevron-down.svg').ReactComponent },
-  Spinner: { source: require('./assets/spinner.svg').ReactComponent },
-  Home: { source: require('./assets/home.svg').ReactComponent },
+  Eye: { source: Eye },
+  EyeOff: { source: EyeOff },
+  Loader: { source: Loader },
+  ChevronLeft: { source: ChevronLeft },
+  ChevronRight: { source: ChevronRight },
+  ChevronUp: { source: ChevronUp },
+  ChevronDown: { source: ChevronDown },
+  Spinner: { source: Spinner },
+  Home: { source: Home },
 
 }, { width: 16, height: 16, mode: 'svg' })
