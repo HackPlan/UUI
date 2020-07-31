@@ -205,7 +205,7 @@ module.exports = {
     "react", "react-dom",
     "@charlietango/use-focus-trap", "react-use",
     "@popperjs/core", "react-popper",
-    "accounting", "classnames",
+    "classnames",
     "lodash", "luxon",
     "uuid",
   ],

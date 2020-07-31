@@ -12,14 +12,11 @@ import { DateTime } from 'luxon';
 <Preview>
   <Story name="MoneyLabel">
     <div className="flex flex-col">
-      <MoneyLabel symbol={'¥'}>
-        100100100.0000
+      <MoneyLabel value={100100100.0000} symbol={'¥'}>
       </MoneyLabel>
-      <MoneyLabel thousand={' '}>
-        100100100.0000
+      <MoneyLabel value={100100100.0000} thousand={' '}>
       </MoneyLabel>
-      <MoneyLabel symbol={'IDR'} thousand={'.'} decimal={','}>
-        100100100.0000
+      <MoneyLabel value={100100100.0000} symbol={'IDR'} thousand={'.'} decimal={','}>
       </MoneyLabel>
     </div>
   </Story>

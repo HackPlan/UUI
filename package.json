@@ -27,7 +27,6 @@
   "dependencies": {
     "@charlietango/use-focus-trap": "^1.2.6",
     "@popperjs/core": "^2.4.2",
-    "accounting": "HackPlan/accounting.js",
     "classnames": "^2.2.6",
     "lodash": "^4.17.15",
     "luxon": "^1.22.0",
@@ -50,7 +49,6 @@
     "@storybook/addons": "6.0.0-rc.11",
     "@storybook/react": "6.0.0-rc.11",
     "@svgr/webpack": "^5.3.1",
-    "@types/accounting": "^0.4.1",
     "@types/classnames": "^2.2.9",
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",

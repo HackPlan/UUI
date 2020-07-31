@@ -1,13 +1,12 @@
-import React from 'react';
-import { omit } from 'lodash';
-import accounting from 'accounting';
+import React, { useMemo } from 'react';
 import { UUI } from '../../core/uui';
+import { formatMoney } from '../../utils/moneyHelper';
 
 export interface MoneyLabelFeatureProps {
   /**
    * Money value to be displayed.
    */
-  value: string | number;
+  value: number;
   /**
    * The symbopl of currency
    * @default $
@@ -27,11 +26,6 @@ export interface MoneyLabelFeatureProps {
    * @default .
    */
   decimal?: string;
-  /**
-   * Custom format
-   * @reference http://openexchangerates.github.io/accounting.js/#documentation
-   */
-  format?: string;
 }
 
 export const MoneyLabel = UUI.FunctionComponent({
@@ -42,7 +36,15 @@ export const MoneyLabel = UUI.FunctionComponent({
 }, (props: MoneyLabelFeatureProps, nodes) => {
   const { Root } = nodes
 
-  const text = accounting.formatMoney(props.value, omit(props, 'value', 'customize'))
+  const finalProps = {
+    symbol: props.symbol || '$',
+    thousand: props.thousand || ',',
+    decimal: props.decimal || '.',
+    precision: props.precision || 2,
+  }
+
+  const text = useMemo(() => formatMoney(props.value, finalProps), [finalProps, props.value])
+
   return (
     <Root>{text}</Root>
   )
