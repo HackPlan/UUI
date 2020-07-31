@@ -2,7 +2,7 @@
 import React, { useMemo, useRef, useCallback, useState, useEffect } from 'react';
 import { UUI } from '../../core/uui';
 import { useEvent } from 'react-use';
-import { clamp, clone, inRange } from 'lodash';
+import { clamp, clone, inRange, isArray } from 'lodash';
 import classNames from 'classnames';
 
 export interface SliderRemark {
@@ -110,7 +110,8 @@ export const Slider = UUI.FunctionComponent({
       switch (event.type) {
         case 'mousedown':
         case 'mousemove':
-          return props.vertical ? (event as MouseEvent).clientY : (event as MouseEvent).clientX
+        case 'click':
+            return props.vertical ? (event as MouseEvent).clientY : (event as MouseEvent).clientX
         case 'touchstart':
         case 'touchmove':
           return props.vertical ? (event as TouchEvent).touches[0].clientY :(event as TouchEvent).touches[0].clientX
@@ -123,13 +124,34 @@ export const Slider = UUI.FunctionComponent({
     newPosition = clamp(newPosition, 0.00, 1.00)
     return newPosition
   }
-  const onMouseDownOrTouchStart = (thumb: 0 | 1) => () => { !props.disabled && setThumbDragging(thumb) }
+  const onMouseDownOrTouchStart = (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
+    if (props.disabled) return;
+    const newPosition = getPositionFromEvent(event as any)
+    if (!newPosition) return;
+
+    const targetIndex = isArray(props.value)
+      ? (Math.abs(finalPosition[0] - newPosition) < Math.abs(finalPosition[1] - newPosition) ? 0 : 1)
+      : 1;
+    !props.disabled && setThumbDragging(targetIndex)
+
+    const newValue = Math.round((props.max-props.min) / props.step * newPosition) * props.step + props.min
+    setFinalPosition((value) => {
+      value[targetIndex] = newPosition
+      return value
+    })
+    if (newValue !== props.value) {
+      const newFinalValue: [number, number] = [finalValue[0], finalValue[1]]
+      newFinalValue[targetIndex] = newValue
+      onFinalChange(newFinalValue)
+    }
+  }
   const onMouseUpOrTouchEnd = () => { !props.disabled && setThumbDragging(null) }
   const onMouseOrTouchMove = (event: MouseEvent | TouchEvent) => {
-    if (props.disabled) return
-    if (thumbDragging === null) return
+    if (props.disabled) return;
+    if (thumbDragging === null) return;
     const newPosition = getPositionFromEvent(event)
-    if (newPosition === null) return
+    if (newPosition === null) return;
+
     const newValue = Math.round((props.max-props.min) / props.step * newPosition) * props.step + props.min
     setFinalPosition((value) => {
       value[thumbDragging] = newPosition
@@ -220,6 +242,8 @@ export const Slider = UUI.FunctionComponent({
         'STATE_disabled': props.disabled,
         'STATE_vertical': props.vertical,
       })}
+      onMouseDown={onMouseDownOrTouchStart}
+      onTouchStart={onMouseDownOrTouchStart}
     >
       <Container ref={containerRef}>
         <InactiveLine style={{ ...styles.LeadingInactiveLine }} />
@@ -237,14 +261,8 @@ export const Slider = UUI.FunctionComponent({
             </Remark>
           )
         })}
-        <Thumb
-          style={{ ...styles.LeadingThumb }}
-          onMouseDown={onMouseDownOrTouchStart(0) as any}
-        />
-        <Thumb
-          style={{ ...styles.TrailingThumb }}
-          onMouseDown={onMouseDownOrTouchStart(1) as any}
-        />
+        <Thumb style={{ ...styles.LeadingThumb }} />
+        <Thumb style={{ ...styles.TrailingThumb }} />
 
       </Container>
     </Root>
