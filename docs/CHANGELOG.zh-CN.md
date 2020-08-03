@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.4
+
+- Slider - 点击选择值
+- MoneyLabel 去除 accounting.js 依赖
+
 ### v0.4.3
 
 - 修复 Slider

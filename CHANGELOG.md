@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.4
+
+- Slider - click to select value
+- MoneyLabel remove accounting.js dependency
+
 ### v0.4.3
 
 - fix Slider
