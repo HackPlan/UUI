@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Button as UUIButton } from '../Button';
 import { UUI } from '../../core/uui';
 import { Icons } from '../../icons/Icons';
-import { PaginationContext } from './Pagination';
+import { PaginationContext } from './PaginationContext';
 
 export interface PageNextButtonFeatureProps {
 }

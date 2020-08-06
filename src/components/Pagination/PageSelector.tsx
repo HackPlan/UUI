@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UUI } from '../../core/uui';
-import { PaginationContext } from './Pagination';
+import { PaginationContext } from './PaginationContext';
 import { HTMLSelect } from '../Select';
 import { range } from 'lodash';
 

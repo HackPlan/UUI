@@ -2,7 +2,7 @@ import React, { useMemo, useContext } from 'react';
 import { range } from 'lodash';
 import { Button as UUIButton } from '../Button';
 import { UUI } from '../../core/uui';
-import { PaginationContext } from './Pagination';
+import { PaginationContext } from './PaginationContext';
 import classNames from 'classnames';
 
 
