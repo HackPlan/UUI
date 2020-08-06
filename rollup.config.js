@@ -10,21 +10,30 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import svgr from '@svgr/rollup';
 import url from '@rollup/plugin-url';
 
-const config =[{
+const config = [{
   input: 'src/index.ts',
   output: [{
     name: 'UUI',
     file: pkg.main,
     format: 'cjs',
     sourcemap: true,
+    plugins: [
+      terser(),
+    ],
   },
   {
+    name: 'UUI',
     file: pkg.module,
     format: 'esm',
     sourcemap: true,
+    plugins: [
+      terser({
+        module: true,
+      }),
+    ],
   }],
   external: [
-    "lodash-es", "lodash", "luxon", "react-use", "classnames", "uuid", "uuid/v4",
+    "lodash", "luxon", "react-use", "classnames", "uuid",
     "react", "react-dom",
     "@charlietango/use-focus-trap",
     "@popperjs/core", "react-popper-2",
@@ -32,13 +41,14 @@ const config =[{
   plugins: [
     url(),
     svgr(),
-    typescript({
-      tsconfig: path.join(__dirname, 'tsconfig.json'),
-    }),
     nodeResolve({
       browser: true,
     }),
     commonjs(),
+    typescript({
+      tsconfig: path.join(__dirname, 'tsconfig.json'),
+      typescript: require("typescript"),
+    }),
     sass({
       output: 'lib/index.css',
       runtime: require('sass'),
@@ -46,6 +56,7 @@ const config =[{
         sourceMap: true,
         outputStyle: 'compressed',
         sourceMapEmbed: false,
+        fiber: require('fibers'),
       }
     }),
     copy({
@@ -54,7 +65,6 @@ const config =[{
         { src: 'src/icons/assets', dest: 'lib/icons' },
       ]
     }),
-    terser(),
   ],
 }];
 
