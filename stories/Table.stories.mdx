@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
 import { Table, TableNodes } from '../src';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 <Meta title="Table" component={Table} />
 
@@ -19,11 +19,11 @@ import { useState } from 'react';
         { key: 'email', title: "Email", onRowRender: (i) => i.email },
         { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
       ]
-      const rows = [
+      const [rows, setRows] = useState([
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
         { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
         { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
-      ]
+      ])
       const onRowId = (row) => row.id
       return (
         <Table

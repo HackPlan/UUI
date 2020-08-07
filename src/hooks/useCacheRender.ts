@@ -1,6 +1,6 @@
-import { intersectionWith, isEqual, xorWith } from "lodash";
+import { clone, intersectionWith, isEqual, remove, xorWith } from "lodash";
 import { useEffect, useMemo, useState } from "react";
-import { useList, usePrevious } from "react-use";
+import { usePrevious } from "react-use";
 
 export function useValueCacheRender<T>(data: T, render: (data: T) => React.ReactNode, options: { comparator?: (previous: T, current: T) => boolean }) {
   const [rendered, setRendered] = useState(render(data))
@@ -25,10 +25,10 @@ export function useArrayCacheRender<T>(
     comparator?: (previous: T, current: T) => boolean;
   },
 ) {
-  const [list, { removeAt, updateAt, push }] = useList<{
+  const [list, setList] = useState<{
     id: string;
     rendered: React.ReactNode;
-  }>([])
+  }[]>([])
   const previous = usePrevious<T[]>(data) as T[]
   const current = data
 
@@ -46,18 +46,21 @@ export function useArrayCacheRender<T>(
       return options.comparator ? options.comparator(c, p) : !isEqual(c, p)
     })
 
+    const newList = clone(list)
+
     for (const i of removing) {
-      const index = list.findIndex((r) => r.id === options.id(i))
-      if (index > -1) removeAt(index)
+      remove(newList, (r) => r.id === options.id(i))
     }
     for (const i of updating) {
       const index = list.findIndex((r) => r.id === options.id(i))
       const c = current.find((c) => options.id(c) === options.id(i))
-      if (index > -1 && c) updateAt(index, { id: options.id(c), rendered: render(c) })
+      if (index > -1 && c) newList[index] = { id: options.id(c), rendered: render(c) }
     }
     for (const i of adding) {
-      push({ id: options.id(i), rendered: render(i) })
+      newList.push({ id: options.id(i), rendered: render(i) })
     }
+
+    setList(newList)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [previous, current])
 
