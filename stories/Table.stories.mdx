@@ -11,36 +11,25 @@ import { useState } from 'react';
 <Preview>
   <Story name="Table">
     {() => {
-      const data = [
+      const columns = [
+        { key: 'name', title: "Name", onRowRender: (i) => i.name },
+        { key: 'age', title: "Age", onRowRender: (i) => i.age },
+        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
+        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
+        { key: 'email', title: "Email", onRowRender: (i) => i.email },
+        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
+      ]
+      const rows = [
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
         { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
         { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
       ]
-      const columns = [
-        { key: 'name', title: "Name" },
-        { key: 'age', title: "Age" },
-        { key: 'gender', title: "Gender" },
-        { key: 'mobile', title: "Mobile" },
-        { key: 'email', title: "Email" },
-        { key: 'profession', title: "Profession" },
-      ]
-      const rows = data.map((i) => {
-        return {
-          id: i.id,
-          cells: [
-            i.name,
-            i.age,
-            i.gender,
-            i.mobile,
-            i.email,
-            i.profession,
-          ],
-        }
-      })
+      const onRowId = (row) => row.id
       return (
         <Table
           columns={columns}
           rows={rows}
+          onRowId={onRowId}
         ></Table>
       )
     }}
@@ -52,39 +41,28 @@ import { useState } from 'react';
 <Preview>
   <Story name="Table with selection">
     {() => {
-      const data = [
+      const columns = [
+        { key: 'name', title: "Name", onRowRender: (i) => i.name },
+        { key: 'age', title: "Age", onRowRender: (i) => i.age },
+        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
+        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
+        { key: 'email', title: "Email", onRowRender: (i) => i.email },
+        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
+      ]
+      const rows = [
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
         { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
         { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
       ]
-      const columns = [
-        { key: 'name', title: "Name" },
-        { key: 'age', title: "Age" },
-        { key: 'gender', title: "Gender" },
-        { key: 'mobile', title: "Mobile" },
-        { key: 'email', title: "Email" },
-        { key: 'profession', title: "Profession" },
-      ]
-      const rows = data.map((i) => {
-        return {
-          id: i.id,
-          cells: [
-            i.name,
-            i.age,
-            i.gender,
-            i.mobile,
-            i.email,
-            i.profession,
-          ],
-        }
-      })
-      const [selectedIndexes, setSelectedIndexes] = useState([])
+      const onRowId = (row) => row.id
+      const [selectedIds, setSelectedIds] = useState([])
       return (
         <Table
           columns={columns}
           rows={rows}
-          selectedIndexes={selectedIndexes}
-          onSelected={(indexes) => { setSelectedIndexes(indexes) }}
+          onRowId={onRowId}
+          selectedRowIds={selectedIds}
+          onSelected={(ids) => { setSelectedIds(ids) }}
         ></Table>
       )
     }}
@@ -96,7 +74,7 @@ import { useState } from 'react';
 <Preview>
   <Story name="Table with grouping column">
     {() => {
-      const data = [
+      const rows = [
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
         { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
         { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
@@ -110,12 +88,15 @@ import { useState } from 'react';
           children: [{
             key: 'name',
             title: 'Name',
+            onRowRender: (i) => i.name,
           }, {
             key: 'age',
             title: 'Age',
+            onRowRender: (i) => i.age,
           }, {
             key: 'gender',
             title: 'Gender',
+            onRowRender: (i) => i.gender,
           }]
         }, {
           key: 'contact',
@@ -123,32 +104,24 @@ import { useState } from 'react';
           children: [{
             key: 'mobile',
             title: 'Mobile',
+            onRowRender: (i) => i.mobile,
           }, {
             key: 'email',
             title: 'Email',
+            onRowRender: (i) => i.email,
           }]
         }]
       }, {
         key: 'profession',
-        title: 'Profession'
+        title: 'Profession',
+        onRowRender: (i) => i.profession,
       }]
-      const rows = data.map((i) => {
-        return {
-          id: i.id,
-          cells: [
-            i.name,
-            i.age,
-            i.gender,
-            i.mobile,
-            i.email,
-            i.profession,
-          ],
-        }
-      })
+      const onRowId = (row) => row.id
       return (
         <Table
           columns={columns}
           rows={rows}
+          onRowId={onRowId}
         ></Table>
       )
     }}
@@ -161,18 +134,20 @@ import { useState } from 'react';
   <Story name="Table with empty data">
     {() => {
       const columns = [
-        { key: 'name', title: "Name" },
-        { key: 'age', title: "Age" },
-        { key: 'gender', title: "Gender" },
-        { key: 'mobile', title: "Mobile" },
-        { key: 'email', title: "Email" },
-        { key: 'profession', title: "Profession" },
+        { key: 'name', title: "Name", onRowRender: (i) => i.name },
+        { key: 'age', title: "Age", onRowRender: (i) => i.age },
+        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
+        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
+        { key: 'email', title: "Email", onRowRender: (i) => i.email },
+        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
       ]
       const rows = []
+      const onRowId = (row) => row.id
       return (
         <Table
           columns={columns}
           rows={rows}
+          onRowId={onRowId}
         ></Table>
       )
     }}
@@ -184,51 +159,31 @@ import { useState } from 'react';
 <Preview>
   <Story name="Table hide header">
     {() => {
-      const data = [
+      const columns = [
+        { key: 'name', title: "Name", onRowRender: (i) => i.name },
+        { key: 'age', title: "Age", onRowRender: (i) => i.age },
+        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
+        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
+        { key: 'email', title: "Email", onRowRender: (i) => i.email },
+        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
+      ]
+      const rows = [
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
         { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
         { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
       ]
-      const columns = [
-        { key: 'name', title: "Name" },
-        { key: 'age', title: "Age" },
-        { key: 'gender', title: "Gender" },
-        { key: 'mobile', title: "Mobile" },
-        { key: 'email', title: "Email" },
-        { key: 'profession', title: "Profession" },
-      ]
-      const rows = data.map((i) => {
-        return {
-          id: i.id,
-          cells: [
-            i.name,
-            i.age,
-            i.gender,
-            i.mobile,
-            i.email,
-            i.profession,
-          ],
-        }
-      })
+      const onRowId = (row) => row.id
       return (
         <Table
           columns={columns}
           rows={rows}
+          onRowId={onRowId}
           hideHeader
         ></Table>
       )
     }}
   </Story>
 </Preview>
-
-### Table Types
-
-```typescript
-interface TableColumn {
-  title: React.ReactNode
-  children?: TableColumn[]
-}
-```
 
 ### Props
 

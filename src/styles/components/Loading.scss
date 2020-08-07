@@ -17,7 +17,6 @@
 
 .UUI-LoadingCover-Root {
   position: relative;
-  user-select: none;
 
   & > .UUI-LoadingCover-Mask {
     display: none;
@@ -35,6 +34,7 @@
       color: $primaryLighten1;
     }
     & > .UUI-LoadingCover-Label {
+      user-select: none;
       margin-left: 0.5rem;
       color: $primaryLighten1;
     }
