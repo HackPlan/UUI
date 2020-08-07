@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { NumberField as UUINumberField } from '../Input';
 import { UUI } from '../../core/uui';
-import { PaginationContext } from './Pagination';
+import { PaginationContext } from './PaginationContext';
 
 export interface PageJumperFeatureProps {
   /**

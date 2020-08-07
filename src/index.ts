@@ -35,3 +35,9 @@ export * from './components/Toast'
 
 export { UUI } from './core/uui'
 export type { UUIClassComponentProps, UUIFunctionComponentProps, UUIComponentCustomizeProps } from './core/uui'
+
+/**
+ * Styles
+ */
+
+import './styles/index.scss'

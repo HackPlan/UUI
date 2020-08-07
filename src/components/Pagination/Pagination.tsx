@@ -9,9 +9,7 @@ import { PageNextButton } from './PageNextButton';
 import { PageSelector } from './PageSelector';
 import { PageJumper } from './PageJumper';
 import classNames from 'classnames';
-
-export interface PaginationContext extends ReturnType<typeof usePagination> {
-}
+import { PaginationContext } from './PaginationContext';
 
 export interface PaginationFeatureProps {
   value: IPagination;
@@ -23,12 +21,6 @@ export interface PaginationFeatureProps {
   loading?: boolean;
   children: React.ReactNode;
 }
-
-export interface PaginationContextValue {
-  pagination: PaginationContext;
-  loading?: boolean;
-}
-export const PaginationContext = React.createContext<PaginationContextValue | null>(null)
 
 export const _Pagination = UUI.FunctionComponent({
   name: 'Pagination',

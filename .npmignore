@@ -20,3 +20,5 @@ hackplan-uui-*.tgz
 tests
 coverage
 jest.config.js
+typing
+rollup.config.js

@@ -1,6 +1,6 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
-import { Button } from '../..';
+import { Button } from '../../components/Button';
 import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
 import { Icons } from '../../icons/Icons';

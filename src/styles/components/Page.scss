@@ -46,14 +46,14 @@
   &-PrimaryActions {
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: flex-end;
   }
 
   &-SecondaryActions {
     margin-top: 0.5rem;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
   }
 
   &-Container {
