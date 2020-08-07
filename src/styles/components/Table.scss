@@ -21,12 +21,12 @@
     padding: 0.75rem;
   }
 
-  .UUI-Table-HeadCell.selection,
-  .UUI-Table-DataCell.selection {
+  .UUI-Table-HeadCell.COLUMN_selection,
+  .UUI-Table-DataCell.COLUMN_selection {
     width: 1px;
 
     .UUI-Checkbox-Root {
-      vertical-align: middle;
+      display: flex;
     }
   }
 
@@ -44,5 +44,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &.STATE_empty {
+    .UUI-Table-Row:hover, .UUI-Table-DataCell:hover {
+      background-color: white;
+    }
   }
 }
