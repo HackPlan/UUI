@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.5
+
+- Table 可选缓存row渲染
+
 ### v0.4.4
 
 - Slider - 点击选择值
