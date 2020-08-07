@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.6
+
+- Table cache row render fix issue
+
 ### v0.4.5
 
 - Table new props type - cache row render

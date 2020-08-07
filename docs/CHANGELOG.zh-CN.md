@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.6
+
+- Table cache row render 修复问题
+
 ### v0.4.5
 
 - Table 可选缓存row渲染
