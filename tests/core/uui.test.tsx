@@ -79,14 +79,14 @@ it('UUIComponentHOC', () => {
     nodes: {
       Root: 'div',
       FunctionComponent: UUITestFunctionComponent,
-      // TODO: support class component as ndoe
-      // ClassComponent: UUITestClassComponent,
+      ClassComponent: UUITestClassComponent,
     }
   }, (props: {}, nodes) => {
-    const { Root, FunctionComponent } = nodes
+    const { Root, FunctionComponent, ClassComponent } = nodes
     return (
       <Root>
         <FunctionComponent />
+        <ClassComponent />
       </Root>
     )
   })
