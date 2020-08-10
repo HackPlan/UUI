@@ -1,11 +1,9 @@
-import React, { useMemo, useCallback } from 'react';
-import { range, isEqual } from 'lodash';
-import { UUI } from '../../core/uui';
-import { Checkbox as UUICheckbox } from '../Checkbox';
 import classNames from 'classnames';
-import { LoadingCover } from '../Loading';
+import React, { useCallback, useMemo } from 'react';
+import { UUI } from '../../core/uui';
 import { useArrayCacheRender } from '../../hooks/useCacheRender';
-import { isDeepEqual } from 'react-use/lib/util';
+import { Checkbox as UUICheckbox } from '../Checkbox';
+import { LoadingCover } from '../Loading';
 
 export interface TableColumn<T> {
   key: string;
@@ -58,9 +56,12 @@ export interface TableFeatureProps<T> {
   emptyView?: React.ReactNode;
 
   /**
-   *
+   * Whether cache rendering row.
    */
   cacheRowRender?: boolean;
+  /**
+   * Whether the current row has changed and needs to be updated.
+   */
   cacheRowComparator?: (prev: T, next: T) => boolean;
 }
 
@@ -83,6 +84,13 @@ export const Table = UUI.FunctionComponent({
 }, (props: TableFeatureProps<any>, nodes) => {
   const { Root, LoadingCover, Table, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
 
+  const { selectedRowIds, onSelected, rows, onRowId } = props
+
+  /**
+   * UUI Table support multiple-level grouping columns.
+   * `props.columns` is a tree data structure,
+   * use Depth-first search (DFS) to generate flatted data that rendering needs.
+   */
   const { groupColumns, dataColumns } = useMemo(() => {
     const groupCells: (TableColumn<any> & { colspan?: number; rowspan?: number })[][] = []
     const dataColumns: TableColumn<any>[] = [];
@@ -118,8 +126,51 @@ export const Table = UUI.FunctionComponent({
     return { groupColumns, dataColumns }
   }, [props.columns])
 
-  const { selectedRowIds, onSelected, onRowId } = props
-  const renderCells = useCallback((row: any) => {
+  /**
+   * head cells
+   */
+  const headCells = groupColumns.map((row, rowIndex) => {
+    const rowKey = `row:head${rowIndex}`
+    const rowClassName = `ROW_head`
+    const selectionCellKey = `${rowKey}-column:selection`
+    const selectionCellClassName = 'COLUMN_selection'
+    return (
+      <Row className={classNames([rowClassName])} key={rowKey}>
+        {/* Selection Head Cell */}
+        {selectedRowIds && rowIndex === 0 && (
+          <HeadCell key={selectionCellKey} className={classNames([selectionCellClassName])} rowSpan={9999}>
+            <Checkbox
+              checked={selectedRowIds.length === rows.length && rows.length > 0}
+              onChange={(value) => {
+                if (rows.length > 0) {
+                  onSelected && onSelected(value ? rows.map(onRowId) : [])
+                }
+              }}
+            />
+          </HeadCell>
+        )}
+        {row.map((cell) => {
+          const cellKey = `${rowKey}-column:${cell.key}`
+          const cellKeyClassName = `COLUMN_${cell.key}`
+          return (
+            <HeadCell
+              key={cellKey}
+              className={classNames([cellKeyClassName])}
+              colSpan={cell.colspan}
+              rowSpan={cell.rowspan}
+            >
+              {cell.title}
+            </HeadCell>
+          )
+        })}
+      </Row>
+    )
+  })
+
+  /**
+   * data cells rendering function
+   */
+  const renderDataCells = useCallback((row: any) => {
     const rowId = onRowId(row)
     const rowKey = `row:${rowId}`
     const rowKeyClassName = `ROW_${rowId}`
@@ -157,50 +208,18 @@ export const Table = UUI.FunctionComponent({
     )
   }, [dataColumns, onRowId, selectedRowIds, onSelected])
 
+  /**
+   * data cells
+   * cache rendering by row if props.cacheRowRender is true.
+   */
   const dataCells = props.cacheRowRender
     // cache render
-    ? useArrayCacheRender(props.rows, (row) => {
-      const rowId = props.onRowId(row)
-      const rowKey = `row:${rowId}`
-      const rowKeyClassName = `ROW_${rowId}`
-      const selectionCellKey = `${rowKey}-column:selection`
-      const selectionCellClassName = 'COLUMN_selection'
-      return (
-        <Row key={rowKey} className={classNames([rowKeyClassName])}>
-
-        {/* Selection Head Cell */}
-        {props.selectedRowIds && (
-          <DataCell key={selectionCellKey} className={classNames([selectionCellClassName])}>
-            <Checkbox
-              checked={props.selectedRowIds.includes(rowId)}
-              onChange={(value) => {
-                const selectedRowIdsSet = new Set(props.selectedRowIds)
-                if (value)  selectedRowIdsSet.add(rowId)
-                else        selectedRowIdsSet.delete(rowId)
-                props.onSelected && props.onSelected(Array.from(selectedRowIdsSet))
-              }}
-            />
-          </DataCell>
-        )}
-
-        {/* Data Cell */}
-        {dataColumns.map((column) => {
-          const columnKey = column.key
-          const cellKey = `${rowKey}-column:${columnKey}`
-          const cellKeyClassName = `COLUMN_${columnKey}`
-          return (
-            <DataCell key={cellKey} className={classNames([cellKeyClassName])}>{column.onRowRender(row)}</DataCell>
-          )
-        })}
-
-        </Row>
-      )
-    }, {
+    ? useArrayCacheRender(props.rows, renderDataCells, {
       id: (row) => props.onRowId(row),
       comparator: props.cacheRowComparator,
     })
     // render every time
-    : props.rows.map(renderCells)
+    : props.rows.map(renderDataCells)
 
   return (
     <Root
@@ -214,43 +233,7 @@ export const Table = UUI.FunctionComponent({
           {!props.hideHeader && (
             <Head>
               {/* Grouping Head Cells */}
-              {groupColumns.map((row, rowIndex) => {
-                const rowKey = `row:head${rowIndex}`
-                const rowClassName = `ROW_head`
-                const selectionCellKey = `${rowKey}-column:selection`
-                const selectionCellClassName = 'COLUMN_selection'
-                return (
-                  <Row className={classNames([rowClassName])} key={rowKey}>
-                    {/* Selection Head Cell */}
-                    {props.selectedRowIds && rowIndex === 0 && (
-                      <HeadCell key={selectionCellKey} className={classNames([selectionCellClassName])} rowSpan={9999}>
-                        <Checkbox
-                          checked={props.selectedRowIds.length === props.rows.length && props.rows.length > 0}
-                          onChange={(value) => {
-                            if (props.rows.length > 0) {
-                              props.onSelected && props.onSelected(value ? props.rows.map(props.onRowId) : [])
-                            }
-                          }}
-                        />
-                      </HeadCell>
-                    )}
-                    {row.map((cell) => {
-                      const cellKey = `${rowKey}-column:${cell.key}`
-                      const cellKeyClassName = `COLUMN_${cell.key}`
-                      return (
-                        <HeadCell
-                          key={cellKey}
-                          className={classNames([cellKeyClassName])}
-                          colSpan={cell.colspan}
-                          rowSpan={cell.rowspan}
-                        >
-                          {cell.title}
-                        </HeadCell>
-                      )
-                    })}
-                  </Row>
-                )
-              })}
+              {headCells}
             </Head>
           )}
           <Body>
