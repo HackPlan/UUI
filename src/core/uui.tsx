@@ -7,7 +7,7 @@
  */
 
 
-import React, { JSXElementConstructor, RefAttributes } from 'react';
+import React from 'react';
 import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
@@ -36,7 +36,7 @@ export type NodeCustomizeProps =
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
-  & RefAttributes<any>
+  & React.RefAttributes<any>
 
 // ---------------------------------------------------------------
 // Customize Extra Props Helper
@@ -171,9 +171,12 @@ type ComponentNodeCustomizeOptions= {
   separator: string;
 }
 
-export type ComponentNodeT = (props: any, ...args: any) => any
-type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) => (props: P) => JSX.Element
-function ComponentNode<P extends any, N extends string, M extends string>(Target: React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) {
+export type FunctionComponentNodeT = (props: any, ...args: any) => any
+export interface TypeWithArgs<T, A extends any[]> extends Function { new(...args: A): T}
+export type ClassComponentNodeT = TypeWithArgs<React.Component<any, any, any>, any>
+
+type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) => (props: P) => JSX.Element
+function ComponentNode<P extends any, N extends string, M extends string>(Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) {
   const _Target = Target as any
   const Node = React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> } & UUIConvenienceProps
@@ -195,14 +198,18 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
 // ---------------------------------------------------------------
 
 export type UUIComponentNodes<
-  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
+  X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT },
 > = {
   [key in keyof X]: X[key] extends keyof IntrinsicNodeT
     ? ReturnType<IntrinsicNode<X[key], key>>
-    : (X[key] extends ComponentNodeT ? X[key] : never)
+    : (
+      X[key] extends FunctionComponentNodeT | ClassComponentNodeT
+      ? X[key]
+      : never
+    )
 }
 export type UUIComponentCustomizeProps<
-  X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT },
+  X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT },
 > = {
   /**
    * Customize component nodes
@@ -211,7 +218,15 @@ export type UUIComponentCustomizeProps<
   customize?: {
     [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
       ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
-      : (X[key] extends ComponentNodeT ? NonNullable<Parameters<X[key]>[0]['customize']> : never)
+      : (
+        X[key] extends FunctionComponentNodeT
+        ? NonNullable<Parameters<X[key]>[0]['customize']>
+        : (
+          X[key] extends ClassComponentNodeT
+          ? React.ComponentProps<X[key]>['customize']
+          : never
+        )
+      )
   };
 }
 export type UUIConvenienceProps = {
@@ -228,9 +243,9 @@ export type UUIConvenienceProps = {
    */
   style?: React.CSSProperties;
 }
-export type UUIComponentProps<P, X extends { [key in string]?: keyof IntrinsicNodeT | ComponentNodeT }> = P & UUIConvenienceProps & UUIComponentCustomizeProps<X>
+export type UUIComponentProps<P, X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT }> = P & UUIConvenienceProps & UUIComponentCustomizeProps<X>
 export type UUIFunctionComponentProps<T extends (...args: any) => any> = Parameters<T>[0]
-export type UUIClassComponentProps<T extends JSXElementConstructor<any>> = React.ComponentProps<T>
+export type UUIClassComponentProps<T extends React.JSXElementConstructor<any>> = React.ComponentProps<T>
 
 // ---------------------------------------------------------------
 // UUI Component Util
@@ -254,7 +269,7 @@ export abstract class UUI {
     /**
      * Generic type T for options.nodes value
      */
-    T extends keyof IntrinsicNodeT | ComponentNodeT,
+    T extends keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT,
     /**
      * Generic type X for WrappedComponent generated nodes
      */
@@ -295,7 +310,7 @@ export abstract class UUI {
     /**
      * Generic type T for options.nodes value
      */
-    T extends keyof IntrinsicNodeT | ComponentNodeT,
+    T extends keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT,
     /**
      * Generic type X for WrappedComponent generated nodes
      */
