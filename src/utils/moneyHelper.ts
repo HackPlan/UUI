@@ -5,7 +5,7 @@ export function formatMoney(value: number, options?: {
   decimal?: string;
 }) {
   const finalOptions = {
-    symbol: options?.symbol || '$',
+    symbol: options?.symbol === undefined ? '$' : options?.symbol,
     thousand: options?.thousand || ',',
     decimal: options?.decimal || '.',
     precision: options?.precision || 2,
