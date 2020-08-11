@@ -1,5 +1,5 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { MoneyLabel, DateLabel, TimeLabel, CountdownLabel } from '../src';
+import { MoneyLabel, DateLabel, TimeLabel, CountdownLabel, NumberAbbrLabel } from '../src';
 import { useState } from 'react';
 import { DateTime } from 'luxon';
 
@@ -126,6 +126,29 @@ import { DateTime } from 'luxon';
   </Story>
 </Preview>
 
+### 计数缩写标签 NumberAbbrLabel
+
+<Preview>
+  <Story name="NumberAbbrLabel">
+    {() => {
+      const value1 = 4567890
+      const value2 = 12000
+      const value3 = 41234567890
+      return (
+        <div className="flex flex-col">
+          <NumberAbbrLabel unit={'B'} value={value3} maxPrecision={1} />
+          <NumberAbbrLabel unit={'b'} value={value3} maxPrecision={1} />
+          <NumberAbbrLabel unit={'M'} value={value1} />
+          <NumberAbbrLabel unit={'m'} value={value1} />
+          <NumberAbbrLabel unit={'K'} value={value2} />
+          <NumberAbbrLabel unit={'k'} value={value2} />
+        </div>
+      )
+    }}
+  </Story>
+</Preview>
+
+
 ### Props
 
-<Props components={{ MoneyLabel, DateLabel, TimeLabel, CountdownLabel }} />
+<Props components={{ MoneyLabel, DateLabel, TimeLabel, CountdownLabel, NumberAbbrLabel }} />
