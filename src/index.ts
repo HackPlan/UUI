@@ -26,6 +26,7 @@ export * from './components/Slider'
 export * from './components/Stepper'
 export * from './components/Switch'
 export * from './components/Table'
+export * from './components/Tabs'
 export * from './components/Tag'
 export * from './components/Toast'
 

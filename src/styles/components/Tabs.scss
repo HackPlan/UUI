@@ -1,0 +1,46 @@
+@import "../variables.scss";
+
+.UUI-Tabs-Root {
+  .UUI-Tabs-TabBox {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    border-bottom: 1px solid $borderColor;
+  }
+
+  .UUI-Tabs-Content {
+    margin-top: 1rem;
+    display: none;
+    &.STATE_active {
+      display: inherit;
+    }
+  }
+}
+
+.UUI-Tab-Root {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  border-top: 1px solid $borderColor;
+  border-left: 1px solid $borderColor;
+  border-collapse: collapse;
+  margin-bottom: -1px;
+  min-width: 3rem;
+  text-align: center;
+
+  &:hover {
+    color: $primaryColor;
+  }
+
+  &.STATE_active {
+    color: $primaryColor;
+    border-bottom: 1px solid white;
+  }
+
+  &:first-child {
+    border-top-left-radius: 0.25rem;
+  }
+  &:last-child {
+    border-right: 1px solid $borderColor;
+    border-top-right-radius: 0.25rem;
+  }
+}
