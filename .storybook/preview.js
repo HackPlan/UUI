@@ -11,6 +11,12 @@ addDecorator(withPerformance);
 addDecorator(withA11y);
 
 addParameters({
+  controls: {
+    hideNoControlsWarning: true,
+  },
+})
+
+addParameters({
   options: {
     /**
      * Custom Story Sorting
