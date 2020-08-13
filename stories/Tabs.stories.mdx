@@ -17,6 +17,12 @@ import { useState } from 'react';
           value={value}
           onChange={(value) => { setValue(value) }}
           renderActiveTabPanelOnly
+          position={'top'}
+          customize={{
+            ContentBox: {
+              extendStyle: { minHeight: 200 }
+            }
+          }}
         >
           <Tab value={"react"} label={"React"}>
             <h1>React</h1>

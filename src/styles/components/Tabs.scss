@@ -1,11 +1,12 @@
 @import "../variables.scss";
 
 .UUI-Tabs-Root {
+  display: flex;
+
   .UUI-Tabs-TabBox {
     display: flex;
     flex-direction: row;
     align-content: center;
-    border-bottom: 1px solid $borderColor;
   }
 
   .UUI-Tabs-Content {
@@ -17,30 +18,136 @@
   }
 }
 
-.UUI-Tab-Root {
-  padding: 0.5rem 0.75rem;
-  cursor: pointer;
-  border-top: 1px solid $borderColor;
-  border-left: 1px solid $borderColor;
-  border-collapse: collapse;
-  margin-bottom: -1px;
-  min-width: 3rem;
-  text-align: center;
+.UUI-Tabs-Root {
+  .UUI-Tab-Root {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    min-width: 3rem;
+    text-align: center;
 
-  &:hover {
-    color: $primaryColor;
+    &:hover {
+      color: $primaryColor;
+    }
+    &.STATE_active {
+      color: $primaryColor;
+    }
   }
 
-  &.STATE_active {
-    color: $primaryColor;
-    border-bottom: 1px solid white;
+  &.POSITION_top {
+    flex-direction: column;
+
+    .UUI-Tabs-TabBox {
+      border-bottom: 1px solid $borderColor;
+    }
+    .UUI-Tab-Root {
+      border-top: 1px solid $borderColor;
+      border-left: 1px solid $borderColor;
+      margin-bottom: -1px;
+
+      &.STATE_active {
+        border-bottom: 1px solid white;
+      }
+
+      &:first-child {
+        border-top-left-radius: 0.25rem;
+      }
+      &:last-child {
+        border-right: 1px solid $borderColor;
+        border-top-right-radius: 0.25rem;
+      }
+    }
+
+    .UUI-Tabs-ContentBox {
+      margin-top: 1rem;
+    }
   }
 
-  &:first-child {
-    border-top-left-radius: 0.25rem;
+  &.POSITION_bottom {
+    flex-direction: column-reverse;
+
+    .UUI-Tabs-TabBox {
+      border-top: 1px solid $borderColor;
+    }
+    .UUI-Tab-Root {
+      border-bottom: 1px solid $borderColor;
+      border-left: 1px solid $borderColor;
+      margin-top: -1px;
+
+      &.STATE_active {
+        border-top: 1px solid white;
+      }
+
+      &:first-child {
+        border-bottom-left-radius: 0.25rem;
+      }
+      &:last-child {
+        border-right: 1px solid $borderColor;
+        border-bottom-right-radius: 0.25rem;
+      }
+    }
+
+    .UUI-Tabs-ContentBox {
+      margin-bottom: 1rem;
+    }
   }
-  &:last-child {
-    border-right: 1px solid $borderColor;
-    border-top-right-radius: 0.25rem;
+
+  &.POSITION_left {
+    flex-direction: row;
+
+    .UUI-Tabs-TabBox {
+      flex-direction: column;
+      border-right: 1px solid $borderColor;
+    }
+    .UUI-Tab-Root {
+      border-top: 1px solid $borderColor;
+      border-left: 1px solid $borderColor;
+      margin-right: -1px;
+
+      &.STATE_active {
+        border-right: 1px solid white;
+      }
+
+      &:first-child {
+        border-top-left-radius: 0.25rem;
+      }
+      &:last-child {
+        border-bottom: 1px solid $borderColor;
+        border-bottom-left-radius: 0.25rem;
+      }
+    }
+
+    .UUI-Tabs-ContentBox {
+      margin-left: 1rem;
+    }
+  }
+
+  &.POSITION_right {
+    flex-direction: row-reverse;
+
+    .UUI-Tabs-TabBox {
+      flex-direction: column;
+      border-left: 1px solid $borderColor;
+    }
+    .UUI-Tab-Root {
+      border-top: 1px solid $borderColor;
+      border-right: 1px solid $borderColor;
+      margin-left: -1px;
+
+      &.STATE_active {
+        border-left: 1px solid white;
+      }
+
+      &:first-child {
+        border-top-right-radius: 0.25rem;
+      }
+      &:last-child {
+        border-bottom: 1px solid $borderColor;
+        border-bottom-right-radius: 0.25rem;
+      }
+    }
+
+    .UUI-Tabs-ContentBox {
+      margin-right: 1rem;
+    }
   }
 }

@@ -11,6 +11,11 @@ export interface TabsFeatureProps {
   onChange: (value: string) => void;
   renderActiveTabPanelOnly?: boolean;
   children: React.ReactNode;
+  /**
+   * Tab postion
+   * @default top
+   */
+  position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export const Tabs = UUI.FunctionComponent({
@@ -23,6 +28,10 @@ export const Tabs = UUI.FunctionComponent({
   },
 }, (props: TabsFeatureProps, nodes) => {
   const { Root, TabBox, ContentBox, Content } = nodes
+
+  const finalProps = {
+    position: props.position || 'top',
+  }
 
   const tabs = useMemo(() => {
     return getValidTypeChildren(Tab, props.children)
@@ -43,7 +52,9 @@ export const Tabs = UUI.FunctionComponent({
 
   return (
     <TabsContext.Provider value={{ value: props.value, onChange: props.onChange }}>
-      <Root>
+      <Root
+        className={classNames([`POSITION_${finalProps.position}`])}
+      >
         <TabBox>
           {tabs}
         </TabBox>
