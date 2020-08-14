@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UUIComponent [ariaAttributes] 1`] = `
+<div
+  aria-checked="true"
+  aria-nativedata="nativedata"
+  className="UUI-UUITestComponent-Root"
+>
+  <div
+    aria-label="node 1 outer label"
+    aria-labelledby="node 1 labelledby"
+    className="UUI-UUITestComponent-Node1"
+  />
+  <div
+    aria-label="node 2 inner label"
+    className="UUI-UUITestComponent-Node2"
+  />
+</div>
+`;
+
 exports[`UUIComponent [dataAttributes] 1`] = `
 <div
   className="UUI-UUITestComponent-Root"
