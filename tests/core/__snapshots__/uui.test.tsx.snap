@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UUIComponent [dataAttributes] 1`] = `
+<div
+  className="UUI-UUITestComponent-Root"
+  data-id="thisisamockid"
+  data-nativedata="nativedata"
+>
+  <div
+    className="UUI-UUITestComponent-Node1"
+    data-abc-xyz="abcxyz"
+  />
+  <div
+    className="UUI-UUITestComponent-Node2"
+  />
+</div>
+`;
+
 exports[`UUIComponent [special IntrinsicNodes children] 1`] = `
 <div
   className="UUI-UUITestComponent-Root"
