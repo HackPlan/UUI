@@ -7,9 +7,24 @@ import { TabsContext } from './TabsContext';
 
 
 export interface TabsFeatureProps {
+  /**
+   * The value of currently selected tab.
+   */
   value: string;
+  /**
+   * Event handler invoked when tab is selected.
+   */
   onChange: (value: string) => void;
-  renderActiveTabPanelOnly?: boolean;
+  /**
+   * Whether inactive tab panels should be removed from the DOM and unmounted in React.
+   * This can be a performance enhancement when rendering many complex panels, but requires
+   * careful support for unmounting and remounting.
+   * @default false
+   */
+  renderActiveTabOnly?: boolean;
+  /**
+   * only accept <Tab />, other components and elements will not rendered.
+   */
   children: React.ReactNode;
   /**
    * Tab postion
@@ -39,7 +54,7 @@ export const Tabs = UUI.FunctionComponent({
 
   const tabContents = useMemo(() => {
     return tabs
-      .filter((i) => props.renderActiveTabPanelOnly ? i.props.value === props.value : true)
+      .filter((i) => props.renderActiveTabOnly ? i.props.value === props.value : true)
       .map((i) => (
         <Content
           className={classNames({
@@ -48,7 +63,7 @@ export const Tabs = UUI.FunctionComponent({
           key={`tab-${i.props.value}`}
         >{i.props.children}</Content>
       ))
-  }, [props.renderActiveTabPanelOnly, props.value, tabs])
+  }, [props.renderActiveTabOnly, props.value, tabs])
 
   return (
     <TabsContext.Provider value={{ value: props.value, onChange: props.onChange }}>

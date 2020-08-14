@@ -4,8 +4,17 @@ import { TabsContext } from './TabsContext';
 import classNames from 'classnames';
 
 export interface TabFeatureProps {
+  /**
+   * The label text to display in the tab node.
+   */
   label: React.ReactNode;
+  /**
+   * Value of tab
+   */
   value: string;
+  /**
+   * Content of tab
+   */
   children: React.ReactNode;
 }
 
