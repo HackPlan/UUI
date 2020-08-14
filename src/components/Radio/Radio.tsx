@@ -40,6 +40,8 @@ const BaseRadio = UUI.FunctionComponent({
 
   return (
     <Root
+      role="radio"
+      aria-checked={props.checked}
       className={classNames({
         'STATE_disabled': props.disabled,
       })}

@@ -54,6 +54,7 @@ const BaseHTMLSelect = UUI.FunctionComponent({
   const { Root, Select, Option, LoadingSpinner } = nodes
   return (
     <Root
+      role="select"
       className={classNames({
         'STATE_disabled': props.disabled,
         'STATE_loading': props.loading,
@@ -74,8 +75,9 @@ const BaseHTMLSelect = UUI.FunctionComponent({
         )}
       >
         {props.options.map((i) => {
+          const selected = i.value === props.value
           return (
-            <Option key={i.value} value={i.value}>{i.label}</Option>
+            <Option role="option" aria-selected={selected} key={i.value} value={i.value}>{i.label}</Option>
           )
         })}
       </Select>

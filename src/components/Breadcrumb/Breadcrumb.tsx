@@ -32,7 +32,9 @@ export const Breadcrumb = UUI.FunctionComponent({
   }
 
   return (
-    <Root>
+    <Root
+      role="select"
+    >
       {ReactHelper.join(props.items.map((i) => {
         const interactive = !!i.path || !!i.onAction
         return (

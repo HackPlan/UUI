@@ -60,6 +60,10 @@ export const TextArea = UUI.FunctionComponent({
   const hasCornerIndicator = !!props.loading || props.showLengthIndicator
   return (
     <Root
+      role="input"
+      aria-readonly={!!props.disabled}
+      aria-placeholder={props.placeholder}
+      aria-multiline
       className={classNames({
         'STATE_disabled': props.disabled,
         'STATE_loading': props.loading,

@@ -4,6 +4,7 @@ import { Button } from '../../components/Button';
 import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
 import { Icons } from '../../icons/Icons';
+import classNames from 'classnames';
 
 export interface StepperFeatureProps {
   /**
@@ -115,23 +116,30 @@ export const Stepper = UUI.FunctionComponent({
     />
   )
 
-  switch (finalProps.controlPosition) {
-    case 'separate':
-      return (
-        <Root className={"POSITION_controlSeparate"}>
-          {minus}{input}{plus}
-        </Root>
-      )
-    case 'right':
-      return (
-        <Root className={"POSITION_controlRight"}>
+  return (
+    <Root
+      role="spinbutton"
+      aria-valuemax={props.max}
+      aria-valuemin={props.min}
+      aria-valuenow={props.value || undefined}
+      className={classNames({
+        'POSITION_controlSeparate': finalProps.controlPosition === 'separate',
+        'POSITION_controlRight': finalProps.controlPosition === 'right',
+      })}
+    >
+      {finalProps.controlPosition === 'separate' && (
+        <>{minus}{input}{plus}</>
+      )}
+      {finalProps.controlPosition === 'right' && (
+        <>
           {input}
           <RightControlsContainer>
             {plus}{minus}
           </RightControlsContainer>
-        </Root>
-      )
-  }
+        </>
+      )}
+    </Root>
+  )
 })
 
 export type StepperProps = Parameters<typeof Stepper>[0]

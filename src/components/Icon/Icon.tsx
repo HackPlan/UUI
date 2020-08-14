@@ -78,7 +78,7 @@ export const Icon = UUI.FunctionComponent({
   })()
 
   return (
-    <Root>
+    <Root role="image">
       {content}
     </Root>
   )

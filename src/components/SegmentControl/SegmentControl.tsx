@@ -44,15 +44,18 @@ const BaseSegmentControl = UUI.FunctionComponent({
   }
 
   return (
-    <Root>
+    <Root role="radiogroup">
       <Container>
         <Thumb style={thumbStyle} />
         {props.options.map((option) => {
+          const active = props.value === option.value
           return (
             <Option
+              role="radio"
+              aria-checked={active}
               key={option.value}
               className={classNames({
-                'STATE_active': props.value === option.value
+                'STATE_active': active
               })}
               onClick={() => {
                 if (props.value !== option.value) {

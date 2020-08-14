@@ -108,6 +108,9 @@ export const TextField = UUI.FunctionComponent({
 
   return (
     <Root
+      role="input"
+      aria-readonly={!!props.disabled}
+      aria-placeholder={props.placeholder}
       className={classNames({
         'STATE_disabled': props.disabled,
         'STATE_loading': props.loading,

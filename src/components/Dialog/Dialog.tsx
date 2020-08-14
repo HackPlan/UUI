@@ -89,7 +89,7 @@ export const Dialog = UUI.FunctionComponent({
   )
   const portal = finalProps.usePortal ? ReactDOM.createPortal(backdrop, finalProps.portalContainer) : backdrop
   return (
-    <Root>
+    <Root role="dialog">
       {portal}
     </Root>
   )

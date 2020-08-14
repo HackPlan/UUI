@@ -238,6 +238,11 @@ export const Slider = UUI.FunctionComponent({
 
   return (
     <Root
+      role="slider"
+      aria-valuemin={props.min}
+      aria-valuemax={props.max}
+      aria-valuenow={Math.abs(finalValue[1] - finalValue[0])}
+      aria-valuetext={toPercentage((Math.abs(finalValue[1] - finalValue[0])) / (props.max - props.min))}
       className={classNames({
         'STATE_disabled': props.disabled,
         'STATE_vertical': props.vertical,

@@ -176,6 +176,7 @@ export const Cascader = UUI.FunctionComponent({
 
   return (
     <Root
+      role="select"
       className={classNames({
         'STATE_active': popoverActive,
         'STATE_loading': props.loading,
@@ -230,6 +231,8 @@ export const Cascader = UUI.FunctionComponent({
                   {options.map((option, optionIndex) => {
                     return (
                       <Item
+                        role="listitem"
+                        aria-selected={option.selected}
                         className={classNames({
                           'STATE_selected': option.selected,
                           'STATE_disabled': option.disabled,

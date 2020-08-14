@@ -46,6 +46,8 @@ export const Checkbox = UUI.FunctionComponent({
 
   return (
     <Root
+      role="checkbox"
+      aria-checked={!!props.checked}
       className={classNames({
         'STATE_disabled': props.disabled,
       })}

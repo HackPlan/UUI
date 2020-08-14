@@ -40,6 +40,8 @@ export const Switch = UUI.FunctionComponent({
 
   return (
     <Root
+      role="switch"
+      aria-checked={props.value}
       className={classNames({
         'STATE_checked': props.value,
         'STATE_disabled': props.disabled,

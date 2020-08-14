@@ -161,10 +161,14 @@ const BaseSelect = UUI.FunctionComponent({
 
   const renderOptionList = useCallback((options: SelectOption<any>[]) => {
     return options.map((option, index) => {
+      const selected = option.value === props.value
       return (
         <OptionList key={index}>
           <Option
+            role="option"
+            aria-selected={selected}
             className={classNames({
+              'STATE_selected': selected,
               'STATE_disabled': option.disabled,
             })}
             onClick={() => {
@@ -200,6 +204,7 @@ const BaseSelect = UUI.FunctionComponent({
 
   return (
     <Root
+      role="select"
       className={classNames({
         'STATE_active': active,
         'STATE_loading': props.loading,
