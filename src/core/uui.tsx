@@ -8,7 +8,7 @@
 
 
 import React from 'react';
-import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty } from 'lodash';
+import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty, chain } from 'lodash';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
 
@@ -32,10 +32,16 @@ export interface NodeCustomizeChildrenProps {
   extendChildrenBefore?: React.ReactNode;
   extendChildrenAfter?: React.ReactNode;
 }
+export interface NodeCustomizeDataAttributesProps {
+  dataAttributes?: {
+    [key: string]: any;
+  };
+}
 export type NodeCustomizeProps =
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
+  & NodeCustomizeDataAttributesProps
   & React.RefAttributes<any>
 
 // ---------------------------------------------------------------
@@ -87,6 +93,18 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
         ...pick(_props, ['style']),
       })
       return isEmpty(data) ? undefined : data
+    })()
+    const dataAttributes = (() => {
+      if (!customizeProps.customize?.dataAttributes) return {}
+      /**
+       * @reference https://www.w3.org/TR/2008/REC-xml-20081126/#NT-Name
+       * TODO: // fix regex for supporting unicode
+       */
+      const validDataAttributesCharactersRegex = /^([A-Za-z0-9-])*$/
+      return chain(customizeProps.customize.dataAttributes)
+        .pickBy((v, k) => validDataAttributesCharactersRegex.test(k))
+        .mapKeys((v, k) => `data-${k}`)
+        .value()
     })()
     const children = (() => {
       const noChildren = ['input', 'textarea', 'hr'].indexOf(tagName) !== -1
@@ -150,6 +168,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     return React.createElement(tagName, {
       ...omit(_props, 'children', 'ref', 'className', 'style'),
       ...mergedCallbackFunctions,
+      ...dataAttributes,
       ref,
       className, style,
     }, children)
@@ -242,6 +261,11 @@ export type UUIConvenienceProps = {
    * @default none
    */
   style?: React.CSSProperties;
+
+  /**
+   * React native support data-* attributes type,
+   * dont need to redeclare again convenience data attributes.
+   */
 }
 export type UUIComponentProps<P, X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT }> = P & UUIConvenienceProps & UUIComponentCustomizeProps<X>
 export type UUIFunctionComponentProps<T extends (...args: any) => any> = Parameters<T>[0]
@@ -369,7 +393,16 @@ function compileProps(props: any, options: any, ref: any): any {
   ) {
     const rootCustomizeProps: any = (compiledProps.customize as any)['Root'] || {};
     if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
-    if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle) as any;
+    if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle);
+
+    const dataAttributes = chain(compiledProps)
+      .pickBy((v, k) => k.startsWith('data-'))
+      .mapKeys((v, k) => k.replace('data-', ''))
+      .value();
+    if (!isEmpty(dataAttributes)) {
+      rootCustomizeProps.dataAttributes = Object.assign(dataAttributes, rootCustomizeProps.dataAttributes);
+    }
+
     (compiledProps.customize as any)['Root'] = rootCustomizeProps;
   }
   compiledProps.ref = ref

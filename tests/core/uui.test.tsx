@@ -502,3 +502,56 @@ it('UUIComponent [refs]', () => {
   expect(ref1.current).toBe(ref2.current);
   expect(ref3.current).toBe(ref4.current);
 })
+
+/**
+ * UUI Component dataAttributes
+ *
+ * 测试 props.customize[Node].dataAttributes 是否被正确插入 DOM
+ */
+it('UUIComponent [dataAttributes]', () => {
+
+  const UUITestComponent = UUI.FunctionComponent({
+    name: 'UUITestComponent',
+    nodes: {
+      Root: 'div',
+      Node1: 'div',
+      Node2: 'div',
+    }
+  }, (props: {}, nodes) => {
+    const { Root, Node1, Node2 } = nodes
+    return (
+      <Root>
+        <Node1 />
+        <Node2 />
+      </Root>
+    )
+  })
+
+  const tree = renderer
+  .create(
+    <UUITestComponent
+      data-nativedata="nativedata"
+      customize={{
+        Root: {
+          dataAttributes: {
+            id: "thisisamockid",
+          }
+        },
+        Node1: {
+          dataAttributes: {
+            "abc-xyz": "abcxyz",
+            // TODO: fix unicode support
+            // "测试UNICODE": "测试 Unicode",
+            "test-@invalid-name": "invalid attribute name willnot inject into dom",
+          }
+        },
+        Node2: {
+          // keep empty
+        },
+      }}
+    />
+  )
+  .toJSON();
+
+  expect(tree).toMatchSnapshot();
+})
