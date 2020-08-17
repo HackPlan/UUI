@@ -13,11 +13,11 @@ import { useState, useEffect } from 'react';
     {() => {
       const columns = [
         { key: 'name', title: "Name", onRowRender: (i) => i.name },
-        { key: 'age', title: "Age", onRowRender: (i) => i.age },
-        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
-        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
-        { key: 'email', title: "Email", onRowRender: (i) => i.email },
-        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
       ]
       const [rows, setRows] = useState([
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
@@ -36,18 +36,41 @@ import { useState, useEffect } from 'react';
   </Story>
 </Preview>
 
+#### TableColumn
+
+`props.columns` 用来定义表格列信息
+
+```tsx
+interface TableColumn<T> {
+  key: string;
+  title: React.ReactNode;
+  children?: TableColumn<T>[];
+  onRowRender?: (row: T) => React.ReactNode;
+}
+```
+
+如果不传 `onRowRender` 属性，那么默认将根据 `TableColumn.key` 从 `TableRow[key]` 中获取值，如果 key 在数据对象中不存在，那么会返回 `null`。
+
+```tsx
+const onRowRender = column.onRowRender || ((row: any) => {
+  return row[column.key] || null
+})
+```
+
+`TableColumn` 可以是一个树状结构（参考下文的[表头分组](#表头分组)），那么只有最底层叶子结点 `onRowRender` 有效。
+
 ### 多选表格行
 
 <Preview>
   <Story name="Table with selection">
     {() => {
       const columns = [
-        { key: 'name', title: "Name", onRowRender: (i) => i.name },
-        { key: 'age', title: "Age", onRowRender: (i) => i.age },
-        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
-        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
-        { key: 'email', title: "Email", onRowRender: (i) => i.email },
-        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
+        { key: 'name', title: "Name" },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
       ]
       const rows = [
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
@@ -134,12 +157,12 @@ import { useState, useEffect } from 'react';
   <Story name="Table with empty data">
     {() => {
       const columns = [
-        { key: 'name', title: "Name", onRowRender: (i) => i.name },
-        { key: 'age', title: "Age", onRowRender: (i) => i.age },
-        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
-        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
-        { key: 'email', title: "Email", onRowRender: (i) => i.email },
-        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
+        { key: 'name', title: "Name" },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
       ]
       const rows = []
       const onRowId = (row) => row.id
@@ -160,12 +183,12 @@ import { useState, useEffect } from 'react';
   <Story name="Table hide header">
     {() => {
       const columns = [
-        { key: 'name', title: "Name", onRowRender: (i) => i.name },
-        { key: 'age', title: "Age", onRowRender: (i) => i.age },
-        { key: 'gender', title: "Gender", onRowRender: (i) => i.gender },
-        { key: 'mobile', title: "Mobile", onRowRender: (i) => i.mobile },
-        { key: 'email', title: "Email", onRowRender: (i) => i.email },
-        { key: 'profession', title: "Profession", onRowRender: (i) => i.profession },
+        { key: 'name', title: "Name" },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
       ]
       const rows = [
         { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },

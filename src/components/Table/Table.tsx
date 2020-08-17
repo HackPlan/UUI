@@ -9,7 +9,7 @@ export interface TableColumn<T> {
   key: string;
   title: React.ReactNode;
   children?: TableColumn<T>[];
-  onRowRender: (row: T) => React.ReactNode;
+  onRowRender?: (row: T) => React.ReactNode;
 }
 
 export interface TableFeatureProps<T> {
@@ -200,8 +200,11 @@ export const Table = UUI.FunctionComponent({
         const columnKey = column.key
         const cellKey = `${rowKey}-column:${columnKey}`
         const cellKeyClassName = `COLUMN_${columnKey}`
+        const onRowRender = column.onRowRender || ((row: any) => {
+          return row[column.key] || null
+        })
         return (
-          <DataCell role="cell" key={cellKey} className={classNames([cellKeyClassName])}>{column.onRowRender(row)}</DataCell>
+          <DataCell role="cell" key={cellKey} className={classNames([cellKeyClassName])}>{onRowRender(row)}</DataCell>
         )
       })}
 
