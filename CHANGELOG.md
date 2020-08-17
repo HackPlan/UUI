@@ -2,6 +2,14 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.7
+
+- UUI Component Util - options.nodes declaration types support class component
+- new component `NumberAbbrLabel`
+- new component `Tabs`
+- UUI Component support data-* attributes
+- UUI Component support WAI-ARIA attributes
+
 ### v0.4.6
 
 - Table cache row render fix issue
