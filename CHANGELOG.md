@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.8
+
+- `Table` make TableColumn.onRowRender optional
+
 ### v0.4.7
 
 - UUI Component Util - options.nodes declaration types support class component

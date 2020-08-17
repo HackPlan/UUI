@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.8
+
+- `Table` TableColumn 可以不传 onRowRender 属性
+
 ### v0.4.7
 
 - UUI Component Util - options.nodes 支持传入 class component
