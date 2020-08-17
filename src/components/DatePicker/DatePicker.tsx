@@ -34,6 +34,7 @@ export const DatePicker = UUI.FunctionComponent({
   return (
     <Root>
       <Input
+        role="input"
         type="date"
         name={props.name}
         value={props.value === undefined ? undefined : dateValue}

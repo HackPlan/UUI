@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React, { useMemo } from "react";
 import { UUI } from "../../core/uui";
+import { chain } from 'lodash';
 
 export interface ProgressBarFeatureProps {
   /**
@@ -85,6 +86,11 @@ export const ProgressBar = UUI.FunctionComponent(
 
     return (
       <Root
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={chain(props.value * 100).round().clamp(0, 100).value()}
+        aria-valuetext={toPercentage(props.value)}
         className={classNames({
           'STATE_disabled': props.disabled,
           'STATE_circular': props.circular,

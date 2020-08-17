@@ -68,6 +68,7 @@ export const Tabs = UUI.FunctionComponent({
   return (
     <TabsContext.Provider value={{ value: props.value, onChange: props.onChange }}>
       <Root
+        role="tabpanel"
         className={classNames([`POSITION_${finalProps.position}`])}
       >
         <TabBox>

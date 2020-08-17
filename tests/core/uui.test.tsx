@@ -555,3 +555,54 @@ it('UUIComponent [dataAttributes]', () => {
 
   expect(tree).toMatchSnapshot();
 })
+
+/**
+ * UUI Component ariaAttributes
+ *
+ * 测试 props.customize[Node].ariaAttributes 是否被正确插入 DOM
+ */
+it('UUIComponent [ariaAttributes]', () => {
+
+  const UUITestComponent = UUI.FunctionComponent({
+    name: 'UUITestComponent',
+    nodes: {
+      Root: 'div',
+      Node1: 'div',
+      Node2: 'div',
+    }
+  }, (props: {}, nodes) => {
+    const { Root, Node1, Node2 } = nodes
+    return (
+      <Root>
+        <Node1 aria-label="node 1 inner label"/>
+        <Node2 aria-label="node 2 inner label" />
+      </Root>
+    )
+  })
+
+  const tree = renderer
+  .create(
+    <UUITestComponent
+      aria-nativedata="nativedata"
+      customize={{
+        Root: {
+          ariaAttributes: {
+            checked: "true",
+          }
+        },
+        Node1: {
+          ariaAttributes: {
+            "label": "node 1 outer label",
+            "labelledby": "node 1 labelledby",
+          }
+        },
+        Node2: {
+          // keep empty
+        },
+      }}
+    />
+  )
+  .toJSON();
+
+  expect(tree).toMatchSnapshot();
+})

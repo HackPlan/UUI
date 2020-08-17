@@ -11,6 +11,7 @@ import React from 'react';
 import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty, chain } from 'lodash';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
+import { UUICustomizeAriaAttributes } from './types/UUICustomizeAriaAttributes';
 
 // ---------------------------------------------------------------
 // Customize Extra Props
@@ -37,11 +38,15 @@ export interface NodeCustomizeDataAttributesProps {
     [key: string]: any;
   };
 }
+export interface NodeCustomizeAriaAttributesProps {
+  ariaAttributes?: UUICustomizeAriaAttributes;
+}
 export type NodeCustomizeProps =
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
   & NodeCustomizeDataAttributesProps
+  & NodeCustomizeAriaAttributesProps
   & React.RefAttributes<any>
 
 // ---------------------------------------------------------------
@@ -124,6 +129,13 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       return children
     })()
 
+    const ariaAttributes = (() => {
+      if (!customizeProps.customize?.ariaAttributes) return {}
+      return chain(customizeProps.customize.ariaAttributes)
+        .mapKeys((v, k) => `aria-${k}`)
+        .value()
+    })()
+
     /**
      * Merge both customize ref and component inner ref.
      */
@@ -169,6 +181,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
       ...omit(_props, 'children', 'ref', 'className', 'style'),
       ...mergedCallbackFunctions,
       ...dataAttributes,
+      ...ariaAttributes,
       ref,
       className, style,
     }, children)
@@ -401,6 +414,14 @@ function compileProps(props: any, options: any, ref: any): any {
       .value();
     if (!isEmpty(dataAttributes)) {
       rootCustomizeProps.dataAttributes = Object.assign(dataAttributes, rootCustomizeProps.dataAttributes);
+    }
+
+    const ariaAttributes = chain(compiledProps)
+      .pickBy((v, k) => k.startsWith('aria-'))
+      .mapKeys((v, k) => k.replace('aria-', ''))
+      .value();
+    if (!isEmpty(ariaAttributes)) {
+      rootCustomizeProps.ariaAttributes = Object.assign(ariaAttributes, rootCustomizeProps.ariaAttributes);
     }
 
     (compiledProps.customize as any)['Root'] = rootCustomizeProps;

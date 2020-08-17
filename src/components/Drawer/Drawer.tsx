@@ -84,7 +84,7 @@ export const Drawer = UUI.FunctionComponent({
   }, [finalProps.usePortal, finalProps.portalContainer, content])
 
   return (
-    <Root>
+    <Root role="dialog">
       {portal}
     </Root>
   )

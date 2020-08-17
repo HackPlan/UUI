@@ -135,10 +135,10 @@ export const Table = UUI.FunctionComponent({
     const selectionCellKey = `${rowKey}-column:selection`
     const selectionCellClassName = 'COLUMN_selection'
     return (
-      <Row className={classNames([rowClassName])} key={rowKey}>
+      <Row role="row" className={classNames([rowClassName])} key={rowKey}>
         {/* Selection Head Cell */}
         {selectedRowIds && rowIndex === 0 && (
-          <HeadCell key={selectionCellKey} className={classNames([selectionCellClassName])} rowSpan={9999}>
+          <HeadCell role="columnheader" key={selectionCellKey} className={classNames([selectionCellClassName])} rowSpan={9999}>
             <Checkbox
               checked={selectedRowIds.length === rows.length && rows.length > 0}
               onChange={(value) => {
@@ -154,6 +154,7 @@ export const Table = UUI.FunctionComponent({
           const cellKeyClassName = `COLUMN_${cell.key}`
           return (
             <HeadCell
+              role="columnheader"
               key={cellKey}
               className={classNames([cellKeyClassName])}
               colSpan={cell.colspan}
@@ -177,11 +178,11 @@ export const Table = UUI.FunctionComponent({
     const selectionCellKey = `${rowKey}-column:selection`
     const selectionCellClassName = 'COLUMN_selection'
     return (
-      <Row key={rowKey} className={classNames([rowKeyClassName])}>
+      <Row role="row" key={rowKey} className={classNames([rowKeyClassName])}>
 
       {/* Selection Head Cell */}
       {selectedRowIds && (
-        <DataCell key={selectionCellKey} className={classNames([selectionCellClassName])}>
+        <DataCell role="cell" key={selectionCellKey} className={classNames([selectionCellClassName])}>
           <Checkbox
             checked={selectedRowIds.includes(rowId)}
             onChange={(value) => {
@@ -200,7 +201,7 @@ export const Table = UUI.FunctionComponent({
         const cellKey = `${rowKey}-column:${columnKey}`
         const cellKeyClassName = `COLUMN_${columnKey}`
         return (
-          <DataCell key={cellKey} className={classNames([cellKeyClassName])}>{column.onRowRender(row)}</DataCell>
+          <DataCell role="cell" key={cellKey} className={classNames([cellKeyClassName])}>{column.onRowRender(row)}</DataCell>
         )
       })}
 
@@ -223,22 +224,23 @@ export const Table = UUI.FunctionComponent({
 
   return (
     <Root
+      role="table"
       className={classNames({
         'STATE_loading': props.loading,
         'STATE_empty': props.rows.length === 0,
       })}
     >
       <LoadingCover loading={props.loading}>
-        <Table>
+        <Table role="table">
           {!props.hideHeader && (
-            <Head>
+            <Head role="rowgroup">
               {/* Grouping Head Cells */}
               {headCells}
             </Head>
           )}
-          <Body>
+          <Body role="rowgroup">
             {props.rows.length === 0 ? (
-              <Row>
+              <Row role="row">
                 <DataCell colSpan={9999}>
                   <EmptyView>
                     {props.emptyView || 'No Data'}

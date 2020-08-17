@@ -72,6 +72,9 @@ export const NumberField = UUI.FunctionComponent({
 
   return (
     <Root
+      role="input"
+      aria-readonly={!!props.disabled}
+      aria-placeholder={props.placeholder}
       className={classNames({
         'STATE_loading': props.loading,
         'STATE_disabled': props.disabled,

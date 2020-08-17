@@ -34,7 +34,7 @@ const BaseRadioGroup = UUI.FunctionComponent({
 }, (props: RadioGroupFeatureProps<any>, nodes) => {
   const { Root } = nodes
   return (
-    <Root>
+    <Root role="radiogroup">
       {React.Children.map(props.children, (child: any) => {
         return React.cloneElement<RadioFeatureProps<any>>(child, {
           ...child.props,

@@ -36,6 +36,8 @@ export const Tab = UUI.FunctionComponent({
 
   return (
     <Root
+      role="tab"
+      aria-selected={isActive}
       className={classNames({
         'STATE_active': isActive,
       })}
