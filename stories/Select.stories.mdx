@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { HTMLSelect, Select } from '../src';
 import { useState } from 'react';
 
@@ -12,7 +12,7 @@ HTML 选择器通常适用于移动端，而 Popover 选择器适用于电脑端
 ## HTML 原生选择器 HTMLSelect
 
 
-<Preview>
+<Canvas>
   <Story name="HTMLSelect">
     {() => {
       const options = [
@@ -26,13 +26,13 @@ HTML 选择器通常适用于移动端，而 Popover 选择器适用于电脑端
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## 选择器 Select
 
 #### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Select">
     {() => {
       const options = [
@@ -51,13 +51,13 @@ HTML 选择器通常适用于移动端，而 Popover 选择器适用于电脑端
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### 可选项分组
 
 对下拉菜单里的可选项分组
 
-<Preview>
+<Canvas>
   <Story name="Select with item sections">
     {() => {
       const sections = [{
@@ -86,13 +86,13 @@ HTML 选择器通常适用于移动端，而 Popover 选择器适用于电脑端
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### 自定义模板
 
 可以自定义选项内容
 
-<Preview>
+<Canvas>
   <Story name="Select with filter">
     {() => {
       const data = [
@@ -123,11 +123,11 @@ HTML 选择器通常适用于移动端，而 Popover 选择器适用于电脑端
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 可搜索选项
 
-<Preview>
+<Canvas>
   <Story name="Select with search">
     {() => {
       const options = [
@@ -148,8 +148,8 @@ HTML 选择器通常适用于移动端，而 Popover 选择器适用于电脑端
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ HTMLSelect, Select }} />
+<ArgsTable components={{ HTMLSelect, Select }} />

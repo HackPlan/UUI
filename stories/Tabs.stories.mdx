@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Tabs, Tab } from '../src';
 import { useState } from 'react';
 
@@ -20,7 +20,7 @@ import { useState } from 'react';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Tabs" args={{ position: 'top', className: undefined, style: undefined, renderActiveTabPanelOnly: undefined, customize: undefined }}>
     {(args) => {
       const [value, setValue] = useState('react')
@@ -52,6 +52,6 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
-<Props story={'Tabs'} showComponent />
+<ArgsTable story={'Tabs'} showComponent />

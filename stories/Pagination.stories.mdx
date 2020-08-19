@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Pagination } from '../src';
 import { useState, useMemo } from 'react';
 import { range } from 'lodash';
@@ -11,7 +11,7 @@ import { range } from 'lodash';
 
 分页组件被分割成了很多个小的子组件，这样你可以很方便自由的选择需要显示哪些功能部件，以及控制这些功能部件的显示顺序。
 
-<Preview>
+<Canvas>
   <Story name="Pagination">
     {() => {
       const [pagination, setPagination] = useState({
@@ -39,11 +39,11 @@ import { range } from 'lodash';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 移动端布局
 
-<Preview>
+<Canvas>
   <Story name="Pagination with mobile layout">
     {() => {
       const [pagination, setPagination] = useState({
@@ -68,12 +68,12 @@ import { range } from 'lodash';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 
 ### Props
 
-<Props components={{
+<ArgsTable components={{
   Pagination: Pagination,
   PageInfo: Pagination.PageInfo,
   PageList: Pagination.PageList,

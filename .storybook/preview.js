@@ -1,14 +1,12 @@
 import { addParameters } from '@storybook/react';
 import { addDecorator } from '@storybook/react';
 import { withPerformance } from 'storybook-addon-performance';
-import { withA11y } from '@storybook/addon-a11y';
 
 import '../stories/style/tailwind.css';
 import '../src/styles/index.scss';
 import '../stories/style/storybook.scss';
 
 addDecorator(withPerformance);
-addDecorator(withA11y);
 
 addParameters({
   controls: {

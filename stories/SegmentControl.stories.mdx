@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { SegmentControl } from '../src';
 import { useState } from 'react';
 
@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 ## 简单使用
 
-<Preview>
+<Canvas>
   <Story name="SegmentControl">
     {() => {
       const [value, setValue] = useState('hourly')
@@ -27,8 +27,8 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ SegmentControl }} />
+<ArgsTable components={{ SegmentControl }} />

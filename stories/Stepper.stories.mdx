@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Stepper } from '../src';
 import { useState } from 'react';
 
@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Stepper">
     {() => {
       const [n, setN] = useState(null)
@@ -24,7 +24,7 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 按钮位置
 
@@ -33,7 +33,7 @@ import { useState } from 'react';
 > 设置不同的按钮位置时，组件内部的 Nodes 结构会有所不同。
 > 使用右侧控制按钮布局时，两个控制按钮会被 `RightControlsContainer` 的 Node 包一层，如果你需要自定义组件的样式，要注意一下这个多出来的 Node。
 
-<Preview>
+<Canvas>
   <Story name="Stepper with controls right position">
     {() => {
       const [n, setN] = useState(null)
@@ -49,8 +49,8 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Stepper }} />
+<ArgsTable components={{ Stepper }} />

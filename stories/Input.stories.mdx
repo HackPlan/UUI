@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { TextField, NumberField, TextArea } from '../src';
 import { useState } from 'react';
 
@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 使用 `TextField` 来输入短文本。
 
-<Preview>
+<Canvas>
   <Story name="TextField">
     {() => {
       const [text, setText] = useState(null)
@@ -27,7 +27,7 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 限制文本输入长度
 
@@ -35,7 +35,7 @@ import { useState } from 'react';
 
 如果传入了 `maxLength`，则同时显示当前输入的文本长度和最多可输入的文本长度。
 
-<Preview>
+<Canvas>
   <Story name="TextField with length limit">
     {() => {
       const [text, setText] = useState(null)
@@ -51,7 +51,7 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 输入密码
 
@@ -59,7 +59,7 @@ import { useState } from 'react';
 
 默认情况下，密码可见性状态由组件内部管理。如果你需要自己管理这个状态，可以传入 `passwordVisible` 和 `onPasswordVisibleChange` 属性。
 
-<Preview>
+<Canvas>
   <Story name="TextField with password">
     {() => {
       const [text, setText] = useState(null)
@@ -74,13 +74,13 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## 数字输入框 NumberField
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="NumberField">
     {() => {
       const [number, setNumber] = useState(null)
@@ -93,7 +93,7 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## 文本域 TextArea
 
@@ -101,7 +101,7 @@ import { useState } from 'react';
 
 使用 `TextArea` 来输入长文本。
 
-<Preview>
+<Canvas>
   <Story name="TextArea">
     {() => {
       const [text, setText] = useState(null)
@@ -114,11 +114,11 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 限制文本输入长度
 
-<Preview>
+<Canvas>
   <Story name="TextArea with length limit">
     {() => {
       const [text, setText] = useState(null)
@@ -133,8 +133,8 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ TextField, NumberField, TextArea }} />
+<ArgsTable components={{ TextField, NumberField, TextArea }} />

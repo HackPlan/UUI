@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Radio, RadioGroup } from '../src';
 import { useState } from 'react';
 
@@ -9,17 +9,17 @@ import { useState } from 'react';
 
 ### 单个单选框
 
-<Preview>
+<Canvas>
   <Story name="Radio">
     <Radio
       label={'Radio'}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### 一组单选框
 
-<Preview>
+<Canvas>
   <Story name="Group of Radio">
     {() => {
       const [n, setN] = useState("a")
@@ -32,8 +32,8 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Radio, RadioGroup }} />
+<ArgsTable components={{ Radio, RadioGroup }} />

@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { MoneyLabel, DateLabel, TimeLabel, CountdownLabel, NumberAbbrLabel } from '../src';
 import { useState } from 'react';
 import { DateTime } from 'luxon';
@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 
 ### 货币标签 MoneyLabel
 
-<Preview>
+<Canvas>
   <Story name="MoneyLabel">
     <div className="flex flex-col">
       <MoneyLabel value={100100100.0000} symbol={'¥'}>
@@ -20,11 +20,11 @@ import { DateTime } from 'luxon';
       </MoneyLabel>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### 日期标签 DateLabel
 
-<Preview>
+<Canvas>
   <Story name="DateLabel">
     {() => {
       const now = new Date()
@@ -66,11 +66,11 @@ import { DateTime } from 'luxon';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 时间标签 TimeLabel
 
-<Preview>
+<Canvas>
   <Story name="TimeLabel">
     {() => {
       const now = new Date()
@@ -108,11 +108,11 @@ import { DateTime } from 'luxon';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 倒计时标签 CountdownLabel
 
-<Preview>
+<Canvas>
   <Story name="CountdownLabel">
     {() => {
       const until = DateTime.local().plus({ hours: 12 }).toJSDate()
@@ -124,11 +124,11 @@ import { DateTime } from 'luxon';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 计数缩写标签 NumberAbbrLabel
 
-<Preview>
+<Canvas>
   <Story name="NumberAbbrLabel">
     {() => {
       const value1 = 4567890
@@ -146,9 +146,9 @@ import { DateTime } from 'luxon';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 
 ### Props
 
-<Props components={{ MoneyLabel, DateLabel, TimeLabel, CountdownLabel, NumberAbbrLabel }} />
+<ArgsTable components={{ MoneyLabel, DateLabel, TimeLabel, CountdownLabel, NumberAbbrLabel }} />

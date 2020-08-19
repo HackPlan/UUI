@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Cascader } from '../src';
 import { useState, useEffect } from 'react';
 
@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Cascader">
     {() => {
       const [value, setValue] = useState(['a', 'ac'])
@@ -45,13 +45,13 @@ import { useState, useEffect } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 可选择任意一级选项
 
 `props.changeOnFinalSelect` 默认为 `true`，这个时候，只有当选择了最后一级 option 才会回调 `props.onChange`；反之，点击选择任何一级 option 都会回调。
 
-<Preview>
+<Canvas>
   <Story name="Cascader with select any level option">
     {() => {
       const [value, setValue] = useState([])
@@ -88,13 +88,13 @@ import { useState, useEffect } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 可搜索选项
 
 当启用搜索时（即 `props.searchable`），只有当 `CascaderOption.label` 传入字符串时，才会被搜索到。
 
-<Preview>
+<Canvas>
   <Story name="Cascader with search">
     {() => {
       const [value, setValue] = useState([])
@@ -131,7 +131,7 @@ import { useState, useEffect } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ##### 可自定义搜索函数
 
@@ -143,7 +143,7 @@ import { useState, useEffect } from 'react';
 />
 ```
 
-<Preview>
+<Canvas>
   <Story name="Cascader with custom search">
     {() => {
       const [value, setValue] = useState([])
@@ -184,11 +184,11 @@ import { useState, useEffect } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Cascader }} />
+<ArgsTable components={{ Cascader }} />
 
 ### CascaderOption
 

@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Table, TableNodes } from '../src';
 import { useState, useEffect } from 'react';
 
@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Table">
     {() => {
       const columns = [
@@ -34,7 +34,7 @@ import { useState, useEffect } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 #### TableColumn
 
@@ -61,7 +61,7 @@ const onRowRender = column.onRowRender || ((row: any) => {
 
 ### 多选表格行
 
-<Preview>
+<Canvas>
   <Story name="Table with selection">
     {() => {
       const columns = [
@@ -90,11 +90,11 @@ const onRowRender = column.onRowRender || ((row: any) => {
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 表头分组
 
-<Preview>
+<Canvas>
   <Story name="Table with grouping column">
     {() => {
       const rows = [
@@ -149,11 +149,11 @@ const onRowRender = column.onRowRender || ((row: any) => {
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 空表格空状态视图
 
-<Preview>
+<Canvas>
   <Story name="Table with empty data">
     {() => {
       const columns = [
@@ -175,11 +175,11 @@ const onRowRender = column.onRowRender || ((row: any) => {
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 隐藏表格表头
 
-<Preview>
+<Canvas>
   <Story name="Table hide header">
     {() => {
       const columns = [
@@ -206,8 +206,8 @@ const onRowRender = column.onRowRender || ((row: any) => {
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Table }} />
+<ArgsTable components={{ Table }} />

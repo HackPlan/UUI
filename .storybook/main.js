@@ -1,7 +1,18 @@
 module.exports = {
   stories: ['../stories/**/*.stories.@(tsx|mdx)'],
   addons: [
-    '@storybook/addon-storysource',
+    {
+      name: '@storybook/addon-storysource',
+      options: {
+        loaderOptions: {
+          parser: 'typescript',
+          prettierConfig: {
+            tabWidth: 2,
+            singleQuote: false,
+          },
+        },
+      },
+    },
     '@storybook/addon-docs',
     '@storybook/addon-controls',
     'storybook-addon-performance',

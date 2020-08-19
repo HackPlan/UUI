@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Popover, PopoverProps, Button } from '../src';
 import { useState } from 'react';
 
@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Popover">
     {() => {
       const [active, setActive] = useState(false)
@@ -32,13 +32,13 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 设置位置
 
 气泡卡片 Popover 共有十二个可选位置。
 
-<Preview>
+<Canvas>
   <Story name="Popover with Position">
     {() => {
       const PopoverElement = (props) => {
@@ -85,8 +85,8 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Popover }} />
+<ArgsTable components={{ Popover }} />

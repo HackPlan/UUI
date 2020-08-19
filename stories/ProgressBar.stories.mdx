@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs/blocks";
 import { ProgressBar } from "../src";
 import { useState } from "react";
 
@@ -8,7 +8,7 @@ import { useState } from "react";
 
 ### 水平进度条 Horizontal ProgressBar
 
-<Preview>
+<Canvas>
   <Story name="Horizontal ProgressBar">
     {() => {
       return (
@@ -20,11 +20,11 @@ import { useState } from "react";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 不确定的水平进度条 Indeterminate horizontal ProgressBar
 
-<Preview>
+<Canvas>
   <Story name="Indeterminate horizontal ProgressBar">
     {() => {
       return (
@@ -36,11 +36,11 @@ import { useState } from "react";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 不可用的水平进度条 Disabled horizontal ProgressBar
 
-<Preview>
+<Canvas>
   <Story name="Disabled horizontal ProgressBar">
     {() => {
       return (
@@ -52,11 +52,11 @@ import { useState } from "react";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 环形进度条 Circular ProgressBar
 
-<Preview>
+<Canvas>
   <Story name="Circular ProgressBar">
     {() => {
       return (
@@ -68,11 +68,11 @@ import { useState } from "react";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 不确定的环形进度条 Indeterminate circular ProgressBar
 
-<Preview>
+<Canvas>
   <Story name="Indeterminate circular ProgressBar">
     {() => {
       return (
@@ -84,11 +84,11 @@ import { useState } from "react";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 不可用的水平进度条 Disabled circular ProgressBar
 
-<Preview>
+<Canvas>
   <Story name="Disabled circular ProgressBar">
     {() => {
       return (
@@ -100,8 +100,8 @@ import { useState } from "react";
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ ProgressBar }} />
+<ArgsTable components={{ ProgressBar }} />
