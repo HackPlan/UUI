@@ -22,8 +22,8 @@ addParameters({
      * else the resting stories will sorted by story kind by alphabetically.
      */
     storySort: (a, b) => {
-      const sortIndexA = a[1].parameters['sortIndex']
-      const sortIndexB = b[1].parameters['sortIndex']
+      const sortIndexA = a[2]['sortIndex']
+      const sortIndexB = b[2]['sortIndex']
       if (sortIndexA && !sortIndexB) {
         return false
       } else if (!sortIndexA && sortIndexB) {
