@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Dialog, DialogProps } from './Dialog';
+import ReactHelper from '../../utils/ReactHelper';
 
 const AppDialogRootClassName = "UUI-AppDialog-Root"
 
@@ -24,20 +25,25 @@ export function AppDialog<T>(ContentComponent: (props: {
 }) => JSX.Element, options?: AppDialogOptions): Promise<T | boolean> {
   const finalOptions = {
     cancelOnClickAway: options?.cancelOnClickAway !== undefined ? options.cancelOnClickAway : false,
-    container: options?.container !== undefined ? options.container : document.body,
+    container: options?.container !== undefined ? options.container : ReactHelper.document?.body,
     customize: options?.customize !== undefined ? options.customize : undefined,
   }
-  const containerElement = document.createElement("div")
+  if (!finalOptions.container) return Promise.resolve(false);
+
+  const containerElement = ReactHelper.document?.createElement("div")
   const setup = () => {
+    if (!finalOptions.container || !containerElement) return;
     containerElement.className = AppDialogRootClassName
     finalOptions.container.appendChild(containerElement)
   }
   const clearup = () => {
+    if (!ReactHelper.document || !containerElement) return;
     ReactDOM.unmountComponentAtNode(containerElement)
-    document.body.removeChild(containerElement)
+    ReactHelper.document?.body.removeChild(containerElement)
   }
 
   setup()
+
   return new Promise((resolve) => {
 
     const DialogComponent = () => {
@@ -73,7 +79,7 @@ export function AppDialog<T>(ContentComponent: (props: {
 
     ReactDOM.render(
       <DialogComponent />,
-      containerElement,
+      containerElement || null,
     );
   })
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
-import { ReactHelper } from '../../utils/ReactHelper';
+import ReactHelper from '../../utils/ReactHelper';
 import classNames from 'classnames';
 
 export interface BreadcrumbItem {

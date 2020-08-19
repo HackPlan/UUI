@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { UUI } from '../../core/uui';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 import ReactDOM from 'react-dom';
+import ReactHelper from '../../utils/ReactHelper';
 
 export interface DialogFeatureProps {
   /**
@@ -54,7 +55,7 @@ export const Dialog = UUI.FunctionComponent({
    */
   const finalProps = {
     usePortal: props.usePortal === undefined ? true : props.usePortal,
-    portalContainer: props.portalContainer || document.body,
+    portalContainer: props.portalContainer || ReactHelper.document?.body,
     lockBodyScroll: props.lockBodyScroll === undefined ? true : props.lockBodyScroll,
   }
 
@@ -87,10 +88,15 @@ export const Dialog = UUI.FunctionComponent({
       </Container>
     </Backdrop>
   )
-  const portal = finalProps.usePortal ? ReactDOM.createPortal(backdrop, finalProps.portalContainer) : backdrop
+  const wrappedBackdrop = (() => {
+    if (!finalProps.portalContainer) return null
+    return finalProps.usePortal && finalProps.portalContainer
+    ? ReactDOM.createPortal(backdrop, finalProps.portalContainer)
+    : backdrop
+  })();
   return (
     <Root role="dialog">
-      {portal}
+      {wrappedBackdrop}
     </Root>
   )
 })

@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper-2';
 import { useClickAway } from 'react-use';
 import { UUI } from '../../core/uui';
+import ReactHelper from '../../utils/ReactHelper';
 
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'
@@ -79,7 +80,7 @@ export const Popover = UUI.FunctionComponent({
    */
   const finalProps = {
     usePortal: props.usePortal === undefined ? true : props.usePortal,
-    portalContainer: props.portalContainer || document.body,
+    portalContainer: props.portalContainer || ReactHelper.document?.body,
     placement: props.placement || 'bottom',
     strategy: props.strategy || 'absolute',
     modifiers: [
@@ -135,6 +136,7 @@ export const Popover = UUI.FunctionComponent({
      * Popover enable lazy feature, and this is never opened, content will not rendered.
      */
     if (props.lazy && neverOpened) return null
+    if (!finalProps.portalContainer) return null
 
     return finalProps.usePortal ? ReactDOM.createPortal((
       <Portal>

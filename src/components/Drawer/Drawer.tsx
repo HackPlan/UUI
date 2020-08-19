@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { UUI } from '../../core/uui';
 import classNames from 'classnames';
 import { useClickAway, useLockBodyScroll } from 'react-use';
+import ReactHelper from '../../utils/ReactHelper';
 
 export type DrawerPlacement = 'top' | 'right' | 'bottom' | 'left'
 
@@ -57,7 +58,7 @@ export const Drawer = UUI.FunctionComponent({
    */
   const finalProps = {
     usePortal: props.usePortal === undefined ? true : props.usePortal,
-    portalContainer: props.portalContainer || document.body,
+    portalContainer: props.portalContainer || ReactHelper.document?.body,
     lockBodyScroll: props.lockBodyScroll === undefined ? true : props.lockBodyScroll,
     placement: props.placement || 'right',
   }
@@ -78,6 +79,7 @@ export const Drawer = UUI.FunctionComponent({
   }, [props.children, props.active, finalProps.placement])
 
   const portal = useMemo(() => {
+    if (!finalProps.portalContainer) return null
     return finalProps.usePortal
     ? ReactDOM.createPortal(<Portal>{content}</Portal>, finalProps.portalContainer)
     : content

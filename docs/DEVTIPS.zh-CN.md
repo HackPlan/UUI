@@ -61,3 +61,24 @@ UUI 组件的 DOM 节点中存在一系列 className 用来描述组件的一些
 可以很清晰的看出，这些 className 都有整齐的格式，用下划线来分割，左边表示这个className 的种类（全大写），右边表示当前值（全小写）。【本来想用 `:` 来做分隔符的，但是这样容易和CSS伪类冲突混淆，而且据说小程序也不支持 class 里面有 `:`】
 
 这些 className 用来方便开发者自定义样式。
+
+## 全局属性 `window` 和 `document`
+
+在 `服务端渲染 SSR(Server-Side Render) ` 中不存在 `window` 和 `document`，为了让 UUI 支持 SSR 框架（比如 `next.js` 和 `nuxt.js`），请不要直接在 UUI 实现代码里直接访问这些属性。
+
+在 UUI 的组件实现中，如果需要访问到 `window` 或 `document`，请通过 `src/utils/ReactHelper.tsx` 文件拿到这些变量。
+
+在 `ReactHelper` 中这两个属性的类型为
+
+```tsx
+interface ReactHelper {
+  window: Window & undefined;
+  document: Window & undefined;
+}
+
+import ReactHelper from 'path/to/ReactHelper';
+
+ReactHelper.document?.body //......
+```
+
+在实际访问时，请添加条件判断是否存这些属性。

@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import classNames from 'classnames';
 import { UUI } from '../../core/uui';
+import ReactHelper from '../../utils/ReactHelper';
 
 export enum ToasterPosition {
   Top = "top",
@@ -54,8 +55,9 @@ export class Toaster extends UUI.ClassComponent({
     toasts: [] as IToast[],
   };
 
-  static create(props: ToasterFeatureProps, container = document.body) {
-    const containerElement = document.createElement("div");
+  static create(props: ToasterFeatureProps, container = ReactHelper.document?.body) {
+    const containerElement = ReactHelper.document?.createElement("div");
+    if (!containerElement || !container) return null;
     containerElement.className = ToasterPortalClassName
     container.appendChild(containerElement);
     const toaster = ReactDOM.render<ToasterFeatureProps>(
