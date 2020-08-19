@@ -77,6 +77,12 @@ Open your browser and visit http://localhost:6006 .
 
 We welcome all contributions. Please read CONTRIBUTING.md first.
 
+## Products built with UUI
+
+| <img height="140" src="https://tuya.xinxiao.tech/assets/tuya-avator.png?rv=4" /> | <img height="100" src="https://duoshao.app/assets/logo.svg" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|              [图压](https://tuya.xinxiao.tech/)              |       [多少记账](https://duoshao.app/)        |
+
 ## Licenses
 
 All files on the UUI GitHub repository are subject to the MIT license. Please read the License file at the root of the project.

@@ -77,6 +77,13 @@ yarn storybook
 
 我们欢迎所有类型的贡献开发。请先阅读 CONTRIBUTING.md 文档。
 
+## 使用 UUI 构建的产品
+
+| <img height="140" src="https://tuya.xinxiao.tech/assets/tuya-avator.png?rv=4" /> | <img height="100" src="https://duoshao.app/assets/logo.svg" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|              [图压](https://tuya.xinxiao.tech/)              |       [多少记账](https://duoshao.app/)        |
+
+
 ## 开源许可
 
 UUI 在 GitHub 仓库上的所有文件均受 MIT 许可。请阅读项目根目录下的许可证文件。
