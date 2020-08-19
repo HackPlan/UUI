@@ -1,6 +1,6 @@
 import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
-import { Drawer } from '../src';
-import { Drawer1 } from './Drawer.stories.tsx';
+import { Drawer, Button } from '../src';
+import { useState } from 'react';
 
 <Meta title="Drawer" component={Drawer} />
 
@@ -11,7 +11,24 @@ import { Drawer1 } from './Drawer.stories.tsx';
 ### 简单使用
 
 <Preview>
-  <Story name="Drawer">{Drawer1()}</Story>
+  <Story name="Drawer"> {
+    ()=>{
+      const [active, setActive] = useState(false)
+      return (
+        <div>
+          <Button onClick={() => { setActive((value=> !value)) }}>Click me!</Button>
+          <Drawer
+            active={active}
+            onDismiss={() => {
+            setActive(false)
+            }}
+          >
+            Content
+          </Drawer>
+        </div>
+      )
+    }
+  } </Story>
 </Preview>
 
 ### Props
