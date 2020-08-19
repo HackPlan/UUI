@@ -211,13 +211,18 @@ type ComponentNode<P extends any, N extends string | number | symbol, M extends 
 function ComponentNode<P extends any, N extends string, M extends string>(Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) {
   const _Target = Target as any
   const Node = React.forwardRef((_props: P & ComponentNodeCustomizeProps<M>, ref) => {
-    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> } & UUIConvenienceProps
+    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> }
     const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
+
+    if (!customizeProps.customize) customizeProps.customize = {} as any;
+    if (!(customizeProps.customize as any)['Root']) (customizeProps.customize as any)['Root'] = {}
+    const rootCustomize = (customizeProps.customize as any)['Root']
+    rootCustomize.extendClassName = classNames(nodeClassName, rootCustomize.extendClassName)
 
     return <_Target
       {...omit(_props, 'customize', 'ref')}
       ref={ref}
-      className={classNames(nodeClassName, _props.className, customizeProps.className)}
+      className={_props.className}
       customize={merge(_props.customize, customizeProps.customize)}
     />
   })
