@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.9
+
+- 使用 React Portal 的组件支持服务端渲染 SSR (Server-Side Render)
+- 修复组件 nodes 可能会有重复 class 的问题
+
 ### v0.4.8
 
 - `Table` TableColumn 可以不传 onRowRender 属性
