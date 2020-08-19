@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Breadcrumb } from '../src';
 import { useState } from 'react';
 import { Icons } from '../src/icons/Icons';
@@ -11,7 +11,7 @@ import { Icons } from '../src/icons/Icons';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Breadcrumb">
     <Breadcrumb
       items={[
@@ -21,8 +21,8 @@ import { Icons } from '../src/icons/Icons';
       ]}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Breadcrumb }} />
+<ArgsTable components={{ Breadcrumb }} />

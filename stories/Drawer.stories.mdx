@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Drawer, Button } from '../src';
 import { useState } from 'react';
 
@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Drawer"> {
     ()=>{
       const [active, setActive] = useState(false)
@@ -29,8 +29,8 @@ import { useState } from 'react';
       )
     }
   } </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Drawer }} />
+<ArgsTable components={{ Drawer }} />

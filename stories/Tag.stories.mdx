@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Tag, TagNodes } from '../src';
 import { useState } from 'react';
 
@@ -8,15 +8,15 @@ import { useState } from 'react';
 
 ### Tag
 
-<Preview>
+<Canvas>
   <Story name="Tag">
     <Tag>Tag</Tag>
   </Story>
-</Preview>
+</Canvas>
 
 ### 自定义样式
 
-<Preview>
+<Canvas>
   <Story name="Custom Style 1">
     <Tag
       customize={{
@@ -43,8 +43,8 @@ import { useState } from 'react';
       }}
     >ABC</Tag>
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Tag }} />
+<ArgsTable components={{ Tag }} />

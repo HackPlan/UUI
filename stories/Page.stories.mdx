@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Page } from '../src';
 import { Button, TextField, HTMLSelect } from '../src';
 import { useState } from 'react';
@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 ## 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Page">
     {() => {
       return (
@@ -50,8 +50,8 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Page, PageSection: Page.Section, PageAnnotatedSection: Page.AnnotatedSection }} />
+<ArgsTable components={{ Page, PageSection: Page.Section, PageAnnotatedSection: Page.AnnotatedSection }} />

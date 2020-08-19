@@ -1,13 +1,24 @@
 module.exports = {
   stories: ['../stories/**/*.stories.@(tsx|mdx)'],
   addons: [
-    '@storybook/addon-actions',
-    '@storybook/addon-links',
-    '@storybook/addon-storysource',
-    '@storybook/addon-knobs',
+    {
+      name: '@storybook/addon-storysource',
+      options: {
+        loaderOptions: {
+          parser: 'typescript',
+          prettierConfig: {
+            tabWidth: 2,
+            singleQuote: false,
+          },
+        },
+      },
+    },
     '@storybook/addon-docs',
+    '@storybook/addon-controls',
     'storybook-addon-performance',
     '@storybook/addon-a11y',
+    '@storybook/addon-viewport',
+    '@storybook/addon-backgrounds',
   ],
   // typescript: {
   //   check: false,

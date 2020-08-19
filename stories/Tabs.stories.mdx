@@ -1,28 +1,40 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Tabs, Tab } from '../src';
 import { useState } from 'react';
 
-<Meta title="Tabs" component={Tabs} />
+<Meta
+  title="Tabs"
+  component={Tabs}
+  subcomponents={{ 'Tab': Tab }}
+  argTypes={{
+    position: {
+      control: {
+        type: 'radio',
+        options: ['top', 'bottom', 'left', 'right'],
+      },
+    },
+  }}
+/>
 
 # 标签页 Tabs
 
 ### 简单使用
 
-<Preview>
-  <Story name="Tabs">
-    {() => {
+<Canvas>
+  <Story name="Tabs" args={{ position: 'top', className: undefined, style: undefined, renderActiveTabPanelOnly: undefined, customize: undefined }}>
+    {(args) => {
       const [value, setValue] = useState('react')
       return (
         <Tabs
           value={value}
           onChange={(value) => { setValue(value) }}
           renderActiveTabPanelOnly
-          position={'top'}
           customize={{
             ContentBox: {
               extendStyle: { minHeight: 200 }
             }
           }}
+          {...args}
         >
           <Tab value={"react"} label={"React"}>
             <h1>React</h1>
@@ -40,8 +52,6 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
-### Props
-
-<Props components={{ Tabs, Tab }} />
+<ArgsTable story={'Tabs'} showComponent />

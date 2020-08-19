@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Slider } from '../src';
 import { useState } from 'react';
 
@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 ### 简单使用
 
-<Preview>
+<Canvas>
   <Story name="Slider">
     {() => {
       const [value, setValue] = useState(72)
@@ -26,11 +26,11 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 范围选取
 
-<Preview>
+<Canvas>
   <Story name="Slider with range">
     {() => {
       const [value, setValue] = useState([10, 40])
@@ -42,11 +42,11 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 离散取值
 
-<Preview>
+<Canvas>
   <Story name="Slider with step">
     {() => {
       const [value, setValue] = useState(3)
@@ -59,13 +59,13 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 刻度标记
 
 > 刻度标记 `Remark` 和拖动按钮 `Thumb` 使用了绝对定位，所以无法撑开组件的高度，使用的时候要根据标记的内容尺寸大小，自行加上外边距，避免元素之前重叠显示。
 
-<Preview>
+<Canvas>
   <Story name="Slider with remark">
     {() => {
       const [value, setValue] = useState([10, 40])
@@ -88,11 +88,11 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### 垂直方向
 
-<Preview>
+<Canvas>
   <Story name="Slider with vertical">
     {() => {
       const [value, setValue] = useState(13)
@@ -125,8 +125,8 @@ import { useState } from 'react';
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{ Slider }} />
+<ArgsTable components={{ Slider }} />

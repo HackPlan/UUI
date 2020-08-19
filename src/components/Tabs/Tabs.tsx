@@ -23,7 +23,7 @@ export interface TabsFeatureProps {
    */
   renderActiveTabOnly?: boolean;
   /**
-   * only accept <Tab />, other components and elements will not rendered.
+   * only accept \<Tab /\>, other components and elements will not rendered.
    */
   children: React.ReactNode;
   /**

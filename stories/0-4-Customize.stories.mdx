@@ -1,4 +1,4 @@
-import { Meta, Preview, Story } from '@storybook/addon-docs/blocks';
+import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
 import ReactMarkdown from 'react-markdown';
 import { useState } from 'react';
 import { Stepper, Slider, Switch, TextField } from '../src';
@@ -58,7 +58,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 }
 ```
 
-<Preview>
+<Canvas>
   <Story name="Demo Stepper">
   {() => {
     const [n, setN] = useState(null)
@@ -112,7 +112,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
     )
   }}
   </Story>
-</Preview>
+</Canvas>
 
 ## 添加新的 className
 
@@ -137,7 +137,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 />
 ```
 
-<Preview>
+<Canvas>
   <Story name="Demo Slider">
     {() => {
       const [value, setValue] = useState(72)
@@ -174,7 +174,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## 内联样式 style
 
@@ -201,7 +201,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 </Switch>
 ```
 
-<Preview>
+<Canvas>
   <Story name="Demo Switch">
     {() => {
       const [checked, setChecked] = useState(false)
@@ -240,7 +240,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
       )
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ## 添加额外的 Elements
 
@@ -264,7 +264,7 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
 />
 ```
 
-<Preview>
+<Canvas>
   <Story name="Demo TextField">
     {() => {
       const [text, setText] = useState(null)
@@ -304,4 +304,4 @@ UUI 的组件每一个 Node 都配有一个 className，比如 `UUI-Stepper-Root
       )
     }}
   </Story>
-</Preview>
+</Canvas>

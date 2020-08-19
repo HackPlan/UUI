@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Skeleton } from '../src';
 
 <Meta title="Skeleton" component={Skeleton} />
@@ -8,7 +8,7 @@ import { Skeleton } from '../src';
 
 ### Skeleton
 
-<Preview>
+<Canvas>
   <Story name="Skeleton">
     <Skeleton>
       <Skeleton.Title></Skeleton.Title>
@@ -21,11 +21,11 @@ import { Skeleton } from '../src';
       <Skeleton.Paragraph lines={4}></Skeleton.Paragraph>
     </Skeleton>
   </Story>
-</Preview>
+</Canvas>
 
 ### Props
 
-<Props components={{
+<ArgsTable components={{
   Skeleton: Skeleton,
   Title: Skeleton.Title,
   Paragraph: Skeleton.Paragraph,
