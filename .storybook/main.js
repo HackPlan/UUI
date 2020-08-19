@@ -17,6 +17,8 @@ module.exports = {
     '@storybook/addon-controls',
     'storybook-addon-performance',
     '@storybook/addon-a11y',
+    '@storybook/addon-viewport',
+    '@storybook/addon-backgrounds',
   ],
   // typescript: {
   //   check: false,

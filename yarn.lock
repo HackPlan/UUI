@@ -2694,6 +2694,22 @@
     ts-dedent "^1.1.1"
     util-deprecate "^1.0.2"
 
+"@storybook/addon-backgrounds@^6.0.13":
+  version "6.0.13"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-backgrounds/-/addon-backgrounds-6.0.13.tgz#8a88032619b483038cf8312c08221809a78da759"
+  integrity sha512-gPhet+qpxCirBAB/CXkMJvnRC9g7sDVh0GlxjJk9WArTw36lgyAZ7I4TlO5OhgvGjwCC2F+Hx+/R0gHVAACM2g==
+  dependencies:
+    "@storybook/addons" "6.0.13"
+    "@storybook/api" "6.0.13"
+    "@storybook/client-logger" "6.0.13"
+    "@storybook/components" "6.0.13"
+    "@storybook/core-events" "6.0.13"
+    "@storybook/theming" "6.0.13"
+    core-js "^3.0.1"
+    memoizerific "^1.11.3"
+    react "^16.8.3"
+    regenerator-runtime "^0.13.3"
+
 "@storybook/addon-controls@^6.0.13":
   version "6.0.13"
   resolved "https://registry.yarnpkg.com/@storybook/addon-controls/-/addon-controls-6.0.13.tgz#d13839b249876dc2d15ea55ee233088dfde2380b"
@@ -2771,6 +2787,23 @@
     prop-types "^15.7.2"
     react "^16.9.17"
     react-syntax-highlighter "^12.2.1"
+    regenerator-runtime "^0.13.3"
+
+"@storybook/addon-viewport@^6.0.13":
+  version "6.0.13"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-6.0.13.tgz#e129a3e50fb696f1d5b98f9ae54fdf0383791732"
+  integrity sha512-FTZGvxivlRrtKBGa2d9ubMugYBPsh9J/7qiicDz7fAJ++Ykm2Q4E1YGPkBcsR+MPeO2sQoXIVjpN1kqpJwv31A==
+  dependencies:
+    "@storybook/addons" "6.0.13"
+    "@storybook/api" "6.0.13"
+    "@storybook/client-logger" "6.0.13"
+    "@storybook/components" "6.0.13"
+    "@storybook/core-events" "6.0.13"
+    "@storybook/theming" "6.0.13"
+    core-js "^3.0.1"
+    global "^4.3.2"
+    memoizerific "^1.11.3"
+    prop-types "^15.7.2"
     regenerator-runtime "^0.13.3"
 
 "@storybook/addons@6.0.13", "@storybook/addons@^6.0.13":
