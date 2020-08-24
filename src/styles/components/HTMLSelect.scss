@@ -3,6 +3,7 @@
 .UUI-HTMLSelect-Root {
   display: flex;
   padding-right: 0.5rem;
+  overflow: hidden;
 
   cursor: pointer;
   color: $textDarkColor;
