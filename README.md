@@ -15,6 +15,8 @@ Universal Utility-first React UI Library
 ![](https://img.shields.io/github/license/HackPlan/UUI)
 [![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://doc.uui.cool/)
 
+![components overview screenshot](https://github.com/HackPlan/UUI/blob/master/assets/screenshots/overview.png)
+
 > **UUI is still heavily under development.** Specifications and Usage might change in the future and, as of now, no backwards compatibility is guaranteed!
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/README.zh-CN.md)
@@ -79,9 +81,9 @@ We welcome all contributions. Please read CONTRIBUTING.md first.
 
 ## Products built with UUI
 
-| <img height="140" src="https://tuya.xinxiao.tech/assets/tuya-avator.png?rv=4" /> | <img height="100" src="https://duoshao.app/assets/logo.svg" /> |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-|              [图压](https://tuya.xinxiao.tech/)              |       [多少记账](https://duoshao.app/)        |
+| <img height="110" src="https://tuya.xinxiao.tech/assets/tuya-avator.png?rv=4" /> | <img height="80" src="https://duoshao.app/assets/logo.svg" /> | <img height="80" src="https://daylight.cool/images/6b7a7d4a-db86-46d3-80b9-fe66dcc59915.png" /> |
+| :----------------------------------------------------------: | :----------------------------------------------------------: | ------------------------------------------------------------ |
+|              [图压](https://tuya.xinxiao.tech/)              |               [多少记账](https://duoshao.app/)               | [昼间日历](https://daylight.cool/)                           |
 
 ## Licenses
 
