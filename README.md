@@ -56,7 +56,7 @@ function App() {
 * [Changelog](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md)
 * [Contributing](https://github.com/HackPlan/UUI/blob/master/CONTRIBUTING.md)
 * [Customization Demo](https://doc.uui.cool/?path=/docs/customize-tutorial--demo-stepper)
-* [Deployment](https://github.com/HackPlan/UUI/blob/master/src/DEPLOYMENT.md)
+* [Deployment](https://github.com/HackPlan/UUI/blob/master/docs/DEVELOPMENT.md)
 
 
 ## Development

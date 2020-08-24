@@ -2,7 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Button } from '../src';
 import { useState } from 'react';
 
-<Meta title="Button" component={Button} />
+<Meta title="按钮 Button" component={Button} />
 
 # 按钮 Button
 
@@ -77,20 +77,20 @@ import { useState } from 'react';
         <div>
           <div>
             <Button
-              className="m-2"
+              className="mr-2 mb-2"
               onClick={() => { console.log('clicked!') }}
               loading>
                 loading
             </Button>
             <Button
-              className="m-2"
+              className="mr-2 mb-2"
               styling={{ type: 'primary' }}
               onClick={() => { console.log('clicked!') }}
               loading>
                 loading
             </Button>
             <Button
-              className="m-2"
+              className="mr-2 mb-2"
               styling={{ type: 'text' }}
               onClick={() => { console.log('clicked!') }}
               loading>
@@ -99,13 +99,13 @@ import { useState } from 'react';
           </div>
           <div>
             <Button
-              className="m-2"
+              className="mr-2 mb-2"
               onClick={() => { console.log('clicked!') }}
               loading={loading}>
                 {loading? null :'loading'}
             </Button>
             <Button
-              className="m-2"
+              className="mr-2 mb-2"
               onClick={() => {
                 setLoading2(true)
                 setTimeout(() => {
