@@ -7,7 +7,8 @@ module.exports = ({ config }) => {
       {
         loader: require.resolve('ts-loader'),
         options: {
-          ignoreDiagnostics: [1005]
+          ignoreDiagnostics: [1005],
+          configFile: path.resolve(__dirname, "./tsconfig.json"),
         }
       },
       {

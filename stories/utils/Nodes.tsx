@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { IntrinsicNodeT, ComponentNodeT } from '../../src/core/uui';
+import { IntrinsicNodeT, FunctionComponentNodeT, ClassComponentNodeT } from '../../src/core/uui';
 import { mapValues, isString } from 'lodash';
 import '../style/Nodes.scss';
 
@@ -7,7 +7,7 @@ const Colors = ['#363062', '#f4e04d', '#00bcd4', '#216353', '#eb4559', '#f6d186'
 
 export interface NodesProps<
 N extends string,
-T extends keyof IntrinsicNodeT | ComponentNodeT,
+T extends keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT,
 X extends { [key in N]: T },
 > {
   name: string
@@ -17,7 +17,7 @@ X extends { [key in N]: T },
 
 export function Nodes<
   N extends string,
-  T extends keyof IntrinsicNodeT | ComponentNodeT,
+  T extends keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT,
   X extends { [key in N]: T },
 >(props: NodesProps<N, T, X>) {
   const { name, nodes, render } = props
