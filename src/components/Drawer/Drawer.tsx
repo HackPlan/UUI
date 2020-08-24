@@ -79,10 +79,9 @@ export const Drawer = UUI.FunctionComponent({
   }, [props.children, props.active, finalProps.placement])
 
   const portal = useMemo(() => {
-    if (!finalProps.portalContainer) return null
-    return finalProps.usePortal
+    return (finalProps.usePortal && finalProps.portalContainer)
     ? ReactDOM.createPortal(<Portal>{content}</Portal>, finalProps.portalContainer)
-    : content
+    : <Portal>{content}</Portal>
   }, [finalProps.usePortal, finalProps.portalContainer, content])
 
   return (

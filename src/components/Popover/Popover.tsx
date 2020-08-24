@@ -136,23 +136,24 @@ export const Popover = UUI.FunctionComponent({
      * Popover enable lazy feature, and this is never opened, content will not rendered.
      */
     if (props.lazy && neverOpened) return null
-    if (!finalProps.portalContainer) return null
 
-    return finalProps.usePortal ? ReactDOM.createPortal((
-      <Portal>
+    return (finalProps.usePortal && finalProps.portalContainer)
+      ? ReactDOM.createPortal((
+        <Portal>
+          <Content
+            className={classNames({ 'STATE_active': props.active })}
+            ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
+            style={{...styles.popper}} {...attributes.popper}
+          >{props.children}</Content>
+        </Portal>
+      ), finalProps.portalContainer)
+      : (
         <Content
           className={classNames({ 'STATE_active': props.active })}
           ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
           style={{...styles.popper}} {...attributes.popper}
         >{props.children}</Content>
-      </Portal>
-    ), finalProps.portalContainer) : (
-      <Content
-        className={classNames({ 'STATE_active': props.active })}
-        ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
-        style={{...styles.popper}} {...attributes.popper}
-      >{props.children}</Content>
-    )
+      )
   }, [
     props.lazy, props.active, finalProps.portalContainer, neverOpened,
     finalProps.usePortal, props.children,

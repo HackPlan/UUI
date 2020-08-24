@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import useFocusTrap from '@charlietango/use-focus-trap';
 
 import classNames from 'classnames';
@@ -43,12 +43,13 @@ export const Dialog = UUI.FunctionComponent({
   name: 'Dialog',
   nodes: {
     Root: 'div',
+    Portal: 'div',
     Backdrop: 'div',
     Container: 'div',
     Content: 'div',
   }
 }, (props: DialogFeatureProps, nodes) => {
-  const { Root, Backdrop, Container, Content } = nodes
+  const { Root, Portal, Backdrop, Container, Content } = nodes
 
   /**
    * handle optional props default value
@@ -74,8 +75,6 @@ export const Dialog = UUI.FunctionComponent({
       className={classNames({
         'STATE_opened': props.open
       })}
-      role="presentation"
-      tabIndex={-1}
     >
       <Container
         ref={containerRef}
@@ -88,12 +87,11 @@ export const Dialog = UUI.FunctionComponent({
       </Container>
     </Backdrop>
   )
-  const wrappedBackdrop = (() => {
-    if (!finalProps.portalContainer) return null
-    return finalProps.usePortal && finalProps.portalContainer
-    ? ReactDOM.createPortal(backdrop, finalProps.portalContainer)
-    : backdrop
-  })();
+  const wrappedBackdrop = useMemo(() => {
+    return (finalProps.usePortal && finalProps.portalContainer)
+    ? ReactDOM.createPortal(<Portal>{backdrop}</Portal>, finalProps.portalContainer)
+    : <Portal>{backdrop}</Portal>
+  }, [backdrop, finalProps.portalContainer, finalProps.usePortal]);
   return (
     <Root role="dialog">
       {wrappedBackdrop}
