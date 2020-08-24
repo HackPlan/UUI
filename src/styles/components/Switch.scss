@@ -12,11 +12,14 @@
     padding-bottom: 0;
     padding-left: 2px;
     padding-right: 2px;
-    border-color: $primaryColor;
     background-color: $borderColor;
 
     .UUI-Button-Content {
       display: inline-block;
+    }
+
+    &:hover {
+      border: none;
     }
   }
 
@@ -30,6 +33,7 @@
     background-color: white;
     margin-left: calc(50% - 16px);
     transition: margin 0.2s ease-in-out;
+    border: none;
   }
 
   .UUI-Switch-LoadingSpinner {
@@ -58,6 +62,9 @@
       cursor: not-allowed;
       &:focus-within {
         box-shadow: none;
+      }
+      &:hover, &:active, &:focus {
+        border: none;
       }
     }
   }
