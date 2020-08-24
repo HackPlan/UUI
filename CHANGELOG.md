@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.10
+
+- fix Warning: Expected server HTML to contain a matching <div> in <div>
+- upgrade typescript to 3.9.7 (fix issue: `ReferenceError: _a is not defined bug`)
+
 ### v0.4.9
 
 - component which need React Portal support SSR (Server-Side Render)

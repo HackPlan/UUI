@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.10
+
+- 修复 SSR 警告: Expected server HTML to contain a matching <div> in <div>
+- 升级 typescript 到 3.9.7 (修复了错误： `ReferenceError: _a is not defined bug`)
+
 ### v0.4.9
 
 - 使用 React Portal 的组件支持服务端渲染 SSR (Server-Side Render)
