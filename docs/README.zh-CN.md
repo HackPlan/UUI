@@ -15,7 +15,7 @@
 ![](https://img.shields.io/github/license/HackPlan/UUI)
 [![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://doc.uui.cool/)
 
-![components overview screenshot](https://github.com/HackPlan/UUI/blob/master/assets/screenshots/overview.png)
+![components overview screenshot](https://raw.githubusercontent.com/HackPlan/UUI/master/assets/screenshots/overview.png)
 
 > **UUI 正处于频繁开发更新中**，接口和用法在将来可能会改变，目前暂时无法保证向后兼容。
 

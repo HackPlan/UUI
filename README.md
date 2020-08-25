@@ -15,7 +15,7 @@ Universal Utility-first React UI Library
 ![](https://img.shields.io/github/license/HackPlan/UUI)
 [![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://doc.uui.cool/)
 
-![components overview screenshot](https://github.com/HackPlan/UUI/blob/master/assets/screenshots/overview.png)
+![components overview screenshot](https://raw.githubusercontent.com/HackPlan/UUI/master/assets/screenshots/overview.png)
 
 > **UUI is still heavily under development.** Specifications and Usage might change in the future and, as of now, no backwards compatibility is guaranteed!
 
