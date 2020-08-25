@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.4.11
+
+- fix some issues
+
 ### v0.4.10
 
 - fix Warning: Expected server HTML to contain a matching <div> in <div>
