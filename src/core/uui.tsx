@@ -210,7 +210,7 @@ export type ClassComponentNodeT = TypeWithArgs<React.Component<any, any, any>, a
 type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) => (props: P) => JSX.Element
 function ComponentNode<P extends any, N extends string, M extends string>(Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) {
   const _Target = Target as any
-  const Node = React.forwardRef((_props: P & UUIConvenienceProps, ref) => {
+  const Node = React.forwardRef((_props: P & UUIConvenienceProps & { customize?: ComponentNodeCustomizeProps<M> }, ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> }
     const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
 
@@ -223,7 +223,7 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
       {...omit(_props, 'customize', 'ref')}
       ref={ref}
       className={_props.className}
-      customize={customizeProps.customize}
+      customize={merge(_props.customize, customizeProps.customize)}
     />
   })
   Node.displayName = `<UUI> [ComponentNode] ${nodeName}`

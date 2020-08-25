@@ -50,6 +50,7 @@ import { useState } from 'react';
           ],
         }
       })
+      const onRowId = (row) => row.id
       return (
         <div>
           <Switch value={loading} onChange={(value) => switchLoading(value)} />
@@ -57,6 +58,7 @@ import { useState } from 'react';
             <Table
               columns={columns}
               rows={rows}
+              onRowId={onRowId}
             />
           </LoadingCover>
         </div>
