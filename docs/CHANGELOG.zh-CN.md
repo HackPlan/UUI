@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.12
+
+- 修复了一些问题
+
 ### v0.4.11
 
 - 修复了一些问题
