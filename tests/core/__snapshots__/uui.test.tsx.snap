@@ -186,6 +186,135 @@ exports[`UUIComponentHOC [no Root node] 1`] = `
 />
 `;
 
+exports[`UUIComponentHOC - customize 1`] = `
+<div
+  className="UUI-UUITestUnionComponent-Root"
+>
+  <div
+    className="UUI-UUITestFunctionComponent-Root UnionInnerExtendClassName UUI-UUITestUnionComponent-FunctionComponent UnionOutterExtendClassName"
+  >
+    <div
+      className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      style={
+        Object {
+          "color": "red",
+          "height": 200,
+          "width": 200,
+        }
+      }
+    >
+      UUITestFunctionComponent
+    </div>
+  </div>
+  <div
+    className="UUI-UUITestFunctionComponent-Root UUI-UUITestUnionComponent-FunctionComponent UnionOutterExtendClassName"
+  >
+    <div
+      className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      style={
+        Object {
+          "color": "red",
+          "height": 200,
+          "width": 300,
+        }
+      }
+    >
+      UUITestFunctionComponent
+    </div>
+  </div>
+  <div
+    className="UUI-UUITestFunctionComponent-Root UUI-UUITestUnionComponent-FunctionComponent UnionOutterExtendClassName"
+  >
+    <div
+      className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      style={
+        Object {
+          "color": "red",
+          "height": 200,
+        }
+      }
+    >
+      UUITestFunctionComponent
+    </div>
+  </div>
+  <div
+    className="UUI-UUITestFunctionComponent-Root UUI-UUITestUnionComponent-FunctionComponent UnionOutterExtendClassName"
+  >
+    <div
+      className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      style={
+        Object {
+          "color": "red",
+          "height": 200,
+        }
+      }
+    >
+      UUITestFunctionComponent
+    </div>
+  </div>
+  <div
+    className="UUI-UUITestFunctionComponent-Root UUI-UUITestUnionComponent-FunctionComponent UnionOutterExtendClassName"
+  >
+    <div
+      className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      style={
+        Object {
+          "color": "red",
+          "height": 200,
+        }
+      }
+    >
+      UUITestFunctionComponent
+    </div>
+  </div>
+  <div
+    className="UUI-UUITestClassComponent-Root UnionInnerExtendClassName UUI-UUITestUnionComponent-ClassComponent UnionOutterExtendClassName"
+  >
+    <div
+      className="UUI-UUITestClassComponent-X TestFuncXInner"
+      style={
+        Object {
+          "color": "red",
+          "height": 200,
+          "width": 400,
+        }
+      }
+    >
+      UUITestClassComponent
+      <div>
+        Customize ExtendAfter Inner
+      </div>
+      <div>
+        Customize ExtendAfter Outter
+      </div>
+    </div>
+  </div>
+  <div
+    className="UUI-UUITestClassComponent-Root UUI-UUITestUnionComponent-ClassComponent UnionOutterExtendClassName"
+  >
+    <div
+      className="UUI-UUITestClassComponent-X TestFuncXInner"
+      style={
+        Object {
+          "color": "red",
+          "height": 200,
+        }
+      }
+    >
+      UUITestClassComponent
+      <div>
+        Customize ExtendAfter Outter
+      </div>
+    </div>
+  </div>
+  <div
+    className="UUI-UUITestTempComponent-Root UUI-UUITestUnionComponent-TempComponent"
+  >
+    UUITestTempComponent
+  </div>
+</div>
+`;
+
 exports[`UUIComponentHOC 1`] = `
 <div
   className="UUI-UUITestFunctionComponent-Root"

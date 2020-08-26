@@ -8,7 +8,7 @@
 
 
 import React from 'react';
-import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty, chain } from 'lodash';
+import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty, chain, mergeWith } from 'lodash';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
 import { UUICustomizeAriaAttributes } from './types/UUICustomizeAriaAttributes';
@@ -85,7 +85,7 @@ export type IntrinsicNodeT = JSX.IntrinsicElements
 type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
 function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
   const Node = React.forwardRef((_props: JSX.IntrinsicElements[T], _ref) => {
-    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: IntrinsicNodeCustomizeProps } & UUIConvenienceProps
+    const customizeProps = (Node as any)['CustomizeProps'] as Readonly<{ customize?: IntrinsicNodeCustomizeProps } & UUIConvenienceProps>
     const className = (() => {
       return getCompiledClassNames(getCompiledNodeName(nodeName, pick(options, 'name', 'prefix', 'separator')), {
         ...pick(customizeProps.customize, ['overrideClassName', 'extendClassName']),
@@ -211,19 +211,25 @@ type ComponentNode<P extends any, N extends string | number | symbol, M extends 
 function ComponentNode<P extends any, N extends string, M extends string>(Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: ComponentNodeCustomizeOptions) {
   const _Target = Target as any
   const Node = React.forwardRef((_props: P & UUIConvenienceProps & { customize?: ComponentNodeCustomizeProps<M> }, ref) => {
-    const customizeProps = (Node as any)['CustomizeProps'] as { customize?: ComponentNodeCustomizeProps<M> }
+    const customizeProps = (Node as any)['CustomizeProps'] as Readonly<{ customize?: ComponentNodeCustomizeProps<M> }>
     const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
 
-    if (!customizeProps.customize) customizeProps.customize = {} as any;
-    if (!(customizeProps.customize as any)['Root']) (customizeProps.customize as any)['Root'] = {}
-    const rootCustomize = (customizeProps.customize as any)['Root']
-    rootCustomize.extendClassName = classNames(nodeClassName, rootCustomize.extendClassName)
+    const finalCustomize = mergeCustomize(
+      _props.customize,
+      {
+        Root: {
+          extendClassName: nodeClassName,
+        }
+      } as any,
+      undefined,
+      customizeProps.customize,
+    )
 
     return <_Target
       {...omit(_props, 'customize', 'ref')}
       ref={ref}
       className={_props.className}
-      customize={merge(_props.customize, customizeProps.customize)}
+      customize={finalCustomize}
     />
   })
   Node.displayName = `<UUI> [ComponentNode] ${nodeName}`
@@ -451,4 +457,29 @@ function injectCustomizeProps(nodes: any, props: any) {
     const customizeProps = props.customize && (props.customize as any)[nodeName]
     nodes[nodeName]['CustomizeProps'] = { customize: customizeProps }
   }
+}
+
+function mergeCustomize<M extends string>(...customizes: Array<ComponentNodeCustomizeProps<M> | undefined>): ComponentNodeCustomizeProps<M> | undefined {
+  const mergedCustomize: any = {}
+
+  const customizer = (c1: IntrinsicNodeCustomizeProps | undefined, c2: IntrinsicNodeCustomizeProps) => {
+    if (c1 === undefined) return c2
+    return {
+      ...c1,
+      ...c2,
+      extendClassName: classNames(c1.extendClassName, c2.extendClassName),
+      extendChildrenBefore: <>{c1.extendChildrenBefore || null}{c2.extendChildrenBefore || null}</>,
+      extendChildrenAfter: <>{c1.extendChildrenAfter || null}{c2.extendChildrenAfter || null}</>,
+      extendStyle: {
+        ...c1.extendStyle || {},
+        ...c2.extendStyle || {},
+      }
+    }
+  }
+
+  for (const customize of customizes) {
+    mergeWith(mergedCustomize, customize, customizer)
+  }
+
+  return mergedCustomize
 }

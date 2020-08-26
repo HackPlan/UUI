@@ -98,6 +98,145 @@ it('UUIComponentHOC', () => {
   expect(tree3).toMatchSnapshot();
 });
 
+/**
+ * UUI Component HOC
+ *
+ * 测试嵌套组件是否能正确传递、合并 customize 属性。
+ */
+it('UUIComponentHOC - customize', () => {
+  const UUITestTempComponent = UUI.FunctionComponent({
+    name: 'UUITestTempComponent',
+    nodes: {
+      Root: 'div',
+    }
+  }, (props: {}, nodes) => {
+    const { Root } = nodes
+    return (
+      <Root>UUITestTempComponent</Root>
+    )
+  })
+  const UUITestFunctionComponent = UUI.FunctionComponent({
+    name: 'UUITestFunctionComponent',
+    nodes: {
+      Root: 'div',
+      Y: 'div',
+    }
+  }, (props: {}, nodes) => {
+    const { Root, Y } = nodes
+    return (
+      <Root>
+        <Y className="TestFuncYInner" style={{ color: 'red' }}>
+          UUITestFunctionComponent
+        </Y>
+      </Root>
+    )
+  })
+
+  class UUITestClassComponent extends UUI.ClassComponent({
+    name: 'UUITestClassComponent',
+    nodes: {
+      Root: 'div',
+      X: 'div',
+    }
+  }) {
+    render() {
+      const { Root, X } = this.nodes
+      return (
+        <Root>
+          <X className="TestFuncXInner" style={{ color: 'red' }}>
+            UUITestClassComponent
+          </X>
+        </Root>
+      )
+    }
+  }
+
+  const UUITestUnionComponent = UUI.FunctionComponent({
+    name: 'UUITestUnionComponent',
+    nodes: {
+      Root: 'div',
+      FunctionComponent: UUITestFunctionComponent,
+      ClassComponent: UUITestClassComponent,
+      TempComponent: UUITestTempComponent,
+    }
+  }, (props: {}, nodes) => {
+    const { Root, FunctionComponent, ClassComponent, TempComponent } = nodes
+    return (
+      <Root>
+        <FunctionComponent
+          customize={{
+            Root: {
+              extendClassName: 'UnionInnerExtendClassName',
+            },
+            Y: {
+              extendStyle: {
+                width: 200,
+              }
+            }
+          }}
+        />
+        <FunctionComponent
+          customize={{
+            Y: {
+              extendStyle: {
+                width: 300,
+              }
+            }
+          }}
+        />
+        <FunctionComponent />
+        <FunctionComponent />
+        <FunctionComponent />
+        <ClassComponent
+          customize={{
+            Root: {
+              extendClassName: 'UnionInnerExtendClassName',
+            },
+            X: {
+              extendStyle: {
+                width: 400,
+              },
+              extendChildrenAfter: <div>Customize ExtendAfter Inner</div>,
+            }
+          }}
+        />
+        <ClassComponent />
+        <TempComponent />
+      </Root>
+    )
+  })
+
+  const tree = renderer
+  .create(<UUITestUnionComponent
+    customize={{
+      FunctionComponent: {
+        Root: {
+          extendClassName: 'UnionOutterExtendClassName'
+        },
+        Y: {
+          extendStyle: {
+            height: 200,
+          }
+        }
+      },
+      ClassComponent: {
+        Root: {
+          extendClassName: 'UnionOutterExtendClassName'
+        },
+        X: {
+          extendStyle: {
+            height: 200,
+          },
+          extendChildrenAfter: <div>Customize ExtendAfter Outter</div>
+        }
+      }
+    }}
+  ></UUITestUnionComponent>)
+  .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
 it('UUIComponentHOC [more options]', () => {
   const XUITestFunctionComponent = UUI.FunctionComponent({
     name: 'XUITestFunctionComponent',
