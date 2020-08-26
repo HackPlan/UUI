@@ -28,10 +28,9 @@ const button2 = React.createElement(Button, { styling: { type: 'primary' } }, "�
 ```
 
 
-
 ## TypeScript
 
-UUI 是使用 TypeScript 开发实现的，因此他的 `*.d.ts` 类型定义文件都是打包进 UUI NPM 包的，应该会自动的被项目编译器自动使用。同时，在你使用 UUI 前，还需要安装 UUI 的依赖类型文件：
+UUI 是使用 TypeScript 开发实现的，因此它的 `*.d.ts` 类型定义文件都是打包进 UUI NPM 包的，会自动地被项目编译器使用。同时，在你使用 UUI 前，还需要安装 UUI 的依赖类型文件：
 
 ```bash
 yarn add @types/react @types/react-dom

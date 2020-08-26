@@ -57,6 +57,7 @@ function App() {
 * [文档](https://doc.uui.cool)
 * [更新日志](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 * [项目贡献指南](https://github.com/HackPlan/UUI/blob/master/docs/CONTRIBUTING.zh-CN.md)
+* [原理与实现](https://github.com/HackPlan/UUI/blob/master/docs/PRINCIPLE.zh-CN.md)
 * [样式自定义示例](https://doc.uui.cool/?path=/docs/customize-tutorial--demo-stepper)
 * [生产部署指南](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOYMENT.zh-CN.md)
 

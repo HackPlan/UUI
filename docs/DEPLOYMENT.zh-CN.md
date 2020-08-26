@@ -12,6 +12,8 @@
 
 #### Storybook
 
+（现在可以直接使用 [Github Actions](https://github.com/HackPlan/UUI/actions?query=workflow%3ADeploy)提供的手动触发按钮触发部署 Storybook）
+
 为了触发 Storybook 生产部署，你需要在目标 commit 上创建一个新的标签，并推送到 Github 远程仓库。
 
 标签名应该以 `sb` 作为开头，推荐的标签名格式：

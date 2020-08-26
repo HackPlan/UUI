@@ -12,6 +12,8 @@ English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOY
 
 #### Storybook
 
+(Now you can directly use the manual trigger button provided by [Github Actions](https://github.com/HackPlan/UUI/actions?query=workflow%3ADeploy) to trigger the deployment of Storybook)
+
 Push new tag to Github remote repo to trigger the deployment.
 
 Tag name should start with `sb`, recommended tag name format:
