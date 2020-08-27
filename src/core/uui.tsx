@@ -7,7 +7,7 @@
  */
 
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty, chain, mergeWith } from 'lodash';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
@@ -227,6 +227,8 @@ function ComponentNode<P extends any, N extends string, M extends string>(Target
 
     return <_Target
       {...omit(_props, 'customize', 'ref')}
+      prefix={options.prefix}
+      separator={options.separator}
       ref={ref}
       className={_props.className}
       customize={finalCustomize}
@@ -287,9 +289,13 @@ export type UUIConvenienceProps = {
   style?: React.CSSProperties;
 
   /**
-   * React native support data-* attributes type,
+   * React natively support data-* attributes type,
    * dont need to redeclare again convenience data attributes.
    */
+}
+export type UUIMetaProps = {
+  prefix?: string;
+  separator?: string;
 }
 export type UUIComponentProps<P, X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT }> = P & UUIConvenienceProps & UUIComponentCustomizeProps<X>
 export type UUIFunctionComponentProps<T extends (...args: any) => any> = Parameters<T>[0]
@@ -335,14 +341,19 @@ export abstract class UUI {
     },
     WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
   ) {
-    const finalOptions: Required<typeof options> = getFinalOptions(options)
-    const nodes = compileNodes(finalOptions)
-    const component: React.FunctionComponent<P & UUIConvenienceProps & Z> = (props) => {
+    const component: React.FunctionComponent<P & UUIConvenienceProps & UUIMetaProps & Z> = (props) => {
+      const { prefix, separator } = props;
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const { finalOptions, nodes } = useMemo(() => {
+        const finalOptions = getFinalOptions(options, { prefix, separator })
+        const nodes = compileNodes(finalOptions)
+        return { finalOptions, nodes }
+      }, [prefix, separator])
       const compiledProps = compileProps(props, finalOptions, undefined)
-      injectCustomizeProps(nodes, compiledProps)
+      injectCustomizeProps(nodes, compiledProps);
       return WrappedComponent(compiledProps, nodes)
     }
-    component.displayName = `<UUI> [Component] ${finalOptions.name}`
+    component.displayName = `<UUI> [Component] ${options.name}`
     return component
   }
 
@@ -375,27 +386,40 @@ export abstract class UUI {
       nodes: X;
     },
   ) {
-    const finalOptions: Required<typeof options> = getFinalOptions(options)
-    const nodes = compileNodes(finalOptions)
-    return class WrappedComponent<P = {}, S = {}, SS = any> extends React.Component<P & UUIConvenienceProps & Z, S, SS> {
-      nodes: UUIComponentNodes<X>
-      displayName: string
+    return class WrappedComponent<P = {}, S = {}, SS = any> extends React.Component<P & UUIConvenienceProps & UUIMetaProps & Z, S & { nodes: UUIComponentNodes<X> }, SS> {
+      static displayName = `<UUI> [Component] ${options.name}`
+      state: S & { nodes: UUIComponentNodes<X> }
+
+      componentDidUpdate(prevProps: P & UUIConvenienceProps & UUIMetaProps & Z) {
+        if (
+          prevProps.prefix !== this.props.prefix ||
+          prevProps.separator !== this.props.separator
+        ) {
+          const finalOptions = getFinalOptions(options, this.props)
+          this.setState({ nodes: compileNodes(finalOptions) })
+          const compiledProps = compileProps(this.props, finalOptions, (this.props as any).innerRef || undefined)
+          injectCustomizeProps(this.state.nodes, compiledProps)
+        }
+      }
+
       constructor(props: P & UUIConvenienceProps & Z) {
         super(props)
-        this.displayName = `<UUI> [Component] ${finalOptions.name}`
+        const finalOptions = getFinalOptions(options, props)
+        this.state = { nodes: compileNodes(finalOptions) } as any
+        this.state.nodes = compileNodes(finalOptions)
         const compiledProps = compileProps(props, finalOptions, (props as any).innerRef || undefined)
-        injectCustomizeProps(nodes, compiledProps)
-        this.nodes = nodes
+        injectCustomizeProps(this.state.nodes, compiledProps)
       }
     }
   }
 }
 
-function getFinalOptions(options: any) {
+function getFinalOptions(options: any, props: any) {
   return {
-    ...options,
-    prefix: options.prefix || 'UUI',
-    separator: options.separator || '-',
+    nodes: options.nodes,
+    name: options.name,
+    prefix: props.prefix || options.prefix || 'UUI',
+    separator: props.separator || options.separator || '-',
   }
 }
 

@@ -123,7 +123,7 @@ export class Button extends UUI.ClassComponent({
   },
 })<ButtonFeatureProps & ButtonStylingProps, {}> {
   render() {
-    const { Root, LoadingSpinner, Content } = this.nodes
+    const { Root, LoadingSpinner, Content } = this.state.nodes
 
     return (
       <Root

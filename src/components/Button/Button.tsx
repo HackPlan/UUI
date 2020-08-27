@@ -31,7 +31,7 @@ export const Button = UUI.FunctionComponent({
   return (
     <Root
       role="button"
-      {...omit(props, 'customize', 'styling', 'className', 'style', 'loading')}
+      {...omit(props, 'customize', 'styling', 'className', 'style', 'loading', 'prefix', 'separator')}
       className={classNames({
         ...(props.styling?.type ? {
           [`TYPE_${props.styling?.type}`]: true,

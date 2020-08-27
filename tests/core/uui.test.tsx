@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { UUI } from '../../src/core/uui';
-import Enzyme, { mount } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({ adapter: new Adapter })
@@ -47,7 +47,7 @@ it('UUIComponentHOC', () => {
     }
   }) {
     render() {
-      const { Root, Container, Article, Title, Paragraph } = this.nodes
+      const { Root, Container, Article, Title, Paragraph } = this.state.nodes
       return (
         <Root>
           <Container>
@@ -140,7 +140,7 @@ it('UUIComponentHOC - customize', () => {
     }
   }) {
     render() {
-      const { Root, X } = this.nodes
+      const { Root, X } = this.state.nodes
       return (
         <Root>
           <X className="TestFuncXInner" style={{ color: 'red' }}>
@@ -237,9 +237,9 @@ it('UUIComponentHOC - customize', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('UUIComponentHOC [more options]', () => {
+it('UUIComponentHOC [options]', () => {
   const XUITestFunctionComponent = UUI.FunctionComponent({
-    name: 'XUITestFunctionComponent',
+    name: 'TestXComponent',
     prefix: 'XUI',
     separator: '=',
     nodes: {
@@ -264,11 +264,65 @@ it('UUIComponentHOC [more options]', () => {
     )
   })
 
+  class UUITestClassComponent extends UUI.ClassComponent({
+    prefix: 'ZUI',
+    name: 'TestZComponent',
+    separator: '+',
+    nodes: {
+      Root: 'div',
+    }
+  }) {
+    render() {
+      const { Root } = this.state.nodes
+      return (
+        <Root>
+          TestZComponent
+        </Root>
+      )
+    }
+  }
+
   const tree1 = renderer
     .create(<XUITestFunctionComponent></XUITestFunctionComponent>)
     .toJSON();
 
   expect(tree1).toMatchSnapshot();
+
+  const tree2 = renderer
+  .create(<XUITestFunctionComponent
+    prefix={'YUI'}
+    separator={'+'}
+  ></XUITestFunctionComponent>)
+  .toJSON();
+
+  expect(tree2).toMatchSnapshot();
+
+  const tree3 = renderer
+  .create(<UUITestClassComponent
+    prefix={'GUI'}
+    separator={'~'}
+  ></UUITestClassComponent>)
+  .toJSON();
+
+  expect(tree3).toMatchSnapshot();
+
+  const wrapper1 = shallow(<XUITestFunctionComponent
+    prefix={'GUI'}
+    separator={'+'}
+  ></XUITestFunctionComponent>) as any;
+  const before1 = wrapper1.html()
+  wrapper1.setProps({ prefix: 'HUI', name: 'ChangedTestHComponent', separator: '~' });
+  const after1 = wrapper1.html()
+  expect(before1).not.toEqual(after1);
+
+  const wrapper2 = shallow(<UUITestClassComponent
+    prefix={'BUI'}
+    separator={'+'}
+  ></UUITestClassComponent>) as any;
+  const before2 = wrapper2.html()
+  wrapper2.setProps({ prefix: 'CUI', name: 'ChangedTestCComponent', separator: '~' });
+  const after2 = wrapper2.html()
+  expect(before2).not.toEqual(after2);
 });
 
 it('UUIComponentHOC [no Root node]', () => {
