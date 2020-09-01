@@ -62,7 +62,6 @@ const config = [{
     copy({
       targets: [
         { src: 'src/styles', dest: 'lib' },
-        { src: 'src/icons/assets', dest: 'lib/icons' },
       ]
     }),
   ],
