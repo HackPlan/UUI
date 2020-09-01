@@ -122,7 +122,7 @@ export class Button extends UUI.ClassComponent({
   },
 })<ButtonFeatureProps & ButtonStylingProps, {}> {
   render() {
-    const { Root, LoadingSpinner, Content } = this.nodes
+    const { Root, LoadingSpinner, Content } = this.state.nodes
 
     return (
       <Root
@@ -290,6 +290,47 @@ function StyledButton(props: ButtonFeatureProps) {
 ```
 
 Note: Currently, customize support after packaging is not supported.
+
+## Component preset and separator options
+
+UUI's components support defining the `prefix` and `separator` of the component in the development phase and the use phase.
+
+For example, we can define a component during the development phase:
+
+```tsx
+const Test = UUI.FunctionComponent({
+  prefix: "XUI",
+  name: "Test",
+  separator: "+",
+  nodes: { Root: 'div' },
+}, (props: {}, nodes) => {
+  // ...
+  return <Root></Root>
+})
+```
+
+Then the rendered HTML looks like this:
+
+```html
+<div className="XUI+Test+Root">
+</div>
+```
+
+The prefix and separator in this option are mainly provided to other developers who may need to use UUI Core Utils to create their own components.
+
+When using components, users can add `props.prefix` and `props.separator` into component:
+
+```tsx
+function Demo() {
+  return <Test prefix="YUI" separator="#"></Test>
+}
+
+// output html
+<div className="YUI#Test#Root">
+</div>
+```
+
+This is mainly used when the user needs to completely customize the style. After modifying the prefix or separator, the UUI's own style is invalid (the className is all changed, and the UUI's own style is implemented according to these className)
 
 ## Component
 

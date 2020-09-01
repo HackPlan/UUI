@@ -49,11 +49,8 @@ export class Toaster extends UUI.ClassComponent({
 })<ToasterFeatureProps, ToasterState> {
   constructor(props: ToasterFeatureProps) {
     super(props)
+    this.state.toasts = [] as IToast[]
   }
-
-  public state = {
-    toasts: [] as IToast[],
-  };
 
   static create(props: ToasterFeatureProps, container = ReactHelper.document?.body) {
     const containerElement = ReactHelper.document?.createElement("div");
@@ -111,7 +108,7 @@ export class Toaster extends UUI.ClassComponent({
   }
 
   render() {
-    const { Root } = this.nodes
+    const { Root } = this.state.nodes
 
     return (
       <Root className={classNames(`position-${this.props.position || ToasterPosition.Top}`)}>

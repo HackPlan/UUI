@@ -123,7 +123,7 @@ export class Button extends UUI.ClassComponent({
   },
 })<ButtonFeatureProps & ButtonStylingProps, {}> {
   render() {
-    const { Root, LoadingSpinner, Content } = this.nodes
+    const { Root, LoadingSpinner, Content } = this.state.nodes
 
     return (
       <Root
@@ -291,6 +291,47 @@ function StyledButton(props: ButtonFeatureProps) {
 ```
 
 注意：目前暂时不支持封装之后的 customize 支持。
+
+## 组件前缀和分隔符
+
+UUI 的组件支持在开发阶段和使用阶段定义组件的前缀和分隔符。
+
+比如我们可以在开发阶段定义一个组件：
+
+```tsx
+const Test = UUI.FunctionComponent({
+  prefix: "XUI",
+  name: "Test",
+  separator: "+",
+  nodes: { Root: 'div' },
+}, (props: {}, nodes) => {
+  // ...
+  return <Root></Root>
+})
+```
+
+那么渲染出来的 HTML 大概长这个样子：
+
+```html
+<div className="XUI+Test+Root">
+</div>
+```
+
+这个 options 里的 prefix 和 separator 主要是提供给其他开发者可能需要使用 UUI Core Utils 创建自己的组件时使用
+
+而在使用组件的时候， 使用者可以传入 `props.prefix` 和 `props.separator`：
+
+```tsx
+function Demo() {
+  return <Test prefix="YUI" separator="#"></Test>
+}
+
+// output html
+<div className="YUI#Test#Root">
+</div>
+```
+
+这个主要是给使用者需要完全自定义样式的时候使用，修改了 prefix 或者 separator 之后，UUI 自带的样式就失效了（className 全部改变了，而 UUI 自带的样式根据这些 className 实现）
 
 ## 组件
 
