@@ -2,8 +2,12 @@
 
 .UUI-HTMLSelect-Root {
   display: flex;
-  padding-right: 0.5rem;
   overflow: hidden;
+  height: 32px;
+  width: 100%;
+  padding-right: 0.25rem;
+  box-sizing: border-box;
+  background-color: white;
 
   cursor: pointer;
   color: $textDarkColor;
@@ -18,8 +22,7 @@
   }
 
   .UUI-HTMLSelect-Select {
-    padding: 0.5rem;
-    background-color: white;
+    padding-left: 0.25rem;
     width: 100%;
     cursor: pointer;
 

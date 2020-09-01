@@ -16,6 +16,14 @@ const Label = (props: any) => {
   )
 }
 
+const Control = (props: any) => {
+  return (
+    <div {...props} style={{ width: 300 }}>
+      {props.children}
+    </div>
+  )
+}
+
 export const FormControlledMode = () => {
   const [name, setName] = useState('')
   const [introduction, setIntroduction] = useState('')
@@ -33,39 +41,48 @@ export const FormControlledMode = () => {
     <div>
       <LabeledControl>
         <Label>名字</Label>
-        <TextField className="w-64" value={name} onChange={(value) => setName(value)} />
+        <Control>
+          <TextField value={name} onChange={(value) => setName(value)} />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>介绍</Label>
-        <TextArea className="w-64" value={introduction} onChange={(value) => setIntroduction(value)} />
+        <Control>
+          <TextArea value={introduction} onChange={(value) => setIntroduction(value)} />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>性别</Label>
-        <RadioGroup name="gender" value={gender} onChange={(value) => { setGender(value) }}>
-          <Radio label={'男'} value={'male'} className={"mr-2"}></Radio>
-          <Radio label={'女'} value={'female'} className={"mr-2"}></Radio>
-          <Radio label={'其他'} value={'other'} className={"mr-2"}></Radio>
-        </RadioGroup>
+        <Control className="flex items-center">
+          <RadioGroup name="gender" value={gender} onChange={(value) => { setGender(value) }}>
+            <Radio label={'男'} value={'male'} className={"mr-2"}></Radio>
+            <Radio label={'女'} value={'female'} className={"mr-2"}></Radio>
+            <Radio label={'其他'} value={'other'} className={"mr-2"}></Radio>
+          </RadioGroup>
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>生日</Label>
-        <DatePicker className="w-64" value={birthday} onChange={(value) => setBirthday(value)} />
+        <Control>
+          <DatePicker value={birthday} onChange={(value) => setBirthday(value)} />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>学校</Label>
-        <HTMLSelect
-          className="w-64"
-          options={[
-            { label: 'Peking University', value: 'Peking University' },
-            { label: 'Chongqing University', value: 'Chongqing University' },
-          ]}
-          value={school}
-          onChange={(value) => setSchool(value)}
-        />
+        <Control>
+          <HTMLSelect
+            options={[
+              { label: 'Peking University', value: 'Peking University' },
+              { label: 'Chongqing University', value: 'Chongqing University' },
+            ]}
+            value={school}
+            onChange={(value) => setSchool(value)}
+          />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>技能</Label>
-        <div className="flex flex-col">
+        <Control className="flex flex-col">
           <Checkbox
             label={'Web'}
             checked={skillsWeb}
@@ -86,11 +103,13 @@ export const FormControlledMode = () => {
             checked={skillsAI}
             onChange={(value) => { setSkillsAI(value) }}
           />
-        </div>
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label></Label>
-        <Button>提交</Button>
+        <Control>
+          <Button>提交</Button>
+        </Control>
       </LabeledControl>
     </div>
   )
@@ -104,36 +123,45 @@ export const FormUncontrolledMode = () => {
     <form action={'#'} method="post">
       <LabeledControl>
         <Label>名字</Label>
-        <TextField className="w-64" name="name" />
+        <Control>
+          <TextField name="name" />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>介绍</Label>
-        <TextArea className="w-64" name="introduction" />
+        <Control>
+          <TextArea name="introduction" />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>性别</Label>
-        <Radio name={'gender'} label={'男'} value={'male'} className={"mr-2"}></Radio>
-        <Radio name={'gender'} label={'女'} value={'female'} className={"mr-2"}></Radio>
-        <Radio name={'gender'} label={'其他'} value={'other'} className={"mr-2"}></Radio>
+        <Control className="flex items-center">
+          <Radio name={'gender'} label={'男'} value={'male'} className={"mr-2"}></Radio>
+          <Radio name={'gender'} label={'女'} value={'female'} className={"mr-2"}></Radio>
+          <Radio name={'gender'} label={'其他'} value={'other'} className={"mr-2"}></Radio>
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>生日</Label>
-        <DatePicker name={'birthday'} className="w-64" />
+        <Control>
+          <DatePicker name={'birthday'} />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>学校</Label>
-        <HTMLSelect
-          name={'school'}
-          className="w-64"
-          options={[
-            { label: 'Peking University', value: 'Peking University' },
-            { label: 'Chongqing University', value: 'Chongqing University' },
-          ]}
-        />
+        <Control>
+          <HTMLSelect
+            name={'school'}
+            options={[
+              { label: 'Peking University', value: 'Peking University' },
+              { label: 'Chongqing University', value: 'Chongqing University' },
+            ]}
+          />
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label>技能</Label>
-        <div className="flex flex-col">
+        <Control className="flex flex-col">
           <Checkbox
             name={'skills[]'}
             label={'Web'}
@@ -154,11 +182,13 @@ export const FormUncontrolledMode = () => {
             label={'AI'}
             value={'ai'}
           />
-        </div>
+        </Control>
       </LabeledControl>
       <LabeledControl>
         <Label></Label>
-        <Button type="submit">提交</Button>
+        <Control>
+          <Button type="submit">提交</Button>
+        </Control>
       </LabeledControl>
     </form>
   )

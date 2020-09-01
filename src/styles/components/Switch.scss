@@ -5,8 +5,8 @@
   display: inline-block;
 
   .UUI-Switch-Button {
-    width: 40px;
-    height: 22px;
+    width: 52px;
+    height: 26px;
     border-radius: 99999px;
     padding-top: 0;
     padding-bottom: 0;
@@ -27,11 +27,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 16px;
-    width: 16px;
+    height: 20px;
+    width: 20px;
     border-radius: 99999px;
     background-color: white;
-    margin-left: calc(50% - 16px);
+    margin-left: calc(50% - 22px);
     transition: margin 0.2s ease-in-out;
     border: none;
   }
@@ -46,7 +46,7 @@
     }
 
     .UUI-Switch-Thumb {
-      margin-left: calc(50%);
+      margin-left: calc(50% + 2px);
       background-color: white;
     }
 

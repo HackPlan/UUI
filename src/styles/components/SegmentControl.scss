@@ -7,11 +7,14 @@
   border-radius: $borderRadius * 2;
   background-color: $backgroundColor;
   min-width: 200px;
+  height: 32px;
+  box-sizing: border-box;
 
   .UUI-SegmentControl-Container {
     position: relative;
     display: flex;
     flex-direction: row;
+    height: 100%;
   }
 
   .UUI-SegmentControl-Thumb {
@@ -35,7 +38,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 32px;
     background-color: transparent;
     z-index: 2;
     cursor: pointer;
@@ -43,6 +45,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 14px;
+    height: 100%;
 
     color: #666666;
 

@@ -6,6 +6,9 @@
   position: relative;
   flex-direction: row;
   align-items: center;
+  height: 32px;
+  width: 100%;
+  box-sizing: border-box;
 
   color: $textDarkColor;
 
@@ -18,7 +21,8 @@
   .UUI-DatePicker-Input {
     box-sizing: border-box;
     width: 100%;
-    padding: .5rem;
+    height: 100%;
+    padding: 0 0.25rem;
     color: $textDarkColor;
     @include radius;
   }

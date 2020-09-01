@@ -2,6 +2,10 @@
 
 .UUI-Popover-Root {
   display: inline-block;
+
+  .UUI-Popover-Activator {
+    height: 100%;
+  }
 }
 
 .UUI-Popover-Content {

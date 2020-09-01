@@ -4,6 +4,8 @@
 .UUI-Cascader-Root {
   display: inline-block;
   color: $textDarkColor;
+  height: 32px;
+  box-sizing: border-box;
 
   @include border;
   @include radius;
@@ -25,6 +27,8 @@
     border: none;
     box-shadow: none;
     box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
   }
   .UUI-Cascader-Input, input {
     cursor: pointer;
@@ -32,6 +36,7 @@
 
   .UUI-Cascader-Dropdown {
     width: 100%;
+    height: 100%;
   }
 
   .UUI-Cascader-DropdownIcon {
@@ -82,6 +87,7 @@
       align-items: center;
       padding: 0.5rem;
       cursor: pointer;
+      font-size: 14px;
 
       &:hover {
         background-color: $hoverBackgroundColor;

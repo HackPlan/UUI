@@ -3,6 +3,8 @@
 .UUI-Stepper-Root {
   display: inline-flex;
   flex-direction: row;
+  height: 32px;
+  box-sizing: border-box;
 
   overflow: hidden;
   @include border;
@@ -25,7 +27,7 @@
   }
 
   .UUI-Stepper-Input {
-    width: 6rem;
+    width: 5rem;
 
     .UUI-NumberField-Input {
       text-align: center;
@@ -122,7 +124,7 @@
     border-radius: 0;
     display: block;
     padding: 0;
-    height: 21px;
+    height: 50%;
     border-left: none;
     line-height: 0;
   }
