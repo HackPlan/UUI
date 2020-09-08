@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.14
+
+- 选择器 Select 更新样式和 Option 类型
+
 ### v0.4.13
 
 - 修复组件样式: 统一部分组件的高度

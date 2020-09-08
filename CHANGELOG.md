@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+
+### v0.4.14
+
+- Select update style, option type
+
 ### v0.4.13
 
 - fix component style: Unify the height of some components
