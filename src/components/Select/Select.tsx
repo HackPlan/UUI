@@ -6,9 +6,11 @@ import { flatMap, cloneDeep } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import ReactHelper from '../../utils/ReactHelper';
 
 
 interface SelectOption<T extends string | number> {
+  key?: string | number;
   label: string;
   content?: React.ReactNode;
   value: T;
@@ -17,6 +19,7 @@ interface SelectOption<T extends string | number> {
    * @default false
    */
   disabled?: boolean;
+  static?: boolean;
 }
 
 interface BaseSelectFeatureProps<T extends string | number> {
@@ -64,7 +67,7 @@ interface SelectSectionsFeatureProps<T extends string | number> extends BaseSele
    * Sections of Options of Select.
    */
   sections: {
-    label: React.ReactNode;
+    label?: React.ReactNode;
     options: SelectOption<T>[];
   }[];
 }
@@ -78,6 +81,7 @@ const SelectNodes = {
   Selector: 'div',
   Input: TextField,
   SectionList: 'div',
+  SectionDivider: 'div',
   Section: 'div',
   SectionHeader: 'div',
   OptionList: 'div',
@@ -92,7 +96,7 @@ const BaseSelect = UUI.FunctionComponent({
 }, (props: SelectFeatureProps<any>, nodes) => {
   const {
     Root, Dropdown, DropdownIcon, Selector, Input,
-    SectionList, Section, SectionHeader,
+    SectionList, SectionDivider, Section, SectionHeader,
     OptionList, Option, SearchMatched,
     LoadingSpinner,
   } = nodes
@@ -160,43 +164,47 @@ const BaseSelect = UUI.FunctionComponent({
   }, [SearchMatched, inputValue, props])
 
   const renderOptionList = useCallback((options: SelectOption<any>[]) => {
-    return options.map((option, index) => {
-      const selected = option.value === props.value
-      return (
-        <OptionList key={index}>
-          <Option
-            role="option"
-            aria-selected={selected}
-            className={classNames({
-              'STATE_selected': selected,
-              'STATE_disabled': option.disabled,
-            })}
-            onClick={() => {
-              if (option.disabled) return
-              setActive(false)
-              setInputValue(option.label)
-              props.onChange(option.value)
-            }}
-          >
-            {option.content || option.label}
-          </Option>
-        </OptionList>
-      )
-    })
+    return (
+      <OptionList>
+        {options.map((option, index) => {
+          const selected = option.value === props.value
+          return (
+            <Option key={option.key || index}
+              role="option"
+              aria-selected={selected}
+              className={classNames({
+                'STATE_selected': selected,
+                'STATE_disabled': option.disabled,
+                'STATE_static': !!option.static,
+              })}
+              onClick={() => {
+                if (option.static) return
+                if (option.disabled) return
+                setActive(false)
+                setInputValue(option.label)
+                props.onChange(option.value)
+              }}
+            >
+              {option.content || option.label}
+            </Option>
+          )
+        })}
+      </OptionList>
+    )
   }, [props])
 
   const renderSection = useCallback(() => {
     if (finalOptions) {
       return renderOptionList(finalOptions)
     } else if (finalSections) {
-      return finalSections.map((section, index) => {
+      return ReactHelper.join(finalSections.map((section, index) => {
         return (
           <Section key={index}>
-            <SectionHeader>{section.label}</SectionHeader>
+            {section.label && <SectionHeader>{section.label}</SectionHeader>}
             {renderOptionList(section.options)}
           </Section>
         )
-      })
+      }), <SectionDivider />)
     } else {
       return null
     }

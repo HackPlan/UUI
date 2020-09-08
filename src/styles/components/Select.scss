@@ -71,6 +71,9 @@
   .UUI-Select-SectionHeader {
     font-weight: bold;
     margin: 0.5rem;
+  }
+
+  .UUI-Select-SectionDivider {
     border-bottom: 1px solid lightgray;
   }
 
@@ -87,6 +90,14 @@
       color: $disabledTextColor;
       cursor: not-allowed;
 
+      &:hover {
+        background-color: inherit;
+      }
+    }
+
+    &.STATE_static {
+      padding: 0 0.5rem;
+      cursor: inherit;
       &:hover {
         background-color: inherit;
       }
