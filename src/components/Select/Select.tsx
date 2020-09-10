@@ -276,12 +276,12 @@ const BaseSelect = UUI.FunctionComponent({
 function highlightKeyword(text: string, keyword: string, HighlightComponent: any) {
   const data = text.split(keyword).map((node, index) => {
     if (index === 0) return node
-    else return <>
+    else return <React.Fragment key={index}>
       <HighlightComponent key={keyword}>{keyword}</HighlightComponent>
       {node}
-    </>
+    </React.Fragment>
   })
-  return data.map((i) => <>{i}</>)
+  return data.map((i, index) => <React.Fragment key={index}>{i}</React.Fragment>)
 }
 
 function searchInOptions(q: string, options: SelectOption<any>[], predicate?: SelectFeatureProps<any>['onSearch']) {
