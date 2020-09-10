@@ -1,9 +1,10 @@
-import React, { useState, useContext, useMemo } from 'react';
+import React, { useState, useContext, useMemo, useRef } from 'react';
 import { UUI } from '../../core/uui';
 import { Collapse } from '../Collapse';
 import { Icons } from '../../icons/Icons';
 import classNames from 'classnames';
 import { AccordionContext } from './AccordionContext';
+import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface AccordionPaneFeatureProps {
   id: string;
@@ -49,6 +50,29 @@ export const AccordionPane = UUI.FunctionComponent({
       role="button"
       aria-expanded={expanded}
       aria-disabled={finalProps.disabled}
+      data-pane-id={props.id}
+      onKeyDown={(event) => {
+        switch (event.keyCode) {
+          case KeyCode.Enter:
+          case KeyCode.SpaceBar:
+            if (!finalProps.disabled) context.onPaneClicked(props.id)
+            break
+          case KeyCode.ArrowDown:
+            context.onNextPaneFocused && context.onNextPaneFocused()
+            break
+          case KeyCode.ArrowUp:
+            context.onPrevPaneFocused && context.onPrevPaneFocused()
+            break
+          case KeyCode.Home:
+            context.onFirstPaneFocused && context.onFirstPaneFocused()
+            break
+          case KeyCode.End:
+            context.onLastPaneFocused && context.onLastPaneFocused()
+            break
+          default:
+            // do nothing
+        }
+      }}
     >
       <Header tabIndex={0} onClick={() => {
         if (finalProps.disabled) return
