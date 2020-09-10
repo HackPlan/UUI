@@ -1,0 +1,10 @@
+.UUI-Collapse-Root {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.15s ease-in-out;
+
+  &.STATE_opened {
+    max-height: 999px;
+    transition: max-height 0.25s ease-in-out;
+  }
+}

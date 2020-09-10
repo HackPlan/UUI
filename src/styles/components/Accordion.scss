@@ -1,0 +1,69 @@
+@import '../variables.scss';
+@import '../mixins.scss';
+
+.UUI-Accordion-Root {
+  @include border;
+  @include radius;
+  overflow: hidden;
+
+  .UUI-AccordionPane-Root {
+
+    &.STATE_disabled {
+      cursor: not-allowed;
+
+      .UUI-AccordionPane-Header {
+        &:focus {
+          background-color: #f5f7fa;
+        }
+        .UUI-AccordionPane-Icon {
+          svg {
+            color: #bbbbbb;
+          }
+        }
+        .UUI-AccordionPane-Title {
+          color: #bbbbbb;
+        }
+      }
+    }
+
+    &.STATE_expanded {
+      .UUI-AccordionPane-Icon {
+        transform: rotate(90deg);
+      }
+    }
+
+    .UUI-AccordionPane-Header {
+      display: flex;
+      flex-direction: row;
+      padding: 0.5rem;
+      background-color: #f5f7fa;
+      cursor: pointer;
+
+      .UUI-AccordionPane-Icon {
+        margin-right: 0.5rem;
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .UUI-AccordionPane-Title {
+        color: #333333;
+      }
+
+      &:focus {
+        background-color: #f0f5fd;
+      }
+    }
+    .UUI-AccordionPane-Collapse {
+
+      .UUI-AccordionPane-Content {
+        padding: 0.5rem;
+      }
+    }
+
+    border-top: 1px solid $borderColor;
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+}

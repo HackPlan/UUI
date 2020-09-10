@@ -2,6 +2,7 @@ import React from 'react';
 import { UUI } from '../../core/uui';
 import { PageAnnotatedSection } from './PageAnnotatedSection';
 import { PageSection } from './PageSection';
+import { createGroupedComponent } from '../../utils/createGroupedComponent';
 
 export interface PageFeatureProps {
   title?: string;
@@ -74,12 +75,9 @@ export const _Page = UUI.FunctionComponent({
 
 export type PageProps = Parameters<typeof _Page>[0]
 
-const Page = _Page as typeof _Page & {
-  Section: typeof PageSection;
-  AnnotatedSection: typeof PageAnnotatedSection;
-}
-
-Page.Section = PageSection;
-Page.AnnotatedSection = PageAnnotatedSection;
+const Page = createGroupedComponent(_Page, {
+  Section: PageSection,
+  AnnotatedSection: PageAnnotatedSection,
+})
 
 export { Page }

@@ -5,6 +5,7 @@ import { LayoutBottomBarProps, LayoutBottomBar } from './LayoutBottomBar';
 import { LayoutTopBarProps, LayoutTopBar } from './LayoutTopBar';
 import { LayoutSiderProps, LayoutSider } from './LayoutSider';
 import classNames from 'classnames';
+import { createGroupedComponent } from '../../utils/createGroupedComponent';
 
 export interface LayoutFeatureProps {
   /**
@@ -48,17 +49,11 @@ export const _Layout = UUI.FunctionComponent({
 
 export type LayoutProps = Parameters<typeof _Layout>[0]
 
-
-const Layout = _Layout as typeof _Layout & {
-  Sider: typeof LayoutSider;
-  TopBar: typeof LayoutTopBar;
-  BottomBar: typeof LayoutBottomBar;
-  Content: typeof LayoutContent;
-}
-
-Layout.Sider = LayoutSider;
-Layout.TopBar = LayoutTopBar;
-Layout.BottomBar = LayoutBottomBar;
-Layout.Content = LayoutContent;
+const Layout = createGroupedComponent(_Layout, {
+  Sider: LayoutSider,
+  TopBar: LayoutTopBar,
+  BottomBar: LayoutBottomBar,
+  Content: LayoutContent,
+})
 
 export { Layout }
