@@ -47,7 +47,7 @@
     color: $textDarkColor2;
     background-color: transparent;
 
-    &:hover {
+    &:hover, &:focus {
       border-color: $hoverBackgroundColor;
       background-color: $hoverBackgroundColor;
     }
