@@ -3,6 +3,7 @@ import { SkeletonParagraph } from './Paragraph';
 import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
 import { UUI } from '../../core/uui';
+import { createGroupedComponent } from '../../utils/createGroupedComponent';
 
 
 export interface SkeletonFeatureProps {
@@ -21,14 +22,10 @@ export const _Skeleton = UUI.FunctionComponent({
   )
 })
 
-const Skeleton = _Skeleton as typeof _Skeleton & {
-  Paragraph: typeof SkeletonParagraph;
-  Title: typeof SkeletonTitle;
-  Picture: typeof SkeletonPicture;
-}
-Skeleton.Paragraph = SkeletonParagraph
-Skeleton.Title = SkeletonTitle
-Skeleton.Picture = SkeletonPicture
+const Skeleton = createGroupedComponent(_Skeleton, {
+  Paragraph: SkeletonParagraph,
+  Title: SkeletonTitle,
+  Picture: SkeletonPicture,
+})
 
 export { Skeleton }
-

@@ -10,6 +10,7 @@ import { PageSelector } from './PageSelector';
 import { PageJumper } from './PageJumper';
 import classNames from 'classnames';
 import { PaginationContext } from './PaginationContext';
+import { createGroupedComponent } from '../../utils/createGroupedComponent';
 
 export interface PaginationFeatureProps {
   value: IPagination;
@@ -47,22 +48,14 @@ export const _Pagination = UUI.FunctionComponent({
 
 export type PaginationProps = Parameters<typeof _Pagination>[0]
 
-const Pagination = _Pagination as typeof _Pagination & {
-  PageSize: typeof PageSize;
-  PageInfo: typeof PageInfo;
-  PageList: typeof PageList;
-  PagePrevButton: typeof PagePrevButton;
-  PageNextButton: typeof PageNextButton;
-  PageSelector: typeof PageSelector;
-  PageJumper: typeof PageJumper;
-}
-
-Pagination.PageSize = PageSize;
-Pagination.PageInfo = PageInfo;
-Pagination.PageList = PageList;
-Pagination.PagePrevButton = PagePrevButton;
-Pagination.PageNextButton = PageNextButton;
-Pagination.PageSelector = PageSelector;
-Pagination.PageJumper = PageJumper;
+const Pagination = createGroupedComponent(_Pagination, {
+  PageSize,
+  PageInfo,
+  PageList,
+  PagePrevButton,
+  PageNextButton,
+  PageSelector,
+  PageJumper,
+})
 
 export { Pagination }

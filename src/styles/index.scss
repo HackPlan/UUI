@@ -1,10 +1,12 @@
 @import './base.scss';
 
 /** component style */
+@import './components/Accordion.scss';
 @import './components/Breadcrumb.scss';
 @import './components/Button.scss';
 @import './components/Cascader.scss';
 @import './components/Checkbox.scss';
+@import './components/Collapse.scss';
 @import './components/Dialog.scss';
 @import './components/DatePicker.scss';
 @import './components/Drawer.scss';
