@@ -74,7 +74,7 @@ export const AccordionPane = UUI.FunctionComponent({
         }
       }}
     >
-      <Header tabIndex={0} onClick={() => {
+      <Header tabIndex={finalProps.disabled ? -1 : 0} onClick={() => {
         if (finalProps.disabled) return
         context.onPaneClicked(props.id)
       }}>
