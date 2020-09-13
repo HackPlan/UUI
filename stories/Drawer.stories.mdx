@@ -1,5 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { Drawer, Button } from '../src';
+import { Drawer, Dialog, Button } from '../src';
 import { useState } from 'react';
 
 <Meta title="组件/抽屉 Drawer" component={Drawer} />
@@ -14,16 +14,45 @@ import { useState } from 'react';
   <Story name="Drawer"> {
     ()=>{
       const [active, setActive] = useState(false)
+      const [dialogOpened, setDialogOpened] = useState(false)
       return (
         <div>
           <Button onClick={() => { setActive((value=> !value)) }}>Click me!</Button>
           <Drawer
             active={active}
             onDismiss={() => {
-            setActive(false)
+              if (!dialogOpened) {
+                setActive(false)
+              }
             }}
           >
-            Content
+            <Button onClick={() => { setDialogOpened((value) => { return !value })}}>Click me!</Button>
+            <Dialog
+              open={dialogOpened}
+              focusTrap={true}
+              onClickAway={() => {
+                setDialogOpened(false)
+              }}
+            >
+              <div style={{ width: 400, height: 300 }}>
+                <h1 style={{ marginTop: 0 }}>Lorem Ipsum</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas lorem nulla, malesuada ut sagittis sit amet, vulputate in leo.</p>
+              </div>
+              <div className="flex flex-row justify-end">
+                <Button
+                  className="bg-red-500"
+                  onClick={() => { setDialogOpened((value) => { return !value })}}
+                >
+                  Close
+                </Button>
+                <Button
+                  className="ml-2"
+                  onClick={() => { setDialogOpened((value) => { return !value })}}
+                >
+                  Confirm
+                </Button>
+              </div>
+            </Dialog>
           </Drawer>
         </div>
       )
