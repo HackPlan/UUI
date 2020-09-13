@@ -9,9 +9,10 @@
   .UUI-AccordionPane-Root {
 
     &.STATE_disabled {
-      cursor: not-allowed;
 
       .UUI-AccordionPane-Header {
+        cursor: not-allowed;
+
         &:focus {
           background-color: #f5f7fa;
         }
