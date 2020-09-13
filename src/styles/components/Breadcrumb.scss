@@ -1,33 +1,40 @@
-.UUI-Breadcrumb {
-  &-Root {
+@import '../variables.scss';
+
+.UUI-Breadcrumb-Root {
+  .UUI-Breadcrumb-List {
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: row;
-  }
 
-  &-Item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    .UUI-Breadcrumb-Item {
+      &:focus {
+        border-color: $hoverBackgroundColor;
+        background-color: $hoverBackgroundColor;
+      }
+    }
 
-  &-Item, &-Separator {
-    margin-right: 0.5rem;
-  }
+    .UUI-Breadcrumb-Item, .UUI-Breadcrumb-Separator {
+      padding: 0.25rem;
+      display: inline;
+      list-style-type: none;
+    }
 
-  &-Item, &-ItemLink, &-Separator {
-    color: #b3b3b3;
-  }
+    .UUI-Breadcrumb-Item, .UUI-Breadcrumb-ItemLink, .UUI-Breadcrumb-Separator {
+      color: #b3b3b3;
+    }
 
-  &-Item.STATE_active, &-Item.STATE_active &-ItemLink {
-    color: #333333;
-  }
+    .UUI-Breadcrumb-Item.STATE_active, .UUI-Breadcrumb-Item.STATE_active .UUI-Breadcrumb-ItemLink {
+      color: #333333;
+    }
 
-  &-Item.STATE_interactive:hover, &-Item.STATE_interactive &-ItemLink:hover {
-    color: #2f65d1;
-    cursor: pointer;
-  }
+    .UUI-Breadcrumb-Item.STATE_interactive:hover, .UUI-Breadcrumb-Item.STATE_interactive .UUI-Breadcrumb-ItemLink:hover {
+      color: #2f65d1;
+      cursor: pointer;
+    }
 
-  &-ItemLink {
-    text-decoration: none;
+    .UUI-Breadcrumb-ItemLink {
+      text-decoration: none;
+    }
   }
 }

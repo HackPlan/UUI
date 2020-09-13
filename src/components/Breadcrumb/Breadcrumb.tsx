@@ -19,13 +19,14 @@ export interface BreadcrumbFeatureProps {
 export const Breadcrumb = UUI.FunctionComponent({
   name: 'Breadcrumb',
   nodes: {
-    Root: 'div',
-    Item: 'div',
+    Root: 'nav',
+    List: 'ol',
+    Item: 'li',
+    Separator: 'li',
     ItemLink: 'a',
-    Separator: 'div',
   }
 }, (props: BreadcrumbFeatureProps, nodes) => {
-  const { Root, Item, ItemLink, Separator } = nodes
+  const { Root, List, Item, ItemLink, Separator } = nodes
 
   const finalProps = {
     separator: props.separator || '/'
@@ -33,23 +34,30 @@ export const Breadcrumb = UUI.FunctionComponent({
 
   return (
     <Root
-      role="select"
+      aria-label={"Breadcrumb"}
     >
-      {ReactHelper.join(props.items.map((i) => {
-        const interactive = !!i.path || !!i.onAction
-        return (
-          <Item key={i.key} className={classNames({
-            'STATE_active': i.active,
-            'STATE_interactive': interactive,
-          })} onClick={() => {
-            if (i.onAction) i.onAction()
-          }}>
-            {!!i.path && !i.onAction ? (
-              <ItemLink href={i.path}>{i.label}</ItemLink>
-            ) : i.label}
-          </Item>
-        )
-      }), <Separator>{finalProps.separator}</Separator>)}
+      <List>
+        {ReactHelper.join(props.items.map((i) => {
+          const interactive = !!i.path || !!i.onAction
+          return (
+            <Item
+              tabIndex={0}
+              key={i.key}
+              className={classNames({
+                'STATE_active': i.active,
+                'STATE_interactive': interactive,
+              })}
+              onClick={() => {
+                if (i.onAction) i.onAction()
+              }}
+            >
+              {!!i.path && !i.onAction ? (
+                <ItemLink href={i.path} tabIndex={-1}>{i.label}</ItemLink>
+              ) : i.label}
+            </Item>
+          )
+        }), <Separator>{finalProps.separator}</Separator>)}
+      </List>
     </Root>
   )
 })
