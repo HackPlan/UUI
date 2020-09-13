@@ -17,8 +17,10 @@ import { useState } from 'react';
           <Button onClick={() => { setOpened((value) => { return !value })}}>Click me!</Button>
           <Dialog
             open={opened}
-            focusTrap={true}
             onClickAway={() => {
+              setOpened(false)
+            }}
+            onClose={() => {
               setOpened(false)
             }}
           >
