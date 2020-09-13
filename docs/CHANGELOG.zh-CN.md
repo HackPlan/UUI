@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.4.15
+
+- 新组件 `Collapse` `Accordion`
+- `Accordion` 支持键盘操作
+- 修复 `Select` list unique keys 警告
+
 ### v0.4.14
 
 - 选择器 Select 更新样式和 Option 类型

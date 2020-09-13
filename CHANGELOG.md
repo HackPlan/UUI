@@ -3,6 +3,12 @@
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
 
+### v0.4.15
+
+- New component `Collapse` `Accordion`
+- `Accordion` support Keyboard Interaction
+- fix `Select` list unique keys warning
+
 ### v0.4.14
 
 - Select update style, option type
