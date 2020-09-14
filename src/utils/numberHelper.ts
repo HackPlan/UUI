@@ -7,7 +7,7 @@ export function limitPrecision(value: string, precision?: number) {
   return value.slice(0, dotIndex + (precision === 0 ? 0 : 1 + precision))
 }
 export function limitRange(value: number, min?: number, max?: number) {
-  return clamp(value, min || Number.NEGATIVE_INFINITY, max || Number.POSITIVE_INFINITY)
+  return clamp(value, min === undefined ? Number.NEGATIVE_INFINITY : min, max === undefined ? Number.POSITIVE_INFINITY : max)
 }
 
 export type NumberAbbrUnit = 'k' | 'K' | 'm' | 'M' | 'b' | 'B';
