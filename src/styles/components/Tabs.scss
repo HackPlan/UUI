@@ -31,6 +31,9 @@
     &.STATE_active {
       color: $primaryColor;
     }
+    &:focus {
+      background-color: #f5f7fa;
+    }
   }
 
   &.POSITION_top {

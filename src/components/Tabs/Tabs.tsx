@@ -1,14 +1,15 @@
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { UUI } from '../../core/uui';
 import { getValidTypeChildren } from '../../utils/componentHelper';
 import { Tab } from './Tab';
 import { TabsContext } from './TabsContext';
+import { KeyCode } from '../../utils/keyboardHelper';
 
 
 export interface TabsFeatureProps {
   /**
-   * The value of currently selected tab.
+   * The id value of currently selected tab.
    */
   value: string;
   /**
@@ -31,6 +32,10 @@ export interface TabsFeatureProps {
    * @default top
    */
   position?: 'top' | 'bottom' | 'left' | 'right';
+  /**
+   * Whether tab should be changed when focused tab changed.
+   */
+  toggleTabWhenFocusChange?: boolean;
 }
 
 export const Tabs = UUI.FunctionComponent({
@@ -46,7 +51,20 @@ export const Tabs = UUI.FunctionComponent({
 
   const finalProps = {
     position: props.position || 'top',
+    toggleTabWhenFocusChange: props.toggleTabWhenFocusChange === undefined ? true : props.toggleTabWhenFocusChange
   }
+
+  const orientation = useMemo(() => {
+    switch (props.position) {
+      case 'left':
+      case 'right':
+        return "vertical"
+      case 'top':
+      case 'bottom':
+      default:
+        return "horizontal"
+    }
+  }, [props.position])
 
   const tabs = useMemo(() => {
     return getValidTypeChildren(Tab, props.children)
@@ -57,6 +75,7 @@ export const Tabs = UUI.FunctionComponent({
       .filter((i) => props.renderActiveTabOnly ? i.props.value === props.value : true)
       .map((i) => (
         <Content
+          role="tabpanel"
           className={classNames({
             'STATE_active': i.props.value === props.value,
           })}
@@ -65,13 +84,57 @@ export const Tabs = UUI.FunctionComponent({
       ))
   }, [props.renderActiveTabOnly, props.value, tabs])
 
+  const [focusValue, setFocusValue] = useState<string>(tabs[0]?.props.value)
+
   return (
-    <TabsContext.Provider value={{ value: props.value, onChange: props.onChange }}>
+    <TabsContext.Provider value={{
+      value: props.value,
+      onChange: (value) => {
+        setFocusValue(value)
+        props.onChange(value)
+      },
+      focusValue,
+      toggleTabWhenFocusChange: finalProps.toggleTabWhenFocusChange,
+    }}>
       <Root
-        role="tabpanel"
+        role="tabs"
         className={classNames([`POSITION_${finalProps.position}`])}
+        onKeyDown={(event) => {
+          switch (event.keyCode) {
+            case KeyCode.Enter:
+            case KeyCode.SpaceBar:
+              props.onChange(focusValue)
+              break
+            case KeyCode.ArrowLeft: {
+              const focusTabIndex = tabs.findIndex((i) => i.props.value === focusValue)
+              const index = (focusTabIndex + tabs.length - 1) % tabs.length
+              setFocusValue(tabs[index].props.value)
+              break
+            }
+            case KeyCode.ArrowRight: {
+              const focusTabIndex = tabs.findIndex((i) => i.props.value === focusValue)
+              const index = (focusTabIndex + tabs.length + 1) % tabs.length
+              setFocusValue(tabs[index].props.value)
+              break
+            }
+            case KeyCode.Home: {
+              if (tabs.length > 0 && tabs[0]) {
+                setFocusValue(tabs[0].props.value)
+              }
+              break
+            }
+            case KeyCode.End: {
+              if (tabs.length > 0 && tabs[tabs.length-1]) {
+                setFocusValue(tabs[tabs.length-1].props.value)
+              }
+              break
+            }
+            default:
+              // do nothing
+          }
+        }}
       >
-        <TabBox>
+        <TabBox role="tablist" aria-orientation={orientation}>
           {tabs}
         </TabBox>
         <ContentBox>
