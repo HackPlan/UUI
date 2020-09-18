@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { omit } from 'lodash';
 import { UUI } from '../../core/uui';
 
 export interface ToastFeatureProps {
@@ -52,7 +51,8 @@ export const Toast = UUI.FunctionComponent({
 
   return (
     <Root
-      {...omit(props, 'message', 'onDismiss', 'customize')}
+      role="alert"
+      id={props.id}
       onBlur={() => { startTimer() }}
       onFocus={() => { clearTimer() }}
       onMouseEnter={() => { clearTimer() }}
