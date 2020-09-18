@@ -7,24 +7,24 @@
     height: 100%;
     box-sizing: border-box;
 
-    &.STATE_hasSider {
+    &.STATE_hasNav {
       flex-direction: row;
     }
-    &.STATE_hasSider > .UUI-LayoutContent-Root {
+    &.STATE_hasNav > .UUI-LayoutMain-Root {
       margin-left: 200px;
     }
 
-    &.STATE_hasTopBar > .UUI-LayoutContent-Root {
+    &.STATE_hasHeader > .UUI-LayoutMain-Root {
       margin-top: 60px;
     }
 
-    &.STATE_hasBottomBar > .UUI-LayoutContent-Root {
+    &.STATE_hasFooter > .UUI-LayoutMain-Root {
       margin-bottom: 60px;
     }
   }
 }
 
-.UUI-LayoutSider {
+.UUI-LayoutNav {
   &-Root {
     width: 200px;
   }
@@ -37,7 +37,7 @@
   }
 }
 
-.UUI-LayoutTopBar {
+.UUI-LayoutHeader {
   &-Root {
     height: 60px;
     width: 100%;
@@ -51,14 +51,14 @@
   }
 }
 
-.UUI-LayoutContent {
+.UUI-LayoutMain {
   &-Root {
     width: 100%;
     overflow: auto;
   }
 }
 
-.UUI-LayoutBottomBar {
+.UUI-LayoutFooter {
   &-Root {
     height: 60px;
     width: 100%;

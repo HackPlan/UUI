@@ -5,9 +5,9 @@ export const Layout1 = () => {
   return (
     <div className="w-full bg-gray-300" style={{ height: 600 }}>
       <Layout>
-        <Layout.TopBar className="bg-red-500">TopBar</Layout.TopBar>
-        <Layout.Content className="bg-green-500">Content</Layout.Content>
-        <Layout.BottomBar className="bg-blue-500">BottomBar</Layout.BottomBar>
+        <Layout.Header className="bg-red-500">Header</Layout.Header>
+        <Layout.Main className="bg-green-500">Main</Layout.Main>
+        <Layout.Footer className="bg-blue-500">Footer</Layout.Footer>
       </Layout>
     </div>
   )
@@ -19,27 +19,27 @@ export const Layout2 = () => {
   return (
     <div className="w-full" style={{ height: 600 }}>
       <Layout>
-        <Layout.Sider className="bg-red-500">Sider</Layout.Sider>
-        <Layout.Content className="bg-green-500">Content</Layout.Content>
+        <Layout.Nav className="bg-red-500">Nav</Layout.Nav>
+        <Layout.Main className="bg-green-500">Main</Layout.Main>
       </Layout>
     </div>
   )
 }
 
-Layout2.storyName = 'Layout with Horizontal Sider'
+Layout2.storyName = 'Layout with Horizontal Nav'
 
 export const Layout3 = () => {
   return (
     <div className="w-full" style={{ height: 600 }}>
       <Layout>
-        <Layout.Sider className="bg-blue-600">Sider</Layout.Sider>
-        <Layout.Content className="bg-blue-300">
+        <Layout.Nav className="bg-blue-600">Nav</Layout.Nav>
+        <Layout.Main className="bg-blue-300">
           <Layout>
-            <Layout.TopBar className="bg-red-500">TopBar</Layout.TopBar>
-            <Layout.Content className="bg-green-400">Content</Layout.Content>
-            <Layout.BottomBar className="bg-yellow-500">BottomBar</Layout.BottomBar>
+            <Layout.Header className="bg-red-500">Header</Layout.Header>
+            <Layout.Main className="bg-green-400">Main</Layout.Main>
+            <Layout.Footer className="bg-yellow-500">Footer</Layout.Footer>
           </Layout>
-        </Layout.Content>
+        </Layout.Main>
         <div></div>
       </Layout>
     </div>
