@@ -1,6 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { Drawer, Dialog, Button } from '../src';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 <Meta title="组件/抽屉 Drawer" component={Drawer} />
 
@@ -15,15 +15,22 @@ import { useState } from 'react';
     ()=>{
       const [active, setActive] = useState(false)
       const [dialogOpened, setDialogOpened] = useState(false)
+      const focusTrap = useMemo(() => {
+        return !dialogOpened
+      }, [dialogOpened])
       return (
         <div>
           <Button onClick={() => { setActive((value=> !value)) }}>Click me!</Button>
           <Drawer
             active={active}
-            onDismiss={() => {
+            focusTrap={focusTrap}
+            onClickAway={() => {
               if (!dialogOpened) {
                 setActive(false)
               }
+            }}
+            onClose={() => {
+              setActive(false)
             }}
           >
             <Button onClick={() => { setDialogOpened((value) => { return !value })}}>Click me!</Button>
@@ -33,6 +40,9 @@ import { useState } from 'react';
               onClickAway={() => {
                 setDialogOpened(false)
               }}
+              onClose={() => {
+                setDialogOpened(false)
+              }}
             >
               <div style={{ width: 400, height: 300 }}>
                 <h1 style={{ marginTop: 0 }}>Lorem Ipsum</h1>
@@ -40,12 +50,12 @@ import { useState } from 'react';
               </div>
               <div className="flex flex-row justify-end">
                 <Button
-                  className="bg-red-500"
                   onClick={() => { setDialogOpened((value) => { return !value })}}
                 >
                   Close
                 </Button>
                 <Button
+                  styling={{ type: 'primary' }}
                   className="ml-2"
                   onClick={() => { setDialogOpened((value) => { return !value })}}
                 >
