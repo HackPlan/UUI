@@ -38,6 +38,12 @@ $RemarkBorderWidth: 2px;
       border-radius: 50%;
       border: $ThumbBorderWidth solid $primaryColor;
       cursor: pointer;
+
+      &:focus {
+        border-color: darken($primaryColor, 20%);
+        box-shadow: lighten($primaryColor, 30%) 0 0 0 3px;
+        transition: box-shadow 0.2s ease-in-out;
+      }
     }
 
     .UUI-Slider-Remark {

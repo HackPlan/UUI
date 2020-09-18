@@ -4,6 +4,7 @@ import { UUI } from '../../core/uui';
 import { useEvent } from 'react-use';
 import { clamp, clone, inRange, isArray } from 'lodash';
 import classNames from 'classnames';
+import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface SliderRemark {
   value: number;
@@ -124,6 +125,20 @@ export const Slider = UUI.FunctionComponent({
     newPosition = clamp(newPosition, 0.00, 1.00)
     return newPosition
   }
+
+  const onEventPositionChange = (position: number, thumbIndex: 0 | 1) => {
+    const newValue = Math.round((props.max-props.min) / props.step * position) * props.step + props.min
+    setFinalPosition((value) => {
+      value[thumbIndex] = position
+      return value
+    })
+    if (newValue !== props.value) {
+      const newFinalValue: [number, number] = [finalValue[0], finalValue[1]]
+      newFinalValue[thumbIndex] = newValue
+      onFinalChange(newFinalValue)
+    }
+  }
+
   const onMouseDownOrTouchStart = (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
     if (props.disabled) return;
     const newPosition = getPositionFromEvent(event as any)
@@ -134,16 +149,7 @@ export const Slider = UUI.FunctionComponent({
       : 1;
     !props.disabled && setThumbDragging(targetIndex)
 
-    const newValue = Math.round((props.max-props.min) / props.step * newPosition) * props.step + props.min
-    setFinalPosition((value) => {
-      value[targetIndex] = newPosition
-      return value
-    })
-    if (newValue !== props.value) {
-      const newFinalValue: [number, number] = [finalValue[0], finalValue[1]]
-      newFinalValue[targetIndex] = newValue
-      onFinalChange(newFinalValue)
-    }
+    onEventPositionChange(newPosition, targetIndex)
   }
   const onMouseUpOrTouchEnd = () => { !props.disabled && setThumbDragging(null) }
   const onMouseOrTouchMove = (event: MouseEvent | TouchEvent) => {
@@ -152,16 +158,8 @@ export const Slider = UUI.FunctionComponent({
     const newPosition = getPositionFromEvent(event)
     if (newPosition === null) return;
 
-    const newValue = Math.round((props.max-props.min) / props.step * newPosition) * props.step + props.min
-    setFinalPosition((value) => {
-      value[thumbDragging] = newPosition
-      return value
-    })
-    if (newValue !== props.value) {
-      const newFinalValue: [number, number] = [finalValue[0], finalValue[1]]
-      newFinalValue[thumbDragging] = newValue
-      onFinalChange(newFinalValue)
-    }
+    onEventPositionChange(newPosition, thumbDragging)
+
   }
   useEvent('mousemove', onMouseOrTouchMove as any, window, { capture: !props.disabled && !!thumbDragging })
   useEvent('touchmove', onMouseOrTouchMove as any, window, { capture: !props.disabled && !!thumbDragging })
@@ -236,19 +234,72 @@ export const Slider = UUI.FunctionComponent({
     }
   }, [finalPosition, props.value, props.max, props.min, props.vertical, finalProps.remarks])
 
+  const [focusThumbIndex, setFocusThumbIndex] = useState<number | null>(null)
+
   return (
     <Root
-      role="slider"
-      aria-valuemin={props.min}
-      aria-valuemax={props.max}
-      aria-valuenow={Math.abs(finalValue[1] - finalValue[0])}
-      aria-valuetext={toPercentage((Math.abs(finalValue[1] - finalValue[0])) / (props.max - props.min))}
       className={classNames({
         'STATE_disabled': props.disabled,
         'STATE_vertical': props.vertical,
       })}
       onMouseDown={onMouseDownOrTouchStart}
       onTouchStart={onMouseDownOrTouchStart}
+      onKeyDown={(event) => {
+        switch (event.keyCode) {
+          case KeyCode.ArrowLeft:
+          case KeyCode.ArrowDown: {
+            if (focusThumbIndex !== null) {
+              const newValue = Array.from(finalValue) as [number, number];
+              newValue[focusThumbIndex] = clamp(newValue[focusThumbIndex] - props.step, props.min, props.max);
+              onFinalChange(newValue)
+            }
+            break
+          }
+          case KeyCode.ArrowRight:
+          case KeyCode.ArrowUp: {
+            if (focusThumbIndex !== null) {
+              const newValue = Array.from(finalValue) as [number, number];
+              newValue[focusThumbIndex] = clamp(newValue[focusThumbIndex] + props.step, props.min, props.max);
+              onFinalChange(newValue)
+            }
+            break
+          }
+          case KeyCode.PageDown: {
+            if (focusThumbIndex !== null) {
+              const newValue = Array.from(finalValue) as [number, number];
+              newValue[focusThumbIndex] = clamp(newValue[focusThumbIndex] - props.step * 10, props.min, props.max);
+              onFinalChange(newValue)
+            }
+            break
+          }
+          case KeyCode.PageUp: {
+            if (focusThumbIndex !== null) {
+              const newValue = Array.from(finalValue) as [number, number];
+              newValue[focusThumbIndex] = clamp(newValue[focusThumbIndex] + props.step * 10, props.min, props.max);
+              onFinalChange(newValue)
+            }
+            break
+          }
+          case KeyCode.Home: {
+            if (focusThumbIndex !== null) {
+              const newValue = Array.from(finalValue) as [number, number];
+              newValue[focusThumbIndex] = props.max;
+              onFinalChange(newValue)
+            }
+            break
+          }
+          case KeyCode.End: {
+            if (focusThumbIndex !== null) {
+              const newValue = Array.from(finalValue) as [number, number];
+              newValue[focusThumbIndex] = props.min;
+              onFinalChange(newValue)
+            }
+            break
+          }
+          default:
+            // do nothing
+        }
+      }}
     >
       <Container ref={containerRef}>
         <InactiveLine style={{ ...styles.LeadingInactiveLine }} />
@@ -266,8 +317,30 @@ export const Slider = UUI.FunctionComponent({
             </Remark>
           )
         })}
-        <Thumb style={{ ...styles.LeadingThumb }} />
-        <Thumb style={{ ...styles.TrailingThumb }} />
+        <Thumb
+          role="slider"
+          aria-orientation={props.vertical ? "vertical" : "horizontal"}
+          aria-valuemin={props.min}
+          aria-valuemax={props.max}
+          aria-valuenow={finalValue[0]}
+          aria-valuetext={`${finalValue[0]}`}
+          tabIndex={props.disabled ? -1 : 0}
+          style={{ ...styles.LeadingThumb }}
+          onFocus={() => { setFocusThumbIndex(0) }}
+          onBlur={() => { setFocusThumbIndex(null)}}
+        />
+        <Thumb
+          role="slider"
+          aria-orientation={props.vertical ? "vertical" : "horizontal"}
+          aria-valuemin={props.min}
+          aria-valuemax={props.max}
+          aria-valuenow={finalValue[1]}
+          aria-valuetext={`${finalValue[1]}`}
+          tabIndex={props.disabled ? -1 : 0}
+          style={{ ...styles.TrailingThumb }}
+          onFocus={() => { setFocusThumbIndex(1) }}
+          onBlur={() => { setFocusThumbIndex(null)}}
+        />
 
       </Container>
     </Root>
