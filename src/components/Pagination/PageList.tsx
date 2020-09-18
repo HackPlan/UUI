@@ -42,6 +42,7 @@ export const PageList = UUI.FunctionComponent({
               'STATE_active': isActive,
               'STATE_ellipsis': isEllipsis,
             })}
+            aria-current={isActive ? "true" : undefined}
             loading={loading && isActive}
             key={`page-item-${index}`}
             onClick={() => { if (isPage && !isActive) pagination.toNthPage(Number(item.title)) }}
