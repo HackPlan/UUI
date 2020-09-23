@@ -1,6 +1,9 @@
-import React from 'react';
-import { RadioFeatureProps } from './Radio';
+import React, { useMemo, useState } from 'react';
+import { RadioFeatureProps, Radio } from './Radio';
 import { UUI, UUIComponentProps } from '../../core/uui';
+import { KeyCode } from '../../utils/keyboardHelper';
+import { getValidTypeChildren } from '../../utils/componentHelper';
+import { RadioGroupContext } from './RadioGroupContext';
 
 export interface RadioGroupFeatureProps<T extends string | number> {
   /**
@@ -33,19 +36,60 @@ const BaseRadioGroup = UUI.FunctionComponent({
   nodes: RadioGroupNodes,
 }, (props: RadioGroupFeatureProps<any>, nodes) => {
   const { Root } = nodes
+
+  const radios = useMemo(() => {
+    return getValidTypeChildren(Radio, props.children)
+  }, [props.children])
+
+  const [focusValue, setFocusValue] = useState<string | number>(radios[0]?.props.value)
+
   return (
-    <Root role="radiogroup">
-      {React.Children.map(props.children, (child: any) => {
-        return React.cloneElement<RadioFeatureProps<any>>(child, {
-          ...child.props,
-          ...(props.name ? { name: props.name } : {}),
-          checked: child.props.value === props.value,
-          onChange: () => {
-            props.onChange(child.props.value)
-          },
-        })
-      })}
-    </Root>
+    <RadioGroupContext.Provider value={{
+      value: props.value,
+      onChange: (value) => {
+        setFocusValue(value)
+        props.onChange(value)
+      },
+      focusValue,
+    }}>
+      <Root
+        role="radiogroup"
+        onKeyDown={(event) => {
+          switch (event.keyCode) {
+            case KeyCode.ArrowUp:
+            case KeyCode.ArrowLeft: {
+              const focusTabIndex = radios.findIndex((i) => i.props.value === props.value)
+              const index = (focusTabIndex + radios.length - 1) % radios.length
+              setFocusValue(radios[index].props.value)
+              break
+            }
+            case KeyCode.ArrowDown:
+            case KeyCode.ArrowRight: {
+              const focusTabIndex = radios.findIndex((i) => i.props.value === props.value)
+              const index = (focusTabIndex + radios.length + 1) % radios.length
+              setFocusValue(radios[index].props.value)
+              break
+            }
+            case KeyCode.Home: {
+              if (radios.length > 0 && radios[0]) {
+                setFocusValue(radios[0].props.value)
+              }
+              break
+            }
+            case KeyCode.End: {
+              if (radios.length > 0 && radios[radios.length-1]) {
+                setFocusValue(radios[radios.length-1].props.value)
+              }
+              break
+            }
+            default:
+              // do nothing
+          }
+        }}
+      >
+        {radios}
+      </Root>
+    </RadioGroupContext.Provider>
   )
 })
 

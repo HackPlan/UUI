@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
 import { UUI, UUIComponentProps } from '../../core/uui';
+import { RadioGroupContext } from './RadioGroupContext';
 
 type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -35,21 +36,43 @@ const RadioNodes = {
 const BaseRadio = UUI.FunctionComponent({
   name: "Radio",
   nodes: RadioNodes,
-}, (props: RadioFeatureProps<any>, nodes) => {
+}, (props: RadioFeatureProps<string | number>, nodes) => {
   const { Root, Input, Indicator, Label } = nodes
+
+  const context = useContext(RadioGroupContext)
+
+  const checked = useMemo(() => {
+    if (context) {
+      return props.value === context.value
+    } else {
+      return props.checked
+    }
+  }, [context, props.checked, props.value])
+
+  const focused = useMemo(() => {
+    if (context) {
+      return context.focusValue === props.value
+    }
+  }, [context, props.value])
 
   return (
     <Root
       role="radio"
-      aria-checked={props.checked}
+      aria-checked={checked}
       className={classNames({
         'STATE_disabled': props.disabled,
+        'STATE_checked': checked,
       })}
     >
       <Input
-        {...omit(props, 'type', 'label', 'customize')}
+        tabIndex={context ? (focused ? 0 : -1) : 0}
         name={props.name}
         type='radio'
+        disabled={props.disabled}
+        value={props.value}
+        checked={checked}
+        onChange={() => context?.onChange(props.value)}
+        {...(context ? {} : omit(props, 'className', 'style', 'type', 'label', 'customize'))}
       />
       <Indicator></Indicator>
       <Label>{props.label}</Label>
