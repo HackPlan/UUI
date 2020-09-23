@@ -9,6 +9,10 @@
   min-width: 200px;
   height: 32px;
   box-sizing: border-box;
+  border: 1px solid transparent;
+
+  @include focusWithinShadow;
+  @include focusWithinBorder;
 
   .UUI-SegmentControl-Container {
     position: relative;
