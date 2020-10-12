@@ -6,7 +6,7 @@
   flex-direction: row;
   align-items: center;
   color: $textDarkColor;
-  height: 32px;
+  min-height: 32px;
   box-sizing: border-box;
 
   @include border;
@@ -21,23 +21,56 @@
   }
 
   .UUI-Select-Selector {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     padding: 1px;
     height: 100%;
     box-sizing: border-box;
 
+    .UUI-Select-TagInputContainer {
+      flex: 1;
+      margin-top: 0.1rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .UUI-Select-Tag {
+      height: 22px;
+      margin-left: 0.25rem;
+      margin-top: 0.1rem;
+      margin-bottom: 0.1rem;
+      padding: 0 0.25rem;
+      background-color: #efefef;
+      border: 1px solid #e8e8e8;
+      border-radius: 2px;
+
+      .UUI-Tag-Content {
+        color: #333333;
+        font-size: 14px;
+      }
+    }
+
     .UUI-Select-Input {
+      display: inline-flex;
+      width: inherit;
+      height: inherit;
       border: none;
       box-shadow: none;
+      margin-left: 0.25rem;
+      margin-top: 0.1rem;
+      margin-bottom: 0.1rem;
     }
     .UUI-Select-Input, input {
       cursor: pointer;
       box-sizing: border-box;
       height: 100%;
+      padding: 0;
     }
   }
 
   .UUI-Select-DropdownIcon {
     color: #605e5c;
+    margin-left: 0.25rem;
     margin-right: 0.25rem;
     display: inline-flex;
     justify-content: center;
@@ -63,43 +96,26 @@
   }
 }
 
-.UUI-Select-SectionList {
-  min-width: 200px;
-  max-height: 260px;
-  overflow: auto;
+.UUI-Popover-Portal {
+  .UUI-Popover-Content {
+    .UUI-Select-ListBox {
+      display: block;
+      min-width: 200px;
+      max-height: 260px;
+      overflow: auto;
 
-  .UUI-Select-SectionHeader {
-    font-weight: bold;
-    margin: 0.5rem;
-  }
+      &:focus-within {
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
 
-  .UUI-Select-SectionDivider {
-    border-bottom: 1px solid lightgray;
-  }
-
-  .UUI-Select-Option {
-    cursor: pointer;
-    padding: 0.5rem;
-    font-size: 14px;
-
-    &:hover {
-      background-color: #dcf0ff;
-    }
-
-    &.STATE_disabled {
-      color: $disabledTextColor;
-      cursor: not-allowed;
-
-      &:hover {
-        background-color: inherit;
+        @include focusWithinBorder;
+        @include focusWithinShadow;
       }
-    }
 
-    &.STATE_static {
-      padding: 0 0.5rem;
-      cursor: inherit;
-      &:hover {
-        background-color: inherit;
+      .UUI-Select-Section {
+        color: rgba(0,0,0,.45);
+        font-size: 14px;
       }
     }
 

@@ -29,6 +29,10 @@
       &.STATE_selected.STATE_focused, &.STATE_selected:hover {
         background-color: #bfe4ff;
       }
+      &.STATE_disabled, &.STATE_disabled:hover {
+        cursor: inherit;
+        background-color: inherit;
+      }
     }
   }
 }

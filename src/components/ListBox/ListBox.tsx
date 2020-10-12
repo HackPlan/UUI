@@ -110,40 +110,28 @@ export const ListBox = UUI.FunctionComponent({
             case KeyCode.ArrowDown: {
               event.preventDefault()
               const item = getNextFocusItem('next')
-              if (item) {
-                focusItem(item)
-                if (!props.multiple) selectItem(item)
-              }
+              if (item) focusItem(item)
               setTimeout(() => scrollToFocusedItem(), 0)
               break
             }
             case KeyCode.ArrowUp: {
               event.preventDefault()
               const item = getNextFocusItem('prev')
-              if (item) {
-                focusItem(item)
-                if (!props.multiple) selectItem(item)
-              }
+              if (item) focusItem(item)
               setTimeout(() => scrollToFocusedItem(), 0)
               break
             }
             case KeyCode.Home: {
               event.preventDefault()
               const item = getNextFocusItem('first')
-              if (item) {
-                focusItem(item)
-                if (!props.multiple) selectItem(item)
-              }
+              if (item) focusItem(item)
               setTimeout(() => scrollToFocusedItem(), 0)
               break
             }
             case KeyCode.End: {
               event.preventDefault()
               const item = getNextFocusItem('last')
-              if (item) {
-                focusItem(item)
-                if (!props.multiple) selectItem(item)
-              }
+              if (item) focusItem(item)
               setTimeout(() => scrollToFocusedItem(), 0)
               break
             }
@@ -191,7 +179,7 @@ export const ListBox = UUI.FunctionComponent({
               })}
               key={id}
               onClick={() => {
-                selectItem(item)
+                if (!item.disabled) selectItem(item)
               }}
             >
               {item.content}
