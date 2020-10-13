@@ -139,26 +139,6 @@ export const ListBox = UUI.FunctionComponent({
               // do nothing
           }
         }}
-        onFocus={() => {
-          if (props.multiple) {
-            const item = getNextFocusItem('first')
-            if (item) focusItem(item)
-          } else {
-            const selectedIds = props.selectedIds
-            if (!selectedIds) {
-              const item = getNextFocusItem('first')
-              if (item) focusItem(item)
-              return
-            }
-            if (selectedIds.length === 0) {
-              const item = getNextFocusItem('first')
-              if (item) focusItem(item)
-            } else {
-              const item = props.items.find((i) => i.id === selectedIds[0])
-              if (item) focusItem(item)
-            }
-          }
-        }}
         onBlur={() => {
           setFocusedId(null)
         }}

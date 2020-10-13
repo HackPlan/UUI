@@ -9,6 +9,7 @@ import { ReactComponent as ChevronUp } from './assets/chevron-up.svg';
 import { ReactComponent as ChevronDown } from './assets/chevron-down.svg';
 import { ReactComponent as Spinner } from './assets/spinner.svg';
 import { ReactComponent as Home } from './assets/home.svg';
+import { ReactComponent as Search } from './assets/search.svg';
 
 export const Icons = IconGallery({
   Eye: { source: Eye },
@@ -20,5 +21,5 @@ export const Icons = IconGallery({
   ChevronDown: { source: ChevronDown },
   Spinner: { source: Spinner },
   Home: { source: Home },
-
+  Search: { source: Search },
 }, { width: 16, height: 16, mode: 'svg' })
