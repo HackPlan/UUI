@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { Popover as UUIPopover, PopoverPlacement } from '../Popover';
 import { Tag as UUITag } from '../Tag';
 import { TextField as UUITextField } from '../Input';
-import { flatMap, cloneDeep, chain, compact } from 'lodash';
+import { flatMap, chain, compact } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';

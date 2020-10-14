@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { UUI } from '../../core/uui';
 import { Collapse } from '../Collapse';
 import { Icons } from '../../icons/Icons';

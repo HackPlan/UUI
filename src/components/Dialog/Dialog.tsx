@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import useFocusTrap from '@charlietango/use-focus-trap';
 
 import classNames from 'classnames';

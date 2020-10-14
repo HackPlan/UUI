@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { UUI } from '../../core/uui';
 import { TabsContext } from './TabsContext';
 import classNames from 'classnames';
-import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface TabFeatureProps {
   /**
