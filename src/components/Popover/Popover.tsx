@@ -62,6 +62,8 @@ export interface PopoverFeatureProps {
    * Popper.js props. reference: https://popper.js.org/docs/v2/modifiers/
    */
   modifiers?: ReadonlyArray<Modifier<any, object>>;
+  referenceElement?: Element;
+  popperElement?: Element;
 }
 
 export const Popover = UUI.FunctionComponent({
@@ -115,7 +117,7 @@ export const Popover = UUI.FunctionComponent({
 
   const [referenceElement, setReferenceElement] = React.useState<any>(null);
   const [popperElement, setPopperElement] = React.useState<any>(null);
-  const { styles, attributes, update: updatePopper } = usePopper(referenceElement, popperElement, {
+  const { styles, attributes, update: updatePopper } = usePopper(props.referenceElement || referenceElement, props.popperElement || popperElement, {
     placement: finalProps.placement,
     strategy: finalProps.strategy,
     modifiers: finalProps.modifiers,

@@ -18,7 +18,9 @@ export interface ListBoxFeatureProps {
   disabled?: boolean;
   multiple?: boolean;
   selectedIds?: string[];
-  onSelect?: (ids: string[]) => void;
+  onSelected?: (ids: string[]) => void;
+  onSelect?: (id: string) => void;
+  onUnselect?: (id: string) => void;
 }
 
 export const ListBox = UUI.FunctionComponent({
@@ -77,12 +79,17 @@ export const ListBox = UUI.FunctionComponent({
   const selectItem = useCallback((item: ListBoxItem) => {
     if (props.multiple) {
       const idsSet = new Set(props.selectedIds)
-      if (idsSet.has(item.id)) idsSet.delete(item.id)
-      else idsSet.add(item.id)
+      if (idsSet.has(item.id)) {
+        idsSet.delete(item.id)
+        props.onUnselect && props.onUnselect(item.id)
+      } else {
+        idsSet.add(item.id)
+        props.onSelect && props.onSelect(item.id)
+      }
       const newSelectedIds = Array.from(idsSet)
-      props.onSelect && props.onSelect(newSelectedIds)
+      props.onSelected && props.onSelected(newSelectedIds)
     } else {
-      props.onSelect && props.onSelect([item.id])
+      props.onSelected && props.onSelected([item.id])
     }
   }, [props])
 

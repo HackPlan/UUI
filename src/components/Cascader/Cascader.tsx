@@ -14,9 +14,15 @@ import { KeyCode } from '../../utils/keyboardHelper';
 export interface CascaderOption {
   value: string;
   /**
-   * for input value display.
+   * for input text display.
    */
   label: string;
+  /**
+   * for custom render view.
+   * if content and label are both provided, priority display content in option view.
+   */
+  content?: React.ReactNode;
+
   /**
    * Whether the option of cascader is non-interactive.
    * @default false
@@ -129,6 +135,7 @@ export const Cascader = UUI.FunctionComponent({
   const [innerValue, setInnerValue, resetInnerValue] = usePendingValue(props.value, props.onChange)
   const [popoverActive, setPopoverActive] = useState(false)
   const [searchInputValue, setSearchInputValue] = useState('')
+
   /**
    * Generate tree hierarchy data of cascade options for rendering.
    */
@@ -160,7 +167,7 @@ export const Cascader = UUI.FunctionComponent({
         {ReactHelper.join(
           options.map((option) => {
             return (
-              <DisplayValue key={option.value}>{option.label}</DisplayValue>
+              <DisplayValue key={option.value}>{option.content || option.label}</DisplayValue>
             )
           }),
           <DisplayValueSeparator>/</DisplayValueSeparator>
@@ -176,14 +183,9 @@ export const Cascader = UUI.FunctionComponent({
   }, [props.options, props.value, renderValueResult])
 
   const displayResult = useMemo(() => {
-    return (
-      <>
-        {props.value && props.value.length > 0
-          ? valueResult
-          : <Placeholder>{finalProps.placeholder}</Placeholder>
-        }
-      </>
-    )
+    return props.value && props.value.length > 0
+      ? valueResult
+      : <Placeholder>{finalProps.placeholder}</Placeholder>
   }, [finalProps.placeholder, props.value, valueResult])
 
   /**
@@ -209,7 +211,7 @@ export const Cascader = UUI.FunctionComponent({
                 setInnerValue(newValue)
               }}
             >
-              <OptionLabel>{option.label}</OptionLabel>
+              <OptionLabel>{option.content || option.label}</OptionLabel>
               <OptionIcon
                 className={classNames({
                   'STATE_hidden': !option.children,
@@ -338,7 +340,7 @@ export const Cascader = UUI.FunctionComponent({
             <SearchList
               items={searchListData.items}
               selectedIds={searchListData.selectedIds}
-              onSelect={searchListData.handleOnSelect}
+              onSelected={searchListData.handleOnSelect}
             />
           ) : (
             <LevelList>
@@ -348,7 +350,7 @@ export const Cascader = UUI.FunctionComponent({
                     key={levelIndex}
                     items={data.items}
                     selectedIds={data.selectedIds}
-                    onSelect={data.handleOnSelect}
+                    onSelected={data.handleOnSelect}
                   />
                 )
               })}
