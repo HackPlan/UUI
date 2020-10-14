@@ -22,6 +22,15 @@ addParameters({
      * else the resting stories will sorted by story kind by alphabetically.
      */
     storySort: (a, b) => {
+
+      /**
+       * 组件类 Story 按照英文字母表排序
+       */
+      if (a[1]['kind'].startsWith('组件/总览')) return false
+      if (a[1]['kind'].startsWith('组件/')) {
+        return a[1]['kind'].replace(/[\u4e00-\u9fa5]/g, '') > b[1]['kind'].replace(/[\u4e00-\u9fa5]/g, '')
+      }
+
       const sortIndexA = a[2]['sortIndex']
       const sortIndexB = b[2]['sortIndex']
       if (sortIndexA && !sortIndexB) {
