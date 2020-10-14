@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo, useRef } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { UUI } from '../../core/uui';
 import { Collapse } from '../Collapse';
 import { Icons } from '../../icons/Icons';
@@ -74,7 +74,7 @@ export const AccordionPane = UUI.FunctionComponent({
         }
       }}
     >
-      <Header tabIndex={0} onClick={() => {
+      <Header tabIndex={finalProps.disabled ? -1 : 0} onClick={() => {
         if (finalProps.disabled) return
         context.onPaneClicked(props.id)
       }}>

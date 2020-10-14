@@ -1,0 +1,38 @@
+@import '../mixins.scss';
+
+.UUI-ListBox-Root {
+  display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+
+  @include focusWithinBorder;
+  @include focusWithinShadow;
+
+  .UUI-ListBox-Box {
+    height: 100%;
+    overflow: scroll;
+
+    padding: 0;
+    margin: 0;
+
+    .UUI-ListBox-Item {
+      list-style-type: none;
+      padding: 0.5rem;
+      cursor: pointer;
+
+      &.STATE_focused, &:hover {
+        background-color: $focusBackgroundColor;
+      }
+      &.STATE_selected {
+        background-color: #dcf0ff;
+      }
+      &.STATE_selected.STATE_focused, &.STATE_selected:hover {
+        background-color: #bfe4ff;
+      }
+      &.STATE_disabled, &.STATE_disabled:hover {
+        cursor: inherit;
+        background-color: inherit;
+      }
+    }
+  }
+}

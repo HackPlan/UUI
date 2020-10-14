@@ -36,6 +36,7 @@ export const _Pagination = UUI.FunctionComponent({
   return (
     <PaginationContext.Provider value={{ pagination, loading: props.loading }}>
       <Root
+        role="navigation"
         className={classNames({
           'STATE_loading': props.loading,
         })}

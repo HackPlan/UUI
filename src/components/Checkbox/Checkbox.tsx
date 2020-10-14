@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { omit } from 'lodash';
 import classNames from 'classnames';
 import { UUI } from '../../core/uui';
+import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface CheckboxFeatureProps {
   /**
@@ -44,13 +45,27 @@ export const Checkbox = UUI.FunctionComponent({
 }, (props: CheckboxFeatureProps, nodes) => {
   const { Root, Input, Indicator, Label } = nodes
 
+  const ref = useRef<HTMLLabelElement | null>(null)
+
   return (
     <Root
+      ref={ref}
       role="checkbox"
+      tabIndex={0}
       aria-checked={!!props.checked}
       className={classNames({
         'STATE_disabled': props.disabled,
       })}
+      onKeyDown={(event) => {
+        switch (event.keyCode) {
+          case KeyCode.Enter:
+          case KeyCode.SpaceBar:
+            ref.current?.click()
+            break
+          default:
+            // do nothing
+        }
+      }}
     >
       <Input
         {...omit(props, 'type', 'value', 'onChange', 'customize')}

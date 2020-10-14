@@ -14,8 +14,6 @@
   .UUI-Radio-Input {
     width: 0;
     height: 0;
-    opacity: 0;
-    display: none;
   }
 
   .UUI-Radio-Indicator {
@@ -40,22 +38,25 @@
     cursor: not-allowed;
   }
 
-  input[type=radio]:checked+.UUI-Radio-Indicator {
-    background-color: white;
-    border-color: $primaryColor;
-  }
+  .UUI-Radio-Input:checked {
 
-  input[type=radio]:checked+.UUI-Radio-Indicator:after {
-    position: absolute;
-    content: '';
-    width: 9px;
-    height: 9px;
-    background-color: $primaryColor;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    border-radius: 50%;
+    & + .UUI-Radio-Indicator {
+      background-color: white;
+      border-color: $primaryColor;
+    }
+
+    & + .UUI-Radio-Indicator:after {
+      position: absolute;
+      content: '';
+      width: 9px;
+      height: 9px;
+      background-color: $primaryColor;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+    }
   }
 }
 

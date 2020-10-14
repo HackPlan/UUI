@@ -5,6 +5,7 @@ import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
 import { Icons } from '../../icons/Icons';
 import classNames from 'classnames';
+import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface StepperFeatureProps {
   /**
@@ -78,6 +79,7 @@ export const Stepper = UUI.FunctionComponent({
 
   const minus = (
     <MinusButton
+      tabIndex={-1}
       onClick={() => {
         const finalValue = limitRange((props.value || 0) - finalProps.step, props.min, props.max)
         props.onChange(finalValue)
@@ -93,6 +95,7 @@ export const Stepper = UUI.FunctionComponent({
   )
   const plus = (
     <PlusButton
+      tabIndex={-1}
       onClick={() => {
         const finalValue = limitRange((props.value || 0) + finalProps.step, props.min, props.max)
         props.onChange(finalValue)
@@ -119,6 +122,7 @@ export const Stepper = UUI.FunctionComponent({
   return (
     <Root
       role="spinbutton"
+      tabIndex={0}
       aria-valuemax={props.max}
       aria-valuemin={props.min}
       aria-valuenow={props.value || undefined}
@@ -126,6 +130,46 @@ export const Stepper = UUI.FunctionComponent({
         'POSITION_controlSeparate': finalProps.controlPosition === 'separate',
         'POSITION_controlRight': finalProps.controlPosition === 'right',
       })}
+      onKeyDown={(event) => {
+        switch (event.keyCode) {
+          case KeyCode.ArrowLeft:
+          case KeyCode.ArrowDown: {
+            const finalValue = limitRange((props.value || 0) - finalProps.step, props.min, props.max)
+            props.onChange(finalValue)
+            break
+          }
+          case KeyCode.ArrowRight:
+          case KeyCode.ArrowUp: {
+            const finalValue = limitRange((props.value || 0) + finalProps.step, props.min, props.max)
+            props.onChange(finalValue)
+            break
+          }
+          case KeyCode.PageDown: {
+            const finalValue = limitRange((props.value || 0) - finalProps.step * 10, props.min, props.max)
+            props.onChange(finalValue)
+            break
+          }
+          case KeyCode.PageUp: {
+            const finalValue = limitRange((props.value || 0) + finalProps.step * 10, props.min, props.max)
+            props.onChange(finalValue)
+            break
+          }
+          case KeyCode.Home: {
+            if (props.max !== undefined) {
+              props.onChange(props.max)
+            }
+            break
+          }
+          case KeyCode.End: {
+            if (props.min !== undefined) {
+              props.onChange(props.min)
+            }
+            break
+          }
+          default:
+            // do nothing
+        }
+      }}
     >
       {finalProps.controlPosition === 'separate' && (
         <>{minus}{input}{plus}</>

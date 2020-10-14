@@ -1,19 +1,20 @@
-import React, { useState, useRef, useCallback, useMemo } from 'react';
-import { UUI, UUIComponentProps } from '../../core/uui';
-import { Popover as UUIPopover, PopoverPlacement } from '../../components/Popover';
-import { TextField } from '../../components/Input';
-import { flatMap, cloneDeep } from 'lodash';
+import React, { useState, useRef, useMemo, useCallback } from 'react';
+import { UUI } from '../../core/uui';
+import { Popover as UUIPopover, PopoverPlacement } from '../Popover';
+import { Tag as UUITag } from '../Tag';
+import { TextField as UUITextField } from '../Input';
+import { flatMap, chain, compact } from 'lodash';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
-import ReactHelper from '../../utils/ReactHelper';
+import { KeyCode } from '../../utils/keyboardHelper';
+import { ListBox as UUIListBox, ListBoxItem } from '../ListBox';
 
-
-interface SelectOption<T extends string | number> {
-  key?: string | number;
+interface SelectOption {
+  key: string;
   label: string;
   content?: React.ReactNode;
-  value: T;
+  value: string;
   /**
    * Whether the option of select is non-interactive.
    * @default false
@@ -22,15 +23,58 @@ interface SelectOption<T extends string | number> {
   static?: boolean;
 }
 
-interface BaseSelectFeatureProps<T extends string | number> {
+interface SelectOptionsProps {
+  /**
+   * Options of Select.
+   */
+  options: SelectOption[];
+}
+
+interface SelectSectionsProps {
+  /**
+   * Sections of Options of Select.
+   */
+  sections: {
+    key: string;
+    label?: React.ReactNode;
+    options: SelectOption[];
+  }[];
+}
+
+interface SelectSingleValueProps {
   /**
    * Selected item.
    */
-  value: T | null;
+  value: string | null;
   /**
    * Callback invoked when an item is selected.
    */
-  onChange: (value: T | null) => void;
+  onChange: (value: string | null) => void;
+  /**
+   *
+   */
+  multiple?: false;
+}
+
+interface SelectMultipleValueProps {
+  /**
+   * Selected item.
+   */
+  value: string[] | null;
+  /**
+   * Callback invoked when an item is selected.
+   */
+  onChange: (value: string[] | null) => void;
+  /**
+   *
+   */
+  multiple: true;
+}
+
+type SelectValueProps = SelectSingleValueProps | SelectMultipleValueProps
+type SelectSectionOptionProps = SelectSectionsProps | SelectOptionsProps
+
+interface BaseSelectFeatureProps {
   /**
    * Placeholder text when there is no value.
    * @default none
@@ -40,10 +84,11 @@ interface BaseSelectFeatureProps<T extends string | number> {
    * enable inputting text to search options.
    */
   searchable?: boolean;
+  searchPlaceholder?: string;
   /**
    * The custom search function, it invoked per option iteration.
    */
-  onSearch?: (option: SelectOption<T>, q: string) => boolean;
+  onSearch?: (option: SelectOption, q: string) => boolean;
   /**
    * dropdown placement
    */
@@ -55,263 +100,312 @@ interface BaseSelectFeatureProps<T extends string | number> {
   loading?: boolean;
 }
 
-interface SelectOptionsFeatureProps<T extends string | number> extends BaseSelectFeatureProps<T> {
-  /**
-   * Options of Select.
-   */
-  options: SelectOption<T>[];
-}
-
-interface SelectSectionsFeatureProps<T extends string | number> extends BaseSelectFeatureProps<T> {
-  /**
-   * Sections of Options of Select.
-   */
-  sections: {
-    label?: React.ReactNode;
-    options: SelectOption<T>[];
-  }[];
-}
-
-export type SelectFeatureProps<T extends string | number> = SelectSectionsFeatureProps<T> | SelectOptionsFeatureProps<T>
+export type SelectFeatureProps = SelectValueProps & SelectSectionOptionProps & BaseSelectFeatureProps
 
 const SelectNodes = {
   Root: 'div',
+  Activator: 'div',
+  Placeholder: 'div',
+  Result: 'div',
   Dropdown: UUIPopover,
   DropdownIcon: Icons.ChevronDown,
-  Selector: 'div',
-  Input: TextField,
-  SectionList: 'div',
-  SectionDivider: 'div',
-  Section: 'div',
-  SectionHeader: 'div',
-  OptionList: 'div',
-  Option: 'div',
+  TagInputContainer: 'div',
+  Tag: UUITag,
   SearchMatched: 'span',
+  ActionBox: 'div',
   LoadingSpinner: LoadingSpinner,
+  OptionList: UUIListBox,
+  Section: 'div',
+  Option: 'div',
+  SearchInput: UUITextField,
+  SearchIcon: Icons.Search,
+  SearchList: UUIListBox,
+
 } as const
 
-const BaseSelect = UUI.FunctionComponent({
+export const Select = UUI.FunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
-}, (props: SelectFeatureProps<any>, nodes) => {
+}, (props: SelectFeatureProps, nodes) => {
   const {
-    Root, Dropdown, DropdownIcon, Selector, Input,
-    SectionList, SectionDivider, Section, SectionHeader,
-    OptionList, Option, SearchMatched,
+    Root, Dropdown, DropdownIcon,
+    Activator, Result, Placeholder,
+    TagInputContainer,
+    ActionBox,
+    OptionList, Section, Option,
+    SearchList, SearchInput, SearchIcon,
     LoadingSpinner,
+    Tag,
   } = nodes
 
   const finalProps = {
     searchable: props.searchable === undefined ? false : props.searchable,
+    placeholder: props.placeholder || 'select options...',
+    searchPlaceholder: props.searchPlaceholder || 'Search options...',
     dropdownPlacement: props.dropdownPlacement === undefined ? 'bottom-start' : props.dropdownPlacement
   }
 
   const [active, setActive] = useState<boolean>(false)
-  const [inputValue, setInputValue] = useState<string | null>(null)
-  const inputRef = useRef<any | null>(null)
+  const [searchInputValue, setSearchInputValue] = useState('')
+  const ref = useRef<any>(null)
 
-  const value = useMemo(() => {
-    if (active) {
-      return inputValue
-    } else {
-      const option = findSelectedOption(props)
-      return option?.label || null
+  const allOptions = useMemo(() => {
+    if (isNormalOptions(props)) return props.options
+    if (isSectionedOptions(props)) {
+      return flatMap(props.sections, (i) => i.options)
     }
-  }, [props, inputValue, active])
-
-  const placeholder = useMemo(() => {
-    if (active && !inputValue && props.value) {
-      const selectedOption = findSelectedOption(props)
-      return selectedOption?.label
-    } else {
-      return props.placeholder
-    }
-  }, [active, inputValue, props])
-
-  const finalOptions = useMemo(() => {
-    if (!(props as any)['options']) return undefined
-    const _props = props as SelectOptionsFeatureProps<any>
-
-    if (!inputValue) return _props.options
-    const matchedOptions = searchInOptions(inputValue, _props.options, props.onSearch)
-        .map((option) => {
-          option.content = (
-            <>{highlightKeyword(option.label, inputValue, SearchMatched)}</>
-          )
-          return option
-        })
-    return matchedOptions
-  }, [SearchMatched, inputValue, props])
-
-  const finalSections = useMemo(() => {
-    if (!(props as any)['sections']) return undefined
-    const _props = props as SelectSectionsFeatureProps<any>
-
-    if (!inputValue) return _props.sections
-    return _props.sections.map((section) => {
-      const matchedOptions = searchInOptions(inputValue, section.options, props.onSearch)
-        .map((option) => {
-          option.content = (
-            <>{highlightKeyword(option.label, inputValue, SearchMatched)}</>
-          )
-          return option
-        })
-      return {
-        ...section,
-        options: matchedOptions,
-      }
-    }).filter((section) => section.options.length > 0)
-  }, [SearchMatched, inputValue, props])
-
-  const renderOptionList = useCallback((options: SelectOption<any>[]) => {
-    return (
-      <OptionList>
-        {options.map((option, index) => {
-          const selected = option.value === props.value
-          return (
-            <Option key={option.key || index}
-              role="option"
-              aria-selected={selected}
-              className={classNames({
-                'STATE_selected': selected,
-                'STATE_disabled': option.disabled,
-                'STATE_static': !!option.static,
-              })}
-              onClick={() => {
-                if (option.static) return
-                if (option.disabled) return
-                setActive(false)
-                setInputValue(option.label)
-                props.onChange(option.value)
-              }}
-            >
-              {option.content || option.label}
-            </Option>
-          )
-        })}
-      </OptionList>
-    )
+    return []
   }, [props])
 
-  const renderSection = useCallback(() => {
-    if (finalOptions) {
-      return renderOptionList(finalOptions)
-    } else if (finalSections) {
-      return ReactHelper.join(finalSections.map((section, index) => {
-        return (
-          <Section key={index}>
-            {section.label && <SectionHeader>{section.label}</SectionHeader>}
-            {renderOptionList(section.options)}
-          </Section>
-        )
-      }), <SectionDivider />)
-    } else {
-      return null
+  const openDropdown = useCallback(() => {
+    setActive(true)
+  }, [])
+
+  const closeDropdown = useCallback(() => {
+    setActive(false)
+    setSearchInputValue('')
+  }, [])
+
+  /**
+   * ListBox
+   */
+
+  const displayResult = useMemo(() => {
+    return props.value && props.value.length > 0
+      ? (
+        <Result>
+          {props.multiple ? (
+            <TagInputContainer>
+              {
+                props.multiple &&
+                props.value &&
+                props.value.length > 0 &&
+                chain(props.value)
+                  .map((v) => allOptions?.find((i) => i.value === v))
+                  .compact()
+                  .map((option) => {
+                    return (
+                      <Tag key={option.key}>{option.label}</Tag>
+                    )
+                  })
+                  .value()
+              }
+            </TagInputContainer>
+          ) : (
+            allOptions?.find((i) => i.value === props.value)?.label
+          )}
+        </Result>
+      )
+      : (
+        <Placeholder>{finalProps.placeholder}</Placeholder>
+      )
+  }, [allOptions, finalProps.placeholder, props.multiple, props.value])
+
+  const optionListItems = useMemo<ListBoxItem[]>(() => {
+    const getOptionData = (i: SelectOption) => ({
+      id: i.key,
+      content: <Option>{i.content || i.label}</Option>,
+    })
+    const getSectionData = (i: {
+      key: string | number;
+      label?: React.ReactNode;
+      options: SelectOption[];
+    }) => {
+      return [
+        { id: i.key, content: <Section>{i.label}</Section>, disabled: true },
+        ...i.options.map(getOptionData),
+      ]
     }
-  }, [finalOptions, finalSections, renderOptionList])
+
+    if (isNormalOptions(props)) {
+      return props.options.map(getOptionData) as any[]
+    } else if (isSectionedOptions(props)) {
+      return chain(props.sections).map(getSectionData).flatMap().value() as any[]
+    } else {
+      return [] as any[]
+    }
+  }, [props])
+
+  const optionListSelectedIds = useMemo(() => {
+    if (!props.value) return []
+    if (props.multiple) {
+      return compact(props.value.map((i) => allOptions && allOptions.find((j) => j.value === i)?.key))
+    } else {
+      return compact([allOptions && allOptions.find((j) => j.value === props.value)?.key])
+    }
+  }, [props.value, props.multiple, allOptions])
+
+  const optionListHandleOnSelect = useCallback((selectedIds: string[]) => {
+    if (props.multiple) {
+      if (selectedIds.length === 0) {
+        props.onChange([])
+      } else {
+        props.onChange(compact(selectedIds.map((i) => allOptions && allOptions.find((j) => j.key === i)?.value)))
+      }
+    } else {
+      if (selectedIds.length === 0) {
+        props.onChange(null)
+      } else {
+        props.onChange((allOptions && allOptions.find((j) => j.key === selectedIds[0])?.value) || null)
+      }
+      closeDropdown()
+    }
+  }, [allOptions, closeDropdown, props])
+
+  const searchListItems = useMemo(() => {
+    if (!searchInputValue) return null
+    const matchedOptions = searchInOptions(searchInputValue, allOptions, props.onSearch)
+    return matchedOptions.map((option) => {
+      return {
+        id: option.key,
+        content: (
+          <Option>{option.label}</Option>
+        ),
+      }
+    })
+  }, [allOptions, props.onSearch, searchInputValue])
+
+  const searchListSelectedIds = useMemo(() => {
+    return optionListSelectedIds.filter((id) => {
+      return !!searchListItems?.find((item) => item.id === id)
+    })
+  }, [optionListSelectedIds, searchListItems])
+  const searchListHandleOnSelect = useCallback((selectedId: string) => {
+    if (!searchInputValue) return
+    const option = allOptions.find((i) => i.key === selectedId)
+    if (option) {
+      if (props.multiple) {
+        const newValue = Array.from(props.value || [])
+        newValue.push(option.value)
+        props.onChange(newValue)
+      } else {
+        props.onChange(option.value)
+      }
+    }
+  }, [allOptions, props, searchInputValue])
+  const searchListHandleOnUnselect = useCallback((selectedId: string) => {
+    if (!searchInputValue) return
+    const option = allOptions.find((i) => i.key === selectedId)
+    if (option) {
+      if (props.multiple && props.value) {
+        const index = props.value.findIndex((i) => i === selectedId)
+        const newValue = Array.from(props.value)
+        newValue.splice(index, 1)
+        props.onChange(newValue)
+      } else {
+        props.onChange(null)
+      }
+    }
+  }, [allOptions, props, searchInputValue])
 
   return (
     <Root
+      ref={ref}
       role="select"
       className={classNames({
         'STATE_active': active,
         'STATE_loading': props.loading,
         'STATE_searchable': finalProps.searchable,
       })}
+      onFocus={() => { openDropdown() }}
+      onKeyDown={(event) => {
+        switch (event.keyCode) {
+          case KeyCode.Enter:
+          case KeyCode.SpaceBar:
+            if (!active) {
+              openDropdown()
+            }
+            break
+          case KeyCode.Escape:
+            closeDropdown()
+            break
+          default:
+            // do nothing
+        }
+      }}
     >
       <Dropdown
         active={active}
         placement={finalProps.dropdownPlacement}
+        referenceElement={ref.current}
         onClickAway={() => {
-          setActive(false)
-          const selectedOption = findSelectedOption(props)
-          setInputValue(selectedOption?.label || null)
+          closeDropdown()
         }}
+        // modifiers for fix dropdown dynamic offset update
+        modifiers={[{
+          name: "dynamic_offset",
+          enabled: true,
+          phase: "beforeWrite",
+          requires: ["computeStyles"],
+          fn: () => { /** */ },
+          effect: () => { return () => { /** */ } },
+        }]}
         activator={
-          <Selector
+          <Activator
             onClick={() => {
-              setActive(true)
-              inputRef.current && inputRef.current.focus && inputRef.current.focus();
-            }}>
-            <Input
-              value={value}
-              placeholder={placeholder}
-              onChange={(value) => {
-                setInputValue(value.length > 0 ? value : null)
-              }}
-              customize={{
-                Root: {
-                  onClick: () => {
-                    setActive((value) => !value)
-                    if (!active) {
-                      setInputValue('')
-                    }
-                  },
-                  extendChildrenAfter: (
-                    <>
-                    {props.loading && (
-                      <LoadingSpinner width={16} height={16} />
-                    )}
-                    <DropdownIcon width={20} height={20} svgrProps={{ strokeWidth: 1 }} />
-                    </>
-                  )
-                },
-                Input: {
-                  ref:  inputRef,
-                  readOnly: !finalProps.searchable,
-                },
-              }}
-            />
-          </Selector>
+              openDropdown()
+            }}
+          >
+            {displayResult}
+            {props.loading && (
+              <LoadingSpinner width={16} height={16} />
+            )}
+            <DropdownIcon width={20} height={20} svgrProps={{ strokeWidth: 1 }} />
+          </Activator>
         }
       >
-        <SectionList>
-          {renderSection()}
-        </SectionList>
+        <ActionBox>
+          {props.searchable && (
+            <SearchInput
+              value={searchInputValue}
+              onChange={(value) => { setSearchInputValue(value) }}
+              placeholder={finalProps.searchPlaceholder}
+              customize={{
+                Root: {
+                  extendChildrenBefore: (
+                    <SearchIcon />
+                  )
+                }
+              }}
+            />
+          )}
+          {(searchListItems) ? (
+            <SearchList
+              items={searchListItems}
+              selectedIds={searchListSelectedIds}
+              onSelect={searchListHandleOnSelect}
+              onUnselect={searchListHandleOnUnselect}
+              multiple={props.multiple}
+            />
+          ) : (
+            <OptionList
+              items={optionListItems}
+              disabled={!active}
+              selectedIds={optionListSelectedIds}
+              onSelected={optionListHandleOnSelect}
+              multiple={props.multiple}
+            />
+          )}
+        </ActionBox>
       </Dropdown>
     </Root>
   )
 })
 
-function highlightKeyword(text: string, keyword: string, HighlightComponent: any) {
-  const data = text.split(keyword).map((node, index) => {
-    if (index === 0) return node
-    else return <React.Fragment key={index}>
-      <HighlightComponent key={keyword}>{keyword}</HighlightComponent>
-      {node}
-    </React.Fragment>
-  })
-  return data.map((i, index) => <React.Fragment key={index}>{i}</React.Fragment>)
+const isSectionedOptions = (props: any): props is SelectSectionsProps => {
+  if ((props as any)['sections']) return true
+  else return false
+}
+const isNormalOptions = (props: any): props is SelectOptionsProps => {
+  if ((props as any)['options']) return true
+  else return false
 }
 
-function searchInOptions(q: string, options: SelectOption<any>[], predicate?: SelectFeatureProps<any>['onSearch']) {
-  return cloneDeep(
-    options.filter((i) => predicate
-      ? predicate(i, q)
-      : i.label.includes(q)
-    )
+function searchInOptions(q: string, options: SelectOption[], predicate?: SelectFeatureProps['onSearch']) {
+  return options.filter((i) => predicate
+    ? predicate(i, q)
+    : i.label.includes(q)
   )
 }
 
-const getAllOptions = <T extends string | number>(props: SelectFeatureProps<T>) => {
-  if ((props as any)['options']) {
-    const _props = props as SelectOptionsFeatureProps<any>
-    return _props.options
-  } else if ((props as any)['sections']) {
-    const _props = props as SelectSectionsFeatureProps<any>
-    return flatMap(_props.sections, (i) => i.options)
-  } else {
-    return []
-  }
-}
-
-const findSelectedOption = <T extends string | number>(props: SelectFeatureProps<T>) => {
-  const allOptions = getAllOptions(props)
-  return allOptions.find((i) => i.value === props.value)
-}
-
-export function Select<T extends string | number>(props: UUIComponentProps<SelectFeatureProps<T>, typeof SelectNodes>) {
-  return <BaseSelect {...props} />
-}
-Select.displayName = `<UUI> [GenericComponent] Select`
 export type SelectProps = Parameters<typeof Select>[0]

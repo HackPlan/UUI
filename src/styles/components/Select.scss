@@ -6,8 +6,9 @@
   flex-direction: row;
   align-items: center;
   color: $textDarkColor;
-  height: 32px;
+  min-height: 32px;
   box-sizing: border-box;
+  cursor: pointer;
 
   @include border;
   @include radius;
@@ -15,29 +16,55 @@
   @include focusWithinShadow;
   @include focusWithinBorder;
 
+  .UUI-Select-Activator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+
+    .UUI-Select-TagInputContainer {
+      flex: 1;
+      margin-top: 0.1rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .UUI-Select-Tag {
+      height: 20px;
+      margin-right: 0.25rem;
+      margin-top: 0.1rem;
+      margin-bottom: 0.1rem;
+      padding: 0 0.25rem;
+      background-color: #efefef;
+      border: 1px solid #e8e8e8;
+      border-radius: 2px;
+
+      .UUI-Tag-Content {
+        color: #333333;
+        font-size: 14px;
+        line-height: 14px;
+      }
+    }
+  }
+
+  .UUI-Select-Result, .UUI-Select-Placeholder {
+    min-width: 160px;
+    flex: 1;
+    margin-left: 0.25rem;
+  }
+
+  .UUI-Select-Placeholder {
+    color: gray;
+  }
+
   .UUI-Select-Dropdown {
     width: 100%;
     height: 100%;
   }
 
-  .UUI-Select-Selector {
-    padding: 1px;
-    height: 100%;
-    box-sizing: border-box;
-
-    .UUI-Select-Input {
-      border: none;
-      box-shadow: none;
-    }
-    .UUI-Select-Input, input {
-      cursor: pointer;
-      box-sizing: border-box;
-      height: 100%;
-    }
-  }
-
   .UUI-Select-DropdownIcon {
     color: #605e5c;
+    margin-left: 0.25rem;
     margin-right: 0.25rem;
     display: inline-flex;
     justify-content: center;
@@ -51,60 +78,80 @@
     }
   }
 
-  &.STATE_searchable {
-    .UUI-Select-Input, input {
-      cursor: text;
-    }
-  }
-
   .UUI-Select-LoadingSpinner {
     color: gray;
     padding-right: 0.5rem;
   }
 }
 
-.UUI-Select-SectionList {
-  min-width: 200px;
-  max-height: 260px;
-  overflow: auto;
 
-  .UUI-Select-SectionHeader {
-    font-weight: bold;
-    margin: 0.5rem;
+.UUI-Select-ActionBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 0.25rem;
+
+  .UUI-Select-SearchInput {
+    box-shadow: none;
+
+    &:not(:focus-within) {
+      border-color: transparent;
+      border-bottom: 1px solid $borderColor;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .UUI-Select-SearchIcon {
+      margin-left: 0.25rem;
+      color: gray;
+    }
   }
 
-  .UUI-Select-SectionDivider {
-    border-bottom: 1px solid lightgray;
+  .UUI-Select-SearchList {
+    height: 240px;
   }
 
-  .UUI-Select-Option {
-    cursor: pointer;
-    padding: 0.5rem;
-    font-size: 14px;
+  .UUI-Select-OptionList {
+    height: 260px;
+    min-width: 260px;
+    overflow: auto;
+    background-color: white;
 
-    &:hover {
-      background-color: #dcf0ff;
+    border-right: 1px solid $borderColor;
+
+    &:last-child {
+      margin-right: -1px;
     }
 
-    &.STATE_disabled {
-      color: $disabledTextColor;
-      cursor: not-allowed;
+    &:focus-within {
+      border-right: 1px solid $primaryColor;
+      z-index: 9999999;
+      box-shadow: none;
+    }
 
-      &:hover {
-        background-color: inherit;
+    .UUI-Select-Section {
+      color: rgba(0,0,0,.45);
+      font-size: 14px;
+    }
+
+    .UUI-Select-Option {
+      display: flex;
+      justify-content: space-between;
+
+      .UUI-Select-OptionIcon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.STATE_hidden svg {
+          opacity: 0;
+        }
+
+        svg {
+          color: lighten($textDarkColor, 30%);
+        }
       }
-    }
-
-    &.STATE_static {
-      padding: 0 0.5rem;
-      cursor: inherit;
-      &:hover {
-        background-color: inherit;
-      }
-    }
-
-    .UUI-Select-SearchMatched {
-      color: $primaryColor;
     }
   }
 }
+

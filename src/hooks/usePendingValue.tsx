@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 /**
  * An useful tool to manage component's inner state.
@@ -8,10 +8,10 @@ export function usePendingValue<T>(initialValue: T, onFinalChange: (finalValue: 
   useEffect(() => { _setInnerValue(initialValue) }, [initialValue])
 
   const innerValue = _innerValue
-  const setInnerValue = (value: T, confirm = false) => {
+  const setInnerValue = useCallback((value: T, confirm = false) => {
     if (confirm) onFinalChange(value)
     else _setInnerValue(value)
-  }
+  }, [onFinalChange])
   const resetInnerValue = () => { setInnerValue(initialValue) }
   return [innerValue, setInnerValue, resetInnerValue] as const
 }

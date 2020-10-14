@@ -6,6 +6,7 @@
   color: $textDarkColor;
   height: 32px;
   box-sizing: border-box;
+  cursor: pointer;
 
   @include border;
   @include radius;
@@ -13,28 +14,27 @@
   @include focusWithinShadow;
   @include focusWithinBorder;
 
-  .UUI-Cascader-Input.UUI-TextField-Root {
-    &:hover {
-      border: none;
-    }
-    &:focus-within {
-      border: none;
-      box-shadow: none;
-    }
-  }
-  .UUI-Cascader-Input {
-    padding: 1px;
-    border: none;
-    box-shadow: none;
-    box-sizing: border-box;
-    box-sizing: border-box;
+  .UUI-Cascader-Activator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     height: 100%;
   }
-  .UUI-Cascader-Input, input {
-    cursor: pointer;
+
+  .UUI-Cascader-Result, .UUI-Cascader-Placeholder {
+    min-width: 160px;
+    padding: .25rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .UUI-Cascader-Placeholder {
+    color: gray;
   }
 
   .UUI-Cascader-Dropdown {
+    display: block;
     width: 100%;
     height: 100%;
   }
@@ -66,94 +66,70 @@
   }
 }
 
-.UUI-Cascader-LevelList {
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-
-  .UUI-Cascader-ItemList {
-    height: 240px;
-    min-width: 100px;
-    overflow: auto;
-
-    &:not(:last-child) {
-      border-right: 1px solid $borderColor;
-    }
-
-    .UUI-Cascader-Item {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem;
-      cursor: pointer;
-      font-size: 14px;
-
-      &:hover {
-        background-color: $hoverBackgroundColor;
-      }
-
-      &.STATE_selected {
-        background-color: $activeBackgroundColor;
-      }
-
-      &.STATE_disabled {
-        .UUI-Cascader-ItemLabel {
-          color: $disabledTextColor;
-        }
-
-        &:hover {
-          background-color: inherit;
-        }
-        cursor: not-allowed;
-      }
-
-      .UUI-Cascader-ItemLabel {
-        color: $textDarkColor;
-      }
-      .UUI-Cascader-ItemIcon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .UUI-Icon-Root.STATE_hidden svg {
-          opacity: 0;
-        }
-
-        svg {
-          color: lighten($textDarkColor, 30%);
-        }
-      }
-    }
-  }
-}
-
-.UUI-Cascader-SearchList {
+.UUI-Cascader-ActionBox {
   display: flex;
   flex-direction: column;
-  background-color: white;
-  height: 240px;
-  min-width: 200px;
-  overflow: auto;
+  min-width: 240px;
+  border-radius: 0.25rem;
 
-  .UUI-Cascader-SearchItem {
-    padding: 0.5rem;
-    cursor: pointer;
+  .UUI-Cascader-SearchInput {
+    border-color: transparent;
+    border-bottom: 1px solid $borderColor;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: none;
 
-    &:hover {
-      background-color: $hoverBackgroundColor;
+    .UUI-Cascader-SearchIcon {
+      margin-left: 0.25rem;
+      color: gray;
     }
+  }
 
-    &.STATE_disabled {
-      color: $disabledTextColor;
-      &:hover {
-        background-color: inherit;
+  .UUI-Cascader-SearchList {
+    height: 240px;
+  }
+
+  .UUI-Cascader-LevelList {
+    display: flex;
+    flex-direction: row;
+    background-color: #fbfbfb;
+
+    .UUI-Cascader-OptionList {
+      height: 240px;
+      min-width: 100px;
+      overflow: auto;
+      background-color: white;
+
+      border-right: 1px solid $borderColor;
+
+      &:last-child {
+        margin-right: -1px;
       }
-      cursor: not-allowed;
-    }
 
-    .UUI-Cascader-SearchMatched {
-      color: $primaryColor;
+      &:focus-within {
+        border-right: 1px solid $primaryColor;
+        z-index: 9999999;
+        box-shadow: none;
+      }
+
+      .UUI-Cascader-Option {
+        display: flex;
+        justify-content: space-between;
+
+        .UUI-Cascader-OptionIcon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &.STATE_hidden svg {
+            opacity: 0;
+          }
+
+          svg {
+            color: lighten($textDarkColor, 30%);
+          }
+        }
+      }
     }
   }
 }

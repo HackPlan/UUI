@@ -120,7 +120,7 @@ FormControlledMode.storyName = 'Form (Controlled Mode)'
 
 export const FormUncontrolledMode = () => {
   return (
-    <form action={'#'} method="post">
+    <form action={'/testdemo'} method="post">
       <LabeledControl>
         <Label>名字</Label>
         <Control>

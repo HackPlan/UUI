@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUI, UUIComponentProps } from '../../core/uui';
 import classNames from 'classnames';
+import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface SegmentControlOption<T extends string | number> {
   label: React.ReactNode;
@@ -44,15 +45,48 @@ const BaseSegmentControl = UUI.FunctionComponent({
   }
 
   return (
-    <Root role="radiogroup">
-      <Container>
+    <Root
+      role="tabs"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        switch (event.keyCode) {
+          case KeyCode.ArrowLeft: {
+            const focusTabIndex = props.options.findIndex((i) => i.value === props.value)
+            const index = (focusTabIndex + props.options.length - 1) % props.options.length
+            props.onChange(props.options[index].value)
+            break
+          }
+          case KeyCode.ArrowRight: {
+            const focusTabIndex = props.options.findIndex((i) => i.value === props.value)
+            const index = (focusTabIndex + props.options.length + 1) % props.options.length
+            props.onChange(props.options[index].value)
+            break
+          }
+          case KeyCode.Home: {
+            if (props.options.length > 0 && props.options[0]) {
+              props.onChange(props.options[0].value)
+            }
+            break
+          }
+          case KeyCode.End: {
+            if (props.options.length > 0 && props.options[props.options.length-1]) {
+              props.onChange(props.options[props.options.length-1].value)
+            }
+            break
+          }
+          default:
+            // do nothing
+        }
+      }}
+    >
+      <Container role="tablist">
         <Thumb style={thumbStyle} />
         {props.options.map((option) => {
           const active = props.value === option.value
           return (
             <Option
-              role="radio"
-              aria-checked={active}
+              role="tab"
+              aria-selected={active}
               key={option.value}
               className={classNames({
                 'STATE_active': active

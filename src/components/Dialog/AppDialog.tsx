@@ -7,6 +7,7 @@ const AppDialogRootClassName = "UUI-AppDialog-Root"
 
 export interface AppDialogOptions {
   cancelOnClickAway?: boolean;
+  cancelOnClose?: boolean;
   container?: HTMLElement;
   customize?: DialogProps['customize'];
 }
@@ -24,10 +25,12 @@ export function AppDialog<T>(ContentComponent: (props: {
   onCancel: () => void;
 }) => JSX.Element, options?: AppDialogOptions): Promise<T | boolean> {
   const finalOptions = {
-    cancelOnClickAway: options?.cancelOnClickAway !== undefined ? options.cancelOnClickAway : false,
+    cancelOnClickAway: options?.cancelOnClickAway !== undefined ? options.cancelOnClickAway : true,
+    cancelOnClose: options?.cancelOnClose !== undefined ? options.cancelOnClose : true,
     container: options?.container !== undefined ? options.container : ReactHelper.document?.body,
     customize: options?.customize !== undefined ? options.customize : undefined,
   }
+  const restoreFocusElement: HTMLElement = document.activeElement as HTMLElement
   if (!finalOptions.container) return Promise.resolve(false);
 
   const containerElement = ReactHelper.document?.createElement("div")
@@ -40,6 +43,9 @@ export function AppDialog<T>(ContentComponent: (props: {
     if (!ReactHelper.document || !containerElement) return;
     ReactDOM.unmountComponentAtNode(containerElement)
     ReactHelper.document?.body.removeChild(containerElement)
+    setTimeout(() => {
+      restoreFocusElement.focus()
+    }, 0)
   }
 
   setup()
@@ -53,6 +59,12 @@ export function AppDialog<T>(ContentComponent: (props: {
           usePortal={false}
           onClickAway={() => {
             if (finalOptions.cancelOnClickAway) {
+              resolve(false)
+              clearup()
+            }
+          }}
+          onClose={() => {
+            if (finalOptions.cancelOnClose) {
               resolve(false)
               clearup()
             }
