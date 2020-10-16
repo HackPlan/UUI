@@ -3,6 +3,11 @@
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
 
+### v0.5.0
+
+- WAI-ARIA 1.2 compliance
+- new component `List`
+
 ### v0.4.15
 
 - New component `Collapse` `Accordion`

@@ -26,8 +26,11 @@ English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/README
 * A set of useful components out of the box.
 * TypeScript based full type safety.
 * Highly customizable.
+* WAI-ARIA 1.2 compliance
 
 ## Installation
+
+⚠️⚠️⚠️ UUI requires TypeScript 3.8 or higher. ⚠️⚠️⚠️
 
 ```bash
 npm install @hackplan/uui --save

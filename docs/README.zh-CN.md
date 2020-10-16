@@ -26,8 +26,11 @@
 * 一组开箱即用的有用的组件。
 * 基于 TypeScript 的类型安全性。
 * 强大的组件样式自定义功能。
+* 符合 WAI-ARIA 1.2 规范。
 
 ## 安装
+
+⚠️⚠️⚠️ UUI 需要 TypeScript 3.8 或更高版本。 ⚠️⚠️⚠️
 
 ```bash
 npm install @hackplan/uui --save

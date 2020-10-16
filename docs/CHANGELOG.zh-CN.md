@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.0
+
+- 符合 WAI-ARIA 1.2 规范
+- 新组件 `List`
+
 ### v0.4.15
 
 - 新组件 `Collapse` `Accordion`

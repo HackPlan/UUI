@@ -9,7 +9,7 @@
   "private": false,
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
-  "type": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "test": "jest",
