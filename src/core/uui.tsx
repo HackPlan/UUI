@@ -8,7 +8,7 @@
 
 
 import React, { useMemo } from 'react';
-import { mapValues, pick, isString, omit, merge, clone, uniq, isEmpty, chain, mergeWith } from 'lodash';
+import { mapValues, isString, omit, merge, clone, uniq, isEmpty, chain, mergeWith } from 'lodash';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
 import { UUICustomizeAriaAttributes } from './types/UUICustomizeAriaAttributes';
@@ -50,27 +50,6 @@ export type NodeCustomizeProps =
   & React.RefAttributes<any>
 
 // ---------------------------------------------------------------
-// Customize Extra Props Helper
-// ---------------------------------------------------------------
-
-function getCompiledNodeName(nodeName: string, options: { prefix: string; separator: string; name: string }) {
-  return [options.prefix, options.name, nodeName].join(options.separator)
-}
-function getCompiledClassNames(nodeClassName: string, props: NodeCustomizeClassNameProps): string {
-  return props.overrideClassName ? classNames(props.overrideClassName) : classNames(nodeClassName, props.className, props.extendClassName)
-}
-function getCompiledStyles(props: NodeCustomizeStyleProps): React.CSSProperties {
-  return props.overrideStyle ? merge(props.overrideStyle) : merge(props.style, props.extendStyle)
-}
-function getCompiledChildren(props: NodeCustomizeChildrenProps): JSX.Element | null {
-  if (props.overrideChildren) {
-    return <>{props.overrideChildren}</>
-  } else {
-    return <>{props.extendChildrenBefore}{props.children}{props.extendChildrenAfter}</>
-  }
-}
-
-// ---------------------------------------------------------------
 // IntrinsicNode
 // ---------------------------------------------------------------
 
@@ -84,54 +63,53 @@ type IntrinsicNodeCustomizeOptions = {
 export type IntrinsicNodeT = JSX.IntrinsicElements
 type IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string | number | symbol> = (tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) => (props: JSX.IntrinsicElements[T]) => JSX.Element
 function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(tagName: T, nodeName: N, options: IntrinsicNodeCustomizeOptions) {
-  const Node = React.forwardRef((_props: JSX.IntrinsicElements[T], _ref) => {
-    const customizeProps = (Node as any)['CustomizeProps'] as Readonly<{ customize?: IntrinsicNodeCustomizeProps } & UUIConvenienceProps>
+  const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
+
+  const Node = React.forwardRef((innerProps: JSX.IntrinsicElements[T], _ref) => {
+    const { customize } = (Node as any)['CustomizeProps'] as Readonly<{ customize?: IntrinsicNodeCustomizeProps }>
     const className = (() => {
-      return getCompiledClassNames(getCompiledNodeName(nodeName, pick(options, 'name', 'prefix', 'separator')), {
-        ...pick(customizeProps.customize, ['overrideClassName', 'extendClassName']),
-        ...pick(_props, ['className']),
-      })
+      if (customize?.overrideClassName) return customize.overrideClassName
+      const innerClassName = innerProps.className
+      const customizeClassName = classNames(customize?.className, customize?.extendClassName)
+      const finalClassName = classNames(nodeClassName, innerClassName, customizeClassName)
+      return finalClassName
     })()
     const style = (() => {
-      const data = getCompiledStyles({
-        ...pick(customizeProps.customize, ['overrideStyle', 'extendStyle']),
-        ...pick(_props, ['style']),
-      })
-      return isEmpty(data) ? undefined : data
+      if (customize?.overrideStyle) return customize.overrideStyle
+      const innerStyle = innerProps.style
+      const customizeStyle = merge(customize?.style, customize?.extendStyle)
+      const finalStyle = merge(innerStyle, customizeStyle)
+      return isEmpty(finalStyle) ? undefined : finalStyle
     })()
     const dataAttributes = (() => {
-      if (!customizeProps.customize?.dataAttributes) return {}
+      if (!customize?.dataAttributes) return {}
       /**
        * @reference https://www.w3.org/TR/2008/REC-xml-20081126/#NT-Name
        * TODO: // fix regex for supporting unicode
        */
       const validDataAttributesCharactersRegex = /^([A-Za-z0-9-])*$/
-      return chain(customizeProps.customize.dataAttributes)
+      return chain(customize.dataAttributes)
         .pickBy((v, k) => validDataAttributesCharactersRegex.test(k))
         .mapKeys((v, k) => `data-${k}`)
         .value()
     })()
     const children = (() => {
-      const noChildren = ['input', 'textarea', 'hr'].indexOf(tagName) !== -1
-      const isSelectOption = tagName === 'option'
-      // input tag do not support to pass children props
-      let children: string | React.ReactNode | undefined = undefined
-      if (isSelectOption) {
-        // select option tag only support string type children,
-        // if pass Fragments to children, it will show [Object Object] in html.
-        children = _props.children
-      } else if (!noChildren) {
-        children = getCompiledChildren({
-          ...pick(customizeProps.customize, ['overrideChildren', 'extendChildrenBefore', 'extendChildrenAfter'] as const),
-          ...pick(_props, ['children']),
-        })
-      }
-      return children
+      /**
+       * <select><option> only support string type children,
+       * if pass Fragments to children, it will show [Object Object] in html.
+       */
+      if (tagName === 'option') return innerProps.children
+      /**
+       * <input> <textarea> <hr> is a void element tag and must not have `children`.
+       */
+      if (['input', 'textarea', 'hr'].includes(tagName)) return undefined
+      if (customize?.overrideChildren) return customize.overrideChildren
+      return <>{customize?.extendChildrenBefore}{innerProps.children}{customize?.extendChildrenAfter}</>
     })()
 
     const ariaAttributes = (() => {
-      if (!customizeProps.customize?.ariaAttributes) return {}
-      return chain(customizeProps.customize.ariaAttributes)
+      if (!customize?.ariaAttributes) return {}
+      return chain(customize.ariaAttributes)
         .mapKeys((v, k) => `aria-${k}`)
         .value()
     })()
@@ -139,20 +117,14 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     /**
      * Merge both customize ref and component inner ref.
      */
-    const ref = (() => {
-      const refs: any[] = []
-      const customizeRef = customizeProps.customize && customizeProps.customize.ref
-      if (customizeRef) refs.push(customizeRef)
-      if (_ref) refs.push(_ref)
-      return mergeRefs(refs)
-    })()
+    const ref = mergeRefs([customize?.ref, _ref])
 
     /**
      * Merge both customize functions and component inner onXXX callback functions.
      */
     const mergedCallbackFunctions = (() => {
-      const propsObj = _props as any
-      const customizeObj = (customizeProps.customize || {}) as any
+      const propsObj = innerProps as any
+      const customizeObj = (customize || {}) as any
 
       const data: any = {}
       const attrs = uniq([
@@ -178,7 +150,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     })()
 
     return React.createElement(tagName, {
-      ...omit(_props, 'children', 'ref', 'className', 'style'),
+      ...omit(innerProps, 'children', 'ref', 'className', 'style'),
       ...mergedCallbackFunctions,
       ...dataAttributes,
       ...ariaAttributes,
