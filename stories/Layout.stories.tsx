@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout } from '../src';
+import { range } from 'lodash';
 
 export const Layout1 = () => {
   return (
@@ -19,8 +20,16 @@ export const Layout2 = () => {
   return (
     <div className="w-full" style={{ height: 600 }}>
       <Layout>
-        <Layout.Nav className="bg-red-500">Nav</Layout.Nav>
-        <Layout.Main className="bg-green-500">Main</Layout.Main>
+        <Layout.Nav className="bg-red-500">
+          {range(1, 100).map((i) => {
+            return <div>nav item {i}</div>
+          })}
+        </Layout.Nav>
+        <Layout.Main className="bg-green-500">
+          {range(1, 100).map((i) => {
+            return <div>content item {i}</div>
+          })}
+        </Layout.Main>
       </Layout>
     </div>
   )

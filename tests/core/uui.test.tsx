@@ -799,3 +799,34 @@ it('UUIComponent [ariaAttributes]', () => {
 
   expect(tree).toMatchSnapshot();
 })
+
+/**
+ * UUI Component id
+ *
+ * 测试 props.id 是否被正确传入 Root Node
+ */
+it('UUIComponent [id]', () => {
+
+  const UUITestComponent = UUI.FunctionComponent({
+    name: 'UUITestComponent',
+    nodes: {
+      Root: 'div',
+      Node: 'div',
+    }
+  }, (props: {}, nodes) => {
+    const { Root, Node } = nodes
+    return (
+      <Root>
+        <Node />
+      </Root>
+    )
+  })
+
+  const tree = renderer
+  .create(
+    <UUITestComponent id={"test-component-id-sadgfuiasdgfui"} />
+  )
+  .toJSON();
+
+  expect(tree).toMatchSnapshot();
+})

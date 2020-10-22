@@ -34,6 +34,17 @@ exports[`UUIComponent [dataAttributes] 1`] = `
 </div>
 `;
 
+exports[`UUIComponent [id] 1`] = `
+<div
+  className="UUI-UUITestComponent-Root"
+  id="test-component-id-sadgfuiasdgfui"
+>
+  <div
+    className="UUI-UUITestComponent-Node"
+  />
+</div>
+`;
+
 exports[`UUIComponent [special IntrinsicNodes children] 1`] = `
 <div
   className="UUI-UUITestComponent-Root"

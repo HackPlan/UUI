@@ -18,12 +18,10 @@ import { UUICustomizeAriaAttributes } from './types/UUICustomizeAriaAttributes';
 // ---------------------------------------------------------------
 
 export interface NodeCustomizeClassNameProps {
-  className?: string;
   overrideClassName?: string;
   extendClassName?: string;
 }
 export interface NodeCustomizeStyleProps {
-  style?: React.CSSProperties;
   overrideStyle?: React.CSSProperties;
   extendStyle?: React.CSSProperties;
 }
@@ -67,18 +65,17 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
 
   const Node = React.forwardRef((innerProps: JSX.IntrinsicElements[T], _ref) => {
     const { customize } = (Node as any)['CustomizeProps'] as Readonly<{ customize?: IntrinsicNodeCustomizeProps }>
+    const id = (customize as any | undefined)?.id || innerProps.id
     const className = (() => {
       if (customize?.overrideClassName) return customize.overrideClassName
       const innerClassName = innerProps.className
-      const customizeClassName = classNames(customize?.className, customize?.extendClassName)
-      const finalClassName = classNames(nodeClassName, innerClassName, customizeClassName)
+      const finalClassName = classNames(nodeClassName, innerClassName, customize?.extendClassName)
       return finalClassName
     })()
     const style = (() => {
       if (customize?.overrideStyle) return customize.overrideStyle
       const innerStyle = innerProps.style
-      const customizeStyle = merge(customize?.style, customize?.extendStyle)
-      const finalStyle = merge(innerStyle, customizeStyle)
+      const finalStyle = merge(innerStyle, customize?.extendStyle)
       return isEmpty(finalStyle) ? undefined : finalStyle
     })()
     const dataAttributes = (() => {
@@ -150,6 +147,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
     })()
 
     return React.createElement(tagName, {
+      id,
       ...omit(innerProps, 'children', 'ref', 'className', 'style'),
       ...mergedCallbackFunctions,
       ...dataAttributes,
@@ -247,6 +245,11 @@ export type UUIComponentCustomizeProps<
   };
 }
 export type UUIConvenienceProps = {
+  /**
+   * Convenience id props,
+   * this props will be applied to id of component Root node.
+   */
+  id?: string;
   /**
    * Convenience className props,
    * this props will be applied to append to extendClassName of component Root node customize props.
@@ -396,11 +399,6 @@ function getFinalOptions(options: any, props: any) {
 }
 
 function compileProps(props: any, options: any, ref: any): any {
-  /**
-   * Convenience props: className, style
-   * className will be injected into customize.Root { extendClassName: ... }
-   * style will be injected into customize.Root { extendStyle: ... }
-   */
   const compiledProps = clone(props)
   if (!compiledProps.customize) {
     compiledProps.customize = {}
@@ -412,8 +410,15 @@ function compileProps(props: any, options: any, ref: any): any {
     isString((options.nodes as any)['Root'])
   ) {
     const rootCustomizeProps: any = (compiledProps.customize as any)['Root'] || {};
+    /**
+     * Convenience props: className, style
+     * className will be injected into customize.Root { extendClassName: ... }
+     * style will be injected into customize.Root { extendStyle: ... }
+     * id will be injected into customize.Root { id: ... }
+     */
     if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
     if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle);
+    if (compiledProps.id) rootCustomizeProps.id = compiledProps.id;
 
     const dataAttributes = chain(compiledProps)
       .pickBy((v, k) => k.startsWith('data-'))
