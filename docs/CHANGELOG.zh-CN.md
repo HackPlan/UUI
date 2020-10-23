@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.1
+
+- 优化 IntrinsicNode 性能
+- 修复 Layout UI样式
+- 支持传入 id props 到组件 Root 节点
+
 ### v0.5.0
 
 - 符合 WAI-ARIA 1.2 规范
