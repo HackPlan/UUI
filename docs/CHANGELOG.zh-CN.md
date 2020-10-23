@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.2
+
+- 修复 Layout UI样式
+- 修复 Select value 类型
+
 ### v0.5.1
 
 - 优化 IntrinsicNode 性能

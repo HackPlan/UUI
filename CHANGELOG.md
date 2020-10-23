@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.2
+
+- fix layout style
+- fix Select value type
+
 ### v0.5.1
 
 - enhance IntrinsicNode performance
