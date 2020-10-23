@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo, useCallback } from 'react';
-import { UUI } from '../../core/uui';
+import { UUI, UUIComponentProps } from '../../core/uui';
 import { Popover as UUIPopover, PopoverPlacement } from '../Popover';
 import { Tag as UUITag } from '../Tag';
 import { TextField as UUITextField } from '../Input';
@@ -41,37 +41,25 @@ interface SelectSectionsProps {
   }[];
 }
 
-interface SelectSingleValueProps {
+interface SelectValueProps<
+  X extends boolean | undefined = undefined,
+  Y = (X extends true ? string[] : string),
+  T = Y | null,
+> {
   /**
    * Selected item.
    */
-  value: string | null;
+  value: T;
   /**
    * Callback invoked when an item is selected.
    */
-  onChange: (value: string | null) => void;
+  onChange: (value: T) => void;
   /**
    *
    */
-  multiple?: false;
+  multiple?: X;
 }
 
-interface SelectMultipleValueProps {
-  /**
-   * Selected item.
-   */
-  value: string[] | null;
-  /**
-   * Callback invoked when an item is selected.
-   */
-  onChange: (value: string[] | null) => void;
-  /**
-   *
-   */
-  multiple: true;
-}
-
-type SelectValueProps = SelectSingleValueProps | SelectMultipleValueProps
 type SelectSectionOptionProps = SelectSectionsProps | SelectOptionsProps
 
 interface BaseSelectFeatureProps {
@@ -100,7 +88,7 @@ interface BaseSelectFeatureProps {
   loading?: boolean;
 }
 
-export type SelectFeatureProps = SelectValueProps & SelectSectionOptionProps & BaseSelectFeatureProps
+export type SelectFeatureProps<X extends boolean | undefined = undefined> = SelectValueProps<X> & SelectSectionOptionProps & BaseSelectFeatureProps
 
 const SelectNodes = {
   Root: 'div',
@@ -123,10 +111,10 @@ const SelectNodes = {
 
 } as const
 
-export const Select = UUI.FunctionComponent({
+export const BaseSelect = UUI.FunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
-}, (props: SelectFeatureProps, nodes) => {
+}, (props: SelectFeatureProps<boolean | undefined>, nodes) => {
   const {
     Root, Dropdown, DropdownIcon,
     Activator, Result, Placeholder,
@@ -228,21 +216,22 @@ export const Select = UUI.FunctionComponent({
 
   const optionListSelectedIds = useMemo(() => {
     if (!props.value) return []
-    if (props.multiple) {
+    if (isMultipleValue(props)) {
       return compact(props.value.map((i) => allOptions && allOptions.find((j) => j.value === i)?.key))
     } else {
       return compact([allOptions && allOptions.find((j) => j.value === props.value)?.key])
     }
-  }, [props.value, props.multiple, allOptions])
+  }, [props, allOptions])
 
   const optionListHandleOnSelect = useCallback((selectedIds: string[]) => {
-    if (props.multiple) {
+    if (isMultipleValue(props)) {
       if (selectedIds.length === 0) {
         props.onChange([])
       } else {
         props.onChange(compact(selectedIds.map((i) => allOptions && allOptions.find((j) => j.key === i)?.value)))
       }
-    } else {
+    }
+    if (isSingleValue(props)) {
       if (selectedIds.length === 0) {
         props.onChange(null)
       } else {
@@ -274,11 +263,12 @@ export const Select = UUI.FunctionComponent({
     if (!searchInputValue) return
     const option = allOptions.find((i) => i.key === selectedId)
     if (option) {
-      if (props.multiple) {
+      if (isMultipleValue(props)) {
         const newValue = Array.from(props.value || [])
         newValue.push(option.value)
         props.onChange(newValue)
-      } else {
+      }
+      if (isSingleValue(props)) {
         props.onChange(option.value)
       }
     }
@@ -287,7 +277,7 @@ export const Select = UUI.FunctionComponent({
     if (!searchInputValue) return
     const option = allOptions.find((i) => i.key === selectedId)
     if (option) {
-      if (props.multiple && props.value) {
+      if (isMultipleValue(props) && props.value) {
         const index = props.value.findIndex((i) => i === selectedId)
         const newValue = Array.from(props.value)
         newValue.splice(index, 1)
@@ -401,11 +391,26 @@ const isNormalOptions = (props: any): props is SelectOptionsProps => {
   else return false
 }
 
-function searchInOptions(q: string, options: SelectOption[], predicate?: SelectFeatureProps['onSearch']) {
+const isMultipleValue = (props: any): props is SelectFeatureProps<true> => {
+  if (props['multiple'] === true) return true
+  else return false
+}
+
+const isSingleValue = (props: any): props is SelectFeatureProps<false> => {
+  if (props['multiple'] === undefined || props['multiple'] === false) return true
+  else return false
+}
+
+function searchInOptions(q: string, options: SelectOption[], predicate?: SelectFeatureProps<boolean | undefined>['onSearch']) {
   return options.filter((i) => predicate
     ? predicate(i, q)
     : i.label.includes(q)
   )
 }
 
+export function Select<X extends boolean | undefined = undefined>(props: UUIComponentProps<SelectFeatureProps<X>, typeof SelectNodes>) {
+  const _BaseSelect = BaseSelect as any
+  return <_BaseSelect {...props} />
+}
+Select.displayName = `<UUI> [GenericComponent] Radio`
 export type SelectProps = Parameters<typeof Select>[0]
