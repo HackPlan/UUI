@@ -36,7 +36,7 @@ const config = [{
     "lodash", "luxon", "react-use", "classnames", "uuid",
     "react", "react-dom",
     "@charlietango/use-focus-trap",
-    "@popperjs/core", "react-popper-2",
+    "@popperjs/core", "react-popper",
   ],
   plugins: [
     url(),

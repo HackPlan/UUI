@@ -1,12 +1,8 @@
 import { addParameters } from '@storybook/react';
-import { addDecorator } from '@storybook/react';
-import { withPerformance } from 'storybook-addon-performance';
 
 import '../stories/style/tailwind.css';
 import '../src/styles/index.scss';
 import '../stories/style/storybook.scss';
-
-addDecorator(withPerformance);
 
 addParameters({
   controls: {

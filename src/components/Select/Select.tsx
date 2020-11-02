@@ -10,7 +10,7 @@ import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { ListBox as UUIListBox, ListBoxItem } from '../ListBox';
 
-interface SelectOption {
+export interface SelectOption {
   key: string;
   label: string;
   content?: React.ReactNode;
