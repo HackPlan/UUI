@@ -42,7 +42,7 @@ interface SelectSectionsProps {
 }
 
 interface SelectValueProps<
-  X extends boolean | undefined = undefined,
+  X extends true | false | boolean | undefined = undefined,
   Y = (X extends true ? string[] : string),
   T = Y | null,
 > {
@@ -88,7 +88,7 @@ interface BaseSelectFeatureProps {
   loading?: boolean;
 }
 
-export type SelectFeatureProps<X extends boolean | undefined = undefined> = SelectValueProps<X> & SelectSectionOptionProps & BaseSelectFeatureProps
+export type SelectFeatureProps<X extends true | false | boolean | undefined = undefined> = SelectValueProps<X> & SelectSectionOptionProps & BaseSelectFeatureProps
 
 const SelectNodes = {
   Root: 'div',
@@ -408,7 +408,7 @@ function searchInOptions(q: string, options: SelectOption[], predicate?: SelectF
   )
 }
 
-export function Select<X extends boolean | undefined = undefined>(props: UUIComponentProps<SelectFeatureProps<X>, typeof SelectNodes>) {
+export function Select<X extends true | false | boolean | undefined = undefined>(props: UUIComponentProps<SelectFeatureProps<X>, typeof SelectNodes>) {
   const _BaseSelect = BaseSelect as any
   return <_BaseSelect {...props} />
 }
