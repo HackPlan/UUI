@@ -12,9 +12,16 @@
 
   @include border;
   @include radius;
-  @include hoverBorder;
-  @include focusWithinShadow;
-  @include focusWithinBorder;
+
+  &:not(.STATE_disabled) {
+    @include hoverBorder;
+    @include focusWithinShadow;
+    @include focusWithinBorder;
+  }
+  &.STATE_disabled {
+    cursor: not-allowed;
+  }
+
 
   .UUI-Select-Activator {
     display: flex;

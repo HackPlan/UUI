@@ -68,7 +68,12 @@ interface BaseSelectFeatureProps {
    * @default none
    */
   placeholder?: string;
-    /**
+  /**
+   * Whether the control is non-interactive.
+   * @default false
+   */
+  disabled?: boolean;
+  /**
    * enable inputting text to search options.
    */
   searchable?: boolean;
@@ -127,6 +132,7 @@ export const BaseSelect = UUI.FunctionComponent({
   } = nodes
 
   const finalProps = {
+    disabled: props.disabled === undefined ? false : props.disabled,
     searchable: props.searchable === undefined ? false : props.searchable,
     placeholder: props.placeholder || 'select options...',
     searchPlaceholder: props.searchPlaceholder || 'Search options...',
@@ -292,13 +298,19 @@ export const BaseSelect = UUI.FunctionComponent({
     <Root
       ref={ref}
       role="select"
+      tabIndex={finalProps.disabled ? -1 : 0}
       className={classNames({
+        'STATE_disabled': finalProps.disabled,
         'STATE_active': active,
         'STATE_loading': props.loading,
         'STATE_searchable': finalProps.searchable,
       })}
-      onFocus={() => { openDropdown() }}
+      onFocus={() => {
+        if (finalProps.disabled) return;
+        openDropdown()
+      }}
       onKeyDown={(event) => {
+        if (finalProps.disabled) return;
         switch (event.keyCode) {
           case KeyCode.Enter:
           case KeyCode.SpaceBar:
@@ -319,6 +331,7 @@ export const BaseSelect = UUI.FunctionComponent({
         placement={finalProps.dropdownPlacement}
         referenceElement={ref.current}
         onClickAway={() => {
+          if (finalProps.disabled) return;
           closeDropdown()
         }}
         // modifiers for fix dropdown dynamic offset update
@@ -333,6 +346,7 @@ export const BaseSelect = UUI.FunctionComponent({
         activator={
           <Activator
             onClick={() => {
+              if (finalProps.disabled) return;
               openDropdown()
             }}
           >
