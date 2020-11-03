@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.3
+
+- fix Select types & style
+- minimal React version 16.14.0
+
 ### v0.5.2
 
 - fix layout style

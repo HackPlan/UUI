@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.3
+
+- 修复 Select 类型和样式
+- 最小 React 版本 16.14.0
+
 ### v0.5.2
 
 - 修复 Layout UI样式
