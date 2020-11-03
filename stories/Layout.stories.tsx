@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from '../src';
-import { range } from 'lodash';
+import { range } from 'lodash-es';
 
 export const Layout1 = () => {
   return (

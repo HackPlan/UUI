@@ -1,6 +1,6 @@
 import React from "react"
 import { Icon, IconProps, IconImageFeatureProps, IconSvgFeatureProps, IconAnyFeatureProps, IconFeatureProps } from "./Icon"
-import { mapValues } from "lodash"
+import { mapValues } from "lodash-es"
 
 export type LoadedIcon<T> = (props: Omit<IconProps, 'mode' | 'source'> & Omit<T, 'mode' | 'source'>) => JSX.Element
 

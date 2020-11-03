@@ -50,7 +50,7 @@ UUI 的 UI 组件有一些共有通用的功能，为了不重复在每个组件
 
 ```tsx
 import classNames from 'classnames';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import React from 'react';
 import { UUI } from '../../core/uui';
 import { LoadingSpinner } from '../Loading';

@@ -1,4 +1,4 @@
-import { clone, intersectionWith, isEqual, remove, xorWith } from "lodash";
+import { clone, intersectionWith, isEqual, remove, xorWith } from "lodash-es";
 import { useEffect, useMemo, useState } from "react";
 import { usePrevious } from "react-use";
 

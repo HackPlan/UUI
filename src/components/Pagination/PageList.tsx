@@ -1,5 +1,5 @@
 import React, { useMemo, useContext } from 'react';
-import { range } from 'lodash';
+import { range } from 'lodash-es';
 import { Button as UUIButton } from '../Button';
 import { UUI } from '../../core/uui';
 import { PaginationContext } from './PaginationContext';

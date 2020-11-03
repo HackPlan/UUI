@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import classNames from 'classnames';
 import { UUI } from '../../core/uui';
 import { KeyCode } from '../../utils/keyboardHelper';
