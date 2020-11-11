@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.4
+
+- 修复计数器 Stepper 样式 - 在 Firefox 下隐藏 input\[type=number\]默认的的 spins
+- ListBox 默认关闭横向滚动、隐藏横向滚动条
+- 选择器 Select 支持禁用
+
 ### v0.5.3
 
 - 修复 Select 类型和样式

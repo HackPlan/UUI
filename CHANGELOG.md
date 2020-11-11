@@ -2,6 +2,12 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.4
+
+- fix Stepper style - hide spins of input[type=number] in firefox
+- ListBox default hide x-scrollbar
+- Select support disabled
+
 ### v0.5.3
 
 - fix Select types & style
