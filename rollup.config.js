@@ -45,9 +45,6 @@ const config = [{
       output: 'lib/index.css',
       runtime: require('sass'),
       options: {
-        sourceMap: true,
-        outputStyle: 'compressed',
-        sourceMapEmbed: false,
         fiber: require('fibers'),
       }
     }),
