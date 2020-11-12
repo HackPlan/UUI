@@ -28,7 +28,7 @@ const config = [{
   external: [
     "react", "react-dom",
     "@popperjs/core", "react-popper",
-    "luxon", "classnames",
+    "luxon",
     "@charlietango/use-focus-trap",
   ],
   plugins: [

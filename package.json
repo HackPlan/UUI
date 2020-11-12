@@ -62,6 +62,7 @@
     "babel-jest": "^26.6.2",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "classnames": "^2.2.6",
     "css-loader": "^3.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
