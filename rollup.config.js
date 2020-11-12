@@ -28,7 +28,6 @@ const config = [{
   external: [
     "react", "react-dom",
     "@popperjs/core", "react-popper",
-    "@charlietango/use-focus-trap",
   ],
   plugins: [
     url(),

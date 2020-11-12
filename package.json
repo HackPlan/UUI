@@ -23,15 +23,14 @@
     "deploy:storybook": "STORYBOOK_BUILD=yes build-storybook && netlify deploy --dir=storybook-static --functions=uui"
   },
   "dependencies": {
-    "@charlietango/use-focus-trap": "^1.2.6",
     "@popperjs/core": "^2.5.4",
-    "classnames": "^2.2.6",
     "react-popper": "^2.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.9.4",
+    "@charlietango/use-focus-trap": "^1.3.0",
     "@fullhuman/postcss-purgecss": "^1.3.0",
     "@mdx-js/loader": "^1.5.8",
     "@rollup/plugin-commonjs": "^14.0.0",
