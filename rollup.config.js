@@ -4,7 +4,6 @@ import * as path from 'path';
 import pkg from './package.json';
 import sass from 'rollup-plugin-sass';
 import copy from 'rollup-plugin-copy';
-import { terser } from "rollup-plugin-terser";
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import svgr from '@svgr/rollup';
@@ -15,21 +14,15 @@ const config = [{
   output: [{
     name: 'UUI',
     file: pkg.main,
-    format: 'cjs',
-    sourcemap: true,
+    format: 'amd',
     plugins: [
-      terser(),
     ],
   },
   {
     name: 'UUI',
     file: pkg.module,
-    format: 'esm',
-    sourcemap: true,
+    format: 'es',
     plugins: [
-      terser({
-        module: true,
-      }),
     ],
   }],
   external: [
