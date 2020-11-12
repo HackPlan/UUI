@@ -26,10 +26,10 @@ const config = [{
     ],
   }],
   external: [
-    "luxon", "react-use", "classnames",
     "react", "react-dom",
-    "@charlietango/use-focus-trap",
     "@popperjs/core", "react-popper",
+    "luxon", "classnames",
+    "@charlietango/use-focus-trap",
   ],
   plugins: [
     url(),
