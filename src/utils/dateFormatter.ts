@@ -1,4 +1,4 @@
-import { DateTime } from "luxon"
+import { format } from 'date-fns'
 
 export type DateFormatterLocale =
   | 'zh-CN' | 'zh-TW'
@@ -6,7 +6,7 @@ export type DateFormatterLocale =
 
 
 
-const formatHelper = (format: string) => (d: Date) => DateTime.fromJSDate(d).toFormat(format)
+const formatHelper = (f: string) => (d: Date) => format(d, f)
 const chineseWeekHelper1 = (weekday: number) => {
   switch(weekday) {
     case 1: return "星期一"

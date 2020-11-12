@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { UUI } from '../../core/uui';
-import { DateTime } from 'luxon';
+import { format, isValid } from 'date-fns';
 
 export interface DatePickerFeatureProps {
   /**
@@ -28,7 +28,7 @@ export const DatePicker = UUI.FunctionComponent({
 
   const dateValue = useMemo(() => {
     if (!props.value) return ''
-    return DateTime.fromJSDate(props.value).toFormat('yyyy-LL-dd')
+    return format(props.value, 'yyyy-LL-dd')
   }, [props.value])
 
   return (
@@ -39,7 +39,11 @@ export const DatePicker = UUI.FunctionComponent({
         name={props.name}
         value={props.value === undefined ? undefined : dateValue}
         onChange={props.onChange === undefined ? undefined : (
-          (event) => { props.onChange && props.onChange(new Date(event.target.value), event) }
+          (event) => {
+            const newValue = new Date(event.target.value)
+            if (!isValid(newValue)) return
+            props.onChange && props.onChange(newValue, event)
+          }
         )}
       ></Input>
     </Root>

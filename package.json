@@ -26,7 +26,6 @@
     "@charlietango/use-focus-trap": "^1.2.6",
     "@popperjs/core": "^2.5.4",
     "classnames": "^2.2.6",
-    "luxon": "^1.22.0",
     "react-popper": "^2.2.3"
   },
   "devDependencies": {
@@ -52,7 +51,6 @@
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.4",
     "@types/lodash-es": "^4.17.3",
-    "@types/luxon": "^1.21.0",
     "@types/react": "^16.9.55",
     "@types/react-dom": "^16.9.9",
     "@types/react-test-renderer": "^16.9.2",
@@ -64,6 +62,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "classnames": "^2.2.6",
     "css-loader": "^3.6.0",
+    "date-fns": "^2.16.1",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^6.8.0",

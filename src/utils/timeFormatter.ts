@@ -1,10 +1,10 @@
-import { DateTime } from "luxon"
+import { format } from 'date-fns'
 
 export type TimeFormatterLocale =
   | 'zh-CN' | 'zh-TW'
   | 'en-US'
 
-const formatHelper = (format: string) => (d: Date) => DateTime.fromJSDate(d).toFormat(format)
+const formatHelper = (f: string) => (d: Date) => format(d, f)
 
 const chineseCapitalNumber = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九']
 const chineseCapitalHourSecondHelper = (value: number) => {

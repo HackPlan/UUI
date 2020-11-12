@@ -1,7 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { MoneyLabel, DateLabel, TimeLabel, CountdownLabel, NumberAbbrLabel } from '../src';
 import { useState } from 'react';
-import { DateTime } from 'luxon';
+import { addHours } from 'date-fns'
 
 <Meta title="组件/文本标签 Label" components={{ MoneyLabel, DateLabel, TimeLabel }} />
 
@@ -115,7 +115,7 @@ import { DateTime } from 'luxon';
 <Canvas>
   <Story name="CountdownLabel">
     {() => {
-      const until = DateTime.local().plus({ hours: 12 }).toJSDate()
+      const until = addHours(new Date(), 12)
       return (
         <div className="flex flex-col">
           <CountdownLabel until={until} format={'hh:mm:ss'} />
