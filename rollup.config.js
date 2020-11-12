@@ -26,7 +26,7 @@ const config = [{
     ],
   }],
   external: [
-    "luxon", "react-use", "classnames", "uuid",
+    "luxon", "react-use", "classnames",
     "react", "react-dom",
     "@charlietango/use-focus-trap",
     "@popperjs/core", "react-popper",
