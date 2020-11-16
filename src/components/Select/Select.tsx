@@ -91,6 +91,17 @@ interface BaseSelectFeatureProps {
    * @default false
    */
   loading?: boolean;
+  /**
+   * Whether the content of Select should be rendered inside a `Portal` where appending inside `portalContainer`(if it provided) or `document.body`.
+   * @default false
+   */
+  usePortal?: boolean;
+  /**
+   * The container element into which the overlay renders its contents, when `usePortal` is `true`.
+   * This prop is ignored if `usePortal` is `false`.
+   * @default document.body
+   */
+  portalContainer?: HTMLElement;
 }
 
 export type SelectFeatureProps<X extends true | false | boolean | undefined = undefined> = SelectValueProps<X> & SelectSectionOptionProps & BaseSelectFeatureProps
@@ -319,6 +330,8 @@ export const BaseSelect = UUI.FunctionComponent({
       }}
     >
       <Dropdown
+        usePortal={props.usePortal}
+        portalContainer={props.portalContainer}
         active={active}
         placement={finalProps.dropdownPlacement}
         referenceElement={ref.current}

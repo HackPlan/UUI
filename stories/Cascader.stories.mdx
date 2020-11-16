@@ -36,6 +36,7 @@ import { useState, useEffect } from 'react';
       options[1].children[2].children[3].disabled = true
       return (
         <Cascader
+          usePortal
           placeholder={'Please select'}
           options={options}
           value={value}
@@ -78,6 +79,7 @@ import { useState, useEffect } from 'react';
         })
       return (
         <Cascader
+          usePortal
           placeholder={'Please select'}
           changeOnFinalSelect={false}
           options={options}
@@ -121,6 +123,7 @@ import { useState, useEffect } from 'react';
         })
       return (
         <Cascader
+          usePortal
           placeholder={'Please select'}
           options={options}
           value={value}
@@ -171,6 +174,7 @@ import { useState, useEffect } from 'react';
       options[0].children[0].children[0].disabled = true
       return (
         <Cascader
+          usePortal
           placeholder={'Please select'}
           options={options}
           value={value}

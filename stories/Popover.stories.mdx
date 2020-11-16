@@ -18,6 +18,7 @@ import { useState } from 'react';
       const [active, setActive] = useState(false)
       return (
         <Popover
+          usePortal
           active={active}
           activator={(
             <Button style={{ width: 112, fontSize: 15, height: 40 }} onClick={() => { setActive(!active) }}>Activator</Button>
@@ -61,11 +62,11 @@ import { useState } from 'react';
         )
       }
       const grid = [
-        ['', <PopoverElement placement='top-start' />, <PopoverElement placement='top' />, <PopoverElement placement='top-end' />, ''],
-        [<PopoverElement placement='left-start' />, '', '', '', <PopoverElement placement='right-start' />],
-        [<PopoverElement placement='left' />, '', '', '', <PopoverElement placement='right' />],
-        [<PopoverElement placement='left-end' />, '', '', '', <PopoverElement placement='right-end' />],
-        ['', <PopoverElement placement='bottom-start' />, <PopoverElement placement='bottom' />, <PopoverElement placement='bottom-end' />, ''],
+        ['', <PopoverElement usePortal placement='top-start' />, <PopoverElement usePortal placement='top' />, <PopoverElement usePortal placement='top-end' />, ''],
+        [<PopoverElement usePortal placement='left-start' />, '', '', '', <PopoverElement usePortal placement='right-start' />],
+        [<PopoverElement usePortal placement='left' />, '', '', '', <PopoverElement usePortal placement='right' />],
+        [<PopoverElement usePortal placement='left-end' />, '', '', '', <PopoverElement usePortal placement='right-end' />],
+        ['', <PopoverElement usePortal placement='bottom-start' />, <PopoverElement usePortal placement='bottom' />, <PopoverElement usePortal placement='bottom-end' />, ''],
       ]
       return (
         <div className="flex flex-col items-center">
