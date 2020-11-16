@@ -30,7 +30,7 @@ export interface PopoverFeatureProps {
   children: React.ReactNode;
   /**
    * Whether the content of popover should be rendered inside a `Portal` where appending inside `portalContainer`(if it provided) or `document.body`.
-   * @default true
+   * @default false
    */
   usePortal?: boolean;
   /**
@@ -81,7 +81,7 @@ export const Popover = UUI.FunctionComponent({
    * handle optional props default value
    */
   const finalProps = {
-    usePortal: props.usePortal === undefined ? true : props.usePortal,
+    usePortal: props.usePortal === undefined ? false : props.usePortal,
     portalContainer: props.portalContainer || ReactHelper.document?.body,
     placement: props.placement || 'bottom',
     strategy: props.strategy || 'absolute',
