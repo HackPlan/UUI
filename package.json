@@ -10,6 +10,16 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "typings": "lib/index.d.ts",
+  "files": [
+    "CHANGELOG.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README.md",
+    "docs",
+    "lib",
+    "package.json"
+  ],
   "scripts": {
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "test": "jest",
