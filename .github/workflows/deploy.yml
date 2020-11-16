@@ -5,7 +5,6 @@ on:
   push:
     tags:
       - 'v*'
-      - 'sb*'
 
 jobs:
   deploy_storybook:
@@ -18,15 +17,6 @@ jobs:
 
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    # Cache NPM dependencies
-    - name: Cache NPM dependencies
-      uses: actions/cache@v1
-      with:
-        path: node_modules
-        key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.OS }}-yarn-cache-
 
     # yarn install
     - name: Install
