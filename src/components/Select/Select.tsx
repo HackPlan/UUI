@@ -301,10 +301,6 @@ export const BaseSelect = UUI.FunctionComponent({
         'STATE_loading': props.loading,
         'STATE_searchable': finalProps.searchable,
       })}
-      onFocus={() => {
-        if (finalProps.disabled) return;
-        openDropdown()
-      }}
       onKeyDown={(event) => {
         if (finalProps.disabled) return;
         switch (event.keyCode) {
@@ -343,7 +339,8 @@ export const BaseSelect = UUI.FunctionComponent({
           <Activator
             onClick={() => {
               if (finalProps.disabled) return;
-              openDropdown()
+              if (!active) openDropdown()
+              else closeDropdown()
             }}
           >
             {displayResult}

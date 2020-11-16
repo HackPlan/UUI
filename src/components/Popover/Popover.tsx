@@ -109,7 +109,10 @@ export const Popover = UUI.FunctionComponent({
    * handle onClickAway callback
    */
   const popperRef = useRef<any>(null)
-  useClickAway(popperRef, () => {
+  useClickAway(popperRef, (event) => {
+    const paths: string[] | undefined = (event as any)['path']
+    const activitorClick = paths?.some((i) => i === referenceElement)
+    if (activitorClick) return;
     if (props.active) {
       props.onClickAway && props.onClickAway()
     }
