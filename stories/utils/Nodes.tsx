@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { IntrinsicNodeT, FunctionComponentNodeT, ClassComponentNodeT } from '../../src/core/uui';
-import { mapValues, isString } from 'lodash';
+import { mapValues, isString } from 'lodash-es';
 import '../style/Nodes.scss';
 
 const Colors = ['#363062', '#f4e04d', '#00bcd4', '#216353', '#eb4559', '#f6d186', '#6b778d', '#ffaaa5']

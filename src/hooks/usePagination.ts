@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { clamp } from 'lodash';
+import { clamp } from 'lodash-es';
 
 export interface IPagination {
   offset: number;

@@ -2,7 +2,7 @@
 import React, { useMemo, useRef, useCallback, useState, useEffect } from 'react';
 import { UUI } from '../../core/uui';
 import { useEvent } from 'react-use';
-import { clamp, clone, inRange, isArray } from 'lodash';
+import { clamp, clone, inRange, isArray } from 'lodash-es';
 import classNames from 'classnames';
 import { KeyCode } from '../../utils/keyboardHelper';
 

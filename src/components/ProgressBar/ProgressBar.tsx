@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useMemo } from "react";
 import { UUI } from "../../core/uui";
-import { chain } from 'lodash';
+import { clamp } from "lodash-es";
 
 export interface ProgressBarFeatureProps {
   /**
@@ -89,7 +89,7 @@ export const ProgressBar = UUI.FunctionComponent(
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-valuenow={chain(props.value * 100).round().clamp(0, 100).value()}
+        aria-valuenow={clamp(Math.round(props.value * 100), 0, 100)}
         aria-valuetext={toPercentage(props.value)}
         className={classNames({
           'STATE_disabled': props.disabled,

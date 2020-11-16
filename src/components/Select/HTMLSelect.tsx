@@ -1,6 +1,6 @@
 import React from 'react';
 import { UUI, UUIComponentProps } from '../../core/uui';
-import { isString } from 'lodash';
+import { isString } from 'lodash-es';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import classNames from 'classnames';
 

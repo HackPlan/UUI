@@ -1,6 +1,6 @@
 import React from 'react';
 import { UUI } from '../../core/uui';
-import { isString } from 'lodash';
+import { isString } from 'lodash-es';
 
 export type SvgrComponentProps = React.SVGAttributes<SVGElement>
 export type SvgrComponent = React.StatelessComponent<SvgrComponentProps>

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import React, { useRef } from 'react';
 import { UUI, UUIFunctionComponentProps } from '../../core/uui';
 import { LoadingSpinner } from '../Loading';

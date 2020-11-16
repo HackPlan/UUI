@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UUI } from '../../core/uui';
 import { PaginationContext } from './PaginationContext';
 import { HTMLSelect } from '../Select';
-import { range } from 'lodash';
+import { range } from 'lodash-es';
 
 export interface PageSelectorFeatureProps {
   labelRender?: (currentPage: number, totalPage: number) => string;

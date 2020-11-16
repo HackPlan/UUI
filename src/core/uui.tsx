@@ -8,7 +8,7 @@
 
 
 import React, { useMemo } from 'react';
-import { mapValues, isString, omit, merge, clone, uniq, isEmpty, chain, mergeWith } from 'lodash';
+import { mapValues, isString, omit, merge, clone, uniq, isEmpty, mergeWith, pickBy, mapKeys } from 'lodash-es';
 import classNames from 'classnames';
 import { mergeRefs } from '../utils/mergeRefs';
 import { UUICustomizeAriaAttributes } from './types/UUICustomizeAriaAttributes';
@@ -85,10 +85,10 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
        * TODO: // fix regex for supporting unicode
        */
       const validDataAttributesCharactersRegex = /^([A-Za-z0-9-])*$/
-      return chain(customize.dataAttributes)
-        .pickBy((v, k) => validDataAttributesCharactersRegex.test(k))
-        .mapKeys((v, k) => `data-${k}`)
-        .value()
+      let result = customize.dataAttributes
+      result = pickBy(result, (v, k) => validDataAttributesCharactersRegex.test(k))
+      result = mapKeys(result, (v, k) => `data-${k}`)
+      return result
     })()
     const children = (() => {
       /**
@@ -106,9 +106,7 @@ function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends string>(
 
     const ariaAttributes = (() => {
       if (!customize?.ariaAttributes) return {}
-      return chain(customize.ariaAttributes)
-        .mapKeys((v, k) => `aria-${k}`)
-        .value()
+      return mapKeys(customize.ariaAttributes, (v, k) => `aria-${k}`)
     })()
 
     /**
@@ -420,18 +418,15 @@ function compileProps(props: any, options: any, ref: any): any {
     if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle);
     if (compiledProps.id) rootCustomizeProps.id = compiledProps.id;
 
-    const dataAttributes = chain(compiledProps)
-      .pickBy((v, k) => k.startsWith('data-'))
-      .mapKeys((v, k) => k.replace('data-', ''))
-      .value();
+    let dataAttributes = pickBy(compiledProps, (v, k) => k.startsWith('data-'))
+    dataAttributes = mapKeys(dataAttributes, (v, k) => k.replace('data-', ''))
     if (!isEmpty(dataAttributes)) {
       rootCustomizeProps.dataAttributes = Object.assign(dataAttributes, rootCustomizeProps.dataAttributes);
     }
 
-    const ariaAttributes = chain(compiledProps)
-      .pickBy((v, k) => k.startsWith('aria-'))
-      .mapKeys((v, k) => k.replace('aria-', ''))
-      .value();
+
+    let ariaAttributes = pickBy(compiledProps, (v, k) => k.startsWith('aria-'))
+    ariaAttributes = mapKeys(ariaAttributes, (v, k) => k.replace('aria-', ''))
     if (!isEmpty(ariaAttributes)) {
       rootCustomizeProps.ariaAttributes = Object.assign(ariaAttributes, rootCustomizeProps.ariaAttributes);
     }

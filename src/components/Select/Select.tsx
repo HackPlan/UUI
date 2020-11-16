@@ -3,7 +3,7 @@ import { UUI, UUIComponentProps } from '../../core/uui';
 import { Popover as UUIPopover, PopoverPlacement } from '../Popover';
 import { Tag as UUITag } from '../Tag';
 import { TextField as UUITextField } from '../Input';
-import { flatMap, chain, compact } from 'lodash';
+import { flatMap, compact } from 'lodash-es';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
@@ -168,21 +168,17 @@ export const BaseSelect = UUI.FunctionComponent({
     return props.value && props.value.length > 0
       ? (
         <Result>
-          {props.multiple ? (
+          {isMultipleValue(props) ? (
             <TagInputContainer>
               {
-                props.multiple &&
                 props.value &&
                 props.value.length > 0 &&
-                chain(props.value)
-                  .map((v) => allOptions?.find((i) => i.value === v))
-                  .compact()
-                  .map((option) => {
-                    return (
-                      <Tag key={option.key}>{option.label}</Tag>
-                    )
-                  })
-                  .value()
+                compact(props.value.map((v) => allOptions?.find((i) => i.value === v)))
+                .map((option) => {
+                  return (
+                    <Tag key={option.key}>{option.label}</Tag>
+                  )
+                })
               }
             </TagInputContainer>
           ) : (
@@ -193,7 +189,7 @@ export const BaseSelect = UUI.FunctionComponent({
       : (
         <Placeholder>{finalProps.placeholder}</Placeholder>
       )
-  }, [allOptions, finalProps.placeholder, props.multiple, props.value])
+  }, [allOptions, finalProps.placeholder, props])
 
   const optionListItems = useMemo<ListBoxItem[]>(() => {
     const getOptionData = (i: SelectOption) => ({
@@ -214,7 +210,7 @@ export const BaseSelect = UUI.FunctionComponent({
     if (isNormalOptions(props)) {
       return props.options.map(getOptionData) as any[]
     } else if (isSectionedOptions(props)) {
-      return chain(props.sections).map(getSectionData).flatMap().value() as any[]
+      return flatMap(props.sections.map(getSectionData)) as any[]
     } else {
       return [] as any[]
     }

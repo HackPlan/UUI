@@ -1,4 +1,4 @@
-import { clamp, chain } from "lodash"
+import { clamp } from "lodash-es"
 
 export function limitPrecision(value: string, precision?: number) {
   if (precision === undefined) return value
@@ -20,6 +20,6 @@ export const NumberAbbrUnitValue = {
   'B': 1000_000_000,
 };
 export function numberAbbr(value: number, unit: NumberAbbrUnit, maxPrecision = 2) {
-  const precisionNumber = Math.pow(10, chain(maxPrecision).clamp(0, Number.MAX_SAFE_INTEGER).round().value())
+  const precisionNumber = Math.pow(10, Math.round(clamp(maxPrecision, 0, Number.MAX_SAFE_INTEGER)))
   return Math.round(value / NumberAbbrUnitValue[unit] * precisionNumber) / precisionNumber
 }

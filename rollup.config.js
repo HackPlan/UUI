@@ -4,7 +4,6 @@ import * as path from 'path';
 import pkg from './package.json';
 import sass from 'rollup-plugin-sass';
 import copy from 'rollup-plugin-copy';
-import { terser } from "rollup-plugin-terser";
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import svgr from '@svgr/rollup';
@@ -15,27 +14,19 @@ const config = [{
   output: [{
     name: 'UUI',
     file: pkg.main,
-    format: 'cjs',
-    sourcemap: true,
+    format: 'amd',
     plugins: [
-      terser(),
     ],
   },
   {
     name: 'UUI',
     file: pkg.module,
-    format: 'esm',
-    sourcemap: true,
+    format: 'es',
     plugins: [
-      terser({
-        module: true,
-      }),
     ],
   }],
   external: [
-    "lodash", "luxon", "react-use", "classnames", "uuid",
     "react", "react-dom",
-    "@charlietango/use-focus-trap",
     "@popperjs/core", "react-popper",
   ],
   plugins: [
@@ -53,9 +44,6 @@ const config = [{
       output: 'lib/index.css',
       runtime: require('sass'),
       options: {
-        sourceMap: true,
-        outputStyle: 'compressed',
-        sourceMapEmbed: false,
         fiber: require('fibers'),
       }
     }),

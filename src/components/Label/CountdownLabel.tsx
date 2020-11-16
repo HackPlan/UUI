@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { UUI } from '../../core/uui';
 import { useInterval } from 'react-use';
-import { DateTime, Duration } from 'luxon';
+import { format, differenceInMilliseconds } from 'date-fns';
+import { addHours, addMilliseconds } from 'date-fns/esm';
 
 export interface CountdownLabelFeatureProps {
   /**
@@ -41,9 +42,11 @@ export const CountdownLabel = UUI.FunctionComponent({
   }
 
   const generateLabelText = useCallback(() => {
-    const diff = DateTime.fromJSDate(props.until).diffNow()
-    const duration = (!props.allowNegative && diff.milliseconds < 0) ? Duration.fromMillis(0) : diff
-    return duration.toFormat(finalProps.format)
+    const diff = differenceInMilliseconds(props.until, new Date())
+    const duration = (!props.allowNegative && diff && diff < 0)
+      ? new Date(0)
+      : addMilliseconds(addHours(new Date(0), 16), diff)
+    return format(duration, finalProps.format)
   }, [finalProps.format, props.allowNegative, props.until])
 
   const [text, setText] = useState(generateLabelText())

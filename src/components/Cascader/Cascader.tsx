@@ -3,7 +3,7 @@ import { UUI } from '../../core/uui';
 import { Popover, PopoverPlacement } from '../Popover';
 import { ListBox as UUIListBox, ListBoxItem } from '../ListBox';
 import { TextField as UUITextField } from '../Input';
-import { pick, clone } from 'lodash';
+import { pick, clone } from 'lodash-es';
 import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
