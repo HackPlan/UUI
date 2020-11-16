@@ -2,6 +2,14 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.5
+
+- new package distribution config
+- fix Select docs story
+- Popover default usePortal=false
+- fix Popover onClickAway
+- Select, Cascader new props: usePortal, portalContainer
+
 ### v0.5.4
 
 - fix Stepper style - hide spins of input[type=number] in firefox

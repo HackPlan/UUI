@@ -2,6 +2,14 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.5
+
+- 新的打包配置
+- 更新 Select 文档
+- Popover 默认 usePortal 为 false
+- 修复 Popover onClickAway
+- Select, Cascader 支持传入 usePortal, portalContainer
+
 ### v0.5.4
 
 - 修复计数器 Stepper 样式 - 在 Firefox 下隐藏 input\[type=number\]默认的的 spins
