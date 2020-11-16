@@ -15,8 +15,8 @@
     "resolveJsonModule": true,
     "isolatedModules": false,
     "jsx": "react",
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
+    "declarationMap": false,
     "sourceMap": true
   },
   "include": [
