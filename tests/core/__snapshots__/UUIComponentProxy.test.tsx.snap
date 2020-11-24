@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UUIComponentProxy 1`] = `
+<div
+  className="UUI-BaseTestComponent-Root root-base-classname user-classname test-extend user-classname"
+  style={
+    Object {
+      "backgroundColor": "green",
+    }
+  }
+>
+  <div
+    className="UUI-BaseTestComponent-Node node-base-classname"
+  />
+</div>
+`;
+
+exports[`UUIComponentProxy 2`] = `
+<div
+  className="UUI-BaseTestComponent-Root root-base-classname test-extend"
+  style={
+    Object {
+      "backgroundColor": "blue",
+    }
+  }
+>
+  <div
+    className="UUI-BaseTestComponent-Node node-base-classname"
+  />
+</div>
+`;

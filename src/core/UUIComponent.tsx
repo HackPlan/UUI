@@ -3,6 +3,7 @@ import React, { useMemo } from "react";
 import { clone, isString, pickBy, mapKeys, isEmpty, mapValues } from "lodash-es";
 import classNames from "classnames";
 import { UUIComponentCustomizeProps, UUIConvenienceProps, UUIMetaProps } from "./modules/UUIComponentProps";
+import { compileProps } from "./utils/compileProps";
 
 /**
  * UUI Advanced Component for Function Component
@@ -42,12 +43,12 @@ export function UUIFunctionComponent<
   const component: React.FunctionComponent<P & UUIConvenienceProps & UUIMetaProps & Z> = (props) => {
     const { prefix, separator } = props;
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { finalOptions, nodes } = useMemo(() => {
+    const { nodes } = useMemo(() => {
       const finalOptions = getFinalOptions(options, { prefix, separator })
       const nodes = compileNodes(finalOptions)
-      return { finalOptions, nodes }
+      return { nodes }
     }, [prefix, separator])
-    const compiledProps = compileProps(props, finalOptions, undefined)
+    const compiledProps = compileProps(props)
     injectCustomizeProps(nodes, compiledProps);
     return WrappedComponent(compiledProps, nodes)
   }
@@ -95,7 +96,7 @@ export function UUIClassComponent<
       ) {
         const finalOptions = getFinalOptions(options, this.props)
         this.setState({ nodes: compileNodes(finalOptions) })
-        const compiledProps = compileProps(this.props, finalOptions, (this.props as any).innerRef || undefined)
+        const compiledProps = compileProps(this.props, (this.props as any).innerRef || undefined)
         injectCustomizeProps(this.state.nodes, compiledProps)
       }
     }
@@ -105,7 +106,7 @@ export function UUIClassComponent<
       const finalOptions = getFinalOptions(options, props)
       this.state = { nodes: compileNodes(finalOptions) } as any
       this.state.nodes = compileNodes(finalOptions)
-      const compiledProps = compileProps(props, finalOptions, (props as any).innerRef || undefined)
+      const compiledProps = compileProps(props, (props as any).innerRef || undefined)
       injectCustomizeProps(this.state.nodes, compiledProps)
     }
   }
@@ -118,48 +119,6 @@ function getFinalOptions(options: any, props: any) {
     prefix: props.prefix || options.prefix || 'UUI',
     separator: props.separator || options.separator || '-',
   }
-}
-
-function compileProps(props: any, options: any, ref: any): any {
-  const compiledProps = clone(props)
-  if (!compiledProps.customize) {
-    compiledProps.customize = {}
-  }
-
-  // Generally, UUI component should contain a Root node.
-  if (
-    (options.nodes as any)['Root'] &&
-    isString((options.nodes as any)['Root'])
-  ) {
-    const rootCustomizeProps: any = (compiledProps.customize as any)['Root'] || {};
-    /**
-     * Convenience props: className, style
-     * className will be injected into customize.Root { extendClassName: ... }
-     * style will be injected into customize.Root { extendStyle: ... }
-     * id will be injected into customize.Root { id: ... }
-     */
-    if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
-    if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle);
-    if (compiledProps.id) rootCustomizeProps.id = compiledProps.id;
-
-    let dataAttributes = pickBy(compiledProps, (v, k) => k.startsWith('data-'))
-    dataAttributes = mapKeys(dataAttributes, (v, k) => k.replace('data-', ''))
-    if (!isEmpty(dataAttributes)) {
-      rootCustomizeProps.dataAttributes = Object.assign(dataAttributes, rootCustomizeProps.dataAttributes);
-    }
-
-
-    let ariaAttributes = pickBy(compiledProps, (v, k) => k.startsWith('aria-'))
-    ariaAttributes = mapKeys(ariaAttributes, (v, k) => k.replace('aria-', ''))
-    if (!isEmpty(ariaAttributes)) {
-      rootCustomizeProps.ariaAttributes = Object.assign(ariaAttributes, rootCustomizeProps.ariaAttributes);
-    }
-
-    (compiledProps.customize as any)['Root'] = rootCustomizeProps;
-  }
-  compiledProps.ref = ref
-
-  return  compiledProps
 }
 
 function compileNodes(options: any): any {

@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { UUIFunctionComponent, UUIClassComponent } from '../../src/core/UUIComponent';
+import { UUIFunctionComponent, UUIClassComponent } from '../../src/core';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
