@@ -7,7 +7,8 @@ module.exports = {
   ],
   transform: {
     "^.+\\.js$": "babel-jest",
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.svg$": "jest-svg-transformer"
   },
   transformIgnorePatterns: ["<rootDir>/node_modules/(?!(lodash-es|other-es-lib))"]
 };
