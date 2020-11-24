@@ -1,8 +1,8 @@
 import React from 'react';
-import { UUI, UUIComponentProps } from '../../core/uui';
 import { isString } from 'lodash-es';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import classNames from 'classnames';
+import { UUIFunctionComponent, UUIComponentProps } from '../../core';
 
 export interface HTMLSelectOption<T> {
   label: string;
@@ -47,7 +47,7 @@ const HTMLSelectNodes = {
   LoadingSpinner: LoadingSpinner,
 } as const
 
-const BaseHTMLSelect = UUI.FunctionComponent({
+const BaseHTMLSelect = UUIFunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
 }, (props: HTMLSelectFeatureProps<any>, nodes) => {

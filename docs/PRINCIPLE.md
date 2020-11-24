@@ -52,7 +52,7 @@ Let's take the component `Button` as an example:
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LoadingSpinner } from '../Loading';
 
 export interface ButtonStylingProps {
@@ -69,7 +69,7 @@ export interface ButtonFeatureProps extends React.ButtonHTMLAttributes<HTMLButto
   loading?: boolean;
 }
 
-export const Button = UUI.FunctionComponent({
+export const Button = UUIFunctionComponent({
   name: 'Button',
   nodes: {
     Root: 'button',
@@ -96,7 +96,7 @@ export const Button = UUI.FunctionComponent({
   )
 })
 
-export type ButtonProps = Parameters<typeof Button>[0]
+export type ButtonProps = UUIFunctionComponentProps<typeof Button>
 ```
 
 The first is that we define two Props, namely `ButtonStylingProps` and `ButtonFeatureProps`. These two Props are used as attributes of the feature function of the component `Button`, so they are defined in the `src/components/Button/Button.tsx` file instead of the `src/core/uui.tsx` file.
@@ -298,7 +298,7 @@ UUI's components support defining the `prefix` and `separator` of the component 
 For example, we can define a component during the development phase:
 
 ```tsx
-const Test = UUI.FunctionComponent({
+const Test = UUIFunctionComponent({
   prefix: "XUI",
   name: "Test",
   separator: "+",

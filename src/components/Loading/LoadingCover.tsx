@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LoadingSpinner } from './LoadingSpinner';
 
 export interface LoadingCoverFeatureProps {
@@ -9,7 +9,7 @@ export interface LoadingCoverFeatureProps {
   children: React.ReactNode;
 }
 
-export const LoadingCover = UUI.FunctionComponent({
+export const LoadingCover = UUIFunctionComponent({
   name: 'LoadingCover',
   nodes: {
     Root: 'div',
@@ -35,4 +35,4 @@ export const LoadingCover = UUI.FunctionComponent({
   )
 })
 
-export type LoadingCoverProps = Parameters<typeof LoadingCover>[0]
+export type LoadingCoverProps = UUIFunctionComponentProps<typeof LoadingCover>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateFormatterLocale, DateFormatterLocaleKinds, dateFormat } from '../../utils/dateFormatter';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface DateLabelFeatureProps<T extends DateFormatterLocale> {
   /**
@@ -22,7 +22,7 @@ export interface DateLabelFeatureProps<T extends DateFormatterLocale> {
   kind: DateFormatterLocaleKinds[T][number];
 }
 
-export const DateLabel = UUI.FunctionComponent({
+export const DateLabel = UUIFunctionComponent({
   name: 'DateLabel',
   nodes: {
     Root: 'label',
@@ -36,4 +36,4 @@ export const DateLabel = UUI.FunctionComponent({
   )
 })
 
-export type DateLabelProps = Parameters<typeof DateLabel>[0]
+export type DateLabelProps = UUIFunctionComponentProps<typeof DateLabel>

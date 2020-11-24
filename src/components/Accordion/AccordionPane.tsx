@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Collapse } from '../Collapse';
 import { Icons } from '../../icons/Icons';
 import classNames from 'classnames';
@@ -13,7 +13,7 @@ export interface AccordionPaneFeatureProps {
   disabled?: boolean;
 }
 
-export const AccordionPane = UUI.FunctionComponent({
+export const AccordionPane = UUIFunctionComponent({
   name: 'AccordionPane',
   nodes: {
     Root: 'div',
@@ -88,4 +88,4 @@ export const AccordionPane = UUI.FunctionComponent({
   )
 })
 
-export type AccordionPaneProps = Parameters<typeof AccordionPane>[0]
+export type AccordionPaneProps = UUIFunctionComponentProps<typeof AccordionPane>

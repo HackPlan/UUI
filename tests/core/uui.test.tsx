@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { UUI } from '../../src/core/uui';
+import { UUIFunctionComponent, UUIClassComponent } from '../../src/core/UUIComponent';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
@@ -12,7 +12,7 @@ Enzyme.configure({ adapter: new Adapter })
  * 测试是否能通过 HOC 工具创建出正确的 Component。
  */
 it('UUIComponentHOC', () => {
-  const UUITestFunctionComponent = UUI.FunctionComponent({
+  const UUITestFunctionComponent = UUIFunctionComponent({
     name: 'UUITestFunctionComponent',
     nodes: {
       Root: 'div',
@@ -36,7 +36,7 @@ it('UUIComponentHOC', () => {
     )
   })
 
-  class UUITestClassComponent extends UUI.ClassComponent({
+  class UUITestClassComponent extends UUIClassComponent({
     name: 'UUITestClassComponent',
     nodes: {
       Root: 'div',
@@ -74,7 +74,7 @@ it('UUIComponentHOC', () => {
 
   expect(tree2).toMatchSnapshot();
 
-  const UUITestUnionComponent = UUI.FunctionComponent({
+  const UUITestUnionComponent = UUIFunctionComponent({
     name: 'UUITestUnionComponent',
     nodes: {
       Root: 'div',
@@ -104,7 +104,7 @@ it('UUIComponentHOC', () => {
  * 测试嵌套组件是否能正确传递、合并 customize 属性。
  */
 it('UUIComponentHOC - customize', () => {
-  const UUITestTempComponent = UUI.FunctionComponent({
+  const UUITestTempComponent = UUIFunctionComponent({
     name: 'UUITestTempComponent',
     nodes: {
       Root: 'div',
@@ -115,7 +115,7 @@ it('UUIComponentHOC - customize', () => {
       <Root>UUITestTempComponent</Root>
     )
   })
-  const UUITestFunctionComponent = UUI.FunctionComponent({
+  const UUITestFunctionComponent = UUIFunctionComponent({
     name: 'UUITestFunctionComponent',
     nodes: {
       Root: 'div',
@@ -132,7 +132,7 @@ it('UUIComponentHOC - customize', () => {
     )
   })
 
-  class UUITestClassComponent extends UUI.ClassComponent({
+  class UUITestClassComponent extends UUIClassComponent({
     name: 'UUITestClassComponent',
     nodes: {
       Root: 'div',
@@ -151,7 +151,7 @@ it('UUIComponentHOC - customize', () => {
     }
   }
 
-  const UUITestUnionComponent = UUI.FunctionComponent({
+  const UUITestUnionComponent = UUIFunctionComponent({
     name: 'UUITestUnionComponent',
     nodes: {
       Root: 'div',
@@ -238,7 +238,7 @@ it('UUIComponentHOC - customize', () => {
 });
 
 it('UUIComponentHOC [options]', () => {
-  const XUITestFunctionComponent = UUI.FunctionComponent({
+  const XUITestFunctionComponent = UUIFunctionComponent({
     name: 'TestXComponent',
     prefix: 'XUI',
     separator: '=',
@@ -264,7 +264,7 @@ it('UUIComponentHOC [options]', () => {
     )
   })
 
-  class UUITestClassComponent extends UUI.ClassComponent({
+  class UUITestClassComponent extends UUIClassComponent({
     prefix: 'ZUI',
     name: 'TestZComponent',
     separator: '+',
@@ -326,7 +326,7 @@ it('UUIComponentHOC [options]', () => {
 });
 
 it('UUIComponentHOC [no Root node]', () => {
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Container: 'div',
@@ -364,7 +364,7 @@ it('UUIComponentHOC [no Root node]', () => {
  * 测试 customize.extendChildrenBefore, customize.extendChildrenAfter, customize.overrideChildren 是否能渲染出正确的 children React.ReactNode[]。
  */
 it('UUIComponent customize [className, style, children]', () => {
-  const UUITestChild = UUI.FunctionComponent({
+  const UUITestChild = UUIFunctionComponent({
     name: 'UUITestChild',
     nodes: {
       Root: 'div',
@@ -384,7 +384,7 @@ it('UUIComponent customize [className, style, children]', () => {
     )
   })
 
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
@@ -485,7 +485,7 @@ it('UUIComponent customize [className, style, children]', () => {
  * 测试 props.className, props.style 会不会被拼接合并到 Root 节点。
  */
 it('UUIComponent customize [convenience][className, style]', () => {
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
@@ -539,7 +539,7 @@ it('UUIComponent customize [convenience][className, style]', () => {
  * 如果 customize 传入了相关的 children，应该屏蔽掉这些自定义改动。
  */
 it('UUIComponent [special IntrinsicNodes children]', () => {
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
@@ -599,7 +599,7 @@ it('UUIComponent [customize onXXX callback function]', () => {
   const mockOnClick2 = jest.fn((name: string) => {});
   const mockOnClick3 = jest.fn((name: string) => {});
 
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
@@ -657,7 +657,7 @@ it('UUIComponent [refs]', () => {
   const ref3 = React.createRef<any>();
   const ref4: { current: any } = { current: null };
 
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
@@ -703,7 +703,7 @@ it('UUIComponent [refs]', () => {
  */
 it('UUIComponent [dataAttributes]', () => {
 
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
@@ -756,7 +756,7 @@ it('UUIComponent [dataAttributes]', () => {
  */
 it('UUIComponent [ariaAttributes]', () => {
 
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',
@@ -807,7 +807,7 @@ it('UUIComponent [ariaAttributes]', () => {
  */
 it('UUIComponent [id]', () => {
 
-  const UUITestComponent = UUI.FunctionComponent({
+  const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
       Root: 'div',

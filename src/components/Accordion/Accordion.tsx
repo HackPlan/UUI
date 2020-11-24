@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Collapse } from '../Collapse';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
 import { AccordionPane, AccordionPaneProps } from './AccordionPane';
@@ -11,7 +11,7 @@ export interface AccordionFeatureProps {
   children: React.ReactElement<AccordionPaneProps>[];
 }
 
-const _Accordion = UUI.FunctionComponent({
+const _Accordion = UUIFunctionComponent({
   name: 'Accordion',
   nodes: {
     Root: 'div',
@@ -64,7 +64,7 @@ const _Accordion = UUI.FunctionComponent({
   )
 })
 
-export type AccordionProps = Parameters<typeof _Accordion>[0]
+export type AccordionProps = UUIFunctionComponentProps<typeof _Accordion>
 
 const Accordion = createGroupedComponent(_Accordion, {
   Pane: AccordionPane,

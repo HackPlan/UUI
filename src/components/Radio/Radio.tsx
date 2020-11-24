@@ -1,8 +1,8 @@
 import React, { useContext, useMemo } from 'react';
 import { omit } from 'lodash-es';
 import classNames from 'classnames';
-import { UUI, UUIComponentProps } from '../../core/uui';
 import { RadioGroupContext } from './RadioGroupContext';
+import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
 type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -33,7 +33,7 @@ const RadioNodes = {
   Label: 'span',
 } as const
 
-const BaseRadio = UUI.FunctionComponent({
+const BaseRadio = UUIFunctionComponent({
   name: "Radio",
   nodes: RadioNodes,
 }, (props: RadioFeatureProps<string | number>, nodes) => {
@@ -84,4 +84,4 @@ export function Radio<T extends string | number>(props: UUIComponentProps<RadioF
   return <BaseRadio {...props} />
 }
 Radio.displayName = `<UUI> [GenericComponent] Radio`
-export type RadioProps = Parameters<typeof Radio>[0]
+export type RadioProps = UUIFunctionComponentProps<typeof Radio>

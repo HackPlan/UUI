@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Button } from '../Button';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
@@ -69,7 +69,7 @@ export interface TextFieldFeatureProps {
   onPasswordVisibleChange?: (value: boolean) => void;
 }
 
-export const TextField = UUI.FunctionComponent({
+export const TextField = UUIFunctionComponent({
   name: 'TextField',
   nodes: {
     Root: 'div',
@@ -157,4 +157,4 @@ export const TextField = UUI.FunctionComponent({
   )
 })
 
-export type TextFieldProps = Parameters<typeof TextField>[0]
+export type TextFieldProps = UUIFunctionComponentProps<typeof TextField>

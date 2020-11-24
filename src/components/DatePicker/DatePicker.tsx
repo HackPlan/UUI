@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { format, isValid } from 'date-fns';
 
 export interface DatePickerFeatureProps {
@@ -17,7 +17,7 @@ export interface DatePickerFeatureProps {
   onChange?: (value: Date, event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const DatePicker = UUI.FunctionComponent({
+export const DatePicker = UUIFunctionComponent({
   name: 'DatePicker',
   nodes: {
     Root: 'div',
@@ -50,4 +50,4 @@ export const DatePicker = UUI.FunctionComponent({
   )
 })
 
-export type DatePickerProps = Parameters<typeof DatePicker>[0]
+export type DatePickerProps = UUIFunctionComponentProps<typeof DatePicker>

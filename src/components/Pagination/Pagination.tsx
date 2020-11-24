@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { usePagination, IPagination } from '../../hooks/usePagination';
 import { PageSize } from './PageSize';
 import { PageInfo } from './PageInfo';
@@ -23,7 +23,7 @@ export interface PaginationFeatureProps {
   children: React.ReactNode;
 }
 
-export const _Pagination = UUI.FunctionComponent({
+export const _Pagination = UUIFunctionComponent({
   name: 'Pagination',
   nodes: {
     Root: 'div'
@@ -47,7 +47,7 @@ export const _Pagination = UUI.FunctionComponent({
   )
 })
 
-export type PaginationProps = Parameters<typeof _Pagination>[0]
+export type PaginationProps = UUIFunctionComponentProps<typeof _Pagination>
 
 const Pagination = createGroupedComponent(_Pagination, {
   PageSize,

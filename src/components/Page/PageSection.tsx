@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface PageSectionFeatureProps {
   /**
@@ -8,7 +8,7 @@ export interface PageSectionFeatureProps {
   children?: React.ReactNode;
 }
 
-export const PageSection = UUI.FunctionComponent({
+export const PageSection = UUIFunctionComponent({
   name: 'PageSection',
   nodes: {
     Root: 'div',
@@ -22,4 +22,4 @@ export const PageSection = UUI.FunctionComponent({
   )
 })
 
-export type PageSectionProps = Parameters<typeof PageSection>[0]
+export type PageSectionProps = UUIFunctionComponentProps<typeof PageSection>

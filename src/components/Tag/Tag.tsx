@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface TagFeatureProps {
   /**
@@ -18,7 +18,7 @@ export const TagNodes = {
   Content: 'span',
 } as const
 
-export const Tag = UUI.FunctionComponent({
+export const Tag = UUIFunctionComponent({
   name: 'Tag',
   nodes: TagNodes,
 }, (props: TagFeatureProps, nodes) => {
@@ -37,4 +37,4 @@ export const Tag = UUI.FunctionComponent({
   )
 })
 
-export type TagProps = Parameters<typeof Tag>[0]
+export type TagProps = UUIFunctionComponentProps<typeof Tag>

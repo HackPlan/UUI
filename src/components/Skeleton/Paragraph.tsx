@@ -1,11 +1,11 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface SkeletonParagraphFeatureProps {
   lines?: number;
 }
 
-export const SkeletonParagraph = UUI.FunctionComponent({
+export const SkeletonParagraph = UUIFunctionComponent({
   name: 'SkeletonParagraph',
   nodes: {
     Root: 'div',
@@ -25,4 +25,4 @@ export const SkeletonParagraph = UUI.FunctionComponent({
   )
 })
 
-export type SkeletonParagraphProps = Parameters<typeof SkeletonParagraph>[0]
+export type SkeletonParagraphProps = UUIFunctionComponentProps<typeof SkeletonParagraph>

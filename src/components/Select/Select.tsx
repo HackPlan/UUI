@@ -1,5 +1,4 @@
 import React, { useState, useRef, useMemo, useCallback } from 'react';
-import { UUI, UUIComponentProps } from '../../core/uui';
 import { Popover as UUIPopover, PopoverPlacement } from '../Popover';
 import { Tag as UUITag } from '../Tag';
 import { TextField as UUITextField } from '../Input';
@@ -9,6 +8,7 @@ import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { ListBox as UUIListBox, ListBoxItem } from '../ListBox';
+import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
 export interface SelectOption {
   key: string;
@@ -127,7 +127,7 @@ const SelectNodes = {
 
 } as const
 
-export const BaseSelect = UUI.FunctionComponent({
+export const BaseSelect = UUIFunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
 }, (props: SelectFeatureProps<boolean | undefined>, nodes) => {
@@ -433,4 +433,4 @@ export function Select<X extends true | false | boolean | undefined = undefined>
   return <_BaseSelect {...props} />
 }
 Select.displayName = `<UUI> [GenericComponent] Radio`
-export type SelectProps = Parameters<typeof Select>[0]
+export type SelectProps = UUIFunctionComponentProps<typeof Select>

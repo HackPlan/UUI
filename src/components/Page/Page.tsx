@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PageAnnotatedSection } from './PageAnnotatedSection';
 import { PageSection } from './PageSection';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
@@ -16,7 +16,7 @@ export interface PageFeatureProps {
   children?: React.ReactNode;
 }
 
-export const _Page = UUI.FunctionComponent({
+export const _Page = UUIFunctionComponent({
   name: 'Page',
   nodes: {
     Root: 'div',
@@ -73,7 +73,7 @@ export const _Page = UUI.FunctionComponent({
   )
 })
 
-export type PageProps = Parameters<typeof _Page>[0]
+export type PageProps = UUIFunctionComponentProps<typeof _Page>
 
 const Page = createGroupedComponent(_Page, {
   Section: PageSection,

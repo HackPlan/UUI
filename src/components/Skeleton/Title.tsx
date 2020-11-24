@@ -1,10 +1,10 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface SkeletonTitleFeatureProps {
 }
 
-export const SkeletonTitle = UUI.FunctionComponent({
+export const SkeletonTitle = UUIFunctionComponent({
   name: 'SkeletonTitle',
   nodes: {
     Root: 'h3'
@@ -16,4 +16,4 @@ export const SkeletonTitle = UUI.FunctionComponent({
   )
 })
 
-export type SkeletonTitleProps = Parameters<typeof SkeletonTitle>[0]
+export type SkeletonTitleProps = UUIFunctionComponentProps<typeof SkeletonTitle>

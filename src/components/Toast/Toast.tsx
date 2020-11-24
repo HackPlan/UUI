@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface ToastFeatureProps {
   /** Message to display in the body of the toast. */
@@ -19,7 +19,7 @@ export interface ToastFeatureProps {
 }
 export type IToast = ToastFeatureProps & { id: string }
 
-export const Toast = UUI.FunctionComponent({
+export const Toast = UUIFunctionComponent({
   prefix: 'UUI',
   name: 'Toast',
   nodes: {
@@ -63,4 +63,4 @@ export const Toast = UUI.FunctionComponent({
   )
 })
 
-export type ToastProps = Parameters<typeof Toast>[0]
+export type ToastProps = UUIFunctionComponentProps<typeof Toast>

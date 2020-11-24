@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import classNames from 'classnames';
 
 export interface CollapseFeatureProps {
@@ -7,7 +7,7 @@ export interface CollapseFeatureProps {
   children: React.ReactNode;
 }
 
-export const Collapse = UUI.FunctionComponent({
+export const Collapse = UUIFunctionComponent({
   name: 'Collapse',
   nodes: {
     Root: 'div',
@@ -24,4 +24,4 @@ export const Collapse = UUI.FunctionComponent({
   )
 })
 
-export type CollapseProps = Parameters<typeof Collapse>[0]
+export type CollapseProps = UUIFunctionComponentProps<typeof Collapse>

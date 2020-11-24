@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Popover, PopoverPlacement } from '../Popover';
 import { ListBox as UUIListBox, ListBoxItem } from '../ListBox';
 import { TextField as UUITextField } from '../Input';
@@ -91,7 +91,7 @@ export interface CascaderFeatureProps {
   portalContainer?: HTMLElement;
 }
 
-export const Cascader = UUI.FunctionComponent({
+export const Cascader = UUIFunctionComponent({
   name: 'Cascader',
   nodes: {
     Root: 'div',
@@ -375,7 +375,7 @@ export const Cascader = UUI.FunctionComponent({
   )
 })
 
-export type CascaderProps = Parameters<typeof Cascader>[0]
+export type CascaderProps = UUIFunctionComponentProps<typeof Cascader>
 
 function findOneInAllOptions(value: string | null, options: CascaderOption[]): CascaderOption | null {
   if (value === null) return null

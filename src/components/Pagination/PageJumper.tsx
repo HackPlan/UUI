@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { NumberField as UUINumberField } from '../Input';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
 
 export interface PageJumperFeatureProps {
@@ -10,7 +10,7 @@ export interface PageJumperFeatureProps {
   labelText?: string;
 }
 
-export const PageJumper = UUI.FunctionComponent({
+export const PageJumper = UUIFunctionComponent({
   name: 'PageJumper',
   nodes: {
     Root: 'div',
@@ -57,4 +57,4 @@ export const PageJumper = UUI.FunctionComponent({
   )
 })
 
-export type PageJumperProps = Parameters<typeof PageJumper>[0]
+export type PageJumperProps = UUIFunctionComponentProps<typeof PageJumper>

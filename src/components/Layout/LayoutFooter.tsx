@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface LayoutFooterFeatureProps {
   /**
@@ -8,7 +8,7 @@ export interface LayoutFooterFeatureProps {
   children?: React.ReactNode;
 }
 
-export const LayoutFooter = UUI.FunctionComponent({
+export const LayoutFooter = UUIFunctionComponent({
   name: 'LayoutFooter',
   nodes: {
     Root: 'footer',
@@ -23,4 +23,4 @@ export const LayoutFooter = UUI.FunctionComponent({
   )
 })
 
-export type LayoutFooterProps = Parameters<typeof LayoutFooter>[0]
+export type LayoutFooterProps = UUIFunctionComponentProps<typeof LayoutFooter>

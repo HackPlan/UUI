@@ -1,12 +1,12 @@
 import React, { useMemo, useRef, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import classNames from 'classnames';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 import ReactHelper from '../../utils/ReactHelper';
 import useFocusTrap from '@charlietango/use-focus-trap';
 import { KeyCode } from '../../utils/keyboardHelper';
-import { mergeRefs } from '../../utils/mergeRefs';
+import { mergeRefs } from '../../core/utils/mergeRefs';
 
 export type DrawerPlacement = 'top' | 'right' | 'bottom' | 'left'
 
@@ -55,7 +55,7 @@ export interface DrawerFeatureProps {
   placement?: DrawerPlacement;
 }
 
-export const Drawer = UUI.FunctionComponent({
+export const Drawer = UUIFunctionComponent({
   name: 'Drawer',
   nodes: {
     Root: 'div',
@@ -139,4 +139,4 @@ export const Drawer = UUI.FunctionComponent({
   )
 })
 
-export type DrawerProps = Parameters<typeof Drawer>[0]
+export type DrawerProps = UUIFunctionComponentProps<typeof Drawer>

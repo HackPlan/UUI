@@ -1,7 +1,7 @@
 import React from 'react';
-import { UUI, UUIComponentProps } from '../../core/uui';
 import classNames from 'classnames';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
 export interface SegmentControlOption<T extends string | number> {
   label: React.ReactNode;
@@ -32,7 +32,7 @@ const SegmentControlNodes = {
   Thumb: 'div',
 } as const
 
-const BaseSegmentControl = UUI.FunctionComponent({
+const BaseSegmentControl = UUIFunctionComponent({
   name: 'SegmentControl',
   nodes: SegmentControlNodes
 }, (props: SegmentControlFeatureProps<any>, nodes) => {
@@ -108,4 +108,4 @@ export function SegmentControl<T extends string | number>(props: UUIComponentPro
   return <BaseSegmentControl {...props} />
 }
 SegmentControl.displayName = `<UUI> [GenericComponent] SegmentControl`
-export type SegmentControlProps = Parameters<typeof SegmentControl>[0]
+export type SegmentControlProps = UUIFunctionComponentProps<typeof SegmentControl>

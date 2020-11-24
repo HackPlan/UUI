@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { RadioFeatureProps, Radio } from './Radio';
-import { UUI, UUIComponentProps } from '../../core/uui';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { getValidTypeChildren } from '../../utils/componentHelper';
 import { RadioGroupContext } from './RadioGroupContext';
+import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
 export interface RadioGroupFeatureProps<T extends string | number> {
   /**
@@ -31,7 +31,7 @@ const RadioGroupNodes = {
   Root: 'div'
 } as const
 
-const BaseRadioGroup = UUI.FunctionComponent({
+const BaseRadioGroup = UUIFunctionComponent({
   name: "RadioGroup",
   nodes: RadioGroupNodes,
 }, (props: RadioGroupFeatureProps<any>, nodes) => {
@@ -97,4 +97,4 @@ export function RadioGroup<T extends string | number>(props: UUIComponentProps<R
   return <BaseRadioGroup {...props} />
 }
 RadioGroup.displayName = `<UUI> [GenericComponent] RadioGroup`
-export type RadioGroupProps = Parameters<typeof RadioGroup>[0]
+export type RadioGroupProps = UUIFunctionComponentProps<typeof RadioGroup>

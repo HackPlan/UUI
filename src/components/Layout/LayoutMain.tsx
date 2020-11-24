@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface LayoutMainFeatureProps {
   /**
@@ -8,7 +8,7 @@ export interface LayoutMainFeatureProps {
   children?: React.ReactNode | string;
 }
 
-export const LayoutMain = UUI.FunctionComponent({
+export const LayoutMain = UUIFunctionComponent({
   name: 'LayoutMain',
   nodes: {
     Root: 'main',
@@ -22,4 +22,4 @@ export const LayoutMain = UUI.FunctionComponent({
   )
 })
 
-export type LayoutMainProps = Parameters<typeof LayoutMain>[0]
+export type LayoutMainProps = UUIFunctionComponentProps<typeof LayoutMain>

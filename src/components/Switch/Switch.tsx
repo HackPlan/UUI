@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Button as UUIButton } from '../Button/Button';
 import classNames from 'classnames';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
@@ -28,7 +28,7 @@ export interface SwitchFeatureProps {
   onChange: (flag: boolean) => void;
 }
 
-export const Switch = UUI.FunctionComponent({
+export const Switch = UUIFunctionComponent({
   name: 'Switch',
   nodes: {
     Root: 'div',
@@ -71,4 +71,4 @@ export const Switch = UUI.FunctionComponent({
   )
 })
 
-export type SwitchProps = Parameters<typeof Switch>[0]
+export type SwitchProps = UUIFunctionComponentProps<typeof Switch>

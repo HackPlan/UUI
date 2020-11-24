@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
 import { HTMLSelect } from '../Select';
 import { range } from 'lodash-es';
@@ -8,7 +8,7 @@ export interface PageSelectorFeatureProps {
   labelRender?: (currentPage: number, totalPage: number) => string;
 }
 
-export const PageSelector = UUI.FunctionComponent({
+export const PageSelector = UUIFunctionComponent({
   name: 'PageSelector',
   nodes: {
     Root: 'div',
@@ -43,4 +43,4 @@ export const PageSelector = UUI.FunctionComponent({
   )
 })
 
-export type PageSelectorProps = Parameters<typeof PageSelector>[0]
+export type PageSelectorProps = UUIFunctionComponentProps<typeof PageSelector>

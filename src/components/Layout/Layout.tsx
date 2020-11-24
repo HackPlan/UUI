@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LayoutMainProps, LayoutMain } from './LayoutMain';
 import { LayoutFooterProps, LayoutFooter } from './LayoutFooter';
 import { LayoutHeaderProps, LayoutHeader } from './LayoutHeader';
@@ -22,7 +22,7 @@ export interface LayoutFeatureProps {
     )[];
 }
 
-export const _Layout = UUI.FunctionComponent({
+export const _Layout = UUIFunctionComponent({
   name: 'Layout',
   nodes: {
     Root: 'section',
@@ -49,7 +49,7 @@ export const _Layout = UUI.FunctionComponent({
   )
 })
 
-export type LayoutProps = Parameters<typeof _Layout>[0]
+export type LayoutProps = UUIFunctionComponentProps<typeof _Layout>
 
 const Layout = createGroupedComponent(_Layout, {
   Nav: LayoutNav,

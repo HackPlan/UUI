@@ -1,4 +1,10 @@
 /**
+ * Core
+ */
+
+export * from './core'
+
+/**
  * Component Export
  */
 
@@ -32,13 +38,6 @@ export * from './components/Table'
 export * from './components/Tabs'
 export * from './components/Tag'
 export * from './components/Toast'
-
-/**
- * Util Export
- */
-
-export { UUI } from './core/uui'
-export type { UUIClassComponentProps, UUIFunctionComponentProps, UUIComponentCustomizeProps } from './core/uui'
 
 /**
  * Styles

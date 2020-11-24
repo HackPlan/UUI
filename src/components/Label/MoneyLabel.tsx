@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { formatMoney } from '../../utils/moneyHelper';
 
 export interface MoneyLabelFeatureProps {
@@ -28,7 +28,7 @@ export interface MoneyLabelFeatureProps {
   decimal?: string;
 }
 
-export const MoneyLabel = UUI.FunctionComponent({
+export const MoneyLabel = UUIFunctionComponent({
   name: 'MoneyLabel',
   nodes: {
     Root: 'label',
@@ -50,4 +50,4 @@ export const MoneyLabel = UUI.FunctionComponent({
   )
 })
 
-export type MoneyLabelProps = Parameters<typeof MoneyLabel>[0]
+export type MoneyLabelProps = UUIFunctionComponentProps<typeof MoneyLabel>

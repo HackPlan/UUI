@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { limitPrecision, limitRange } from '../../utils/numberHelper';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import classNames from 'classnames';
@@ -60,7 +60,7 @@ export interface NumberFieldFeatureProps {
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export const NumberField = UUI.FunctionComponent({
+export const NumberField = UUIFunctionComponent({
   name: 'NumberField',
   nodes: {
     Root: 'div',
@@ -113,4 +113,4 @@ export const NumberField = UUI.FunctionComponent({
   )
 })
 
-export type NumberFieldProps = Parameters<typeof NumberField>[0]
+export type NumberFieldProps = UUIFunctionComponentProps<typeof NumberField>
