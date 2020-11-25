@@ -10,8 +10,24 @@ exports[`UUIComponentProxy 1`] = `
   }
 >
   <div
-    className="UUI-BaseTestComponent-Node node-base-classname"
+    className="UUI-BaseTestComponent-Node node-base-classname extend-node-classname"
+    style={
+      Object {
+        "height": 300,
+        "width": 500,
+      }
+    }
   />
+  <div
+    className="UUI-BaseTestComponent-ExtendTest"
+  >
+    <div>
+      Original
+    </div>
+    <div>
+      Extend in proxy
+    </div>
+  </div>
 </div>
 `;
 
@@ -26,6 +42,86 @@ exports[`UUIComponentProxy 2`] = `
 >
   <div
     className="UUI-BaseTestComponent-Node node-base-classname"
+    style={
+      Object {
+        "height": 300,
+        "width": 200,
+      }
+    }
   />
+  <div
+    className="UUI-BaseTestComponent-ExtendTest"
+  >
+    <div>
+      Original
+    </div>
+    <div>
+      Extend in proxy
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UUIComponentProxy 3`] = `
+<div
+  className="override-root-classname"
+  style={
+    Object {
+      "minWidth": 10,
+    }
+  }
+>
+  <div
+    className="override-node-classname"
+    style={
+      Object {
+        "minHeight": 1,
+      }
+    }
+  />
+  <div
+    className="UUI-BaseTestComponent-ExtendTest"
+  >
+    <div>
+      Original
+    </div>
+    <div>
+      Extend in proxy
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UUIComponentProxy 4`] = `
+<div
+  className="UUI-BaseTestComponent-Root root-base-classname test-extend"
+  style={
+    Object {
+      "minWidth": 10,
+    }
+  }
+>
+  <div
+    className="UUI-BaseTestComponent-Node node-base-classname"
+    style={
+      Object {
+        "height": 300,
+        "width": 200,
+      }
+    }
+  />
+  <div
+    className="UUI-BaseTestComponent-ExtendTest"
+  >
+    <div>
+      Original
+    </div>
+    <div>
+      Extend in proxy
+    </div>
+    <div>
+      Extend in customize
+    </div>
+  </div>
 </div>
 `;

@@ -18,14 +18,21 @@ it('UUIComponentProxy', () => {
     nodes: {
       Root: 'div',
       Node: 'div',
+      ExtendTest: 'div',
     }
   }, (props: {}, nodes) => {
-    const { Root, Node } = nodes
+    const { Root, Node, ExtendTest } = nodes
     return (
       <Root className="root-base-classname" style={{
         backgroundColor: 'red'
       }}>
-        <Node className="node-base-classname" />
+        <Node className="node-base-classname" style={{
+          width: 200,
+          height: 300,
+        }} />
+        <ExtendTest>
+          <div>Original</div>
+        </ExtendTest>
       </Root>
     )
   })
@@ -36,6 +43,9 @@ it('UUIComponentProxy', () => {
       extendStyle: {
         backgroundColor: 'blue',
       }
+    },
+    ExtendTest: {
+      extendChildrenAfter: <div>Extend in proxy</div>
     }
   })
 
@@ -49,12 +59,17 @@ it('UUIComponentProxy', () => {
           extendStyle: {
             backgroundColor: 'green'
           }
+        },
+        Node: {
+          extendClassName: 'extend-node-classname',
+          extendStyle: {
+            width: 500,
+          }
         }
       }}
     />
   )
   .toJSON();
-
   expect(tree1).toMatchSnapshot();
 
   const tree2 = renderer
@@ -62,6 +77,43 @@ it('UUIComponentProxy', () => {
     <StyledTestComponent />
   )
   .toJSON();
-
   expect(tree2).toMatchSnapshot();
+
+  const tree3 = renderer
+  .create(
+    <StyledTestComponent
+      customize={{
+        Root: {
+          overrideClassName: 'override-root-classname',
+          overrideStyle: {
+            minWidth: 10,
+          },
+        },
+        Node: {
+          overrideClassName: 'override-node-classname',
+          overrideStyle: {
+            minHeight: 1,
+          },
+        }
+      }}
+    />
+  )
+  expect(tree3).toMatchSnapshot();
+
+  const tree4 = renderer
+  .create(
+    <StyledTestComponent
+      customize={{
+        Root: {
+          overrideStyle: {
+            minWidth: 10,
+          },
+        },
+        ExtendTest: {
+          extendChildrenAfter: <div>Extend in customize</div>,
+        }
+      }}
+    />
+  )
+  expect(tree4).toMatchSnapshot();
 })
