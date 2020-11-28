@@ -55,7 +55,7 @@ const globalCustomizeConfig: TestUUIProviderCustomize = {
  *
  * 测试 UUIProvider 是否正确合并 customize 属性
  */
-it('UUIProvider', () => {
+it('UUIProvider - customize', () => {
 
   const tree1 = renderer
   .create(
@@ -115,5 +115,43 @@ it('UUIProvider', () => {
   )
   .toJSON();
   expect(tree3).toMatchSnapshot();
+
+})
+
+
+const globalOptionsConfig = {
+  prefix: 'XUI',
+  separator: '=',
+}
+
+/**
+ * UUI Provider
+ *
+ * 测试 UUIProvider 是否正确合并 options 属性
+ */
+it('UUIProvider - options', () => {
+
+  const tree1 = renderer
+  .create(
+    <UUIProvider options={globalOptionsConfig}>
+      <TestComponent />
+      <TestComponent />
+    </UUIProvider>
+  )
+  .toJSON();
+  expect(tree1).toMatchSnapshot();
+
+  const tree2 = renderer
+  .create(
+    <UUIProvider options={globalOptionsConfig}>
+      <TestComponent />
+      <TestComponent
+        prefix={"YUI"}
+        separator={"+"}
+      />
+    </UUIProvider>
+  )
+  .toJSON();
+  expect(tree2).toMatchSnapshot();
 
 })

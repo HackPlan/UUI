@@ -128,6 +128,10 @@ export type UUIProviderExtraCustomizeT = { [key: string]: any }
 
 export interface UUIProviderContextValue<C extends UUIProviderExtraCustomizeT> {
   customize?: C & UUIProviderCustomize;
+  options?: {
+    prefix?: string;
+    separator?: string;
+  };
 }
 export const UUIProviderContext = React.createContext<UUIProviderContextValue<any> | null>(null)
 
@@ -137,7 +141,8 @@ export interface UUIProviderProps<C extends UUIProviderExtraCustomizeT> extends 
 export function UUIProvider<C extends UUIProviderExtraCustomizeT>(props: UUIProviderProps<C>) {
   return (
     <UUIProviderContext.Provider value={{
-      customize: props.customize
+      customize: props.customize,
+      options: props.options,
     }}>
       {props.children}
     </UUIProviderContext.Provider>

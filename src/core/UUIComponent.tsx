@@ -3,7 +3,7 @@ import React, { useMemo, useContext } from "react";
 import { UUIComponentCustomizeProps, UUIConvenienceProps, UUIMetaProps } from "./modules/UUIComponentProps";
 import { ClassComponentNodeT, ComponentNode, FunctionComponentNodeT, IntrinsicNode, IntrinsicNodeT, UUIComponentNodes } from "./modules/UUICustomizeNode";
 import { compileProps } from "./utils/compileProps";
-import { UUIProviderContext } from "../UUIProvider";
+import { UUIProviderContext, UUIProviderContextValue } from "../UUIProvider";
 import { mergeProviderCustomize } from './utils/mergeProviderCustomize';
 
 /**
@@ -45,14 +45,14 @@ export function UUIFunctionComponent<
     const { prefix, separator } = props;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { nodes } = useMemo(() => {
-      const finalOptions = getFinalOptions(options, { prefix, separator })
-      const nodes = compileNodes(finalOptions)
-      return { nodes }
-    }, [prefix, separator])
+    const providerContext = useContext(UUIProviderContext)
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const providerContext = useContext(UUIProviderContext)
+    const { nodes } = useMemo(() => {
+      const finalOptions = getFinalOptions(options, { prefix, separator }, providerContext)
+      const nodes = compileNodes(finalOptions)
+      return { nodes }
+    }, [prefix, separator, providerContext])
 
     const compiledProps = compileProps(props)
     mergeProviderCustomize(options, compiledProps, providerContext)
@@ -103,7 +103,7 @@ export function UUIClassComponent<
         prevProps.prefix !== this.props.prefix ||
         prevProps.separator !== this.props.separator
       ) {
-        const finalOptions = getFinalOptions(options, this.props)
+        const finalOptions = getFinalOptions(options, this.props, this.context)
         this.setState({ nodes: compileNodes(finalOptions) })
         const compiledProps = compileProps(this.props, (this.props as any).innerRef || undefined)
         mergeProviderCustomize(options, compiledProps, this.context)
@@ -113,7 +113,7 @@ export function UUIClassComponent<
 
     constructor(props: P & UUIConvenienceProps & Z) {
       super(props)
-      const finalOptions = getFinalOptions(options, props)
+      const finalOptions = getFinalOptions(options, props, this.context)
       this.state = { nodes: compileNodes(finalOptions) } as any
       this.state.nodes = compileNodes(finalOptions)
       const compiledProps = compileProps(props, (props as any).innerRef || undefined)
@@ -123,12 +123,14 @@ export function UUIClassComponent<
   }
 }
 
-function getFinalOptions(options: any, props: any) {
+function getFinalOptions(options: any, props: any, providerContext: UUIProviderContextValue<any> | null) {
+  const prefix = props.prefix || providerContext?.options?.prefix || options.prefix || 'UUI'
+  const separator = props.separator || providerContext?.options?.separator || options.separator || '-'
   return {
     nodes: options.nodes,
     name: options.name,
-    prefix: props.prefix || options.prefix || 'UUI',
-    separator: props.separator || options.separator || '-',
+    prefix: prefix,
+    separator: separator,
   }
 }
 
