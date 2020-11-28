@@ -1,9 +1,10 @@
-import { IntrinsicNodeT, FunctionComponentNodeT, ClassComponentNodeT, IntrinsicNode, ComponentNode, UUIComponentNodes } from "./modules/UUICustomizeNode";
-import React, { useMemo } from "react";
-import { clone, isString, pickBy, mapKeys, isEmpty, mapValues } from "lodash-es";
-import classNames from "classnames";
+import { isString, mapValues } from "lodash-es";
+import React, { useMemo, useContext } from "react";
 import { UUIComponentCustomizeProps, UUIConvenienceProps, UUIMetaProps } from "./modules/UUIComponentProps";
+import { ClassComponentNodeT, ComponentNode, FunctionComponentNodeT, IntrinsicNode, IntrinsicNodeT, UUIComponentNodes } from "./modules/UUICustomizeNode";
 import { compileProps } from "./utils/compileProps";
+import { UUIProviderContext } from "../UUIProvider";
+import { mergeProviderCustomize } from './utils/mergeProviderCustomize';
 
 /**
  * UUI Advanced Component for Function Component
@@ -42,14 +43,20 @@ export function UUIFunctionComponent<
 ) {
   const component: React.FunctionComponent<P & UUIConvenienceProps & UUIMetaProps & Z> = (props) => {
     const { prefix, separator } = props;
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { nodes } = useMemo(() => {
       const finalOptions = getFinalOptions(options, { prefix, separator })
       const nodes = compileNodes(finalOptions)
       return { nodes }
     }, [prefix, separator])
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const providerContext = useContext(UUIProviderContext)
+
     const compiledProps = compileProps(props)
-    injectCustomizeProps(nodes, compiledProps);
+    mergeProviderCustomize(options, compiledProps, providerContext)
+    injectCustomizeProps(nodes, compiledProps)
     return WrappedComponent(compiledProps, nodes)
   }
   component.displayName = `<UUI> [Component] ${options.name}`
@@ -87,6 +94,8 @@ export function UUIClassComponent<
 ) {
   return class WrappedComponent<P = {}, S = {}, SS = any> extends React.Component<P & UUIConvenienceProps & UUIMetaProps & Z, S & { nodes: UUIComponentNodes<X> }, SS> {
     static displayName = `<UUI> [Component] ${options.name}`
+    static contextType = UUIProviderContext
+
     state: S & { nodes: UUIComponentNodes<X> }
 
     componentDidUpdate(prevProps: P & UUIConvenienceProps & UUIMetaProps & Z) {
@@ -97,6 +106,7 @@ export function UUIClassComponent<
         const finalOptions = getFinalOptions(options, this.props)
         this.setState({ nodes: compileNodes(finalOptions) })
         const compiledProps = compileProps(this.props, (this.props as any).innerRef || undefined)
+        mergeProviderCustomize(options, compiledProps, this.context)
         injectCustomizeProps(this.state.nodes, compiledProps)
       }
     }
@@ -107,6 +117,7 @@ export function UUIClassComponent<
       this.state = { nodes: compileNodes(finalOptions) } as any
       this.state.nodes = compileNodes(finalOptions)
       const compiledProps = compileProps(props, (props as any).innerRef || undefined)
+      mergeProviderCustomize(options, compiledProps, this.context)
       injectCustomizeProps(this.state.nodes, compiledProps)
     }
   }

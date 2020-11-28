@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UUIProvider 1`] = `
+<div
+  className="UUI-TestComponent-Root root-base-classname"
+  style={
+    Object {
+      "backgroundColor": "green",
+      "fontWeight": 300,
+    }
+  }
+>
+  <div
+    className="UUI-TestComponent-Node node-base-classname"
+    style={
+      Object {
+        "height": 300,
+        "width": 200,
+      }
+    }
+  />
+  <div
+    className="UUI-TestComponent-ExtendTest"
+  >
+    <div>
+      Original
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UUIProvider 2`] = `
+<div
+  className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName"
+  style={
+    Object {
+      "backgroundColor": "red",
+      "color": "blue",
+      "fontWeight": 400,
+    }
+  }
+>
+  <div
+    className="UUI-TestComponent-Node node-base-classname"
+    style={
+      Object {
+        "height": 300,
+        "width": 200,
+      }
+    }
+  />
+  <div
+    className="UUI-TestComponent-ExtendTest"
+  >
+    <div>
+      Original
+    </div>
+  </div>
+</div>
+`;
+
+exports[`UUIProvider 3`] = `
+Array [
+  <div
+    className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName"
+    style={
+      Object {
+        "backgroundColor": "red",
+        "color": "yellow",
+        "fontSize": 34,
+        "fontWeight": 400,
+      }
+    }
+  >
+    <div
+      className="UUI-TestComponent-Node node-base-classname"
+      style={
+        Object {
+          "height": 300,
+          "width": 200,
+        }
+      }
+    />
+    <div
+      className="UUI-TestComponent-ExtendTest"
+    >
+      <div>
+        Original
+      </div>
+    </div>
+  </div>,
+  <div
+    className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName"
+    style={
+      Object {
+        "backgroundColor": "red",
+        "color": "yellow",
+        "fontSize": 34,
+        "fontWeight": 400,
+      }
+    }
+  >
+    <div
+      className="UUI-TestComponent-Node node-base-classname"
+      style={
+        Object {
+          "height": 300,
+          "width": 200,
+        }
+      }
+    />
+    <div
+      className="UUI-TestComponent-ExtendTest"
+    >
+      <div>
+        Original
+      </div>
+    </div>
+  </div>,
+]
+`;

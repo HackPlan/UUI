@@ -10,9 +10,11 @@ export function compileProps(props: any, ref?: any): any {
   const rootCustomizeProps: any = (compiledProps.customize as any)['Root'] || {};
   /**
    * Convenience props: className, style
-   * className will be injected into customize.Root { extendClassName: ... }
-   * style will be injected into customize.Root { extendStyle: ... }
-   * id will be injected into customize.Root { id: ... }
+   * `className` will be injected into customize.Root { extendClassName: ... }
+   * `style` will be injected into customize.Root { extendStyle: ... }
+   * `id` will be injected into customize.Root { id: ... }
+   * `data-*` will be injected into customize.Root { dataAttributes: ... }
+   * `aria-*` will be injected into customize.Root { ariaAttributes: ... }
    */
   if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
   if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle);
@@ -24,12 +26,15 @@ export function compileProps(props: any, ref?: any): any {
     rootCustomizeProps.dataAttributes = Object.assign(dataAttributes, rootCustomizeProps.dataAttributes);
   }
 
-
   let ariaAttributes = pickBy(compiledProps, (v, k) => k.startsWith('aria-'))
   ariaAttributes = mapKeys(ariaAttributes, (v, k) => k.replace('aria-', ''))
   if (!isEmpty(ariaAttributes)) {
     rootCustomizeProps.ariaAttributes = Object.assign(ariaAttributes, rootCustomizeProps.ariaAttributes);
   }
+
+  /**
+   * set undefined if customize is empty
+   */
 
   if (!isEmpty(rootCustomizeProps)) {
     (compiledProps.customize as any)['Root'] = rootCustomizeProps;

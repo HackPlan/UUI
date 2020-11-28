@@ -2,7 +2,7 @@ import React from 'react';
 import { isString } from 'lodash-es';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import classNames from 'classnames';
-import { UUIFunctionComponent, UUIComponentProps } from '../../core';
+import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
 export interface HTMLSelectOption<T> {
   label: string;
@@ -92,4 +92,6 @@ export function HTMLSelect<T extends string | number>(props: UUIComponentProps<H
   return <BaseHTMLSelect {...props} />
 }
 HTMLSelect.displayName = `<UUI> [GenericComponent] HTMLSelect`
+
+export type HTMLSelectProps = UUIFunctionComponentProps<typeof HTMLSelect>
 

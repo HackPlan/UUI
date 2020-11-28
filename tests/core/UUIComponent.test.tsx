@@ -196,6 +196,7 @@ it('UUIComponentHOC - customize', () => {
               extendStyle: {
                 width: 400,
               },
+              extendChildrenBefore: <div>Customize ExtendBefore Inner</div>,
               extendChildrenAfter: <div>Customize ExtendAfter Inner</div>,
             }
           }}
@@ -227,7 +228,8 @@ it('UUIComponentHOC - customize', () => {
           extendStyle: {
             height: 200,
           },
-          extendChildrenAfter: <div>Customize ExtendAfter Outter</div>
+          extendChildrenBefore: <div>Customize ExtendBefore Outter</div>,
+          extendChildrenAfter: <div>Customize ExtendAfter Outter</div>,
         }
       }
     }}

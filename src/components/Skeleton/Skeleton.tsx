@@ -2,7 +2,7 @@ import React from 'react';
 import { SkeletonParagraph } from './Paragraph';
 import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
-import { UUIFunctionComponent } from '../../core';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
 
 
@@ -29,3 +29,5 @@ const Skeleton = createGroupedComponent(_Skeleton, {
 })
 
 export { Skeleton }
+
+export type SkeletonProps = UUIFunctionComponentProps<typeof _Skeleton>

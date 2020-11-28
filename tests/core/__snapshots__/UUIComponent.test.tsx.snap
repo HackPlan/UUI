@@ -329,6 +329,12 @@ exports[`UUIComponentHOC - customize 1`] = `
         }
       }
     >
+      <div>
+        Customize ExtendBefore Inner
+      </div>
+      <div>
+        Customize ExtendBefore Outter
+      </div>
       UUITestClassComponent
       <div>
         Customize ExtendAfter Inner
@@ -350,6 +356,9 @@ exports[`UUIComponentHOC - customize 1`] = `
         }
       }
     >
+      <div>
+        Customize ExtendBefore Outter
+      </div>
       UUITestClassComponent
       <div>
         Customize ExtendAfter Outter
