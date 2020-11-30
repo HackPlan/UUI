@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.6
+
+- 新的组件工具: UUIProvider, UUIComponentProxy
+
 ### v0.5.5
 
 - 新的打包配置

@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.6
+
+- new component utils: UUIProvider, UUIComponentProxy
+
 ### v0.5.5
 
 - new package distribution config
