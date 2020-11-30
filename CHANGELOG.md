@@ -2,7 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
-### v0.5.6
+### v0.5.8
+
+- fix UUIProvider export
+
+### v0.5.7
 
 - new component utils: UUIProvider, UUIComponentProxy
 

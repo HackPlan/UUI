@@ -3,6 +3,7 @@
  */
 
 export * from './core'
+export { UUIProvider } from './UUIProvider';
 
 /**
  * Component Export
