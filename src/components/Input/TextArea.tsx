@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import classNames from 'classnames';
 
@@ -43,7 +43,7 @@ export interface TextAreaFeatureProps {
   showLengthIndicator?: boolean;
 }
 
-export const TextArea = UUI.FunctionComponent({
+export const TextArea = UUIFunctionComponent({
   name: 'TextArea',
   nodes: {
     Root: 'div',
@@ -96,4 +96,4 @@ export const TextArea = UUI.FunctionComponent({
   )
 })
 
-export type TextAreaProps = Parameters<typeof TextArea>[0]
+export type TextAreaProps = UUIFunctionComponentProps<typeof TextArea>

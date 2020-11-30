@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface LayoutHeaderFeatureProps {
   /**
@@ -8,7 +8,7 @@ export interface LayoutHeaderFeatureProps {
   children?: React.ReactNode;
 }
 
-export const LayoutHeader = UUI.FunctionComponent({
+export const LayoutHeader = UUIFunctionComponent({
   name: 'LayoutHeader',
   nodes: {
     Root: 'header',
@@ -22,4 +22,4 @@ export const LayoutHeader = UUI.FunctionComponent({
   )
 })
 
-export type LayoutHeaderProps = Parameters<typeof LayoutHeader>[0]
+export type LayoutHeaderProps = UUIFunctionComponentProps<typeof LayoutHeader>

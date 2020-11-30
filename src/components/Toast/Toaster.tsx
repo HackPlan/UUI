@@ -2,10 +2,9 @@ import { IToast, Toast, ToastProps } from './Toast';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
-
 import classNames from 'classnames';
-import { UUI } from '../../core/uui';
 import ReactHelper from '../../utils/ReactHelper';
+import { UUIClassComponent, UUIClassComponentProps } from '../../core';
 
 export enum ToasterPosition {
   Top = "top",
@@ -40,7 +39,7 @@ export interface ToasterState {
 
 
 const ToasterPortalClassName = "UUI-Toaster-Portal"
-export class Toaster extends UUI.ClassComponent({
+export class Toaster extends UUIClassComponent({
   prefix: 'UUI',
   name: 'Toaster',
   nodes: {
@@ -128,3 +127,4 @@ export class Toaster extends UUI.ClassComponent({
     )
   }
 }
+export type ToasterProps = UUIClassComponentProps<typeof Toaster>

@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
 import { useClickAway } from 'react-use';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import ReactHelper from '../../utils/ReactHelper';
 
 export type PopoverPlacement = Exclude<Placement, ''>
@@ -66,7 +66,7 @@ export interface PopoverFeatureProps {
   popperElement?: Element;
 }
 
-export const Popover = UUI.FunctionComponent({
+export const Popover = UUIFunctionComponent({
   name: 'Popover',
   nodes: {
     Root: 'div',
@@ -173,4 +173,4 @@ export const Popover = UUI.FunctionComponent({
   )
 })
 
-export type PopoverProps = Parameters<typeof Popover>[0]
+export type PopoverProps = UUIFunctionComponentProps<typeof Popover>

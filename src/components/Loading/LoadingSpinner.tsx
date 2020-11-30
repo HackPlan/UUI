@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Icons } from '../../icons/Icons';
 
 export type LoadingSpinnerFeatureProps = {
@@ -9,7 +9,7 @@ export type LoadingSpinnerFeatureProps = {
   animate?: boolean;
 }
 
-export const LoadingSpinner = UUI.FunctionComponent({
+export const LoadingSpinner = UUIFunctionComponent({
   name: 'LoadingSpinner',
   nodes: {
     Root: 'div',
@@ -33,4 +33,4 @@ export const LoadingSpinner = UUI.FunctionComponent({
   )
 })
 
-export type LoadingSpinnerProps = Parameters<typeof LoadingSpinner>[0]
+export type LoadingSpinnerProps = UUIFunctionComponentProps<typeof LoadingSpinner>

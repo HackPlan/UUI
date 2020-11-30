@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
 import React, { useRef } from 'react';
-import { UUI, UUIFunctionComponentProps } from '../../core/uui';
 import { LoadingSpinner } from '../Loading';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface ButtonStylingProps {
   styling?: {
@@ -19,7 +19,7 @@ export interface ButtonFeatureProps extends React.ButtonHTMLAttributes<HTMLButto
   loading?: boolean;
 }
 
-export const Button = UUI.FunctionComponent({
+export const Button = UUIFunctionComponent({
   name: 'Button',
   nodes: {
     Root: 'button',

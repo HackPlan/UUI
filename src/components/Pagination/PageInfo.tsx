@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
 
 export interface PageInfoFeatureProps {
@@ -9,7 +9,7 @@ export interface PageInfoFeatureProps {
   onRender?: (startItem: number, endItem: number, totalItem: number) => React.ReactNode;
 }
 
-export const PageInfo = UUI.FunctionComponent({
+export const PageInfo = UUIFunctionComponent({
   name: 'PageInfo',
   nodes: {
     Root: 'div',
@@ -35,4 +35,4 @@ export const PageInfo = UUI.FunctionComponent({
   )
 })
 
-export type PageInfoProps = Parameters<typeof PageInfo>[0]
+export type PageInfoProps = UUIFunctionComponentProps<typeof PageInfo>

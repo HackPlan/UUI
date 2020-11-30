@@ -23,6 +23,7 @@
   "scripts": {
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "test": "jest",
+    "cleantest": "jest --clearCache && jest",
     "build": "NODE_ENV=production rollup -c",
     "cleanbuild": "rimraf lib && yarn build",
     "pack:uui": "yarn cleanbuild && yarn pack",
@@ -80,6 +81,7 @@
     "file-loader": "^6.0.0",
     "github-markdown-css": "^4.0.0",
     "jest": "^26.1.0",
+    "jest-svg-transformer": "^1.0.0",
     "lodash-es": "^4.17.15",
     "netlify-cli": "^2.40.0",
     "npm-run-all": "^4.1.5",

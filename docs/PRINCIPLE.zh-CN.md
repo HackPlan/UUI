@@ -52,7 +52,7 @@ UUI 的 UI 组件有一些共有通用的功能，为了不重复在每个组件
 import classNames from 'classnames';
 import { omit } from 'lodash-es';
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LoadingSpinner } from '../Loading';
 
 export interface ButtonStylingProps {
@@ -69,7 +69,7 @@ export interface ButtonFeatureProps extends React.ButtonHTMLAttributes<HTMLButto
   loading?: boolean;
 }
 
-export const Button = UUI.FunctionComponent({
+export const Button = UUIFunctionComponent({
   name: 'Button',
   nodes: {
     Root: 'button',
@@ -96,7 +96,7 @@ export const Button = UUI.FunctionComponent({
   )
 })
 
-export type ButtonProps = Parameters<typeof Button>[0]
+export type ButtonProps = UUIFunctionComponentProps<typeof Button>
 ```
 
 首先是我们定义了两个 Props，分别是 `ButtonStylingProps` 和 `ButtonFeatureProps`。这两个 Props 是作为 `按钮 Button` 这个组件业务功能的属性，所以它们被定义在了 `src/components/Button/Button.tsx` 文件，而不是 `src/core/uui.tsx` 文件里。
@@ -299,7 +299,7 @@ UUI 的组件支持在开发阶段和使用阶段定义组件的前缀和分隔�
 比如我们可以在开发阶段定义一个组件：
 
 ```tsx
-const Test = UUI.FunctionComponent({
+const Test = UUIFunctionComponent({
   prefix: "XUI",
   name: "Test",
   separator: "+",

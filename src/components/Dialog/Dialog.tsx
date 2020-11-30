@@ -2,7 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import useFocusTrap from '@charlietango/use-focus-trap';
 
 import classNames from 'classnames';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 import ReactDOM from 'react-dom';
 import ReactHelper from '../../utils/ReactHelper';
@@ -48,7 +48,7 @@ export interface DialogFeatureProps {
   children?: React.ReactNode | string;
 }
 
-export const Dialog = UUI.FunctionComponent({
+export const Dialog = UUIFunctionComponent({
   name: 'Dialog',
   nodes: {
     Root: 'div',
@@ -134,4 +134,4 @@ export const Dialog = UUI.FunctionComponent({
   )
 })
 
-export type DialogProps = Parameters<typeof Dialog>[0]
+export type DialogProps = UUIFunctionComponentProps<typeof Dialog>

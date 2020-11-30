@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Button } from '../../components/Button';
 import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
@@ -53,7 +53,7 @@ export interface StepperFeatureProps {
   placeholder?: string;
 }
 
-export const Stepper = UUI.FunctionComponent({
+export const Stepper = UUIFunctionComponent({
   name: 'Stepper',
   nodes: {
     Root: 'div',
@@ -186,4 +186,4 @@ export const Stepper = UUI.FunctionComponent({
   )
 })
 
-export type StepperProps = Parameters<typeof Stepper>[0]
+export type StepperProps = UUIFunctionComponentProps<typeof Stepper>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { UUI, UUIFunctionComponentProps } from '../../core/uui';
 import classNames from 'classnames';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface ListBoxItem {
   disabled?: boolean;
@@ -23,7 +23,7 @@ export interface ListBoxFeatureProps {
   onUnselect?: (id: string) => void;
 }
 
-export const ListBox = UUI.FunctionComponent({
+export const ListBox = UUIFunctionComponent({
   name: 'ListBox',
   nodes: {
     Root: 'div',

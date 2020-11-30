@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useArrayCacheRender } from '../../hooks/useCacheRender';
 import { Checkbox as UUICheckbox } from '../Checkbox';
 import { LoadingCover } from '../Loading';
@@ -78,7 +78,7 @@ export const TableNodes = {
   EmptyView: 'div',
 } as const
 
-export const Table = UUI.FunctionComponent({
+export const Table = UUIFunctionComponent({
   name: 'Table',
   nodes: TableNodes,
 }, (props: TableFeatureProps<any>, nodes) => {
@@ -258,4 +258,4 @@ export const Table = UUI.FunctionComponent({
   )
 })
 
-export type TableProps = Parameters<typeof Table>[0]
+export type TableProps = UUIFunctionComponentProps<typeof Table>

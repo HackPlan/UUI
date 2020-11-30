@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
 import { HTMLSelect } from '../Select';
 
@@ -8,7 +8,7 @@ export interface PageSizeFeatureProps {
   labelRender?: (pageSize: number) => string;
 }
 
-export const PageSize = UUI.FunctionComponent({
+export const PageSize = UUIFunctionComponent({
   name: 'PageSize',
   nodes: {
     Root: 'div',
@@ -41,4 +41,4 @@ export const PageSize = UUI.FunctionComponent({
   )
 })
 
-export type PageSizeProps = Parameters<typeof PageSize>[0]
+export type PageSizeProps = UUIFunctionComponentProps<typeof PageSize>

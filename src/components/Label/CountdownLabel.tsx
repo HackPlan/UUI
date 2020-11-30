@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useInterval } from 'react-use';
 import { format, differenceInMilliseconds } from 'date-fns';
 import { addHours, addMilliseconds } from 'date-fns/esm';
@@ -27,7 +27,7 @@ export interface CountdownLabelFeatureProps {
   allowNegative?: boolean;
 }
 
-export const CountdownLabel = UUI.FunctionComponent({
+export const CountdownLabel = UUIFunctionComponent({
   name: 'CountdownLabel',
   nodes: {
     Root: 'label',
@@ -61,4 +61,4 @@ export const CountdownLabel = UUI.FunctionComponent({
 
 
 
-export type CountdownLabelProps = Parameters<typeof CountdownLabel>[0]
+export type CountdownLabelProps = UUIFunctionComponentProps<typeof CountdownLabel>

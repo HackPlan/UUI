@@ -1,6 +1,6 @@
 
 import React, { useMemo, useRef, useCallback, useState, useEffect } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useEvent } from 'react-use';
 import { clamp, clone, inRange, isArray } from 'lodash-es';
 import classNames from 'classnames';
@@ -49,7 +49,7 @@ export interface SliderFeatureProps {
   vertical?: boolean;
 }
 
-export const Slider = UUI.FunctionComponent({
+export const Slider = UUIFunctionComponent({
   name: 'Slider',
   nodes: {
     Root: 'div',
@@ -347,6 +347,6 @@ export const Slider = UUI.FunctionComponent({
   )
 })
 
-export type SliderProps = Parameters<typeof Slider>[0]
+export type SliderProps = UUIFunctionComponentProps<typeof Slider>
 
 const toPercentage = (n: number) => `${(n * 100).toFixed(4)}%`

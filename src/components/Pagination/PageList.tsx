@@ -1,7 +1,7 @@
 import React, { useMemo, useContext } from 'react';
 import { range } from 'lodash-es';
 import { Button as UUIButton } from '../Button';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
 import classNames from 'classnames';
 
@@ -10,7 +10,7 @@ export interface PageListFeatureProps {
 }
 
 
-export const PageList = UUI.FunctionComponent({
+export const PageList = UUIFunctionComponent({
   name: 'PageList',
   nodes: {
     Root: 'div',
@@ -53,7 +53,7 @@ export const PageList = UUI.FunctionComponent({
   )
 })
 
-export type PageListProps = Parameters<typeof PageList>[0]
+export type PageListProps = UUIFunctionComponentProps<typeof PageList>
 
 const getEllipsisPageData = (currentPage: number, pageCount: number) => {
   const delta = (() => {

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useMemo } from "react";
-import { UUI } from "../../core/uui";
 import { clamp } from "lodash-es";
+import { UUIFunctionComponent, UUIFunctionComponentProps } from "../../core";
 
 export interface ProgressBarFeatureProps {
   /**
@@ -25,7 +25,7 @@ export interface ProgressBarFeatureProps {
   indeterminate?: boolean;
 }
 
-export const ProgressBar = UUI.FunctionComponent(
+export const ProgressBar = UUIFunctionComponent(
   {
     name: "ProgressBar",
     nodes: {
@@ -117,6 +117,6 @@ export const ProgressBar = UUI.FunctionComponent(
   }
 );
 
-export type ProgressBarProps = Parameters<typeof ProgressBar>[0];
+export type ProgressBarProps = UUIFunctionComponentProps<typeof ProgressBar>;
 
 const toPercentage = (n: number) => `${(n * 100).toFixed(4)}%`;

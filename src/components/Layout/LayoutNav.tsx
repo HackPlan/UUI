@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface LayoutNavFeatureProps {
   /**
@@ -8,7 +8,7 @@ export interface LayoutNavFeatureProps {
   children?: React.ReactNode;
 }
 
-export const LayoutNav = UUI.FunctionComponent({
+export const LayoutNav = UUIFunctionComponent({
   name: 'LayoutNav',
   nodes: {
     Root: 'nav',
@@ -23,4 +23,4 @@ export const LayoutNav = UUI.FunctionComponent({
   )
 })
 
-export type LayoutNavProps = Parameters<typeof LayoutNav>[0]
+export type LayoutNavProps = UUIFunctionComponentProps<typeof LayoutNav>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { isString } from 'lodash-es';
 
 export type SvgrComponentProps = React.SVGAttributes<SVGElement>
@@ -43,7 +43,7 @@ export interface IconAnyFeatureProps extends BaseIconFeatureProps {
 }
 export type IconFeatureProps = IconImageFeatureProps | IconSvgFeatureProps | IconAnyFeatureProps
 
-export const Icon = UUI.FunctionComponent({
+export const Icon = UUIFunctionComponent({
   name: 'Icon',
   nodes: {
     Root: 'div',
@@ -84,4 +84,4 @@ export const Icon = UUI.FunctionComponent({
   )
 })
 
-export type IconProps = Parameters<typeof Icon>[0]
+export type IconProps = UUIFunctionComponentProps<typeof Icon>

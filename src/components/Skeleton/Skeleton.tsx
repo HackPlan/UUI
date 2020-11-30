@@ -2,7 +2,7 @@ import React from 'react';
 import { SkeletonParagraph } from './Paragraph';
 import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
 
 
@@ -10,7 +10,7 @@ export interface SkeletonFeatureProps {
   children?: React.ReactNode | string;
 }
 
-export const _Skeleton = UUI.FunctionComponent({
+export const _Skeleton = UUIFunctionComponent({
   name: 'Skeleton',
   nodes: {
     Root: 'div'
@@ -29,3 +29,5 @@ const Skeleton = createGroupedComponent(_Skeleton, {
 })
 
 export { Skeleton }
+
+export type SkeletonProps = UUIFunctionComponentProps<typeof _Skeleton>

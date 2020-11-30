@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { omit } from 'lodash-es';
 import classNames from 'classnames';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface CheckboxFeatureProps {
@@ -34,7 +34,7 @@ export interface CheckboxFeatureProps {
   disabled?: boolean;
 }
 
-export const Checkbox = UUI.FunctionComponent({
+export const Checkbox = UUIFunctionComponent({
   name: 'Checkbox',
   nodes: {
     Root: 'label',
@@ -88,4 +88,4 @@ export const Checkbox = UUI.FunctionComponent({
   )
 })
 
-export type CheckboxProps = Parameters<typeof Checkbox>[0]
+export type CheckboxProps = UUIFunctionComponentProps<typeof Checkbox>

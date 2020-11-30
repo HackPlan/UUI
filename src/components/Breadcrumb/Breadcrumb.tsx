@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import ReactHelper from '../../utils/ReactHelper';
 import classNames from 'classnames';
 
@@ -16,7 +16,7 @@ export interface BreadcrumbFeatureProps {
   items: BreadcrumbItem[];
 }
 
-export const Breadcrumb = UUI.FunctionComponent({
+export const Breadcrumb = UUIFunctionComponent({
   name: 'Breadcrumb',
   nodes: {
     Root: 'nav',
@@ -62,4 +62,4 @@ export const Breadcrumb = UUI.FunctionComponent({
   )
 })
 
-export type BreadcrumbProps = Parameters<typeof Breadcrumb>[0]
+export type BreadcrumbProps = UUIFunctionComponentProps<typeof Breadcrumb>

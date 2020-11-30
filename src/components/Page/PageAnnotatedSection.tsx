@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface PageAnnotatedSectionFeatureProps {
   title: string;
@@ -10,7 +10,7 @@ export interface PageAnnotatedSectionFeatureProps {
   children?: React.ReactNode;
 }
 
-export const PageAnnotatedSection = UUI.FunctionComponent({
+export const PageAnnotatedSection = UUIFunctionComponent({
   name: 'PageAnnotatedSection',
   nodes: {
     Root: 'div',
@@ -34,4 +34,4 @@ export const PageAnnotatedSection = UUI.FunctionComponent({
   )
 })
 
-export type PageAnnotatedSectionProps = Parameters<typeof PageAnnotatedSection>[0]
+export type PageAnnotatedSectionProps = UUIFunctionComponentProps<typeof PageAnnotatedSection>

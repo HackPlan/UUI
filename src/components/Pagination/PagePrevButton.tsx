@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { Button as UUIButton } from '../Button';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Icons } from '../../icons/Icons';
 import { PaginationContext } from './PaginationContext';
 
 export interface PagePrevButtonFeatureProps {
 }
 
-export const PagePrevButton = UUI.FunctionComponent({
+export const PagePrevButton = UUIFunctionComponent({
   name: 'PagePrevButton',
   nodes: {
     Root: UUIButton,
@@ -33,4 +33,4 @@ export const PagePrevButton = UUI.FunctionComponent({
   )
 })
 
-export type PagePrevButtonProps = Parameters<typeof PagePrevButton>[0]
+export type PagePrevButtonProps = UUIFunctionComponentProps<typeof PagePrevButton>

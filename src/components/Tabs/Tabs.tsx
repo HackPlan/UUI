@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { getValidTypeChildren } from '../../utils/componentHelper';
 import { Tab } from './Tab';
 import { TabsContext } from './TabsContext';
@@ -38,7 +38,7 @@ export interface TabsFeatureProps {
   toggleTabWhenFocusChange?: boolean;
 }
 
-export const Tabs = UUI.FunctionComponent({
+export const Tabs = UUIFunctionComponent({
   name: 'Tabs',
   nodes: {
     Root: 'div',
@@ -145,4 +145,4 @@ export const Tabs = UUI.FunctionComponent({
   )
 })
 
-export type TabsProps = Parameters<typeof Tabs>[0]
+export type TabsProps = UUIFunctionComponentProps<typeof Tabs>

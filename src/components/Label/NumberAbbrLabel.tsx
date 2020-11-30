@@ -1,5 +1,5 @@
 import React from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { formatMoney } from '../../utils/moneyHelper';
 import { numberAbbr, NumberAbbrUnit } from '../../utils/numberHelper';
 
@@ -18,7 +18,7 @@ export interface NumberAbbrLabelFeatureProps {
   maxPrecision?: number;
 }
 
-export const NumberAbbrLabel = UUI.FunctionComponent({
+export const NumberAbbrLabel = UUIFunctionComponent({
   name: 'NumberAbbrLabel',
   nodes: {
     Root: 'abbr',
@@ -34,4 +34,4 @@ export const NumberAbbrLabel = UUI.FunctionComponent({
   )
 })
 
-export type NumberAbbrLabelProps = Parameters<typeof NumberAbbrLabel>[0]
+export type NumberAbbrLabelProps = UUIFunctionComponentProps<typeof NumberAbbrLabel>

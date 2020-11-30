@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { TabsContext } from './TabsContext';
 import classNames from 'classnames';
 
@@ -18,7 +18,7 @@ export interface TabFeatureProps {
   children: React.ReactNode;
 }
 
-export const Tab = UUI.FunctionComponent({
+export const Tab = UUIFunctionComponent({
   name: 'Tab',
   nodes: {
     Root: 'div',
@@ -61,4 +61,4 @@ export const Tab = UUI.FunctionComponent({
   )
 })
 
-export type TabProps = Parameters<typeof Tab>[0]
+export type TabProps = UUIFunctionComponentProps<typeof Tab>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TimeFormatterLocale, TimeFormatterLocaleKinds, timeFormat } from '../../utils/timeFormatter';
-import { UUI } from '../../core/uui';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface TimeLabelFeatureProps<T extends TimeFormatterLocale> {
   /**
@@ -22,7 +22,7 @@ export interface TimeLabelFeatureProps<T extends TimeFormatterLocale> {
   kind: TimeFormatterLocaleKinds[T][number];
 }
 
-export const TimeLabel = UUI.FunctionComponent({
+export const TimeLabel = UUIFunctionComponent({
   name: 'TimeLabel',
   nodes: {
     Root: 'div',
@@ -36,4 +36,4 @@ export const TimeLabel = UUI.FunctionComponent({
   )
 })
 
-export type TimeLabelProps = Parameters<typeof TimeLabel>[0]
+export type TimeLabelProps = UUIFunctionComponentProps<typeof TimeLabel>
