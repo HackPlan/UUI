@@ -29,7 +29,7 @@ UUI 的开源代码仓库包含的很多的内容，其中包括不限于 UI 组
 
 UUI 的一大特色就是**组件样式自定义功能**，为了让使用 UUI 的开发者能更方便快捷地修改组件的样式，我们在实现的时候遵从了一些设计模式，用来高效地将自定义功能应用于所有的 UUI 组件。这些设计模式最后以 HOC 工具的形式实现了出来。
 
-UUI 的 UI 组件有一些共有通用的功能，为了不重复在每个组件内重复实现这些功能，UUI 开发了一套 HOC 工具函数。这里提到的 HOC 工具主要就是指位于 `src/core/uui.tsx` 的 `UUI.FunctionComponent` 和 `UUI.ClassComponent`。
+UUI 的 UI 组件有一些共有通用的功能，为了不重复在每个组件内重复实现这些功能，UUI 开发了一套 HOC 工具函数。这里提到的 HOC 工具主要就是指位于 `src/core/UUIComponent.tsx` 的 `UUIFunctionComponent` 和 `UUIClassComponent`。
 
 所有通过 HOC 工具构建实现的组件都包含了以下的功能特性：
 
@@ -99,11 +99,11 @@ export const Button = UUIFunctionComponent({
 export type ButtonProps = UUIFunctionComponentProps<typeof Button>
 ```
 
-首先是我们定义了两个 Props，分别是 `ButtonStylingProps` 和 `ButtonFeatureProps`。这两个 Props 是作为 `按钮 Button` 这个组件业务功能的属性，所以它们被定义在了 `src/components/Button/Button.tsx` 文件，而不是 `src/core/uui.tsx` 文件里。
+首先是我们定义了两个 Props，分别是 `ButtonStylingProps` 和 `ButtonFeatureProps`。这两个 Props 是作为 `按钮 Button` 这个组件业务功能的属性，所以它们被定义在了 `src/components/Button/Button.tsx` 文件，而不是 `src/core/UUIComponent.tsx` 文件里。
 
-然后是我们通过 `UUI.FunctionComponent` HOC 工具创建了一个 Button Component。
+然后是我们通过 `UUIFunctionComponent` HOC 工具创建了一个 Button Component。
 
-UUI 提供的两个 HOC 方法（`UUI.FunctionComponent` 和 `UUI.ClassComponent`）分别用来创建 `function-based component` 和 `class-based component`。这两个方法第一个参数 `options` 接受相同类型的数据，用来定义一些这个组件的基础信息：
+UUI 提供的两个 HOC 方法（`UUIFunctionComponent` 和 `UUIClassComponent`）分别用来创建 `function-based component` 和 `class-based component`。这两个方法第一个参数 `options` 接受相同类型的数据，用来定义一些这个组件的基础信息：
 
 * `prefix` 定义组件节点 className 前缀 （可选参数，默认为 `UUI`）
 * `separator` 定义节点 className 前缀、名字和节点名之前的连接字符 （可选参数，默认为 `-`）
@@ -111,10 +111,10 @@ UUI 提供的两个 HOC 方法（`UUI.FunctionComponent` 和 `UUI.ClassComponent
 * `nodes` 定义这个组件包含有哪些 Node，包括 Node 的名字和内容。这个参数接受一个 Object：`key` 只能是 string；value 可以是 `div`、`p`、`span` 和 `h1` 等这样的 HTML 内置组件（在 UUI 里被称为 `IntrinsicNode`），也可以是一个 UUI 的组件（在 UUI 里被称为 `ComponentNode`）。HOC 工具根据传入的 `options.nodes` 数据，构建出真正可用的 `IntrinsicNode` 和 `ComponentNode`，提供给组件使用以实现业务功能。
 
 
-同样地，也可以用 `UUI.ClassComponent` 来创建 `按钮 Button` 组件：
+同样地，也可以用 `UUIClassComponent` 来创建 `按钮 Button` 组件：
 
 ```tsx
-export class Button extends UUI.ClassComponent({
+export class Button extends UUIClassComponent({
   name: 'Button',
   nodes: {
     Root: 'button',
@@ -290,7 +290,7 @@ function StyledButton(props: ButtonFeatureProps) {
 <StyledButton>Click me!</StyledButton>
 ```
 
-注意：目前暂时不支持封装之后的 customize 支持。
+注意：目前暂时不支持封装之后的 customize 支持。（新的组件工具 UUIComponentProxy 支持）
 
 ## 组件前缀和分隔符
 

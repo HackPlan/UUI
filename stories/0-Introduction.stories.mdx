@@ -1,0 +1,9 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import ReactMarkdown from 'react-markdown';
+import Introduction from '../docs/INTRODUCTION.zh-CN.md';
+
+<Meta title="文档/介绍 Introduction" parameters={{ sortIndex: '0-uui-2' }} />
+
+<div className="markdown-body">
+  <ReactMarkdown source={Introduction} escapeHtml={false} />
+</div>

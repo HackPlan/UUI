@@ -58,11 +58,12 @@ function App() {
 ## 链接
 
 * [文档](https://doc.uui.cool)
-* [更新日志](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
-* [项目贡献指南](https://github.com/HackPlan/UUI/blob/master/docs/CONTRIBUTING.zh-CN.md)
+* [介绍](https://github.com/HackPlan/UUI/blob/master/INTRODUCTION.zh-CN.md)
+* [使用自定义](https://github.com/HackPlan/UUI/blob/master/USING_CUSTOMIZE.zh-CN.md)
 * [原理与实现](https://github.com/HackPlan/UUI/blob/master/docs/PRINCIPLE.zh-CN.md)
-* [样式自定义示例](https://doc.uui.cool/?path=/docs/customize-tutorial--demo-stepper)
+* [项目贡献指南](https://github.com/HackPlan/UUI/blob/master/docs/CONTRIBUTING.zh-CN.md)
 * [生产部署指南](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOYMENT.zh-CN.md)
+* [更新日志](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
 
 ## 本地开发

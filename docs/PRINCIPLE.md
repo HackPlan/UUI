@@ -29,7 +29,7 @@ UUI's open source code repository contains a lot of content, including but not l
 
 A major feature of UUI is the **component style customization**. In order to allow developers who use UUI to modify the style of components more conveniently and quickly, we have followed some design patterns when implementing them to efficiently integrate the customization function applies to all UUI components. These design patterns were finally implemented in the form of HOC tools.
 
-UUI's UI components have some common functions. In order not to repeatedly implement these functions in each component, UUI has developed a set of HOC tool functions. The HOC tools mentioned here mainly refer to the `UUI.FunctionComponent` and `UUI.ClassComponent` located in `src/core/uui.tsx`.
+UUI's UI components have some common functions. In order not to repeatedly implement these functions in each component, UUI has developed a set of HOC tool functions. The HOC tools mentioned here mainly refer to the `UUIFunctionComponent` and `UUIClassComponent` located in `src/core/UUIComponent.tsx`.
 
 All components built and implemented by HOC tools include the following features:
 
@@ -99,21 +99,21 @@ export const Button = UUIFunctionComponent({
 export type ButtonProps = UUIFunctionComponentProps<typeof Button>
 ```
 
-The first is that we define two Props, namely `ButtonStylingProps` and `ButtonFeatureProps`. These two Props are used as attributes of the feature function of the component `Button`, so they are defined in the `src/components/Button/Button.tsx` file instead of the `src/core/uui.tsx` file.
+The first is that we define two Props, namely `ButtonStylingProps` and `ButtonFeatureProps`. These two Props are used as attributes of the feature function of the component `Button`, so they are defined in the `src/components/Button/Button.tsx` file instead of the `src/core/UUIComponent.tsx` file.
 
-Then we created a Button Component through the `UUI.FunctionComponent` HOC function tool.
+Then we created a Button Component through the `UUIFunctionComponent` HOC function tool.
 
-The two HOC methods provided by UUI (`UUI.FunctionComponent` and `UUI.ClassComponent`) are used to create `function-based component` and `class-based component` respectively. The first parameter `options` of these two methods accepts the same type of data to define some basic information of this component:
+The two HOC methods provided by UUI (`UUIFunctionComponent` and `UUIClassComponent`) are used to create `function-based component` and `class-based component` respectively. The first parameter `options` of these two methods accepts the same type of data to define some basic information of this component:
 
 * `prefix` defines the component node className prefix (optional parameter, the default is `UUI`)
 * `separator` defines node className prefix, name and connection character before node name (optional parameter, default is `-`)
 * `name` defines the name of the component
 * `nodes` defines which Nodes this component contains, including the name and content of the Node. This parameter accepts an Object: `key` can only be a string; value can be HTML built-in components such as `div`, `p`, `span` and `h1` (called `IntrinsicNode` in UUI), It can also be a UUI component (called `ComponentNode` in UUI). The HOC tool constructs the truly usable IntrinsicNode and ComponentNode based on the incoming `options.nodes` data, and provides them to the components to implement feature functions.
 
-Similarly, we can also use `UUI.ClassComponent` to create a `Button` component:
+Similarly, we can also use `UUIClassComponent` to create a `Button` component:
 
 ```tsx
-export class Button extends UUI.ClassComponent({
+export class Button extends UUIClassComponent({
   name: 'Button',
   nodes: {
     Root: 'button',
