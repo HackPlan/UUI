@@ -1,62 +1,132 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UUIProvider - customize 1`] = `
-<div
-  className="UUI-TestComponent-Root root-base-classname"
-  style={
-    Object {
-      "backgroundColor": "green",
-      "fontWeight": 300,
-    }
-  }
->
+Array [
   <div
-    className="UUI-TestComponent-Node node-base-classname"
+    className="UUI-TestComponent-Root root-base-classname"
     style={
       Object {
-        "height": 300,
-        "width": 200,
+        "backgroundColor": "green",
+        "fontWeight": 300,
       }
     }
-  />
-  <div
-    className="UUI-TestComponent-ExtendTest"
   >
-    <div>
-      Original
+    <div
+      className="UUI-TestComponent-Node node-base-classname"
+      style={
+        Object {
+          "height": 300,
+          "width": 200,
+        }
+      }
+    />
+    <div
+      className="UUI-TestComponent-ExtendTest"
+    >
+      <div>
+        Original
+      </div>
     </div>
-  </div>
-</div>
+  </div>,
+  <div
+    className="UUI-TestUnionComponent-Root"
+  >
+    <div
+      className="UUI-TestComponent-Root root-base-classname UUI-TestUnionComponent-TestComponent"
+      style={
+        Object {
+          "backgroundColor": "green",
+          "fontWeight": 300,
+        }
+      }
+    >
+      <div
+        className="UUI-TestComponent-Node node-base-classname"
+        style={
+          Object {
+            "height": 300,
+            "width": 200,
+          }
+        }
+      />
+      <div
+        className="UUI-TestComponent-ExtendTest"
+      >
+        <div>
+          Original
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;
 
 exports[`UUIProvider - customize 2`] = `
-<div
-  className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName"
-  style={
-    Object {
-      "backgroundColor": "red",
-      "color": "blue",
-      "fontWeight": 400,
-    }
-  }
->
+Array [
   <div
-    className="UUI-TestComponent-Node node-base-classname"
+    className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName"
     style={
       Object {
-        "height": 300,
-        "width": 200,
+        "backgroundColor": "red",
+        "color": "blue",
+        "fontWeight": 400,
       }
     }
-  />
-  <div
-    className="UUI-TestComponent-ExtendTest"
   >
-    <div>
-      Original
+    <div
+      className="UUI-TestComponent-Node node-base-classname"
+      style={
+        Object {
+          "height": 300,
+          "width": 200,
+        }
+      }
+    />
+    <div
+      className="UUI-TestComponent-ExtendTest"
+    >
+      <div>
+        Original
+      </div>
     </div>
-  </div>
-</div>
+  </div>,
+  <div
+    className="UUI-TestUnionComponent-Root"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName UUI-TestUnionComponent-TestComponent"
+      style={
+        Object {
+          "backgroundColor": "red",
+          "color": "pink",
+          "fontWeight": 400,
+        }
+      }
+    >
+      <div
+        className="UUI-TestComponent-Node node-base-classname"
+        style={
+          Object {
+            "height": 300,
+            "width": 200,
+          }
+        }
+      />
+      <div
+        className="UUI-TestComponent-ExtendTest"
+      >
+        <div>
+          Original
+        </div>
+      </div>
+    </div>
+  </div>,
+]
 `;
 
 exports[`UUIProvider - customize 3`] = `
@@ -114,6 +184,78 @@ Array [
     >
       <div>
         Original
+      </div>
+    </div>
+  </div>,
+  <div
+    className="UUI-TestUnionComponent-Root"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName UUI-TestUnionComponent-TestComponent"
+      style={
+        Object {
+          "backgroundColor": "red",
+          "color": "aliceblue",
+          "fontWeight": 400,
+        }
+      }
+    >
+      <div
+        className="UUI-TestComponent-Node node-base-classname"
+        style={
+          Object {
+            "height": 300,
+            "width": 200,
+          }
+        }
+      />
+      <div
+        className="UUI-TestComponent-ExtendTest"
+      >
+        <div>
+          Original
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="UUI-TestUnionComponent-Root"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      className="UUI-TestComponent-Root root-base-classname GlobalExtendButtonClassName UUI-TestUnionComponent-TestComponent"
+      style={
+        Object {
+          "backgroundColor": "red",
+          "color": "cornsilk",
+          "fontWeight": 400,
+        }
+      }
+    >
+      <div
+        className="UUI-TestComponent-Node node-base-classname"
+        style={
+          Object {
+            "height": 300,
+            "width": 200,
+          }
+        }
+      />
+      <div
+        className="UUI-TestComponent-ExtendTest"
+      >
+        <div>
+          Original
+        </div>
       </div>
     </div>
   </div>,

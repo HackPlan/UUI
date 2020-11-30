@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.9
+
+- fix UUIProvider merge customize issue
+
 ### v0.5.8
 
 - 修复 UUIProvider 导出

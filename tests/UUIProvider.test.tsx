@@ -33,8 +33,25 @@ const TestComponent = UUIFunctionComponent({
 })
 type TestComponentProps = UUIFunctionComponentProps<typeof TestComponent>
 
+const TestUnionComponent = UUIFunctionComponent({
+  name: 'TestUnionComponent',
+  nodes: {
+    Root: 'div',
+    TestComponent: TestComponent,
+  }
+}, (props: {}, nodes) => {
+  const { Root, TestComponent } = nodes
+  return (
+    <Root>
+      <TestComponent />
+    </Root>
+  )
+})
+type TestUnionComponentProps = UUIFunctionComponentProps<typeof TestUnionComponent>
+
 type TestUUIProviderCustomize = {
   TestComponent?: TestComponentProps['customize'];
+  TestUnionComponent?: TestUnionComponentProps['customize'];
 }
 
 const globalCustomizeConfig: TestUUIProviderCustomize = {
@@ -47,6 +64,20 @@ const globalCustomizeConfig: TestUUIProviderCustomize = {
         fontWeight: 400,
       }
     },
+  },
+  TestUnionComponent: {
+    Root: {
+      extendStyle: {
+        display: 'flex',
+      },
+    },
+    TestComponent: {
+      Root: {
+        extendStyle: {
+          color: 'pink',
+        },
+      }
+    }
   }
 }
 
@@ -69,6 +100,7 @@ it('UUIProvider - customize', () => {
       }}
     >
       <TestComponent />
+      <TestUnionComponent />
     </UUIProvider>
   )
   .toJSON();
@@ -80,6 +112,7 @@ it('UUIProvider - customize', () => {
       customize={globalCustomizeConfig}
     >
       <TestComponent />
+      <TestUnionComponent />
     </UUIProvider>
   )
   .toJSON();
@@ -108,6 +141,28 @@ it('UUIProvider - customize', () => {
               color: 'yellow',
               fontSize: 34,
             },
+          }
+        }}
+      />
+      <TestUnionComponent
+        customize={{
+          TestComponent: {
+            Root: {
+              extendStyle: {
+                color: 'aliceblue',
+              }
+            }
+          }
+        }}
+      />
+      <TestUnionComponent
+        customize={{
+          TestComponent: {
+            Root: {
+              extendStyle: {
+                color: 'cornsilk',
+              }
+            }
           }
         }}
       />
