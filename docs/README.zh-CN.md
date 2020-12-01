@@ -58,8 +58,8 @@ function App() {
 ## 链接
 
 * [文档](https://doc.uui.cool)
-* [介绍](https://github.com/HackPlan/UUI/blob/master/INTRODUCTION.zh-CN.md)
-* [使用自定义](https://github.com/HackPlan/UUI/blob/master/USING_CUSTOMIZE.zh-CN.md)
+* [介绍](https://github.com/HackPlan/UUI/blob/master/docs/INTRODUCTION.zh-CN.md)
+* [使用自定义功能](https://github.com/HackPlan/UUI/blob/master/docs/USING_CUSTOMIZE.zh-CN.md)
 * [原理与实现](https://github.com/HackPlan/UUI/blob/master/docs/PRINCIPLE.zh-CN.md)
 * [项目贡献指南](https://github.com/HackPlan/UUI/blob/master/docs/CONTRIBUTING.zh-CN.md)
 * [生产部署指南](https://github.com/HackPlan/UUI/blob/master/docs/DEPLOYMENT.zh-CN.md)
