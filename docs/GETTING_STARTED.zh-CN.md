@@ -8,7 +8,7 @@
 yarn add @hackplan/uui react react-dom
 ```
 
-1. 安装完成之后，就可以在你的网页应用中导入 UUI 组件了：
+2. 安装完成之后，就可以在你的网页应用中导入 UUI 组件了：
 
 ```tsx
 import { Button } from '@hackplan/uui';
@@ -20,13 +20,14 @@ const button1 = <Button>Click me!</Button>;
 const button2 = React.createElement(Button, { styling: { type: 'primary' } }, "点击我！");
 ```
 
-1. **不要忘记导入 CSS 样式文件！** 另外，UUI 的 NPM 包同时也提供了 Sass 的样式源码，你可以在 `lib/styles` 中找到它们。
+3. **不要忘记导入 CSS 样式文件！** 另外，UUI 的 NPM 包同时也提供了 Sass 的样式源码，你可以在 `lib/styles` 中找到它们。
 
 ```tsx
 // using node-style package resolution in a CSS file
 @import '@hackplan/uui/lib/index.css';
 ```
 
+[![Edit uui-getting-started](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/uui-getting-started-3fg1o?fontsize=14&hidenavigation=1&theme=dark)
 
 ## TypeScript
 

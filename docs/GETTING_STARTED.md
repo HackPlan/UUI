@@ -20,13 +20,14 @@ const button1 = <Button>Click me!</Button>;
 const button2 = React.createElement(Button, { styling: { type: 'primary' } }, "Click me!");
 ```
 
-1. **Don't forget to include css style file!** Besides, UUI package also provide Sass source style files, you can find it in `lib/styles`.
+3. **Don't forget to include css style file!** Besides, UUI package also provide Sass source style files, you can find it in `lib/styles`.
 
 ```tsx
 // using node-style package resolution in a CSS file
 @import '@hackplan/uui/lib/index.css';
 ```
 
+[![Edit uui-getting-started](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/uui-getting-started-3fg1o?fontsize=14&hidenavigation=1&theme=dark)
 
 
 ## TypeScript

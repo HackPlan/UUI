@@ -2,17 +2,19 @@
 
 ~~English~~ | 简体中文
 
-在实际的项目开发中，我们会创建出各种各样大大小小的组件（Component），这些组件使用范围各自不同，有的是全局范围内通用的组件，有些是特别定制风格的用于某个别页面的组件。
+对于常规的 UI 库组件，一般来说针对组件的一些风格定制，（比如改变 Sass、Less 预设变量），都属于全局定制。但是对于提供了强大自定义功能的 UUI，样式定制范围是一个值得关注的点。简单举例来说，同样是「按钮 Button」组件，我们可能有需求：1.在全局范围内定制出一个风格统一的按钮样式；2.在部分特殊的页面使用特殊风格的按钮；3.对于单个按钮组件可能有不同的内外边距和文字样式。
 
-UUI 从设计和实现上，分别在三个层面上提供了一些样式定制方案，用来定制 UUI 的组件。
+UUI 设计和实现了一系列的工具来帮助开发者方便快捷地对 UUI 组件进行不同范围的样式定制。
 
 ## 全局定制
 
-UUI 提供的组件内部，每一个节点都有它的名字，每个节点对应的标签都有相应名字的 className，所以理论上你可以根据这些 classNames 来完全自定义组件的样式。
+现代的前端组件，几乎都是由很多的 HTML5 标签（\<div\>、\<span\>、\<a\>......）共同组成的。由 UUI 提供的组件，内部组成的标签都有各自的名字，并且有相应的 className，比如按钮组件的 UUI-Button-Root 和 UUI-Button-Content。
 
-1. **完全自己实现 UUI 组件样式**
+有了这些 classNames，理论上你可以通过写 CSS 样式来覆盖 UUI 提供的默认样式，将 UUI 组件定制为任何样子。
 
-UUI 预置了一套简约风格的样式文件，如果你希望完全自己实现组件样式，可以选择不导入 UUI 提供的样式文件。
+1. **完全自己实现样式**
+
+UUI 的组件功能和样式是完全独立的（除了部分组件需要通过修改内联样式来实现功能外），可以选择不导入 UUI 提供的默认样式，完全自己实现整套组件样式。
 
 <iframe src="https://codesandbox.io/embed/uui-self-implement-g5f5c?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
@@ -21,9 +23,9 @@ UUI 预置了一套简约风格的样式文件，如果你希望完全自己实�
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
 
-2. **对 UUI 预置的样式做一些修改**
+2. **在默认样式的基础上全局定制**
 
-导入 UUI 内置样式文件的同时，自己写一些样式覆盖默认样式。
+导入 UUI 默认样式的同时，另写一些样式覆盖默认样式。
 
 <iframe src="https://codesandbox.io/embed/uui-global-css-customize-wevsh?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"

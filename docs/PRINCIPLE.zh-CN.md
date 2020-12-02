@@ -11,7 +11,7 @@
 
 ## 项目组成
 
-UUI 的开源代码仓库包含的很多的内容，其中包括不限于 UI 组件功能文件、Storybook 文档文件以及单元测试文件。不同部分的文件应该分开存放在正确的目录文件夹，不应该随便放置。
+UUI 的开源代码仓库包含很多的内容，包括不限于核心工具文件、UI 组件文件、Storybook 文档文件以及单元测试文件等。不同部分的文件应该分开存放在正确的目录文件夹，不应该随便放置。
 
 * UUI 的功能代码全部存储在项目仓库 `src` 文件夹里，`src` 里的文件会被 rollup 编译打包成 js 文件并发布在 NPM。（storybook 以及其他不相关的文件不应该存放在 `src` 里）
   * `core` 存放核心工具的地方，这些工具用来构建 UUI 的 UI 组件
@@ -25,9 +25,9 @@ UUI 的开源代码仓库包含的很多的内容，其中包括不限于 UI 组
 * `docs` 存放 UUI 开发实现和使用说明的文档
 
 
-## HOC 工具
+## 组件工具
 
-UUI 的一大特色就是**组件样式自定义功能**，为了让使用 UUI 的开发者能更方便快捷地修改组件的样式，我们在实现的时候遵从了一些设计模式，用来高效地将自定义功能应用于所有的 UUI 组件。这些设计模式最后以 HOC 工具的形式实现了出来。
+UUI 的一大特点是**组件样式自定义功能**。为了让使用 UUI 的开发者能更方便快捷地修改组件的样式，我们在实现的时候遵从了一些设计模式，用来高效地将样式自定义功能应用于所有的 UUI 组件。这些设计模式最后以组件工具的形式被实现出来。
 
 UUI 的 UI 组件有一些共有通用的功能，为了不重复在每个组件内重复实现这些功能，UUI 开发了一套 HOC 工具函数。这里提到的 HOC 工具主要就是指位于 `src/core/UUIComponent.tsx` 的 `UUIFunctionComponent` 和 `UUIClassComponent`。
 
@@ -99,7 +99,7 @@ export const Button = UUIFunctionComponent({
 export type ButtonProps = UUIFunctionComponentProps<typeof Button>
 ```
 
-首先是我们定义了两个 Props，分别是 `ButtonStylingProps` 和 `ButtonFeatureProps`。这两个 Props 是作为 `按钮 Button` 这个组件业务功能的属性，所以它们被定义在了 `src/components/Button/Button.tsx` 文件，而不是 `src/core/UUIComponent.tsx` 文件里。
+首先是我们定义了两个 Props，分别是 `ButtonStylingProps` 和 `ButtonFeatureProps`。这两个 Props 类型是作为 `按钮 Button` 这个组件业务功能参数类型定义，所以它们被定义在了 `src/components/Button/Button.tsx` 文件，而不是 `src/core/UUIComponent.tsx` 文件里。
 
 然后是我们通过 `UUIFunctionComponent` HOC 工具创建了一个 Button Component。
 
@@ -248,10 +248,10 @@ export type NodeCustomizeProps =
 * `extendChildrenAfter` 在目标 Node children 之后添加
 * `dataAttributes` 覆盖 `data-*` 属性
 * `aria-*` 覆盖 `aria-*` 属性
-* `ref` 合并 ref（实现参考 `src/utils/mergeRefs.ts`）
+* `ref` 合并 ref（实现参考 `src/core/utils/mergeRefs.ts`）
 * `onXXX` 支持以 `on` 开头的一系列函数属性，HOC 工具会把两个函数属性合并成一个函数执行，内部先执行，外部后执行
 
-> 由于所有的组件都使用 HOC 工具构建的，所以 HOC 工具的代码稳健性和正确性对于 UUI 至关重要。因此，我们要求对 `src/uui/*` 文件夹内部的文件 100% 的单元测试覆盖率。更多的单元测试信息请参考 [TESTING.zh-CN.md](https://github.com/HackPlan/UUI/blob/master/docs/TESTING.zh-CN.md)。
+> 由于所有的组件都使用 HOC 工具构建的，所以 HOC 工具的代码稳健性和正确性对于 UUI 至关重要。因此，我们对 `src/core/*` 目录下的文件要求 100% 的单元测试覆盖率。更多的单元测试信息请参考 [TESTING.zh-CN.md](https://github.com/HackPlan/UUI/blob/master/docs/TESTING.zh-CN.md)。
 
 ## 类型工具
 
@@ -290,7 +290,31 @@ function StyledButton(props: ButtonFeatureProps) {
 <StyledButton>Click me!</StyledButton>
 ```
 
-注意：目前暂时不支持封装之后的 customize 支持。（新的组件工具 UUIComponentProxy 支持）
+如果希望封装 UUI 组件并且定制样式之后依然支持 customize 参数，可以使用 UUIComponentProxy：
+
+```tsx
+export const StyledButton = UUIComponentProxy(Button, {
+  Root: {
+    extendStyle: {
+      backgroundColor: "orange",
+      color: "white"
+    },
+    extendChildrenBefore: <span>🐱</span>,
+    extendChildrenAfter: <span>🐰</span>
+  }
+});
+
+<StyledButton
+  customize={{
+  	Root: {
+      extendStyle: {
+        backgroundColor: 'red',
+        color: 'white',
+      },
+    },
+  }}
+>Click me!</StyledButton>
+```
 
 ## 组件前缀和分隔符
 
@@ -299,11 +323,11 @@ UUI 的组件支持在开发阶段和使用阶段定义组件的前缀和分隔�
 比如我们可以在开发阶段定义一个组件：
 
 ```tsx
-const Test = UUIFunctionComponent({
+const XUIButton = UUIFunctionComponent({
   prefix: "XUI",
-  name: "Test",
+  name: "Button",
   separator: "+",
-  nodes: { Root: 'div' },
+  nodes: { Root: 'button' },
 }, (props: {}, nodes) => {
   // ...
   return <Root></Root>
@@ -313,8 +337,8 @@ const Test = UUIFunctionComponent({
 那么渲染出来的 HTML 大概长这个样子：
 
 ```html
-<div className="XUI+Test+Root">
-</div>
+<button className="XUI+Button+Root">
+</button>
 ```
 
 这个 options 里的 prefix 和 separator 主要是提供给其他开发者可能需要使用 UUI Core Utils 创建自己的组件时使用
