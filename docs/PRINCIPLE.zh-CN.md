@@ -357,6 +357,26 @@ function Demo() {
 
 这个主要是给使用者需要完全自定义样式的时候使用，修改了 prefix 或者 separator 之后，UUI 自带的样式就失效了（className 全部改变了，而 UUI 自带的样式根据这些 className 实现）
 
+### Props.customize 数据流合并
+
+UUI 可以在多处传入 customize 定制数据，这些定制数据会以一定规则合并为一份数据并应用到最终网页DOM中。
+
+数据流合并优先级由高到低如下：
+
+1. 使用者对单个组件传入的 customize；
+2. 使用者对单个组件传入的 ConniventProps { className, style, id, data-*, aria-* }；
+3. 使用者使用 UUIComponentProxy 提供的局部 customize；
+4. 使用者使用 UUIProvider 提供的全局 customize；
+5. 开发者在 UUI 组件中使用其他 UUI 组件作为子节点（ComponentNode），传入的 customize；
+6. 开发者在 UUI 组件中使用的 IntrinsicNode 传入的 className, style, id, data-*, aria-*。
+
+customize 合并细节：
+
+* 对于 `extendClassName`，总是附加在当前 className 之后；
+* 对于 `extendStyle`，按优先级进行对象合并；
+* 对于 `extendChildrenBefore`，总是附加在当前 ReactNode 之前；
+* 对于 `extendChildrenAfter`，总是附加在当前 ReactNode 之后。
+
 ## 组件
 
 * 所有组件以受控模式（Controlled Mode）实现，唯一例外，表单相关的组件同时还支持非受控模式（Uncontrolled Mode）。

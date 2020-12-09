@@ -34,11 +34,9 @@ UUI 的组件功能和样式是完全独立的（除了部分组件需要通过�
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
 
-3. **使用 UUIProvider 的 customize 来定义自定义样式**
+3. **使用 UUIProvider**
 
-传入 React 的内联样式 React.CSSProperties 来定制组件样式。
-
-在项目中使用 UUIProvider 组件，定义 globalCustomize 样式数据，并且传入 UUIProvider.customize。
+使用 UUIProvider.customize 来进行全局样式定制。
 
 <iframe src="https://codesandbox.io/embed/uui-global-css-customize-forked-5gzyn?fontsize=14&hidenavigation=1&theme=dark"
      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
