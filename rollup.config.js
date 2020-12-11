@@ -14,7 +14,7 @@ const config = [{
   output: [{
     name: 'UUI',
     file: pkg.main,
-    format: 'amd',
+    format: 'umd',
     plugins: [
     ],
   },
