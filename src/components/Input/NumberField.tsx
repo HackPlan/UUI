@@ -58,6 +58,9 @@ export interface NumberFieldFeatureProps {
    * FIXME: remove it when uui component customize props support IntrinsicAttriobutes
    */
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export const NumberField = UUIFunctionComponent({
@@ -104,6 +107,8 @@ export const NumberField = UUIFunctionComponent({
             }
           }
         )}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
       />
       {props.loading && (
         <LoadingSpinner width={16} height={16} />

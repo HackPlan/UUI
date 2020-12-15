@@ -47,6 +47,9 @@ export interface SliderFeatureProps {
    * @default false
    */
   vertical?: boolean;
+
+  onFocus?: React.FocusEventHandler<HTMLDivElement>;
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
 export const Slider = UUIFunctionComponent({
@@ -300,6 +303,8 @@ export const Slider = UUIFunctionComponent({
             // do nothing
         }
       }}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
     >
       <Container ref={containerRef}>
         <InactiveLine style={{ ...styles.LeadingInactiveLine }} />

@@ -67,6 +67,9 @@ export interface TextFieldFeatureProps {
    * @default false
    */
   onPasswordVisibleChange?: (value: boolean) => void;
+
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export const TextField = UUIFunctionComponent({
@@ -128,6 +131,8 @@ export const TextField = UUIFunctionComponent({
             props.onChange && props.onChange(event.target.value, event)
           }
         )}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
       ></Input>
       {props.loading && (
         <LoadingSpinner width={16} height={16} />

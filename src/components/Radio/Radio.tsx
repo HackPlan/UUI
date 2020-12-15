@@ -24,6 +24,9 @@ export interface RadioFeatureProps<T extends string | number> extends InputHTMLA
    * @default none
    */
   label?: string | React.ReactNode;
+
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 const RadioNodes = {
@@ -73,6 +76,8 @@ const BaseRadio = UUIFunctionComponent({
         checked={checked}
         onChange={() => context?.onChange(props.value)}
         {...(context ? {} : omit(props, 'className', 'style', 'type', 'label', 'customize'))}
+        onFocus={context?.onFocus || props.onFocus}
+        onBlur={context?.onBlur || props.onBlur}
       />
       <Indicator></Indicator>
       <Label>{props.label}</Label>

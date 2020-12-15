@@ -102,6 +102,9 @@ interface BaseSelectFeatureProps {
    * @default document.body
    */
   portalContainer?: HTMLElement;
+
+  onFocus?: React.FocusEventHandler<HTMLDivElement>;
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
 export type SelectFeatureProps<X extends true | false | boolean | undefined = undefined> = SelectValueProps<X> & SelectSectionOptionProps & BaseSelectFeatureProps
@@ -328,6 +331,8 @@ export const BaseSelect = UUIFunctionComponent({
             // do nothing
         }
       }}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
     >
       <Dropdown
         usePortal={props.usePortal}

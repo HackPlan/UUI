@@ -51,6 +51,9 @@ export interface StepperFeatureProps {
    * @default none
    */
   placeholder?: string;
+
+  onFocus?: React.FocusEventHandler<HTMLDivElement>;
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
 export const Stepper = UUIFunctionComponent({
@@ -170,6 +173,8 @@ export const Stepper = UUIFunctionComponent({
             // do nothing
         }
       }}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
     >
       {finalProps.controlPosition === 'separate' && (
         <>{minus}{input}{plus}</>

@@ -15,6 +15,9 @@ export interface DatePickerFeatureProps {
    * Event handler invoked when input value is changed.
    */
   onChange?: (value: Date, event: React.ChangeEvent<HTMLInputElement>) => void;
+
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export const DatePicker = UUIFunctionComponent({
@@ -45,7 +48,9 @@ export const DatePicker = UUIFunctionComponent({
             props.onChange && props.onChange(newValue, event)
           }
         )}
-      ></Input>
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
+      />
     </Root>
   )
 })

@@ -26,6 +26,9 @@ export interface SwitchFeatureProps {
   loading?: boolean;
   value: boolean;
   onChange: (flag: boolean) => void;
+
+  onFocus?: React.FocusEventHandler<HTMLButtonElement>;
+  onBlur?: React.FocusEventHandler<HTMLButtonElement>;
 }
 
 export const Switch = UUIFunctionComponent({
@@ -62,7 +65,11 @@ export const Switch = UUIFunctionComponent({
         }
       }}
     >
-      <Button onClick={() => { !props.disabled && props.onChange(!props.value) }}>
+      <Button
+        onClick={() => { !props.disabled && props.onChange(!props.value) }}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
+      >
         <Thumb>
           {props.loading && <LoadingSpinner width={12} height={12} />}
         </Thumb>

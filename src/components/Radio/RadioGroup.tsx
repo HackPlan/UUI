@@ -25,6 +25,9 @@ export interface RadioGroupFeatureProps<T extends string | number> {
    * Array of `Radio`
    */
   children: React.ReactElement<RadioFeatureProps<T>>[] | React.ReactElement<RadioFeatureProps<T>>;
+
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 const RadioGroupNodes = {
@@ -51,6 +54,8 @@ const BaseRadioGroup = UUIFunctionComponent({
         props.onChange(value)
       },
       focusValue,
+      onFocus: props.onFocus,
+      onBlur: props.onBlur,
     }}>
       <Root
         role="radiogroup"

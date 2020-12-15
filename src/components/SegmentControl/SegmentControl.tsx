@@ -23,6 +23,9 @@ export interface SegmentControlFeatureProps<T extends string | number> {
    * Callback invokes when user change SegmentControl selected value.
    */
   onChange: (value: T) => void;
+
+  onFocus?: React.FocusEventHandler<HTMLDivElement>;
+  onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
 const SegmentControlNodes = {
@@ -78,6 +81,8 @@ const BaseSegmentControl = UUIFunctionComponent({
             // do nothing
         }
       }}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
     >
       <Container role="tablist">
         <Thumb style={thumbStyle} />

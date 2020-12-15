@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { omit } from 'lodash-es';
 import classNames from 'classnames';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { KeyCode } from '../../utils/keyboardHelper';
@@ -32,6 +31,9 @@ export interface CheckboxFeatureProps {
    * @default false
    */
   disabled?: boolean;
+
+  onFocus?: React.FocusEventHandler<HTMLLabelElement>;
+  onBlur?: React.FocusEventHandler<HTMLLabelElement>;
 }
 
 export const Checkbox = UUIFunctionComponent({
@@ -66,10 +68,13 @@ export const Checkbox = UUIFunctionComponent({
             // do nothing
         }
       }}
+      onFocus={props.onFocus}
+      onBlur={props.onBlur}
     >
       <Input
-        {...omit(props, 'type', 'value', 'onChange', 'customize')}
         type='checkbox'
+        name={props.name}
+        disabled={props.disabled}
         checked={props.checked === undefined ? undefined : props.checked}
         value={props.value}
         onChange={props.onChange === undefined ? undefined : (

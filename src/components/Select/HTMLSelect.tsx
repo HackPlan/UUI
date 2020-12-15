@@ -38,6 +38,9 @@ export interface HTMLSelectFeatureProps<T extends string | number> {
    * @default false
    */
   disabled?: boolean;
+
+  onFocus?: React.FocusEventHandler<HTMLSelectElement>;
+  onBlur?: React.FocusEventHandler<HTMLSelectElement>;
 }
 
 const HTMLSelectNodes = {
@@ -73,6 +76,8 @@ const BaseHTMLSelect = UUIFunctionComponent({
             }
           }
         )}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
       >
         {props.options.map((i) => {
           const selected = i.value === props.value

@@ -41,6 +41,9 @@ export interface TextAreaFeatureProps {
    * @default false
    */
   showLengthIndicator?: boolean;
+
+  onFocus?: React.FocusEventHandler<HTMLTextAreaElement>;
+  onBlur?: React.FocusEventHandler<HTMLTextAreaElement>;
 }
 
 export const TextArea = UUIFunctionComponent({
@@ -81,6 +84,8 @@ export const TextArea = UUIFunctionComponent({
             props.onChange && props.onChange(event.target.value, event)
           }
         )}
+        onFocus={props.onFocus}
+        onBlur={props.onBlur}
       />
       <Info>
         {props.loading && (
