@@ -2,6 +2,12 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+
+### v0.5.11
+
+- update Button style `white-space: nowrap;`
+- Form components support Props { onFocus, onBlur }
+
 ### v0.5.9
 
 - fix UUIProvider merge customize issue

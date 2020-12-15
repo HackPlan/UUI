@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.11
+
+- 更新按钮样式 `white-space: nowrap;`
+- 表单组件支持传入参数 onFocus、onBlur
+
 ### v0.5.9
 
 - fix UUIProvider merge customize issue
