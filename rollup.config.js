@@ -17,6 +17,11 @@ const config = [{
     format: 'umd',
     plugins: [
     ],
+    globals: {
+      'react': 'React',
+      'react-dom': 'ReactDOM',
+      'react-popper': 'ReactPopper',
+    },
   },
   {
     name: 'UUI',

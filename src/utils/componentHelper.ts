@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { Children } from "react";
 
 /**
  * Returns true if the given JSX element matches the given component type.
@@ -28,6 +28,6 @@ export function isElementOfType<P = {}>(ComponentType: React.ComponentType<P>, e
 }
 
 export function getValidTypeChildren<P = {}>(ComponentType: React.ComponentType<P>, children: React.ReactNode) {
-  return React.Children.toArray(children).filter((child): child is ReactElement<P> => isElementOfType(ComponentType, child))
+  return Children.toArray(children).filter((child): child is React.ReactElement<P> => isElementOfType(ComponentType, child))
 }
 
