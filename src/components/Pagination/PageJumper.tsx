@@ -40,18 +40,20 @@ export const PageJumper = UUIFunctionComponent({
         customize={{
           Root: {
             extendStyle: { height: 34, width: 80 }
-          }
+          },
+          Input: {
+            onKeyDown: (event) => {
+              if (event.key === 'Enter' && inputValue !== null && inputValue !== undefined) {
+                pagination.toNthPage(inputValue)
+              }
+            },
+          },
         }}
         disabled={loading}
         placeholder={`${pagination.currentPage}`}
         min={1}
         value={inputValue}
         onChange={(value) => { setInputValue(value) }}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter' && inputValue !== null && inputValue !== undefined) {
-            pagination.toNthPage(inputValue)
-          }
-        }}
       ></NumberField>
     </Root>
   )

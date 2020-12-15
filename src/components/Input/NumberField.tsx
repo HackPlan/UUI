@@ -53,12 +53,6 @@ export interface NumberFieldFeatureProps {
    */
   onChange?: (value: number | null, event: React.ChangeEvent<HTMLInputElement>) => void;
 
-  /**
-   * Deprecated.
-   * FIXME: remove it when uui component customize props support IntrinsicAttriobutes
-   */
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
@@ -84,7 +78,6 @@ export const NumberField = UUIFunctionComponent({
       })}
     >
       <Input
-        onKeyDown={props.onKeyDown}
         placeholder={props.placeholder}
         type='number'
         max={props.max}

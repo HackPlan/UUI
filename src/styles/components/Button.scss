@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   height: 32px;
+  white-space: nowrap;
 
   @include radius;
 

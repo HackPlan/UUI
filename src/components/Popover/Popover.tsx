@@ -118,8 +118,8 @@ export const Popover = UUIFunctionComponent({
     }
   })
 
-  const [referenceElement, setReferenceElement] = React.useState<any>(null);
-  const [popperElement, setPopperElement] = React.useState<any>(null);
+  const [referenceElement, setReferenceElement] = useState<any>(null);
+  const [popperElement, setPopperElement] = useState<any>(null);
   const { styles, attributes, update: updatePopper } = usePopper(props.referenceElement || referenceElement, props.popperElement || popperElement, {
     placement: finalProps.placement,
     strategy: finalProps.strategy,
