@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.12
+
+- 修复组件陷阱焦点
+- 修复多组件 onClickAway 同时触发的问题
+
 ### v0.5.11
 
 - 更新按钮样式 `white-space: nowrap;`

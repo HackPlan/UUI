@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.12
+
+- fix components focus trap
+- fix components click away
 
 ### v0.5.11
 
