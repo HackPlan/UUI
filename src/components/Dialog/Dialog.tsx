@@ -1,12 +1,11 @@
 import React, { useRef, useMemo, useEffect } from 'react';
-import useFocusTrap from '@charlietango/use-focus-trap';
-
 import classNames from 'classnames';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 import ReactDOM from 'react-dom';
 import ReactHelper from '../../utils/ReactHelper';
 import { KeyCode } from '../../utils/keyboardHelper';
+import FocusTrap from 'focus-trap-react';
 
 export interface DialogFeatureProps {
   /**
@@ -54,11 +53,10 @@ export const Dialog = UUIFunctionComponent({
     Root: 'div',
     Portal: 'div',
     Backdrop: 'div',
-    Container: 'div',
     Content: 'div',
   }
 }, (props: DialogFeatureProps, nodes) => {
-  const { Root, Portal, Backdrop, Container, Content } = nodes
+  const { Root, Portal, Backdrop, Content } = nodes
 
   /**
    * handle optional props default value
@@ -72,8 +70,8 @@ export const Dialog = UUIFunctionComponent({
 
   useLockBodyScroll(props.open && !!finalProps.lockBodyScroll)
 
-  const containerRef = useRef<any>(null)
-  useClickAway(containerRef, () => {
+  const clickAwayRef = useRef<any>(null)
+  useClickAway(clickAwayRef, () => {
     if (props.open) {
       props.onClickAway && props.onClickAway()
     }
@@ -90,37 +88,34 @@ export const Dialog = UUIFunctionComponent({
     }
   }, [props.open])
 
-  const backdropRef = useFocusTrap(props.open && finalProps.focusTrap)
-
   const backdrop = (
-    <Backdrop
-      ref={backdropRef}
-      role="dialog"
-      aria-modal={props.open}
-      className={classNames({
-        'STATE_opened': props.open
-      })}
-      onKeyDown={(event) => {
-        switch (event.keyCode) {
-          case KeyCode.Escape:
-            if (props.open) {
-              props.onClose && props.onClose()
-            }
-            break
-          default:
-            // do nothing
-        }
-      }}
-    >
-      <Container
-        ref={containerRef}
+    <FocusTrap active={props.open && finalProps.focusTrap}>
+      <Backdrop
         className={classNames({
           'STATE_opened': props.open
         })}
       >
-        <Content>{props.children}</Content>
-      </Container>
-    </Backdrop>
+        <Content
+          role="dialog"
+          aria-modal={props.open}
+          ref={clickAwayRef}
+          tabIndex={0}
+          onKeyDown={(event) => {
+            switch (event.keyCode) {
+              case KeyCode.Escape:
+                if (props.open) {
+                  props.onClose && props.onClose()
+                }
+                break
+              default:
+                // do nothing
+            }
+          }}
+        >
+          {props.children}
+        </Content>
+      </Backdrop>
+    </FocusTrap>
   )
   const wrappedBackdrop = useMemo(() => {
     return (finalProps.usePortal && finalProps.portalContainer)

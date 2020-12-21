@@ -1,12 +1,11 @@
-import React, { useMemo, useRef, useCallback, useEffect } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import classNames from 'classnames';
 import { useClickAway, useLockBodyScroll } from 'react-use';
 import ReactHelper from '../../utils/ReactHelper';
-import useFocusTrap from '@charlietango/use-focus-trap';
 import { KeyCode } from '../../utils/keyboardHelper';
-import { mergeRefs } from '../../core/utils/mergeRefs';
+import FocusTrap from 'focus-trap-react';
 
 export type DrawerPlacement = 'top' | 'right' | 'bottom' | 'left'
 
@@ -77,8 +76,9 @@ export const Drawer = UUIFunctionComponent({
     placement: props.placement || 'right',
   }
 
-  const contentRef = useRef<any>(null)
-  useClickAway(contentRef, () => {
+  const clickAwayRef = useRef<any>(null)
+  useClickAway(clickAwayRef, () => {
+    console.log('useClickAway', props.active)
     props.active && props.onClickAway && props.onClickAway()
   })
 
@@ -95,36 +95,32 @@ export const Drawer = UUIFunctionComponent({
     }
   }, [props.active])
 
-  const focusTrapRef = useFocusTrap(props.active && finalProps.focusTrap)
-  const backdropRef = useRef<HTMLDivElement | null>(null)
-
-  const hasFocusedInside = useCallback(() => {
-    if (!ReactHelper.document) return false
-    if (!backdropRef.current) return false
-    return backdropRef.current.contains(ReactHelper.document.activeElement)
-  }, [])
-
   const content = useMemo(() => {
     return (
-      <Backdrop
-        ref={mergeRefs([focusTrapRef, backdropRef])}
-        className={classNames({ 'STATE_active': props.active }, [`PLACEMENT_${finalProps.placement}`])}
-        onKeyDown={(event) => {
-          switch (event.keyCode) {
-            case KeyCode.Escape:
-              if (props.active && hasFocusedInside()) {
-                props.onClose && props.onClose()
-              }
-              break
-            default:
-              // do nothing
-          }
-        }}
-      >
-        <Content ref={contentRef}>{props.children}</Content>
-      </Backdrop>
+      <FocusTrap active={props.active && finalProps.focusTrap}>
+        <Backdrop
+          className={classNames({ 'STATE_active': props.active }, [`PLACEMENT_${finalProps.placement}`])}
+          onKeyDown={(event) => {
+            switch (event.keyCode) {
+              case KeyCode.Escape:
+                if (props.active) {
+                  props.onClose && props.onClose()
+                }
+                break
+              default:
+                // do nothing
+            }
+          }}
+        >
+          <Content
+            role="dialog"
+            aria-modal={props.active}
+            ref={clickAwayRef}
+          >{props.children}</Content>
+        </Backdrop>
+      </FocusTrap>
     )
-  }, [focusTrapRef, props, finalProps.placement, hasFocusedInside])
+  }, [props, finalProps.focusTrap, finalProps.placement])
 
   const portal = useMemo(() => {
     return (finalProps.usePortal && finalProps.portalContainer)
