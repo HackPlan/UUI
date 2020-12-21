@@ -2,10 +2,11 @@ import React, { useMemo, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import classNames from 'classnames';
-import { useClickAway, useLockBodyScroll } from 'react-use';
+import { useLockBodyScroll } from 'react-use';
 import ReactHelper from '../../utils/ReactHelper';
 import { KeyCode } from '../../utils/keyboardHelper';
 import FocusTrap from 'focus-trap-react';
+import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
 
 export type DrawerPlacement = 'top' | 'right' | 'bottom' | 'left'
 
@@ -76,11 +77,9 @@ export const Drawer = UUIFunctionComponent({
     placement: props.placement || 'right',
   }
 
-  const clickAwayRef = useRef<any>(null)
-  useClickAway(clickAwayRef, () => {
-    console.log('useClickAway', props.active)
-    props.active && props.onClickAway && props.onClickAway()
-  })
+  const contentRef = useRef<any>(null)
+
+  useGlobalClickAway(props.active, contentRef, props.onClickAway)
 
   useLockBodyScroll(props.active && finalProps.lockBodyScroll)
 
@@ -100,22 +99,23 @@ export const Drawer = UUIFunctionComponent({
       <FocusTrap active={props.active && finalProps.focusTrap}>
         <Backdrop
           className={classNames({ 'STATE_active': props.active }, [`PLACEMENT_${finalProps.placement}`])}
-          onKeyDown={(event) => {
-            switch (event.keyCode) {
-              case KeyCode.Escape:
-                if (props.active) {
-                  props.onClose && props.onClose()
-                }
-                break
-              default:
-                // do nothing
-            }
-          }}
         >
           <Content
             role="dialog"
             aria-modal={props.active}
-            ref={clickAwayRef}
+            ref={contentRef}
+            tabIndex={0}
+            onKeyDown={(event) => {
+              switch (event.keyCode) {
+                case KeyCode.Escape:
+                  if (props.active) {
+                    props.onClose && props.onClose()
+                  }
+                  break
+                default:
+                  // do nothing
+              }
+            }}
           >{props.children}</Content>
         </Backdrop>
       </FocusTrap>

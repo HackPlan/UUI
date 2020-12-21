@@ -1,11 +1,12 @@
 import React, { useRef, useMemo, useEffect } from 'react';
 import classNames from 'classnames';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
-import { useClickAway, useLockBodyScroll } from 'react-use';
+import { useLockBodyScroll } from 'react-use';
 import ReactDOM from 'react-dom';
 import ReactHelper from '../../utils/ReactHelper';
 import { KeyCode } from '../../utils/keyboardHelper';
 import FocusTrap from 'focus-trap-react';
+import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
 
 export interface DialogFeatureProps {
   /**
@@ -70,12 +71,9 @@ export const Dialog = UUIFunctionComponent({
 
   useLockBodyScroll(props.open && !!finalProps.lockBodyScroll)
 
-  const clickAwayRef = useRef<any>(null)
-  useClickAway(clickAwayRef, () => {
-    if (props.open) {
-      props.onClickAway && props.onClickAway()
-    }
-  })
+  const contentRef = useRef<any>(null)
+
+  useGlobalClickAway(props.open, contentRef, props.onClickAway)
 
   const restoreElement = useRef<HTMLElement | null>(null)
 
@@ -98,7 +96,7 @@ export const Dialog = UUIFunctionComponent({
         <Content
           role="dialog"
           aria-modal={props.open}
-          ref={clickAwayRef}
+          ref={contentRef}
           tabIndex={0}
           onKeyDown={(event) => {
             switch (event.keyCode) {

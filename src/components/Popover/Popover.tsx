@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
-import { useClickAway } from 'react-use';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import ReactHelper from '../../utils/ReactHelper';
+import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
 
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'
@@ -109,7 +109,8 @@ export const Popover = UUIFunctionComponent({
    * handle onClickAway callback
    */
   const popperRef = useRef<any>(null)
-  useClickAway(popperRef, (event) => {
+
+  useGlobalClickAway(props.active, popperRef, (event) => {
     const paths: string[] | undefined = (event as any)['path']
     const activitorClick = paths?.some((i) => i === referenceElement)
     if (activitorClick) return;

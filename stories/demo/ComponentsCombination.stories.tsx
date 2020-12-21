@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Dialog, Select, SelectOption, TextField, Drawer } from '../../src';
+import { Button, Dialog, Select, SelectOption, TextField, Drawer, Popover } from '../../src';
 
-export const FocusAndZindex = () => {
+export const ComponentsCombination = () => {
   const [dialog1Open, setDialog1Open] = useState(false)
   const [dialog2Open, setDialog2Open] = useState(false)
 
+  const [popoverActive, setPopoverActive] = useState(false)
   const [drawerActive, setDrawerActive] = useState(false)
 
   const [text, setText] = useState('')
@@ -28,6 +29,11 @@ export const FocusAndZindex = () => {
         open={dialog1Open}
         onClose={(() => { setDialog1Open(false) })}
         onClickAway={(() => { setDialog1Open(false) })}
+        customize={{
+          Content: {
+            extendClassName: 'dialog1'
+          }
+        }}
       >
         <div
           style={{
@@ -55,6 +61,11 @@ export const FocusAndZindex = () => {
         open={dialog2Open}
         onClose={(() => { setDialog2Open(false) })}
         onClickAway={(() => { setDialog2Open(false) })}
+        customize={{
+          Content: {
+            extendClassName: 'dialog2'
+          }
+        }}
       >
         <div
           style={{
@@ -63,6 +74,18 @@ export const FocusAndZindex = () => {
           }}
         >
           <div>Dialog2</div>
+          <Popover
+            active={popoverActive}
+            activator={(
+              <Button style={{ width: 112, fontSize: 15, height: 40 }} onClick={() => { setPopoverActive(!popoverActive) }}>Activator</Button>
+            )}
+            onClickAway={() => { setPopoverActive(false) }}
+          >
+            <div className="m-4 w-48 h-24">
+              <p>Popover content header</p>
+              <p>Popover test content</p>
+            </div>
+          </Popover>
         </div>
       </Dialog>
       <Drawer
@@ -85,8 +108,13 @@ export const FocusAndZindex = () => {
           multiple={false}
         />
       </Drawer>
+
+      <ul>
+        <li>TextField 在 Dialog 内能正常输入</li>
+        <li>打开多个支持onClickAway的组件，onClickAway 不会同时触发</li>
+      </ul>
     </div>
   )
 }
 
-FocusAndZindex.storyName = 'Focus and zIndex'
+ComponentsCombination.storyName = 'Components Combination'
