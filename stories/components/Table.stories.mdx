@@ -1,0 +1,213 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Table, TableNodes } from '../../src';
+import { useState, useEffect } from 'react';
+
+<Meta title="组件/表格 Table" component={Table} />
+
+# 表格 Table
+
+### 简单使用
+
+<Canvas>
+  <Story name="Table">
+    {() => {
+      const columns = [
+        { key: 'name', title: "Name", onRowRender: (i) => i.name },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
+      ]
+      const [rows, setRows] = useState([
+        { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
+        { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
+        { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
+      ])
+      const onRowId = (row) => row.id
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          onRowId={onRowId}
+        ></Table>
+      )
+    }}
+  </Story>
+</Canvas>
+
+#### TableColumn
+
+`props.columns` 用来定义表格列信息
+
+```tsx
+interface TableColumn<T> {
+  key: string;
+  title: React.ReactNode;
+  children?: TableColumn<T>[];
+  onRowRender?: (row: T) => React.ReactNode;
+}
+```
+
+如果不传 `onRowRender` 属性，那么默认将根据 `TableColumn.key` 从 `TableRow[key]` 中获取值，如果 key 在数据对象中不存在，那么会返回 `null`。
+
+```tsx
+const onRowRender = column.onRowRender || ((row: any) => {
+  return row[column.key] || null
+})
+```
+
+`TableColumn` 可以是一个树状结构（参考下文的[表头分组](#表头分组)），那么只有最底层叶子结点 `onRowRender` 有效。
+
+### 多选表格行
+
+<Canvas>
+  <Story name="Table with selection">
+    {() => {
+      const columns = [
+        { key: 'name', title: "Name" },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
+      ]
+      const rows = [
+        { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
+        { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
+        { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
+      ]
+      const onRowId = (row) => row.id
+      const [selectedIds, setSelectedIds] = useState([])
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          onRowId={onRowId}
+          selectedRowIds={selectedIds}
+          onSelected={(ids) => { setSelectedIds(ids) }}
+        ></Table>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 表头分组
+
+<Canvas>
+  <Story name="Table with grouping column">
+    {() => {
+      const rows = [
+        { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
+        { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
+        { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
+      ]
+      const columns = [{
+        key: 'person',
+        title: 'Person',
+        children: [{
+          key: 'info',
+          title: 'Info',
+          children: [{
+            key: 'name',
+            title: 'Name',
+            onRowRender: (i) => i.name,
+          }, {
+            key: 'age',
+            title: 'Age',
+            onRowRender: (i) => i.age,
+          }, {
+            key: 'gender',
+            title: 'Gender',
+            onRowRender: (i) => i.gender,
+          }]
+        }, {
+          key: 'contact',
+          title: 'Contact',
+          children: [{
+            key: 'mobile',
+            title: 'Mobile',
+            onRowRender: (i) => i.mobile,
+          }, {
+            key: 'email',
+            title: 'Email',
+            onRowRender: (i) => i.email,
+          }]
+        }]
+      }, {
+        key: 'profession',
+        title: 'Profession',
+        onRowRender: (i) => i.profession,
+      }]
+      const onRowId = (row) => row.id
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          onRowId={onRowId}
+        ></Table>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 空表格空状态视图
+
+<Canvas>
+  <Story name="Table with empty data">
+    {() => {
+      const columns = [
+        { key: 'name', title: "Name" },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
+      ]
+      const rows = []
+      const onRowId = (row) => row.id
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          onRowId={onRowId}
+        ></Table>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 隐藏表格表头
+
+<Canvas>
+  <Story name="Table hide header">
+    {() => {
+      const columns = [
+        { key: 'name', title: "Name" },
+        { key: 'age', title: "Age" },
+        { key: 'gender', title: "Gender" },
+        { key: 'mobile', title: "Mobile" },
+        { key: 'email', title: "Email" },
+        { key: 'profession', title: "Profession" },
+      ]
+      const rows = [
+        { id: 'asdvciu', name: "Bobby P. Morton", age: "63", gender: "male", mobile: "785-481-2375", email: "morton@example.com", profession: "Doctor" },
+        { id: 'aserghd', name: "Levi R. Oglesby", age: "35", gender: "female", mobile: "631-285-1780", email: "oglesby@example.com", profession: "Police" },
+        { id: 'fgher4t', name: "John S. Cassidy", age: "19", gender: "male", mobile: "719-328-5475", email: "cassidy@example.com", profession: "Student" },
+      ]
+      const onRowId = (row) => row.id
+      return (
+        <Table
+          columns={columns}
+          rows={rows}
+          onRowId={onRowId}
+          hideHeader
+        ></Table>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ Table }} />

@@ -1,0 +1,65 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Stepper } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/计数器 Stepper" component={Stepper} />
+
+# 计数器 Stepper
+
+
+### 简单使用
+
+<Canvas>
+  <Story name="Stepper">
+    {() => {
+      const [n, setN] = useState(null)
+      return (
+        <Stepper
+          value={n}
+          onChange={(value) => {
+            setN(value)
+          }}
+        >
+        </Stepper>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 按钮位置
+
+可以选择控制按钮的位置，设置 `controlPosition={'right'}` 使控制按钮显示在右侧
+
+> 设置不同的按钮位置时，组件内部的 Nodes 结构会有所不同。
+> 使用右侧控制按钮布局时，两个控制按钮会被 `RightControlsContainer` 的 Node 包一层，如果你需要自定义组件的样式，要注意一下这个多出来的 Node。
+
+<Canvas>
+  <Story name="Stepper with controls right position">
+    {() => {
+      const [n, setN] = useState(null)
+      return (
+        <Stepper
+          controlPosition={'right'}
+          value={n}
+          onChange={(value) => {
+            setN(value)
+          }}
+        >
+        </Stepper>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 键盘控制
+
+* `Down Arrow` `Right Arrow` 增加值。
+* `Up Arrow` `Left Arrow` 减小值。
+* `Home` 如果计数器具有最小值，则将其值设置为最小值。
+* `End` 如果计数器具有最大值，则将该值设置为其最大值。
+* `Page Up` 与 `Up Arrow` `Left Arrow` 相比，将值增加更大的幅度。
+* `Page Down` 与 `Down Arrow` `Right Arrow` 相比，将值减小幅度更大。
+
+### Props
+
+<ArgsTable components={{ Stepper }} />

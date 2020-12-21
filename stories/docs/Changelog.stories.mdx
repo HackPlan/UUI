@@ -1,0 +1,9 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import ReactMarkdown from 'react-markdown';
+import Changelog from '../../docs/CHANGELOG.zh-CN.md';
+
+<Meta title="文档/更新日志 Changelog" />
+
+<div className="markdown-body">
+  <ReactMarkdown source={Changelog} escapeHtml={false} />
+</div>

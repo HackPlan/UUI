@@ -1,0 +1,9 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import ReactMarkdown from 'react-markdown';
+import README from '../../docs/README.zh-CN.md';
+
+<Meta title="文档/主页 Welcome" />
+
+<div className="markdown-body">
+  <ReactMarkdown source={README} escapeHtml={false} />
+</div>

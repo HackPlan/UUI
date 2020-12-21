@@ -1,0 +1,139 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { TextField, NumberField, TextArea } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/输入 Input" components={{ TextField, NumberField, TextArea }} />
+
+# 输入 Input
+
+## 文本输入框 TextField
+
+### 简单使用
+
+使用 `TextField` 来输入短文本。
+
+<Canvas>
+  <Story name="TextField">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextField
+          type='text'
+          value={text}
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 限制文本输入长度
+
+使用 `showLengthIndicator` 来显示当前输入的文本长度。
+
+如果传入了 `maxLength`，则同时显示当前输入的文本长度和最多可输入的文本长度。
+
+<Canvas>
+  <Story name="TextField with length limit">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextField
+          type='text'
+          value={text}
+          maxLength={10}
+          showLengthIndicator
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 输入密码
+
+当 `type` 为 `password` 时，传入 `showPasswordVisibleButton` 属性可以显示密码可见性切换的按钮。
+
+默认情况下，密码可见性状态由组件内部管理。如果你需要自己管理这个状态，可以传入 `passwordVisible` 和 `onPasswordVisibleChange` 属性。
+
+<Canvas>
+  <Story name="TextField with password">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextField
+          type='password'
+          value={text}
+          showPasswordVisibleButton
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input password...'}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## 数字输入框 NumberField
+
+### 简单使用
+
+<Canvas>
+  <Story name="NumberField">
+    {() => {
+      const [number, setNumber] = useState(null)
+      return (
+        <NumberField
+          value={number}
+          onChange={(value) => { setNumber(value) }}
+          placeholder={'Input number...'}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+## 文本域 TextArea
+
+### 简单使用
+
+使用 `TextArea` 来输入长文本。
+
+<Canvas>
+  <Story name="TextArea">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextArea
+          value={text}
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 限制文本输入长度
+
+<Canvas>
+  <Story name="TextArea with length limit">
+    {() => {
+      const [text, setText] = useState(null)
+      return (
+        <TextArea
+          value={text}
+          maxLength={200}
+          showLengthIndicator
+          onChange={(value) => { setText(value) }}
+          placeholder={'Input text...'}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ TextField, NumberField, TextArea }} />

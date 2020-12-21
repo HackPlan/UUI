@@ -1,0 +1,218 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Cascader } from '../../src';
+import { useState, useEffect } from 'react';
+
+<Meta title="组件/级联选择器 Cascader" component={Cascader} />
+
+# 级联选择器 Cascader
+
+### 简单使用
+
+<Canvas>
+  <Story name="Cascader">
+    {() => {
+      const [value, setValue] = useState(['a', 'ac'])
+      const alp = 'abcdefghijklmnopqrst'
+      const options = alp
+        .split('')
+        .map((i) => {
+          return {
+            label: i.toUpperCase(),
+            value: i,
+            children: alp.split('').map((j) => {
+              return {
+                label: i.toUpperCase() + j.toUpperCase(),
+                value: i + j,
+                children: alp.split('').map((k) => {
+                  return {
+                    label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
+                    value: i + j + k,
+                  }
+                })
+              }
+            })
+          }
+        })
+      options[1].children[2].children[3].disabled = true
+      return (
+        <Cascader
+          usePortal
+          placeholder={'Please select'}
+          options={options}
+          value={value}
+          onChange={(value) => { setValue(value) }}
+        >
+        </Cascader>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 可选择任意一级选项
+
+`props.changeOnFinalSelect` 默认为 `true`，这个时候，只有当选择了最后一级 option 才会回调 `props.onChange`；反之，点击选择任何一级 option 都会回调。
+
+<Canvas>
+  <Story name="Cascader with select any level option">
+    {() => {
+      const [value, setValue] = useState(['a'])
+      const alp = 'abcdefghi'
+      const options = alp
+        .split('')
+        .map((i) => {
+          return {
+            label: i.toUpperCase(),
+            value: i,
+            children: alp.split('').map((j) => {
+              return {
+                label: i.toUpperCase() + j.toUpperCase(),
+                value: i + j,
+                children: alp.split('').map((k) => {
+                  return {
+                    label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
+                    value: i + j + k,
+                  }
+                })
+              }
+            })
+          }
+        })
+      return (
+        <Cascader
+          usePortal
+          placeholder={'Please select'}
+          changeOnFinalSelect={false}
+          options={options}
+          value={value}
+          onChange={(value) => { console.log('onChange', value); setValue(value) }}
+        >
+        </Cascader>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 可搜索选项
+
+当启用搜索时（即 `props.searchable`），只有当 `CascaderOption.label` 传入字符串时，才会被搜索到。
+
+<Canvas>
+  <Story name="Cascader with search">
+    {() => {
+      const [value, setValue] = useState([])
+      const alp = 'abcdefghi'
+      const options = alp
+        .split('')
+        .map((i) => {
+          return {
+            label: i.toUpperCase(),
+            value: i,
+            children: alp.split('').map((j) => {
+              return {
+                label: i.toUpperCase() + j.toUpperCase(),
+                value: i + j,
+                children: alp.split('').map((k) => {
+                  return {
+                    label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
+                    value: i + j + k,
+                  }
+                })
+              }
+            })
+          }
+        })
+      return (
+        <Cascader
+          usePortal
+          placeholder={'Please select'}
+          options={options}
+          value={value}
+          onChange={(value) => { console.log('onChange', value); setValue(value) }}
+          searchable
+        >
+        </Cascader>
+      )
+    }}
+  </Story>
+</Canvas>
+
+##### 可自定义搜索函数
+
+```tsx
+<Cascader
+  onSearch={(option, q) => {
+    return (new RegExp(q, 'i')).test(option.label)
+  }}
+/>
+```
+
+<Canvas>
+  <Story name="Cascader with custom search">
+    {() => {
+      const [value, setValue] = useState([])
+      const alp = 'abcdefghi'
+      const options = alp
+        .split('')
+        .map((i) => {
+          return {
+            label: i.toUpperCase(),
+            value: i,
+            children: alp.split('').map((j) => {
+              return {
+                label: i.toUpperCase() + j.toUpperCase(),
+                value: i + j,
+                children: alp.split('').map((k) => {
+                  return {
+                    label: i.toUpperCase() + j.toUpperCase() + k.toUpperCase(),
+                    value: i + j + k,
+                  }
+                })
+              }
+            })
+          }
+        })
+      options[0].children[0].children[0].disabled = true
+      return (
+        <Cascader
+          usePortal
+          placeholder={'Please select'}
+          options={options}
+          value={value}
+          onChange={(value) => { console.log('onChange', value); setValue(value) }}
+          searchable
+          onSearch={(option, q) => {
+            return (new RegExp(q, 'i')).test(option.label)
+          }}
+        >
+        </Cascader>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ Cascader }} />
+
+### CascaderOption
+
+```tsx
+interface CascaderOption {
+  value: string;
+  /**
+   * for input text display.
+   */
+  label: string;
+  /**
+   * for custom render view.
+   * if content and label are both provided, priority display content in option view.
+   */
+  content?: React.ReactNode;
+  /**
+   * Whether the option of cascader is non-interactive.
+   * @default false
+   */
+  disabled?: boolean;
+  children?: CascaderOption[];
+}
+```

@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { DatePicker } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/日期选择器 DatePicker" component={DatePicker} />
+
+# 日期选择器 DatePicker
+
+这个组件直接使用了浏览器原生实现，控件的UI界面因浏览器的不同而有变化，而且部分浏览器还不支持，详细请点击查看[文档](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input/date)。
+
+如果你在使用 UUI 的时候希望使用 DatePicker 这个组件，为了更好的使用体验，你可以手动引入 [`better-dateinput-polyfill`](https://github.com/chemerisuk/better-dateinput-polyfill)（或者其他类似的 polyfill 三方库）到你的项目里。
+
+为了组件库的实现的简洁和更少的依赖，考虑到大多数使用者可能都不会使用 UUI 的这个日期选择器组件，UUI 默认不引入这样的 polyfill。
+
+### 简单使用
+
+<Canvas>
+  <Story name="DatePicker">
+    {() => {
+      const [dateValue, setDateValue] = useState(null)
+      return (
+        <DatePicker value={dateValue} onChange={(value) => { setDateValue(value) }} />
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ DatePicker }} />

@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Layout, Header, Content, Footer, Sider } from '../../src';
+import { useState } from 'react';
+import { Layout1, Layout2, Layout3 } from './Layout.stories.tsx';
+
+<Meta title="组件/框架 Layout" component={Layout} />
+
+# 框架 Layout
+
+<Canvas>
+  <Story name="Layout 1">{Layout1()}</Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Layout 2">{Layout2()}</Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Layout 3">{Layout3()}</Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{
+  Layout,
+  LayoutSider: Layout.Sider,
+  LayoutHeader: Layout.TopBar,
+  LayoutMain: Layout.Content,
+  LayoutFooter: Layout.BottomBar,
+}} />

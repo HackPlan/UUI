@@ -1,0 +1,132 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Button } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/按钮 Button" component={Button} />
+
+# 按钮 Button
+
+按钮用于触发一个即时操作。
+
+### 简单使用
+
+<Canvas>
+  <Story name="Button">
+    <Button
+      className="mr-2"
+      styling={{ type: 'default' }}
+      onClick={() => { console.log('clicked!'); window.alert('Button clicked!'); }}
+    >
+      Default
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'primary' }}
+      onClick={() => { console.log('clicked!'); window.alert('Button clicked!'); }}
+    >
+      Primary
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'text' }}
+      onClick={() => { console.log('clicked!'); window.alert('Button clicked!'); }}
+    >
+      Text
+    </Button>
+  </Story>
+</Canvas>
+
+### 不可用状态
+
+<Canvas>
+  <Story name="Disabled Button">
+    <Button
+      className="mr-2"
+      onClick={() => { console.log('clicked!') }}
+      disabled
+    >
+      Default
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'primary' }}
+      onClick={() => { console.log('clicked!') }}
+      disabled
+    >
+      Primary
+    </Button>
+    <Button
+      className="mr-2"
+      styling={{ type: 'text' }}
+      onClick={() => { console.log('clicked!') }}
+      disabled
+    >
+      Text
+    </Button>
+  </Story>
+</Canvas>
+
+### 加载状态
+
+<Canvas>
+  <Story name="Loading Button">
+    {() => {
+      const [loading, setLoading] = useState(true)
+      const [loading2, setLoading2] = useState(false)
+      return (
+        <div>
+          <div>
+            <Button
+              className="mr-2 mb-2"
+              onClick={() => { console.log('clicked!') }}
+              loading>
+                loading
+            </Button>
+            <Button
+              className="mr-2 mb-2"
+              styling={{ type: 'primary' }}
+              onClick={() => { console.log('clicked!') }}
+              loading>
+                loading
+            </Button>
+            <Button
+              className="mr-2 mb-2"
+              styling={{ type: 'text' }}
+              onClick={() => { console.log('clicked!') }}
+              loading>
+                loading
+            </Button>
+          </div>
+          <div>
+            <Button
+              className="mr-2 mb-2"
+              onClick={() => { console.log('clicked!') }}
+              loading={loading}>
+                {loading? null :'loading'}
+            </Button>
+            <Button
+              className="mr-2 mb-2"
+              onClick={() => {
+                setLoading2(true)
+                setTimeout(() => {
+                  setLoading2(false)
+                }, 3000)
+              }}
+              loading={loading2}>
+                click to loading
+            </Button>
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 键盘控制
+
+* `Space` 触发点击按钮。
+* `Enter` 触发点击按钮。
+
+### Props
+
+<ArgsTable components={{ Button }} />

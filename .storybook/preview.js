@@ -12,31 +12,48 @@ addParameters({
 
 addParameters({
   options: {
-    /**
-     * Custom Story Sorting
-     * if story parameters contains a property `sortIndex`, sort by it and place on top,
-     * else the resting stories will sorted by story kind by alphabetically.
-     */
     storySort: (a, b) => {
+      const kindIndex = [
+        "文档",
+        "组件",
+        "演示",
+      ]
 
-      /**
-       * 组件类 Story 按照英文字母表排序
-       */
-      if (a[1]['kind'].startsWith('组件/总览')) return false
-      if (a[1]['kind'].startsWith('组件/')) {
-        return a[1]['kind'].replace(/[\u4e00-\u9fa5]/g, '') > b[1]['kind'].replace(/[\u4e00-\u9fa5]/g, '')
+      const docsIndex = [
+        "文档/主页 Welcome",
+        "文档/介绍 Introduction",
+        "文档/快速上手 Getting Started",
+        "文档/使用自定义功能 Using Customize",
+        "文档/实现原理 Principle",
+        "文档/更新日志 Changelog",
+      ]
+
+      const sortByAlphabet = (x, y) => {
+        /**
+         * 组件类 Story 按照英文字母表排序
+         */
+        if (x.startsWith('总览')) return false
+        if (y.startsWith('总览')) return true
+        return x.replace(/[\u4e00-\u9fa5]/g, '') > y.replace(/[\u4e00-\u9fa5]/g, '')
       }
 
-      const sortIndexA = a[2]['sortIndex']
-      const sortIndexB = b[2]['sortIndex']
-      if (sortIndexA && !sortIndexB) {
-        return false
-      } else if (!sortIndexA && sortIndexB) {
-        return true
-      } else if (sortIndexA && sortIndexB) {
-        return sortIndexA > sortIndexB
+      const sortByIndexArray = (x, y, indexArr) => {
+        return indexArr.findIndex((i) => i === x) > indexArr.findIndex((i) => i === y)
+      }
+
+      const apath = a[1]['kind']
+      const bpath = b[1]['kind']
+      const [akind, atitle] = apath.split('/')
+      const [bkind, btitle] = bpath.split('/')
+
+      if (akind === bkind) {
+        if (akind == "文档") {
+          return sortByIndexArray(apath, bpath, docsIndex)
+        } else if (akind === "组件") {
+          return sortByAlphabet(atitle, btitle)
+        }
       } else {
-        return a[1].kind === b[1].kind ? 0 : a[1].id.localeCompare(b[1].id, undefined, { numeric: true })
+        return sortByIndexArray(akind, bkind, kindIndex)
       }
     },
   },

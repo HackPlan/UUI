@@ -1,0 +1,33 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Breadcrumb } from '../../src';
+import { useState } from 'react';
+import { Icons } from '../../src/icons/Icons';
+
+<Meta title="组件/面包屑 Breadcrumb" component={Breadcrumb} />
+
+# 面包屑 Breadcrumb
+
+面包屑用于显示当前页面在网页应用层级结构中的位置，并且能向上级某个层级返回。
+
+### 简单使用
+
+<Canvas>
+  <Story name="Breadcrumb">
+    <Breadcrumb
+      items={[
+        { key: 'home', path: '/', label: <div className="flex flex-row items-center"><Icons.Home /><div className="ml-1">Home</div></div> },
+        { key: 'form', label: 'Form', onAction: () => {} },
+        { key: 'login', label: 'Login', active: true },
+      ]}
+    />
+  </Story>
+</Canvas>
+
+### 键盘控制
+
+* `Tab` 将焦点移到下一个可聚焦元素。
+* `Shift + Tab` 将焦点移至上一个可聚焦元素。
+
+### Props
+
+<ArgsTable components={{ Breadcrumb }} />

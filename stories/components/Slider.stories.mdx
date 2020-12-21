@@ -1,0 +1,132 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Slider } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/滑块 Slider" component={Slider} />
+
+# 滑块 Slider
+
+
+### 简单使用
+
+<Canvas>
+  <Story name="Slider">
+    {() => {
+      const [value, setValue] = useState(72)
+      const [value2, setValue2] = useState(22)
+      return (
+        <div>
+          <div className="flex flex-row items-center my-2">
+            <Slider value={value} max={100} min={0} step={1} onChange={(value) => setValue(value)} />
+          </div>
+          <div className="flex flex-row items-center my-2">
+            <Slider value={value2} max={100} min={0} step={1} onChange={(value) => setValue2(value)} disabled />
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 范围选取
+
+<Canvas>
+  <Story name="Slider with range">
+    {() => {
+      const [value, setValue] = useState([10, 40])
+      return (
+        <div className="flex flex-row items-center">
+          <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} />
+          <div>{JSON.stringify(value)}</div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 离散取值
+
+<Canvas>
+  <Story name="Slider with step">
+    {() => {
+      const [value, setValue] = useState(3)
+      return (
+        <div className="flex flex-row items-center">
+          <Slider value={value} max={10} min={1} step={1} onChange={(value) => setValue(value)}
+            remarks={[1,2,3,4,5,6,7,8,9,10].map((i) => ({ label: `${i}`, value: i }))}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 刻度标记
+
+> 刻度标记 `Remark` 和拖动按钮 `Thumb` 使用了绝对定位，所以无法撑开组件的高度，使用的时候要根据标记的内容尺寸大小，自行加上外边距，避免元素之前重叠显示。
+
+<Canvas>
+  <Story name="Slider with remark">
+    {() => {
+      const [value, setValue] = useState([10, 40])
+      return (
+        <div className="flex flex-row items-center">
+          <Slider
+            value={value}
+            max={100}
+            min={0}
+            step={0.1}
+            onChange={(value) => setValue(value)}
+            remarks={[
+              { label: '0°C', value: 0 },
+              { label: '33°C', value: 33 },
+              { label: <div className="text-red-500">100°C</div>, value: 100 },
+            ]}
+          />
+          <div className="ml-12">{JSON.stringify(value)}</div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 垂直方向
+
+<Canvas>
+  <Story name="Slider with vertical">
+    {() => {
+      const [value, setValue] = useState(13)
+      const [value2, setValue2] = useState([30, 75])
+      const [value3, setValue3] = useState(57)
+      return (
+        <div className="flex flex-row items-center">
+          <div className="inline-flex flex-col items-center mx-4">
+            <Slider value={value} max={100} min={0} step={0.1} onChange={(value) => setValue(value)} vertical />
+          </div>
+          <div className="inline-flex flex-col items-center mx-4">
+            <Slider value={value2} max={100} min={0} step={0.1} onChange={(value) => setValue2(value)} vertical />
+          </div>
+          <div className="inline-flex flex-col items-center mx-4">
+            <Slider
+              value={value3}
+              max={100}
+              min={0}
+              step={0.1}
+              onChange={(value) => setValue3(value)}
+              remarks={[
+                { label: '0°C', value: 0 },
+                { label: '33°C', value: 33 },
+                { label: <div className="text-red-500">100°C</div>, value: 100 },
+              ]}
+              vertical
+            />
+          </div>
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ Slider }} />
