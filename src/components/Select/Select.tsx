@@ -43,7 +43,7 @@ interface SelectSectionsProps {
 
 interface SelectValueProps<
   X extends true | false | boolean | undefined = undefined,
-  Y = (X extends true ? string[] : string),
+  Y = (X extends undefined ? string : (X extends true ? string[] : string)),
   T = Y | null,
 > {
   /**

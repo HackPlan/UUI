@@ -105,7 +105,6 @@ export const ComponentsCombination = () => {
           options={options}
           value={selected}
           onChange={(value) => { setSelected(value) }}
-          multiple={false}
         />
       </Drawer>
 
