@@ -1,0 +1,54 @@
+.UUI-Tooltip-Root {
+  position: relative;
+  display: inline-block;
+
+  .UUI-Tooltip-Tip {
+    visibility: hidden;
+    background: #333;
+    color: white;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+  }
+
+  &:hover {
+    .UUI-Tooltip-Tip {
+      visibility: inherit;
+    }
+  }
+
+  .UUI-Tooltip-Arrow,
+  .UUI-Tooltip-Arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    z-index: -1;
+  }
+
+  .UUI-Tooltip-Arrow::before {
+    content: '';
+    transform: rotate(45deg);
+    background: #333;
+  }
+
+  .UUI-Tooltip-Tip[data-popper-placement^="top"] > .UUI-Tooltip-Arrow {
+    bottom: -4px;
+    left: calc(50% - 4px);
+  }
+
+  .UUI-Tooltip-Tip[data-popper-placement^="bottom"] > .UUI-Tooltip-Arrow {
+    top: -4px;
+    left: calc(50% - 4px);
+  }
+
+  .UUI-Tooltip-Tip[data-popper-placement^="left"] > .UUI-Tooltip-Arrow {
+    right: -4px;
+    top: calc(50% - 4px);
+  }
+
+  .UUI-Tooltip-Tip[data-popper-placement^="right"] > .UUI-Tooltip-Arrow {
+    left: -4px;
+    top: calc(50% - 4px);
+  }
+}

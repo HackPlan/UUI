@@ -1,0 +1,61 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Tooltip, Button } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/文字提示 Tooltip" component={Tooltip} />
+
+# 文字提示 Tooltip
+
+### Tooltip
+
+<Canvas>
+  <Story name="Tooltip">
+    {() => {
+      const grid = [
+        [
+          '',
+          <Tooltip label="这是一段文字提示" placement="top">
+            <Button>文字提示（上）</Button>
+          </Tooltip>,
+          '',
+        ],
+        [
+          <Tooltip label="这是一段文字提示" placement="left">
+            <Button>文字提示（左）</Button>
+          </Tooltip>,
+          '',
+          <Tooltip label="这是一段文字提示" placement="right">
+            <Button>文字提示（右）</Button>
+          </Tooltip>,
+        ],
+        [
+          '',
+          <Tooltip label="这是一段文字提示" placement="bottom">
+            <Button>文字提示（下）</Button>
+          </Tooltip>,
+          '',
+        ],
+      ]
+      return (
+        <div className="flex flex-col items-center m-8">
+          {grid.map((row, rowIndex) => {
+            return (
+              <div key={rowIndex} className="row flex flex-row">
+                {row.map((cell, cellIndex) => {
+                  const element = typeof cell === 'string' ? <Button style={{ width: 160, fontSize: 15, height: 40, visibility: 'hidden' }}>X</Button> : cell
+                  return (
+                    <div key={cellIndex} className="cell m-1">{element}</div>
+                  )
+                })}
+              </div>
+            )
+          })}
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ Tooltip }} />
