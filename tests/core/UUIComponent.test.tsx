@@ -654,6 +654,9 @@ it('UUIComponent [customize onXXX callback function]', () => {
  * 测试 refs 类型的 customize 参数是否正常有效。
  */
 it('UUIComponent [refs]', () => {
+  const refx = React.createRef<any>();
+  const refy = React.createRef<any>();
+  const refz = React.createRef<any>();
   const ref1 = React.createRef<any>();
   const ref2 = React.createRef<any>();
   const ref3 = React.createRef<any>();
@@ -670,7 +673,7 @@ it('UUIComponent [refs]', () => {
   }, (props: {}, nodes) => {
     const { Root, Child1, Child2, Child3 } = nodes
     return (
-      <Root>
+      <Root ref={refx}>
         <Child1 ref={ref1} />
         <Child2 ref={ref3} />
         <Child3 />
@@ -680,7 +683,11 @@ it('UUIComponent [refs]', () => {
 
   mount((
     <UUITestComponent
+      ref={refy}
       customize={{
+        Root: {
+          ref: refz,
+        },
         Child1: {
           ref: ref2,
         },
@@ -694,6 +701,8 @@ it('UUIComponent [refs]', () => {
     />
   ));
 
+  expect(refz.current).toBe(null);
+  expect(refx.current).toBe(refy.current)
   expect(ref1.current).toBe(ref2.current);
   expect(ref3.current).toBe(ref4.current);
 })

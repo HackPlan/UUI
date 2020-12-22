@@ -41,7 +41,7 @@ export function UUIFunctionComponent<
   },
   WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
 ) {
-  const component: React.FunctionComponent<P & UUIConvenienceProps & UUIMetaProps & Z> = (props) => {
+  const component = React.forwardRef((props: P & UUIConvenienceProps & UUIMetaProps & Z, ref) => {
     const { prefix, separator } = props;
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -54,11 +54,11 @@ export function UUIFunctionComponent<
       return { nodes }
     }, [prefix, separator, providerContext])
 
-    const compiledProps = compileProps(props)
+    const compiledProps = compileProps(props, ref)
     mergeProviderCustomize(options, compiledProps, providerContext)
     injectCustomizeProps(nodes, compiledProps)
     return WrappedComponent(compiledProps, nodes)
-  }
+  });
   component.displayName = `<UUI> [Component] ${options.name}`
   return component
 }

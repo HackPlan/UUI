@@ -19,6 +19,7 @@ export function compileProps(props: any, ref?: any): any {
   if (compiledProps.className) rootCustomizeProps.extendClassName = classNames(compiledProps.className, rootCustomizeProps.extendClassName);
   if (compiledProps.style) rootCustomizeProps.extendStyle = Object.assign(compiledProps.style, rootCustomizeProps.extendStyle);
   if (compiledProps.id) rootCustomizeProps.id = compiledProps.id;
+  if (ref) rootCustomizeProps.ref = ref;
 
   let dataAttributes = pickBy(compiledProps, (v, k) => k.startsWith('data-'))
   dataAttributes = mapKeys(dataAttributes, (v, k) => k.replace('data-', ''))

@@ -1,4 +1,5 @@
 import { IntrinsicNodeT, FunctionComponentNodeT, ClassComponentNodeT, NodeCustomizeProps } from "./UUICustomizeNode"
+import { Ref } from "react"
 
 export type UUIConvenienceProps = {
   /**
@@ -6,6 +7,11 @@ export type UUIConvenienceProps = {
    * this props will be applied to id of component Root node.
    */
   id?: string;
+  /**
+   * Convenience ref props,
+   * this props will be applied to ref of component Root node.
+   */
+  ref?: Ref<any>;
   /**
    * Convenience className props,
    * this props will be applied to append to extendClassName of component Root node customize props.
