@@ -13,7 +13,7 @@ export const LayoutMain = UUIFunctionComponent({
   nodes: {
     Root: 'main',
   },
-}, (props: LayoutMainFeatureProps, nodes) => {
+}, (props: LayoutMainFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (
     <Root>

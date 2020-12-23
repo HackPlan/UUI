@@ -114,7 +114,7 @@ export const Cascader = UUIFunctionComponent({
     SearchMatched: 'span',
     LoadingSpinner: LoadingSpinner,
   },
-}, (props: CascaderFeatureProps, nodes) => {
+}, (props: CascaderFeatureProps, { nodes }) => {
   /**
    * Component Nodes Spread
    */

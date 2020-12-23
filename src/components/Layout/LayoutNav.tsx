@@ -13,7 +13,7 @@ export const LayoutNav = UUIFunctionComponent({
   nodes: {
     Root: 'nav',
   },
-}, (props: LayoutNavFeatureProps, nodes) => {
+}, (props: LayoutNavFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   return (

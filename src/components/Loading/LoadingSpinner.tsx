@@ -15,7 +15,7 @@ export const LoadingSpinner = UUIFunctionComponent({
     Root: 'div',
     Icon: Icons.Spinner,
   }
-}, (props: LoadingSpinnerFeatureProps, nodes) => {
+}, (props: LoadingSpinnerFeatureProps, { nodes }) => {
   const { Root, Icon } = nodes
 
   const finalProps = {

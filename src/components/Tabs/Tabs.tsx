@@ -46,7 +46,7 @@ export const Tabs = UUIFunctionComponent({
     ContentBox: 'div',
     Content: 'div',
   },
-}, (props: TabsFeatureProps, nodes) => {
+}, (props: TabsFeatureProps, { nodes }) => {
   const { Root, TabBox, ContentBox, Content } = nodes
 
   const finalProps = {

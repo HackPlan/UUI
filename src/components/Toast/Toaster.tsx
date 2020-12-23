@@ -107,7 +107,7 @@ export class Toaster extends UUIClassComponent({
   }
 
   render() {
-    const { Root } = this.state.nodes
+    const { Root } = this.helper.nodes
 
     return (
       <Root className={classNames(`position-${this.props.position || ToasterPosition.Top}`)}>

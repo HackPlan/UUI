@@ -17,7 +17,7 @@ export const LoadingCover = UUIFunctionComponent({
     Spinner: LoadingSpinner,
     Label: 'div',
   }
-}, (props: LoadingCoverFeatureProps, nodes) => {
+}, (props: LoadingCoverFeatureProps, { nodes }) => {
   const { Root, Mask, Spinner, Label } = nodes
 
   return (

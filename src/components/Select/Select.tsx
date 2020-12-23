@@ -133,7 +133,7 @@ const SelectNodes = {
 export const BaseSelect = UUIFunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
-}, (props: SelectFeatureProps<boolean | undefined>, nodes) => {
+}, (props: SelectFeatureProps<boolean | undefined>, { nodes }) => {
   const {
     Root, Dropdown, DropdownIcon,
     Activator, Result, Placeholder,

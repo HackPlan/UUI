@@ -13,7 +13,7 @@ export const LayoutHeader = UUIFunctionComponent({
   nodes: {
     Root: 'header',
   },
-}, (props: LayoutHeaderFeatureProps, nodes) => {
+}, (props: LayoutHeaderFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (
     <Root>

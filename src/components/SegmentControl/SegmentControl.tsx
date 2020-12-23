@@ -38,7 +38,7 @@ const SegmentControlNodes = {
 const BaseSegmentControl = UUIFunctionComponent({
   name: 'SegmentControl',
   nodes: SegmentControlNodes
-}, (props: SegmentControlFeatureProps<any>, nodes) => {
+}, (props: SegmentControlFeatureProps<any>, { nodes }) => {
   const { Root, Container, Option, Thumb } = nodes;
 
   const selectedIndex = props.options.findIndex((i) => i.value === props.value)

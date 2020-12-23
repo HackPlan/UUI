@@ -15,7 +15,7 @@ export const _Skeleton = UUIFunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: SkeletonFeatureProps, nodes) => {
+}, (props: SkeletonFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (
     <Root>{props.children}</Root>

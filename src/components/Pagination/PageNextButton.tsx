@@ -13,7 +13,7 @@ export const PageNextButton = UUIFunctionComponent({
     Root: UUIButton,
     NextIcon: Icons.ChevronRight,
   }
-}, (props: PageNextButtonFeatureProps, nodes) => {
+}, (props: PageNextButtonFeatureProps, { nodes }) => {
   const { Root, NextIcon } = nodes
 
   const context = useContext(PaginationContext)

@@ -14,7 +14,7 @@ export const PageSize = UUIFunctionComponent({
     Root: 'div',
     Select: HTMLSelect,
   }
-}, (props: PageSizeFeatureProps, nodes) => {
+}, (props: PageSizeFeatureProps, { nodes }) => {
   const { Root, Select } = nodes
 
   const context = useContext(PaginationContext)

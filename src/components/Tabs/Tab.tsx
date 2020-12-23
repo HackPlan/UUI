@@ -23,7 +23,7 @@ export const Tab = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: TabFeatureProps, nodes) => {
+}, (props: TabFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const context = useContext(TabsContext)

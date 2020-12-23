@@ -13,7 +13,7 @@ export const PageSection = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: PageSectionFeatureProps, nodes) => {
+}, (props: PageSectionFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (
     <Root>

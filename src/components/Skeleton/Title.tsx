@@ -9,7 +9,7 @@ export const SkeletonTitle = UUIFunctionComponent({
   nodes: {
     Root: 'h3'
   }
-}, (props: SkeletonTitleFeatureProps, nodes) => {
+}, (props: SkeletonTitleFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (
     <Root></Root>

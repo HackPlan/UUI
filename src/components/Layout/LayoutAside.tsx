@@ -13,7 +13,7 @@ export const LayoutAside = UUIFunctionComponent({
   nodes: {
     Root: 'aside',
   },
-}, (props: LayoutAsideFeatureProps, nodes) => {
+}, (props: LayoutAsideFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   return (

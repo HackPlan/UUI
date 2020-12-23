@@ -21,7 +21,7 @@ it('UUIComponentHOC', () => {
       Title: 'h1',
       Paragraph: 'p',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Container, Article, Title, Paragraph } = nodes
     return (
       <Root>
@@ -47,7 +47,7 @@ it('UUIComponentHOC', () => {
     }
   }) {
     render() {
-      const { Root, Container, Article, Title, Paragraph } = this.state.nodes
+      const { Root, Container, Article, Title, Paragraph } = this.helper.nodes
       return (
         <Root>
           <Container>
@@ -81,7 +81,7 @@ it('UUIComponentHOC', () => {
       FunctionComponent: UUITestFunctionComponent,
       ClassComponent: UUITestClassComponent,
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, FunctionComponent, ClassComponent } = nodes
     return (
       <Root>
@@ -109,7 +109,7 @@ it('UUIComponentHOC - customize', () => {
     nodes: {
       Root: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root } = nodes
     return (
       <Root>UUITestTempComponent</Root>
@@ -121,7 +121,7 @@ it('UUIComponentHOC - customize', () => {
       Root: 'div',
       Y: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Y } = nodes
     return (
       <Root>
@@ -140,7 +140,7 @@ it('UUIComponentHOC - customize', () => {
     }
   }) {
     render() {
-      const { Root, X } = this.state.nodes
+      const { Root, X } = this.helper.nodes
       return (
         <Root>
           <X className="TestFuncXInner" style={{ color: 'red' }}>
@@ -159,7 +159,7 @@ it('UUIComponentHOC - customize', () => {
       ClassComponent: UUITestClassComponent,
       TempComponent: UUITestTempComponent,
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, FunctionComponent, ClassComponent, TempComponent } = nodes
     return (
       <Root>
@@ -251,7 +251,7 @@ it('UUIComponentHOC [options]', () => {
       Title: 'h1',
       Paragraph: 'p',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Container, Article, Title, Paragraph } = nodes
     return (
       <Root>
@@ -275,7 +275,7 @@ it('UUIComponentHOC [options]', () => {
     }
   }) {
     render() {
-      const { Root } = this.state.nodes
+      const { Root } = this.helper.nodes
       return (
         <Root>
           TestZComponent
@@ -313,7 +313,7 @@ it('UUIComponentHOC [options]', () => {
     separator={'+'}
   ></XUITestFunctionComponent>) as any;
   const before1 = wrapper1.html()
-  wrapper1.setProps({ prefix: 'HUI', name: 'ChangedTestHComponent', separator: '~' });
+  wrapper1.setProps({ prefix: 'HUI', separator: '~' });
   const after1 = wrapper1.html()
   expect(before1).not.toEqual(after1);
 
@@ -322,9 +322,18 @@ it('UUIComponentHOC [options]', () => {
     separator={'+'}
   ></UUITestClassComponent>) as any;
   const before2 = wrapper2.html()
-  wrapper2.setProps({ prefix: 'CUI', name: 'ChangedTestCComponent', separator: '~' });
+  wrapper2.setProps({ prefix: 'CUI', separator: '~' });
   const after2 = wrapper2.html()
   expect(before2).not.toEqual(after2);
+
+  const wrapper3 = shallow(<UUITestClassComponent
+    prefix={'BUI'}
+    separator={'+'}
+  ></UUITestClassComponent>) as any;
+  const before3 = wrapper3.html()
+  wrapper3.setProps({ prefix: 'BUI', separator: '+' });
+  const after3 = wrapper3.html()
+  expect(before3).toEqual(after3);
 });
 
 it('UUIComponentHOC [no Root node]', () => {
@@ -333,7 +342,7 @@ it('UUIComponentHOC [no Root node]', () => {
     nodes: {
       Container: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Container } = nodes
     return (
       <Container>
@@ -371,7 +380,7 @@ it('UUIComponent customize [className, style, children]', () => {
     nodes: {
       Root: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root } = nodes
     return (
       <Root
@@ -393,7 +402,7 @@ it('UUIComponent customize [className, style, children]', () => {
       Extra: 'div',
       Child: UUITestChild,
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Child, Extra } = nodes
     return (
       <Root
@@ -493,7 +502,7 @@ it('UUIComponent customize [convenience][className, style]', () => {
       Root: 'div',
       Child: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Child } = nodes
     return (
       <Root
@@ -551,7 +560,7 @@ it('UUIComponent [special IntrinsicNodes children]', () => {
       Select: 'select',
       Option: 'option',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Input, Textarea, Hr, Select, Option } = nodes
     return (
       <Root>
@@ -609,7 +618,7 @@ it('UUIComponent [customize onXXX callback function]', () => {
       Trigger2: 'div',
       Trigger3: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Trigger1, Trigger2, Trigger3 } = nodes
     return (
       <Root>
@@ -670,7 +679,7 @@ it('UUIComponent [refs]', () => {
       Child2: 'div',
       Child3: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Child1, Child2, Child3 } = nodes
     return (
       <Root ref={refx}>
@@ -721,7 +730,7 @@ it('UUIComponent [dataAttributes]', () => {
       Node1: 'div',
       Node2: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Node1, Node2 } = nodes
     return (
       <Root>
@@ -774,7 +783,7 @@ it('UUIComponent [ariaAttributes]', () => {
       Node1: 'div',
       Node2: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Node1, Node2 } = nodes
     return (
       <Root>
@@ -824,7 +833,7 @@ it('UUIComponent [id]', () => {
       Root: 'div',
       Node: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Node } = nodes
     return (
       <Root>

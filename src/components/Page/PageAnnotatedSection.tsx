@@ -19,7 +19,7 @@ export const PageAnnotatedSection = UUIFunctionComponent({
     Description: 'p',
     Container: 'div',
   },
-}, (props: PageAnnotatedSectionFeatureProps, nodes) => {
+}, (props: PageAnnotatedSectionFeatureProps, { nodes }) => {
   const { Root, InfoWrapper, Title, Description, Container } = nodes
   return (
     <Root>

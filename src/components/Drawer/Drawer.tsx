@@ -63,7 +63,7 @@ export const Drawer = UUIFunctionComponent({
     Backdrop: 'div',
     Content: 'div',
   }
-}, (props: DrawerFeatureProps, nodes) => {
+}, (props: DrawerFeatureProps, { nodes }) => {
   const { Root, Portal, Backdrop, Content } = nodes
 
   /**

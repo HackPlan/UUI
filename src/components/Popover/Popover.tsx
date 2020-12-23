@@ -74,7 +74,7 @@ export const Popover = UUIFunctionComponent({
     Portal: 'div',
     Content: 'div',
   },
-}, (props: PopoverFeatureProps, nodes) => {
+}, (props: PopoverFeatureProps, { nodes }) => {
   const { Root, Activator, Portal, Content } = nodes
 
   /**

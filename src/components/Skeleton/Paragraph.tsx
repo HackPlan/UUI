@@ -11,7 +11,7 @@ export const SkeletonParagraph = UUIFunctionComponent({
     Root: 'div',
     Line: 'p',
   }
-}, (props: SkeletonParagraphFeatureProps, nodes) => {
+}, (props: SkeletonParagraphFeatureProps, { nodes }) => {
   const { Root, Line } = nodes
   const lines = props.lines || 3
   return (

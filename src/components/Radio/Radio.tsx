@@ -39,7 +39,7 @@ const RadioNodes = {
 const BaseRadio = UUIFunctionComponent({
   name: "Radio",
   nodes: RadioNodes,
-}, (props: RadioFeatureProps<string | number>, nodes) => {
+}, (props: RadioFeatureProps<string | number>, { nodes }) => {
   const { Root, Input, Indicator, Label } = nodes
 
   const context = useContext(RadioGroupContext)

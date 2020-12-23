@@ -9,7 +9,7 @@ export const SkeletonPicture = UUIFunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: SkeletonPictureFeatureProps, nodes) => {
+}, (props: SkeletonPictureFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (
     <Root></Root>

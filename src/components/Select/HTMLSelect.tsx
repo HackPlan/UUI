@@ -53,7 +53,7 @@ const HTMLSelectNodes = {
 const BaseHTMLSelect = UUIFunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
-}, (props: HTMLSelectFeatureProps<any>, nodes) => {
+}, (props: HTMLSelectFeatureProps<any>, { nodes }) => {
   const { Root, Select, Option, LoadingSpinner } = nodes
   return (
     <Root

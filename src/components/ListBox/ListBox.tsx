@@ -30,7 +30,7 @@ export const ListBox = UUIFunctionComponent({
     Box: 'ul',
     Item: 'li',
   },
-}, (props: ListBoxFeatureProps, nodes) => {
+}, (props: ListBoxFeatureProps, { nodes }) => {
   const { Root, Box, Item } = nodes
 
   const [focusedId, setFocusedId] = useState<string | null>(null)

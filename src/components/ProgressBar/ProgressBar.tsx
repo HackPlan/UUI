@@ -40,7 +40,7 @@ export const ProgressBar = UUIFunctionComponent(
       CircularRight: "div",
     },
   },
-  (props: ProgressBarFeatureProps, nodes) => {
+  (props: ProgressBarFeatureProps, { nodes }) => {
     const {
       Root,
       Container,

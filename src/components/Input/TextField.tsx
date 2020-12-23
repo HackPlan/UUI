@@ -83,7 +83,7 @@ export const TextField = UUIFunctionComponent({
     HidePasswordIcon: Icons.EyeOff,
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: TextFieldFeatureProps, nodes) => {
+}, (props: TextFieldFeatureProps, { nodes }) => {
   const {
     Root, Input,
     LengthIndicator, TogglePasswordVisibleButton,

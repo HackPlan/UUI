@@ -26,7 +26,7 @@ export const Button = UUIFunctionComponent({
     LoadingSpinner: LoadingSpinner,
     Content: 'div',
   },
-}, (props: ButtonFeatureProps & ButtonStylingProps, nodes) => {
+}, (props: ButtonFeatureProps & ButtonStylingProps, { nodes }) => {
   const { Root, LoadingSpinner, Content } = nodes
 
   const ref = useRef<HTMLElement | null>(null)

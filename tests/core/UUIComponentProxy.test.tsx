@@ -20,7 +20,7 @@ it('UUIComponentProxy', () => {
       Node: 'div',
       ExtendTest: 'div',
     }
-  }, (props: {}, nodes) => {
+  }, (props: {}, { nodes }) => {
     const { Root, Node, ExtendTest } = nodes
     return (
       <Root className="root-base-classname" style={{

@@ -63,7 +63,7 @@ export const Slider = UUIFunctionComponent({
     Remark: 'div',
     RemarkLabel: 'div',
   }
-}, (props: SliderFeatureProps, nodes) => {
+}, (props: SliderFeatureProps, { nodes }) => {
   const { Root, Container, ActiveLine, InactiveLine, Thumb, Remark, RemarkLabel } = nodes
 
   const finalProps = {

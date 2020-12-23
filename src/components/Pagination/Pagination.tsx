@@ -28,7 +28,7 @@ export const _Pagination = UUIFunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: PaginationFeatureProps, nodes) => {
+}, (props: PaginationFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const pagination = usePagination(props.value, props.onChange)

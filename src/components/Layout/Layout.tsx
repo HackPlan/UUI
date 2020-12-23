@@ -27,7 +27,7 @@ export const _Layout = UUIFunctionComponent({
   nodes: {
     Root: 'section',
   },
-}, (props: LayoutFeatureProps, nodes) => {
+}, (props: LayoutFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const { nav, header, footer } = useMemo(() => {

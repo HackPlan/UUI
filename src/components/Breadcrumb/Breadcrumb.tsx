@@ -25,7 +25,7 @@ export const Breadcrumb = UUIFunctionComponent({
     Separator: 'li',
     ItemLink: 'a',
   }
-}, (props: BreadcrumbFeatureProps, nodes) => {
+}, (props: BreadcrumbFeatureProps, { nodes }) => {
   const { Root, List, Item, ItemLink, Separator } = nodes
 
   const finalProps = {

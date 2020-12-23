@@ -6,6 +6,18 @@ import { compileProps } from "./utils/compileProps";
 import { UUIProviderContext, UUIProviderContextValue } from "../UUIProvider";
 import { mergeProviderCustomize } from './utils/mergeProviderCustomize';
 
+export interface UUIComponentHelper<
+  X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT },
+> {
+  nodes: UUIComponentNodes<X>;
+  options: {
+    prefix: string;
+    name: string;
+    separator: string;
+    nodes: X;
+  };
+}
+
 /**
  * UUI Advanced Component for Function Component
  * @param options setup options
@@ -39,7 +51,7 @@ export function UUIFunctionComponent<
     separator?: string;
     nodes: X;
   },
-  WrappedComponent: (props: P, nodes: UUIComponentNodes<X>, ref: any) => React.ReactElement,
+  WrappedComponent: (props: P, helper: UUIComponentHelper<X>) => React.ReactElement,
 ) {
   const component = React.forwardRef((props: P & UUIConvenienceProps & UUIMetaProps & Z, ref) => {
     const { prefix, separator } = props;
@@ -48,16 +60,19 @@ export function UUIFunctionComponent<
     const providerContext = useContext(UUIProviderContext)
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { nodes } = useMemo(() => {
+    const { nodes, finalOptions } = useMemo(() => {
       const finalOptions = getFinalOptions(options, { prefix, separator }, providerContext)
       const nodes = compileNodes(finalOptions)
-      return { nodes }
+      return { nodes, finalOptions }
     }, [prefix, separator, providerContext])
 
     const compiledProps = compileProps(props, ref)
     mergeProviderCustomize(options, compiledProps, providerContext)
     injectCustomizeProps(nodes, compiledProps)
-    return WrappedComponent(compiledProps, nodes, ref)
+
+    return WrappedComponent(compiledProps, {
+      nodes, options: finalOptions
+    })
   });
   component.displayName = `<UUI> [Component] ${options.name}`
   return component
@@ -92,33 +107,38 @@ export function UUIClassComponent<
     nodes: X;
   },
 ) {
-  return class WrappedComponent<P = {}, S = {}, SS = any> extends React.Component<P & UUIConvenienceProps & UUIMetaProps & Z, S & { nodes: UUIComponentNodes<X> }, SS> {
+  return class WrappedComponent<P = {}, S = {}, SS = any> extends React.Component<P & UUIConvenienceProps & UUIMetaProps & Z, S, SS> {
     static displayName = `<UUI> [Component] ${options.name}`
     static contextType = UUIProviderContext
 
-    state: S & { nodes: UUIComponentNodes<X> }
+    state: S
+    helper: UUIComponentHelper<X>
 
     componentDidUpdate(prevProps: P & UUIConvenienceProps & UUIMetaProps & Z) {
-      if (
-        prevProps.prefix !== this.props.prefix ||
-        prevProps.separator !== this.props.separator
-      ) {
+      if (prevProps.prefix !== this.props.prefix || prevProps.separator !== this.props.separator) {
         const finalOptions = getFinalOptions(options, this.props, this.context)
-        this.setState({ nodes: compileNodes(finalOptions) })
+        this.helper = {
+          nodes: compileNodes(finalOptions),
+          options: finalOptions,
+        }
         const compiledProps = compileProps(this.props, (this.props as any).innerRef || undefined)
         mergeProviderCustomize(options, compiledProps, this.context)
-        injectCustomizeProps(this.state.nodes, compiledProps)
+        injectCustomizeProps(this.helper.nodes, compiledProps)
+        this.forceUpdate()
       }
     }
 
     constructor(props: P & UUIConvenienceProps & Z) {
       super(props)
+      this.state = {} as any
       const finalOptions = getFinalOptions(options, props, this.context)
-      this.state = { nodes: compileNodes(finalOptions) } as any
-      this.state.nodes = compileNodes(finalOptions)
+      this.helper = {
+        nodes: compileNodes(finalOptions),
+        options: finalOptions
+      }
       const compiledProps = compileProps(props, (props as any).innerRef || undefined)
       mergeProviderCustomize(options, compiledProps, this.context)
-      injectCustomizeProps(this.state.nodes, compiledProps)
+      injectCustomizeProps(this.helper.nodes, compiledProps)
     }
   }
 }

@@ -56,7 +56,7 @@ export const Dialog = UUIFunctionComponent({
     Backdrop: 'div',
     Content: 'div',
   }
-}, (props: DialogFeatureProps, nodes) => {
+}, (props: DialogFeatureProps, { nodes }) => {
   const { Root, Portal, Backdrop, Content } = nodes
 
   /**

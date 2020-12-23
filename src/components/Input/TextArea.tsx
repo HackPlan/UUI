@@ -55,7 +55,7 @@ export const TextArea = UUIFunctionComponent({
     LengthIndicator: 'div',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: TextAreaFeatureProps, nodes) => {
+}, (props: TextAreaFeatureProps, { nodes }) => {
   const { Root, Textarea, Info, LengthIndicator, LoadingSpinner } = nodes
 
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')

@@ -37,7 +37,7 @@ const RadioGroupNodes = {
 const BaseRadioGroup = UUIFunctionComponent({
   name: "RadioGroup",
   nodes: RadioGroupNodes,
-}, (props: RadioGroupFeatureProps<any>, nodes) => {
+}, (props: RadioGroupFeatureProps<any>, { nodes }) => {
   const { Root } = nodes
 
   const radios = useMemo(() => {

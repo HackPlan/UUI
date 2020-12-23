@@ -44,7 +44,7 @@ export const Checkbox = UUIFunctionComponent({
     Indicator: 'span',
     Label: 'span',
   }
-}, (props: CheckboxFeatureProps, nodes) => {
+}, (props: CheckboxFeatureProps, { nodes }) => {
   const { Root, Input, Indicator, Label } = nodes
 
   const ref = useRef<HTMLLabelElement | null>(null)

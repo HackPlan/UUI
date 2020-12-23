@@ -81,7 +81,7 @@ export const TableNodes = {
 export const Table = UUIFunctionComponent({
   name: 'Table',
   nodes: TableNodes,
-}, (props: TableFeatureProps<any>, nodes) => {
+}, (props: TableFeatureProps<any>, { nodes }) => {
   const { Root, LoadingCover, Table, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
 
   const { selectedRowIds, onSelected, rows, onRowId } = props

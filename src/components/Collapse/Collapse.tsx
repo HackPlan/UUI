@@ -12,7 +12,7 @@ export const Collapse = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: CollapseFeatureProps, nodes) => {
+}, (props: CollapseFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   return (

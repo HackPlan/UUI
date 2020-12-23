@@ -69,7 +69,7 @@ export const Stepper = UUIFunctionComponent({
     MinusDownIcon: Icons.ChevronDown,
     MinusLeftIcon: Icons.ChevronLeft,
   }
-}, (props: StepperFeatureProps, nodes) => {
+}, (props: StepperFeatureProps, { nodes }) => {
   const {
     Root, MinusButton, PlusButton, Input, RightControlsContainer,
     PlusUpIcon, PlusRightIcon, MinusDownIcon, MinusLeftIcon,

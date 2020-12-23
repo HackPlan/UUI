@@ -21,7 +21,7 @@ export const TagNodes = {
 export const Tag = UUIFunctionComponent({
   name: 'Tag',
   nodes: TagNodes,
-}, (props: TagFeatureProps, nodes) => {
+}, (props: TagFeatureProps, { nodes }) => {
   const { Root, Content } = nodes
   return (
     <Root

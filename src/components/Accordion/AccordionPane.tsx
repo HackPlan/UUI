@@ -23,7 +23,7 @@ export const AccordionPane = UUIFunctionComponent({
     Collapse: Collapse,
     Content: 'div',
   },
-}, (props: AccordionPaneFeatureProps, nodes) => {
+}, (props: AccordionPaneFeatureProps, { nodes }) => {
   const { Root, Header, Icon, Title, Collapse, Content } = nodes
 
   const finalProps = {

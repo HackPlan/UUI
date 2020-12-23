@@ -64,7 +64,7 @@ export const NumberField = UUIFunctionComponent({
     Input: 'input',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: NumberFieldFeatureProps, nodes) => {
+}, (props: NumberFieldFeatureProps, { nodes }) => {
   const { Root, Input, LoadingSpinner } = nodes
 
   return (

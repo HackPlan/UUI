@@ -27,7 +27,7 @@ export const DateLabel = UUIFunctionComponent({
   nodes: {
     Root: 'label',
   }
-}, (props: DateLabelFeatureProps<DateFormatterLocale>, nodes) => {
+}, (props: DateLabelFeatureProps<DateFormatterLocale>, { nodes }) => {
   const { Root } = nodes
 
   const text = dateFormat(props.value, props.locale, props.kind)

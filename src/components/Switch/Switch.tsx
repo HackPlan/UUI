@@ -39,7 +39,7 @@ export const Switch = UUIFunctionComponent({
     Thumb: 'div',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: SwitchFeatureProps, nodes) => {
+}, (props: SwitchFeatureProps, { nodes }) => {
   const { Root, Button, Thumb, LoadingSpinner } = nodes
 
   const ref = useRef<HTMLDivElement | null>(null)

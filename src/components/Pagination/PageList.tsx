@@ -16,7 +16,7 @@ export const PageList = UUIFunctionComponent({
     Root: 'div',
     PageButton: UUIButton,
   }
-}, (props: PageListFeatureProps, nodes) => {
+}, (props: PageListFeatureProps, { nodes }) => {
   const { Root, PageButton } = nodes
 
   const context = useContext(PaginationContext)
