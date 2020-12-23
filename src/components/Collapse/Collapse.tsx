@@ -1,6 +1,5 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
-import classNames from 'classnames';
 
 export interface CollapseFeatureProps {
   opened: boolean;
@@ -12,13 +11,15 @@ export const Collapse = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: CollapseFeatureProps, { nodes }) => {
+}, (props: CollapseFeatureProps, { nodes, NodeDataProps }) => {
   const { Root } = nodes
 
   return (
-    <Root className={classNames({
-      'STATE_opened': props.opened
-    })}>
+    <Root
+      {...NodeDataProps({
+        'opened': props.opened,
+      })}
+    >
       {props.children}
     </Root>
   )

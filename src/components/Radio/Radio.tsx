@@ -1,6 +1,5 @@
 import React, { useContext, useMemo } from 'react';
 import { omit } from 'lodash-es';
-import classNames from 'classnames';
 import { RadioGroupContext } from './RadioGroupContext';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
@@ -39,7 +38,7 @@ const RadioNodes = {
 const BaseRadio = UUIFunctionComponent({
   name: "Radio",
   nodes: RadioNodes,
-}, (props: RadioFeatureProps<string | number>, { nodes }) => {
+}, (props: RadioFeatureProps<string | number>, { nodes, NodeDataProps }) => {
   const { Root, Input, Indicator, Label } = nodes
 
   const context = useContext(RadioGroupContext)
@@ -62,9 +61,9 @@ const BaseRadio = UUIFunctionComponent({
     <Root
       role="radio"
       aria-checked={checked}
-      className={classNames({
-        'STATE_disabled': props.disabled,
-        'STATE_checked': checked,
+      {...NodeDataProps({
+        'disabled': !!props.disabled,
+        'checked': !!checked,
       })}
     >
       <Input

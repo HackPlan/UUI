@@ -1,5 +1,4 @@
 import React, { useRef, useMemo, useEffect } from 'react';
-import classNames from 'classnames';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useLockBodyScroll } from 'react-use';
 import ReactDOM from 'react-dom';
@@ -56,7 +55,7 @@ export const Dialog = UUIFunctionComponent({
     Backdrop: 'div',
     Content: 'div',
   }
-}, (props: DialogFeatureProps, { nodes }) => {
+}, (props: DialogFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Portal, Backdrop, Content } = nodes
 
   /**
@@ -89,8 +88,8 @@ export const Dialog = UUIFunctionComponent({
   const backdrop = (
     <FocusTrap active={props.open && finalProps.focusTrap}>
       <Backdrop
-        className={classNames({
-          'STATE_opened': props.open
+        {...NodeDataProps({
+          'opened': !!props.open,
         })}
       >
         <Content

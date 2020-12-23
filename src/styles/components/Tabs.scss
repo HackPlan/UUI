@@ -12,7 +12,7 @@
   .UUI-Tabs-Content {
     margin-top: 1rem;
     display: none;
-    &.STATE_active {
+    &[data-uui-active="true"] {
       display: inherit;
     }
   }
@@ -28,7 +28,7 @@
     &:hover {
       color: $primaryColor;
     }
-    &.STATE_active {
+    &[data-uui-active="true"] {
       color: $primaryColor;
     }
     &:focus {
@@ -36,7 +36,7 @@
     }
   }
 
-  &.POSITION_top {
+  &[data-uui-position="top"] {
     flex-direction: column;
 
     .UUI-Tabs-TabBox {
@@ -47,7 +47,7 @@
       border-left: 1px solid $borderColor;
       margin-bottom: -1px;
 
-      &.STATE_active {
+      &[data-uui-active="true"] {
         border-bottom: 1px solid white;
       }
 
@@ -65,7 +65,7 @@
     }
   }
 
-  &.POSITION_bottom {
+  &[data-uui-position="bottom"] {
     flex-direction: column-reverse;
 
     .UUI-Tabs-TabBox {
@@ -76,7 +76,7 @@
       border-left: 1px solid $borderColor;
       margin-top: -1px;
 
-      &.STATE_active {
+      &[data-uui-active="true"] {
         border-top: 1px solid white;
       }
 
@@ -94,7 +94,7 @@
     }
   }
 
-  &.POSITION_left {
+  &[data-uui-position="left"] {
     flex-direction: row;
 
     .UUI-Tabs-TabBox {
@@ -106,7 +106,7 @@
       border-left: 1px solid $borderColor;
       margin-right: -1px;
 
-      &.STATE_active {
+      &[data-uui-active="true"] {
         border-right: 1px solid white;
       }
 
@@ -124,7 +124,7 @@
     }
   }
 
-  &.POSITION_right {
+  &[data-uui-position="right"] {
     flex-direction: row-reverse;
 
     .UUI-Tabs-TabBox {
@@ -136,7 +136,7 @@
       border-right: 1px solid $borderColor;
       margin-left: -1px;
 
-      &.STATE_active {
+      &[data-uui-active="true"] {
         border-left: 1px solid white;
       }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
@@ -38,7 +37,7 @@ const SegmentControlNodes = {
 const BaseSegmentControl = UUIFunctionComponent({
   name: 'SegmentControl',
   nodes: SegmentControlNodes
-}, (props: SegmentControlFeatureProps<any>, { nodes }) => {
+}, (props: SegmentControlFeatureProps<any>, { nodes, NodeDataProps }) => {
   const { Root, Container, Option, Thumb } = nodes;
 
   const selectedIndex = props.options.findIndex((i) => i.value === props.value)
@@ -93,8 +92,8 @@ const BaseSegmentControl = UUIFunctionComponent({
               role="tab"
               aria-selected={active}
               key={option.value}
-              className={classNames({
-                'STATE_active': active
+              {...NodeDataProps({
+                'active': !!active
               })}
               onClick={() => {
                 if (props.value !== option.value) {

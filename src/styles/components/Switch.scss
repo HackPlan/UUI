@@ -40,7 +40,7 @@
     color: gray;
   }
 
-  &.STATE_checked {
+  &[data-uui-checked="true"] {
     .UUI-Switch-Button {
       background-color: $primaryColor;
     }
@@ -55,7 +55,7 @@
     }
   }
 
-  &.STATE_disabled {
+  &[data-uui-disabled="true"] {
     opacity: .6;
 
     .UUI-Switch-Button {

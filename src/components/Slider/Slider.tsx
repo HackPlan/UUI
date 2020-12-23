@@ -3,7 +3,6 @@ import React, { useMemo, useRef, useCallback, useState, useEffect } from 'react'
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useEvent } from 'react-use';
 import { clamp, clone, inRange, isArray } from 'lodash-es';
-import classNames from 'classnames';
 import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface SliderRemark {
@@ -63,7 +62,7 @@ export const Slider = UUIFunctionComponent({
     Remark: 'div',
     RemarkLabel: 'div',
   }
-}, (props: SliderFeatureProps, { nodes }) => {
+}, (props: SliderFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Container, ActiveLine, InactiveLine, Thumb, Remark, RemarkLabel } = nodes
 
   const finalProps = {
@@ -241,9 +240,9 @@ export const Slider = UUIFunctionComponent({
 
   return (
     <Root
-      className={classNames({
-        'STATE_disabled': props.disabled,
-        'STATE_vertical': props.vertical,
+      {...NodeDataProps({
+        'disabled': !!props.disabled,
+        'vertical': !!props.vertical,
       })}
       onMouseDown={onMouseDownOrTouchStart}
       onTouchStart={onMouseDownOrTouchStart}
@@ -315,7 +314,9 @@ export const Slider = UUIFunctionComponent({
           return (
             <Remark
               key={index}
-              className={classNames({ 'STATE_active': isActive })}
+              {...NodeDataProps({
+                'active': !!isActive,
+              })}
               style={{ ...styles.Remark[index] }}
             >
               <RemarkLabel>{remark.label}</RemarkLabel>

@@ -17,7 +17,6 @@ export const LayoutFooter = UUIFunctionComponent({
   const { Root } = nodes
   return (
     <Root>
-
       {props.children}
     </Root>
   )

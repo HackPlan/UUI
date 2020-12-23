@@ -36,12 +36,12 @@
     padding-left: 0.5rem;
   }
 
-  input[type=checkbox]:checked+.UUI-Checkbox-Indicator {
+  input[type=checkbox]:checked + .UUI-Checkbox-Indicator {
     background-color: $primaryColor;
     border-color: $primaryColor;
   }
 
-  input[type=checkbox]:checked+.UUI-Checkbox-Indicator:after {
+  input[type=checkbox]:checked + .UUI-Checkbox-Indicator:after {
     position: absolute;
     display: table;
     border: 2px solid #fff;
@@ -59,14 +59,14 @@
     content: ' ';
   }
 
-  &.STATE_disabled {
+  &[data-uui-disabled="true"] {
     cursor: not-allowed;
 
     .UUI-Checkbox-Indicator {
       border-color: $disabledBorderColor;
       background-color: $disabledBackgroundColor;
 
-      &.STATE_checked::after {
+      &[data-uui-checked="true"]::after {
         border-color: darken($disabledBackgroundColor, 30%);
       }
     }

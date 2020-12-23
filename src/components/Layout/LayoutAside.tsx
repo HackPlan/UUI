@@ -15,7 +15,6 @@ export const LayoutAside = UUIFunctionComponent({
   },
 }, (props: LayoutAsideFeatureProps, { nodes }) => {
   const { Root } = nodes
-
   return (
     <Root>
       {props.children}

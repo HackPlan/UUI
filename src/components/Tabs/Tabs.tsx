@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { useMemo, useState } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { getValidTypeChildren } from '../../utils/componentHelper';
@@ -46,7 +45,7 @@ export const Tabs = UUIFunctionComponent({
     ContentBox: 'div',
     Content: 'div',
   },
-}, (props: TabsFeatureProps, { nodes }) => {
+}, (props: TabsFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, TabBox, ContentBox, Content } = nodes
 
   const finalProps = {
@@ -76,13 +75,13 @@ export const Tabs = UUIFunctionComponent({
       .map((i) => (
         <Content
           role="tabpanel"
-          className={classNames({
-            'STATE_active': i.props.value === props.value,
+          {...NodeDataProps({
+            'active': i.props.value === props.value,
           })}
           key={`tab-${i.props.value}`}
         >{i.props.children}</Content>
       ))
-  }, [props.renderActiveTabOnly, props.value, tabs])
+  }, [NodeDataProps, props.renderActiveTabOnly, props.value, tabs])
 
   const [focusValue, setFocusValue] = useState<string>(tabs[0]?.props.value)
 
@@ -98,7 +97,9 @@ export const Tabs = UUIFunctionComponent({
     }}>
       <Root
         role="tabs"
-        className={classNames([`POSITION_${finalProps.position}`])}
+        {...NodeDataProps({
+          'position': finalProps.position,
+        })}
         onKeyDown={(event) => {
           switch (event.keyCode) {
             case KeyCode.Enter:

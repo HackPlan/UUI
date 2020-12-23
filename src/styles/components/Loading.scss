@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
 
-  &.STATE_animate {
+  &[data-uui-animate="true"] {
     .UUI-LoadingSpinner-Icon {
       animation-iteration-count: infinite;
       animation-fill-mode: forwards;
@@ -40,7 +40,7 @@
     }
   }
 
-  &.STATE_loading {
+  &[data-uui-loading="true"] {
     & > .UUI-LoadingCover-Mask {
       display: flex;
     }

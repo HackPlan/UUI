@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Button as UUIButton } from '../Button/Button';
-import classNames from 'classnames';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import { KeyCode } from '../../utils/keyboardHelper';
 
@@ -39,7 +38,7 @@ export const Switch = UUIFunctionComponent({
     Thumb: 'div',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: SwitchFeatureProps, { nodes }) => {
+}, (props: SwitchFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Button, Thumb, LoadingSpinner } = nodes
 
   const ref = useRef<HTMLDivElement | null>(null)
@@ -49,10 +48,10 @@ export const Switch = UUIFunctionComponent({
       ref={ref}
       role="switch"
       aria-checked={props.value}
-      className={classNames({
-        'STATE_checked': props.value,
-        'STATE_disabled': props.disabled,
-        'STATE_loading': props.loading,
+      {...NodeDataProps({
+        'checked': !!props.value,
+        'disabled': !!props.disabled,
+        'loading': !!props.loading,
       })}
       onKeyDown={(event) => {
         switch (event.keyCode) {

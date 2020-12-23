@@ -17,7 +17,7 @@
     margin-left: 0.25rem;
     margin-right: 0.25rem;
 
-    &.STATE_active {
+    &[data-uui-active="true"] {
       border: 1px solid #4299e1;
       color: #4299e1;
     }

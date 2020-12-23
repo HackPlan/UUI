@@ -35,7 +35,7 @@
     padding-left: 0.5rem;
   }
 
-  &.STATE_disabled {
+  &[data-uui-disabled="true"] {
     cursor: not-allowed;
   }
 

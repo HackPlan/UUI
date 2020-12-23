@@ -25,7 +25,7 @@
     min-height: 120px;
   }
 
-  &.STATE_hasCornerIndicator {
+  &[data-uui-has-indicator="true"] {
     .UUI-TextArea-Textarea {
       padding-bottom: 2rem;
     }

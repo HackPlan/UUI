@@ -16,6 +16,7 @@ export interface UUIComponentHelper<
     separator: string;
     nodes: X;
   };
+  NodeDataProps: (data: { [key: string]: string | boolean | null | undefined }) => { [key: string]: string };
 }
 
 /**
@@ -71,7 +72,9 @@ export function UUIFunctionComponent<
     injectCustomizeProps(nodes, compiledProps)
 
     return WrappedComponent(compiledProps, {
-      nodes, options: finalOptions
+      nodes,
+      options: finalOptions,
+      NodeDataProps: getNodeDataProps(finalOptions),
     })
   });
   component.displayName = `<UUI> [Component] ${options.name}`
@@ -120,6 +123,7 @@ export function UUIClassComponent<
         this.helper = {
           nodes: compileNodes(finalOptions),
           options: finalOptions,
+          NodeDataProps: getNodeDataProps(finalOptions),
         }
         const compiledProps = compileProps(this.props, (this.props as any).innerRef || undefined)
         mergeProviderCustomize(options, compiledProps, this.context)
@@ -134,7 +138,8 @@ export function UUIClassComponent<
       const finalOptions = getFinalOptions(options, props, this.context)
       this.helper = {
         nodes: compileNodes(finalOptions),
-        options: finalOptions
+        options: finalOptions,
+        NodeDataProps: getNodeDataProps(finalOptions),
       }
       const compiledProps = compileProps(props, (props as any).innerRef || undefined)
       mergeProviderCustomize(options, compiledProps, this.context)
@@ -168,5 +173,20 @@ function injectCustomizeProps(nodes: any, props: any) {
   for (const nodeName of Object.keys(nodes)) {
     const customizeProps = props.customize && (props.customize as any)[nodeName]
     nodes[nodeName]['CustomizeProps'] = { customize: customizeProps }
+  }
+}
+
+function getNodeDataProps(options: any) {
+  return (data: any) => {
+    const prefix = `data-${options.prefix.toLowerCase()}-`
+    const stateProps: any = {}
+
+    for (const [key, value] of Object.entries(data)) {
+      if (value === undefined || value === null) continue
+      stateProps[`${prefix}${key}`] = String(value)
+    }
+
+    return stateProps
+
   }
 }

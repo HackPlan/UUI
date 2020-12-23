@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React, { useCallback, useMemo } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useArrayCacheRender } from '../../hooks/useCacheRender';
@@ -81,7 +80,7 @@ export const TableNodes = {
 export const Table = UUIFunctionComponent({
   name: 'Table',
   nodes: TableNodes,
-}, (props: TableFeatureProps<any>, { nodes }) => {
+}, (props: TableFeatureProps<any>, { nodes, NodeDataProps }) => {
   const { Root, LoadingCover, Table, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
 
   const { selectedRowIds, onSelected, rows, onRowId } = props
@@ -131,14 +130,21 @@ export const Table = UUIFunctionComponent({
    */
   const headCells = groupColumns.map((row, rowIndex) => {
     const rowKey = `row:head${rowIndex}`
-    const rowClassName = `ROW_head`
     const selectionCellKey = `${rowKey}-column:selection`
-    const selectionCellClassName = 'COLUMN_selection'
     return (
-      <Row role="row" className={classNames([rowClassName])} key={rowKey}>
+      <Row
+        role="row"
+        {...NodeDataProps({ 'row': 'head' })}
+        key={rowKey}
+      >
         {/* Selection Head Cell */}
         {selectedRowIds && rowIndex === 0 && (
-          <HeadCell role="columnheader" key={selectionCellKey} className={classNames([selectionCellClassName])} rowSpan={9999}>
+          <HeadCell
+            role="columnheader"
+            key={selectionCellKey}
+            {...NodeDataProps({ 'column': 'selection' })}
+            rowSpan={9999}
+          >
             <Checkbox
               checked={selectedRowIds.length === rows.length && rows.length > 0}
               onChange={(value) => {
@@ -151,12 +157,11 @@ export const Table = UUIFunctionComponent({
         )}
         {row.map((cell) => {
           const cellKey = `${rowKey}-column:${cell.key}`
-          const cellKeyClassName = `COLUMN_${cell.key}`
           return (
             <HeadCell
               role="columnheader"
               key={cellKey}
-              className={classNames([cellKeyClassName])}
+              {...NodeDataProps({ 'column': cell.key })}
               colSpan={cell.colspan}
               rowSpan={cell.rowspan}
             >
@@ -174,15 +179,20 @@ export const Table = UUIFunctionComponent({
   const renderDataCells = useCallback((row: any) => {
     const rowId = onRowId(row)
     const rowKey = `row:${rowId}`
-    const rowKeyClassName = `ROW_${rowId}`
     const selectionCellKey = `${rowKey}-column:selection`
-    const selectionCellClassName = 'COLUMN_selection'
     return (
-      <Row role="row" key={rowKey} className={classNames([rowKeyClassName])}>
+      <Row role="row" key={rowKey} {...NodeDataProps({ 'row': rowId })}>
 
       {/* Selection Head Cell */}
       {selectedRowIds && (
-        <DataCell role="cell" key={selectionCellKey} className={classNames([selectionCellClassName])}>
+        <DataCell
+          role="cell"
+          key={selectionCellKey}
+          {...NodeDataProps({
+            'column': 'selection',
+            'row': rowId,
+          })}
+        >
           <Checkbox
             checked={selectedRowIds.includes(rowId)}
             onChange={(value) => {
@@ -199,18 +209,25 @@ export const Table = UUIFunctionComponent({
       {dataColumns.map((column) => {
         const columnKey = column.key
         const cellKey = `${rowKey}-column:${columnKey}`
-        const cellKeyClassName = `COLUMN_${columnKey}`
+        const rowId = props.onRowId(row)
         const onRowRender = column.onRowRender || ((row: any) => {
           return row[column.key] || null
         })
         return (
-          <DataCell role="cell" key={cellKey} className={classNames([cellKeyClassName])}>{onRowRender(row)}</DataCell>
+          <DataCell
+            role="cell"
+            key={cellKey}
+            {...NodeDataProps({
+              'column': columnKey,
+              'row': rowId,
+            })}
+          >{onRowRender(row)}</DataCell>
         )
       })}
 
       </Row>
     )
-  }, [dataColumns, onRowId, selectedRowIds, onSelected])
+  }, [onRowId, NodeDataProps, selectedRowIds, dataColumns, onSelected, props])
 
   /**
    * data cells
@@ -227,10 +244,9 @@ export const Table = UUIFunctionComponent({
 
   return (
     <Root
-      role="table"
-      className={classNames({
-        'STATE_loading': props.loading,
-        'STATE_empty': props.rows.length === 0,
+      {...NodeDataProps({
+        'loading': !!props.loading,
+        'empty': props.rows.length === 0,
       })}
     >
       <LoadingCover loading={props.loading}>

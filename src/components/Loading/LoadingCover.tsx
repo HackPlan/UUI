@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LoadingSpinner } from './LoadingSpinner';
@@ -17,13 +16,13 @@ export const LoadingCover = UUIFunctionComponent({
     Spinner: LoadingSpinner,
     Label: 'div',
   }
-}, (props: LoadingCoverFeatureProps, { nodes }) => {
+}, (props: LoadingCoverFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Mask, Spinner, Label } = nodes
 
   return (
     <Root
-      className={classNames({
-        'STATE_loading': props.loading,
+      {...NodeDataProps({
+        'loading': !!props.loading,
       })}
     >
       {props.children}

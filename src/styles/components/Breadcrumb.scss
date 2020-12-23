@@ -24,11 +24,11 @@
       color: #b3b3b3;
     }
 
-    .UUI-Breadcrumb-Item.STATE_active, .UUI-Breadcrumb-Item.STATE_active .UUI-Breadcrumb-ItemLink {
+    .UUI-Breadcrumb-Item[data-uui-active="true"], .UUI-Breadcrumb-Item[data-uui-active="true"] .UUI-Breadcrumb-ItemLink {
       color: #333333;
     }
 
-    .UUI-Breadcrumb-Item.STATE_interactive:hover, .UUI-Breadcrumb-Item.STATE_interactive .UUI-Breadcrumb-ItemLink:hover {
+    .UUI-Breadcrumb-Item[data-uui-interactive="true"]:hover, .UUI-Breadcrumb-Item[data-uui-interactive="true"] .UUI-Breadcrumb-ItemLink:hover {
       color: #2f65d1;
       cursor: pointer;
     }

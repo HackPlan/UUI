@@ -22,7 +22,7 @@
   visibility: hidden;
   pointer-events: none;
 
-  &.STATE_active {
+  &[data-uui-active="true"] {
     transition: opacity 0.1s ease-in-out;
 
     display: inherit;

@@ -850,3 +850,74 @@ it('UUIComponent [id]', () => {
 
   expect(tree).toMatchSnapshot();
 })
+
+/**
+ * UUI Component NodeDataProps
+ *
+ * 测试 UUIComponentHelper.NodeDataProps 生成正确的 props
+ */
+it('UUIComponent [NodeDataProps]', () => {
+
+  const XUITestFunctionComponent = UUIFunctionComponent({
+    name: 'TestXComponent',
+    nodes: {
+      Root: 'div',
+    }
+  }, (props: { loading?: boolean, open?: boolean }, { nodes, NodeDataProps }) => {
+    const { Root } = nodes
+    return (
+      <Root
+        {...NodeDataProps({
+          'loading': !!props.loading,
+          'open': !!props.open,
+          'nullable': null,
+          'undefinable': undefined,
+        })}
+      ></Root>
+    )
+  })
+
+  class UUITestClassComponent extends UUIClassComponent({
+    name: 'TestZComponent',
+    nodes: {
+      Root: 'div',
+    }
+  })<{ loading?: boolean, open?: boolean }> {
+    render() {
+      const { Root } = this.helper.nodes
+      return (
+        <Root
+          {...this.helper.NodeDataProps({
+            'loading': !!this.props.loading,
+            'open': !!this.props.open,
+            'nullable': null,
+            'undefinable': undefined,
+          })}
+        ></Root>
+      )
+    }
+  }
+
+  const tree1 = renderer
+    .create(<XUITestFunctionComponent
+      loading={true}
+      open={false}
+      prefix={'YUI'}
+      separator={'+'}
+    ></XUITestFunctionComponent>)
+    .toJSON();
+
+  expect(tree1).toMatchSnapshot();
+
+  const tree2 = renderer
+  .create(<XUITestFunctionComponent
+    loading={false}
+    open={true}
+    prefix={'GUI'}
+    separator={'~'}
+  ></XUITestFunctionComponent>)
+  .toJSON();
+
+  expect(tree2).toMatchSnapshot();
+})
+

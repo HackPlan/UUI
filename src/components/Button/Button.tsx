@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { omit } from 'lodash-es';
 import React, { useRef } from 'react';
 import { LoadingSpinner } from '../Loading';
@@ -26,20 +25,20 @@ export const Button = UUIFunctionComponent({
     LoadingSpinner: LoadingSpinner,
     Content: 'div',
   },
-}, (props: ButtonFeatureProps & ButtonStylingProps, { nodes }) => {
+}, (props: ButtonFeatureProps & ButtonStylingProps, { nodes, NodeDataProps }) => {
   const { Root, LoadingSpinner, Content } = nodes
 
   const ref = useRef<HTMLElement | null>(null)
 
   return (
     <Root
+      {...NodeDataProps({
+        'type': props.styling?.type,
+        'disabled': !!props.disabled,
+        'loading': !!props.loading,
+      })}
       role="button"
       {...omit(props, 'customize', 'styling', 'className', 'style', 'loading', 'prefix', 'separator')}
-      className={classNames({
-        [`TYPE_${props.styling?.type}`]: !!props.styling?.type,
-        'STATE_disabled': props.disabled || props.loading,
-        'STATE_loading': props.loading,
-      })}
       onKeyDown={(event) => {
         switch (event.keyCode) {
           case KeyCode.Enter:

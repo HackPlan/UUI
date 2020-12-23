@@ -13,12 +13,12 @@
   @include border;
   @include radius;
 
-  &:not(.STATE_disabled) {
+  &:not(:disabled) {
     @include hoverBorder;
     @include focusWithinShadow;
     @include focusWithinBorder;
   }
-  &.STATE_disabled {
+  &:disabled {
     cursor: not-allowed;
   }
 
@@ -81,7 +81,7 @@
     transition: transform 0.2s ease-in-out;
   }
 
-  &.STATE_active {
+  &[data-uui-active="true"] {
     .UUI-Select-DropdownIcon {
       transform: rotate(180deg);
     }
@@ -151,7 +151,7 @@
         justify-content: center;
         align-items: center;
 
-        &.STATE_hidden svg {
+        &[data-uui-hidden="true"] svg {
           opacity: 0;
         }
 

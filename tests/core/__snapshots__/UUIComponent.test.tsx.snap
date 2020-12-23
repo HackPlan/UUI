@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UUIComponent [NodeDataProps] 1`] = `
+<div
+  className="YUI+TestXComponent+Root"
+  data-yui-loading="true"
+  data-yui-open="false"
+/>
+`;
+
+exports[`UUIComponent [NodeDataProps] 2`] = `
+<div
+  className="GUI~TestXComponent~Root"
+  data-gui-loading="false"
+  data-gui-open="true"
+/>
+`;
+
 exports[`UUIComponent [ariaAttributes] 1`] = `
 <div
   aria-checked="true"

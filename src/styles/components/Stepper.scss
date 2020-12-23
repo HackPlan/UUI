@@ -78,7 +78,7 @@
   }
 }
 
-.UUI-Stepper-Root.POSITION_controlSeparate {
+.UUI-Stepper-Root[data-uui-position="separate"] {
   .UUI-Stepper-Input {
     border: none;
     border-radius: 0;
@@ -108,7 +108,7 @@
   }
 }
 
-.UUI-Stepper-Root.POSITION_controlRight {
+.UUI-Stepper-Root[data-uui-position="right"] {
   .UUI-Stepper-Input {
     border-top: none;
     border-bottom: none;

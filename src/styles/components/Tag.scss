@@ -14,12 +14,12 @@
     color: white;
   }
 
-  &.STATE_interactive {
+  &[data-uui-interactive="true"] {
     cursor: pointer;
     user-select: none;
   }
 
-  &.STATE_interactive:hover {
+  &[data-uui-interactive="true"]:hover {
     background-color: rgba(92,112,128,.85);
   }
 }

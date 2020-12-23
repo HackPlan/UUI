@@ -15,7 +15,6 @@ export const LayoutNav = UUIFunctionComponent({
   },
 }, (props: LayoutNavFeatureProps, { nodes }) => {
   const { Root } = nodes
-
   return (
     <Root>
       {props.children}

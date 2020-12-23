@@ -1,7 +1,6 @@
 import React, { useMemo, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
-import classNames from 'classnames';
 import { useLockBodyScroll } from 'react-use';
 import ReactHelper from '../../utils/ReactHelper';
 import { KeyCode } from '../../utils/keyboardHelper';
@@ -63,7 +62,7 @@ export const Drawer = UUIFunctionComponent({
     Backdrop: 'div',
     Content: 'div',
   }
-}, (props: DrawerFeatureProps, { nodes }) => {
+}, (props: DrawerFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Portal, Backdrop, Content } = nodes
 
   /**
@@ -98,7 +97,10 @@ export const Drawer = UUIFunctionComponent({
     return (
       <FocusTrap active={props.active && finalProps.focusTrap}>
         <Backdrop
-          className={classNames({ 'STATE_active': props.active }, [`PLACEMENT_${finalProps.placement}`])}
+          {...NodeDataProps({
+            'active': !!props.active,
+            'placement': finalProps.placement,
+          })}
         >
           <Content
             role="dialog"
@@ -120,7 +122,7 @@ export const Drawer = UUIFunctionComponent({
         </Backdrop>
       </FocusTrap>
     )
-  }, [props, finalProps.focusTrap, finalProps.placement])
+  }, [props, finalProps.focusTrap, finalProps.placement, NodeDataProps])
 
   const portal = useMemo(() => {
     return (finalProps.usePortal && finalProps.portalContainer)
