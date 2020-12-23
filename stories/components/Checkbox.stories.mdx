@@ -1,5 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { Checkbox } from '../../src';
+import { Checkbox, CheckboxGroup } from '../../src';
 import { useState } from 'react';
 
 <Meta title="组件/多选框 Checkbox" component={Checkbox} />
@@ -48,6 +48,23 @@ import { useState } from 'react';
             disabled
           />
         </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 一组多选框
+
+<Canvas>
+  <Story name="Group of Checkbox">
+    {() => {
+      const [n, setN] = useState(["apple"])
+      return (
+        <CheckboxGroup value={n} onChange={(value) => { setN(value) }}>
+          <Checkbox label={'Apple'} value={'apple'}></Checkbox>
+          <Checkbox label={'Banana'} value={'banana'}></Checkbox>
+          <Checkbox label={'Cherry'} value={'cherry'}></Checkbox>
+        </CheckboxGroup>
       )
     }}
   </Story>
