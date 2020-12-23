@@ -2,6 +2,13 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.13
+
+- 组件支持传入 ref 参数
+- 新组件 `Tooltip`
+- 新组件 `CheckboxGroup`
+- 修复选择器 value 类型
+
 ### v0.5.12
 
 - 修复组件陷阱焦点

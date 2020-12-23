@@ -2,6 +2,13 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.13
+
+- component support convenience ref prop
+- new Component `Tooltip`
+- new Component `CheckboxGroup`
+- fix Select value type
+
 ### v0.5.12
 
 - fix components focus trap
