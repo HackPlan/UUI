@@ -17,6 +17,7 @@ addParameters({
         "文档",
         "组件",
         "演示",
+        "开发",
       ]
 
       const docsIndex = [
@@ -24,8 +25,14 @@ addParameters({
         "文档/介绍 Introduction",
         "文档/快速上手 Getting Started",
         "文档/使用自定义功能 Using Customize",
-        "文档/实现原理 Principle",
         "文档/更新日志 Changelog",
+      ]
+
+      const devIndex = [
+        "开发/实现原理 Principle",
+        "开发/开发注意事项 Dev Tips",
+        "开发/生产部署指南 Deployment",
+        "开发/贡献指南 Contributing",
       ]
 
       const sortByAlphabet = (x, y) => {
@@ -51,6 +58,8 @@ addParameters({
           return sortByIndexArray(apath, bpath, docsIndex)
         } else if (akind === "组件") {
           return sortByAlphabet(atitle, btitle)
+        } else if (akind === "开发") {
+          return sortByIndexArray(apath, bpath, devIndex)
         }
       } else {
         return sortByIndexArray(akind, bkind, kindIndex)
