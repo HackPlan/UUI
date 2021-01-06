@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.14
+
+- hide raw input control of `Radio` in Safari
+- new Components `RightClickZone` and `Menu`
+
 ### v0.5.13
 
 - component support convenience ref prop

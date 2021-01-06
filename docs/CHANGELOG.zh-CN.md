@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.14
+
+- 在 Safari 隐藏单选框默认的组件样式
+- 新组件 `右键菜单区域 RightClickZone` 和 `菜单 Menu`
+
 ### v0.5.13
 
 - 组件支持传入 ref 参数
