@@ -50,7 +50,7 @@ export const RightClickZone = UUIFunctionComponent({
     Portal: 'div',
     ContextMenu: 'div',
   }
-}, (props: RightClickZoneFeatureProps, nodes, ref) => {
+}, (props: RightClickZoneFeatureProps, { nodes, ref }) => {
   const { Root, Origin, ContextMenu, Portal } = nodes
 
   const rootRef = useRef<any | null>(null)

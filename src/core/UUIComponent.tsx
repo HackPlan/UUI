@@ -9,6 +9,7 @@ import { mergeProviderCustomize } from './utils/mergeProviderCustomize';
 export interface UUIComponentHelper<
   X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT },
 > {
+  ref: any;
   nodes: UUIComponentNodes<X>;
   options: {
     prefix: string;
@@ -72,6 +73,7 @@ export function UUIFunctionComponent<
     injectCustomizeProps(nodes, compiledProps)
 
     return WrappedComponent(compiledProps, {
+      ref,
       nodes,
       options: finalOptions,
       NodeDataProps: getNodeDataProps(finalOptions),
@@ -121,6 +123,7 @@ export function UUIClassComponent<
       if (prevProps.prefix !== this.props.prefix || prevProps.separator !== this.props.separator) {
         const finalOptions = getFinalOptions(options, this.props, this.context)
         this.helper = {
+          ref: this.props.ref,
           nodes: compileNodes(finalOptions),
           options: finalOptions,
           NodeDataProps: getNodeDataProps(finalOptions),
@@ -137,6 +140,7 @@ export function UUIClassComponent<
       this.state = {} as any
       const finalOptions = getFinalOptions(options, props, this.context)
       this.helper = {
+        ref: props.ref,
         nodes: compileNodes(finalOptions),
         options: finalOptions,
         NodeDataProps: getNodeDataProps(finalOptions),

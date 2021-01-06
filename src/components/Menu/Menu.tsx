@@ -14,7 +14,7 @@ export const _Menu = UUIFunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: MenuFeatureProps, nodes) => {
+}, (props: MenuFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   return (

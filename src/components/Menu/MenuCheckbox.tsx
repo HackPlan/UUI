@@ -13,7 +13,7 @@ export const MenuButton = UUIFunctionComponent({
     Root: 'div',
     Checkbox: UUICheckbox,
   }
-}, (props: MenuButtonFeatureProps, nodes) => {
+}, (props: MenuButtonFeatureProps, { nodes }) => {
   const { Root, Checkbox } = nodes
 
   return (
