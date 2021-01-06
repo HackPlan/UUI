@@ -5,7 +5,10 @@ import { pick } from 'lodash-es';
 
 export interface MenuButtonFeatureProps extends Pick<
   ButtonFeatureProps, 'children' | 'onClick' | 'loading' | 'disabled'
-> {}
+> {
+  disabled?: ButtonFeatureProps['disabled'];
+  onClick?: ButtonFeatureProps['onClick'];
+}
 
 export const MenuButton = UUIFunctionComponent({
   name: 'MenuButton',
