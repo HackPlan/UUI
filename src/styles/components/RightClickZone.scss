@@ -1,3 +1,13 @@
+.UUI-RightClickZone-Root {
+  position: relative;
+  .UUI-RightClickZone-Origin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+  }
+}
 
 .UUI-RightClickZone-ContextMenu {
   display: none;

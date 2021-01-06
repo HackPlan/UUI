@@ -39,7 +39,7 @@ export function UUIFunctionComponent<
     separator?: string;
     nodes: X;
   },
-  WrappedComponent: (props: P, nodes: UUIComponentNodes<X>) => React.ReactElement,
+  WrappedComponent: (props: P, nodes: UUIComponentNodes<X>, ref: any) => React.ReactElement,
 ) {
   const component = React.forwardRef((props: P & UUIConvenienceProps & UUIMetaProps & Z, ref) => {
     const { prefix, separator } = props;
@@ -57,7 +57,7 @@ export function UUIFunctionComponent<
     const compiledProps = compileProps(props, ref)
     mergeProviderCustomize(options, compiledProps, providerContext)
     injectCustomizeProps(nodes, compiledProps)
-    return WrappedComponent(compiledProps, nodes)
+    return WrappedComponent(compiledProps, nodes, ref)
   });
   component.displayName = `<UUI> [Component] ${options.name}`
   return component
