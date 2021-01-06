@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { RightClickZone } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/右键菜单区域 RightClickZone" />
+
+# 右键菜单区域 RightClickZone
+
+### 简单使用
+
+<Canvas>
+  <Story name="RightClickZone">
+    <RightClickZone
+      className="w-32 h-32 bg-blue-500 rounded p-2"
+      contextMenu={
+        <div>
+          自定义菜单
+        </div>
+      }
+    >
+      <div className="text-white">
+        点击右键触发
+      </div>
+    </RightClickZone>
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ RightClickZone }} />
