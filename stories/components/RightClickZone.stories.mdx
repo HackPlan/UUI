@@ -1,0 +1,79 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { RightClickZone, Menu, RadioGroup, Radio, Checkbox } from '../../src';
+import { useState, useRef } from 'react';
+
+<Meta title="组件/右键菜单区域 RightClickZone" />
+
+# 右键菜单区域 RightClickZone
+
+### 简单使用
+
+<Canvas>
+  <Story name="RightClickZone">
+    <RightClickZone
+      usePortal
+      className="w-32 h-32 bg-blue-500 rounded p-2"
+      contextMenu={
+        <div>
+          自定义菜单
+        </div>
+      }
+    >
+      <div className="text-white">
+        点击右键触发
+      </div>
+    </RightClickZone>
+  </Story>
+</Canvas>
+
+### 配合菜单 Menu 使用
+
+<Canvas>
+  <Story name="RightClickZone with Menu">
+    {() => {
+      const ref = useRef()
+      const [n, setN] = useState("a")
+      return (
+        <RightClickZone
+          ref={ref}
+          usePortal
+          className="w-32 h-32 bg-blue-500 rounded p-2"
+          contextMenu={
+            <Menu>
+              <Menu.Button onClick={() => { ref.current?.closeMenu() }}>Button 1</Menu.Button>
+              <Menu.Button onClick={() => { ref.current?.closeMenu() }}>Button 2</Menu.Button>
+              <Menu.Separator />
+              <Menu.Button disabled>Disabled Button</Menu.Button>
+              <Menu.Separator />
+              <Menu.Item>
+                <Checkbox label={"Checkbox 1"} />
+              </Menu.Item>
+              <Menu.Item>
+                <Checkbox label={"Checkbox 2"} />
+              </Menu.Item>
+              <Menu.Item>
+                <Checkbox label={"Checkbox 3"} />
+              </Menu.Item>
+              <Menu.Separator />
+              <Menu.Item>
+                <RadioGroup name="radio1" className="flex-col items-start" value={n} onChange={(value) => { setN(value) }}>
+                  <Radio label={'Apple'} value={'a'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+                  <Radio label={'Banana'} value={'b'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+                  <Radio label={'Cherry'} value={'c'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+                </RadioGroup>
+              </Menu.Item>
+            </Menu>
+          }
+        >
+          <div className="text-white">
+            点击右键触发
+          </div>
+        </RightClickZone>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ RightClickZone }} />

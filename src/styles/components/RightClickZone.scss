@@ -1,0 +1,23 @@
+.UUI-RightClickZone-Root {
+  position: relative;
+  .UUI-RightClickZone-Origin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.UUI-RightClickZone-ContextMenu {
+  display: none;
+
+  &.active {
+    display: inherit;
+  }
+
+  padding: 0.25rem;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+}

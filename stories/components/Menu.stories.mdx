@@ -1,0 +1,47 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Menu, MenuButton, MenuSeparator, MenuItem, Checkbox, RadioGroup, Radio } from '../../src';
+import { useState } from 'react';
+
+<Meta title="组件/菜单 Menu" />
+
+# 菜单 Menu
+
+### 简单使用
+
+<Canvas>
+  <Story name="MenuSpinner">
+    {() => {
+      const [n, setN] = useState("a")
+      return (
+        <Menu>
+          <Menu.Button>Button 1</Menu.Button>
+          <Menu.Button>Button 2</Menu.Button>
+          <Menu.Separator />
+          <Menu.Button disabled>Disabled Button</Menu.Button>
+          <Menu.Separator />
+          <Menu.Item>
+            <Checkbox label={"Checkbox 1"} />
+          </Menu.Item>
+          <Menu.Item>
+            <Checkbox label={"Checkbox 2"} />
+          </Menu.Item>
+          <Menu.Item>
+            <Checkbox label={"Checkbox 3"} />
+          </Menu.Item>
+          <Menu.Separator />
+          <Menu.Item>
+            <RadioGroup name="radio1" className="flex-col items-start" value={n} onChange={(value) => { setN(value) }}>
+              <Radio label={'Apple'} value={'a'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+              <Radio label={'Banana'} value={'b'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+              <Radio label={'Cherry'} value={'c'} customize={{ Root: { extendClassName: "mr-4" }}}></Radio>
+            </RadioGroup>
+          </Menu.Item>
+        </Menu>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ Menu, MenuButton: Menu.Button, MenuSeparator: Menu.Separator, MenuItem: Menu.Item }} />
