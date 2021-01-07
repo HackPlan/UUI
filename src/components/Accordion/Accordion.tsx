@@ -5,11 +5,17 @@ import { createGroupedComponent } from '../../utils/createGroupedComponent';
 import { AccordionPane, AccordionPaneProps } from './AccordionPane';
 import { AccordionContext } from './AccordionContext';
 import { useFocus } from '../../utils/useFocus';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface AccordionFeatureProps {
   allowMultipleExpanded?: boolean;
   children: React.ReactElement<AccordionPaneProps>[];
 }
+
+const AccordionFeaturePropTypes = createComponentPropTypes<AccordionFeatureProps>({
+  allowMultipleExpanded: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+})
 
 const _Accordion = UUIFunctionComponent({
   name: 'Accordion',
@@ -18,6 +24,7 @@ const _Accordion = UUIFunctionComponent({
     Pane: 'div',
     Collapse: Collapse,
   },
+  propTypes: AccordionFeaturePropTypes,
 }, (props: AccordionFeatureProps, { nodes }) => {
   const { Root } = nodes
 
