@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
 import { clamp } from "lodash-es";
 import { UUIFunctionComponent, UUIFunctionComponentProps } from "../../core";
+import { createComponentPropTypes, PropTypes } from "../../utils/createPropTypes";
 
 export interface ProgressBarFeatureProps {
   /**
    * The value to display in the input field.
    */
-  value: number;
+  value?: number;
   /**
    * Whether the control is non-interactive.
    * @default false
@@ -24,6 +25,13 @@ export interface ProgressBarFeatureProps {
   indeterminate?: boolean;
 }
 
+export const ProgressBarPropTypes = createComponentPropTypes<ProgressBarFeatureProps>({
+  value: PropTypes.number,
+  disabled: PropTypes.bool,
+  circular: PropTypes.bool,
+  indeterminate: PropTypes.bool,
+})
+
 export const ProgressBar = UUIFunctionComponent(
   {
     name: "ProgressBar",
@@ -38,6 +46,7 @@ export const ProgressBar = UUIFunctionComponent(
       CircularLeft: "div",
       CircularRight: "div",
     },
+    propTypes: ProgressBarPropTypes,
   },
   (props: ProgressBarFeatureProps, { nodes, NodeDataProps }) => {
     const {
@@ -52,11 +61,15 @@ export const ProgressBar = UUIFunctionComponent(
       CircularRight,
     } = nodes;
 
+    const finalProps = {
+      value: props.value === undefined ? 0 : props.value
+    }
+
     /**
      * Calculate the position and size of thumbs, remarks and lines.
      */
     const styles = useMemo(() => {
-      const value = Math.max(0, Math.min(1, props.value));
+      const value = Math.max(0, Math.min(1, finalProps.value));
 
       switch (props.circular) {
         case false:
@@ -71,7 +84,7 @@ export const ProgressBar = UUIFunctionComponent(
             CircularLeft: {
               ...(!props.indeterminate
                 ? {
-                    opacity: props.value < 0.5 ? 0 : 1,
+                    opacity: finalProps.value < 0.5 ? 0 : 1,
                     transform: value >= 0.5 ? `rotate(-${(1 - (value - 0.5) / 0.5) * 180}deg)` : "none",
                   }
                 : null),
@@ -81,7 +94,7 @@ export const ProgressBar = UUIFunctionComponent(
             },
           };
       }
-    }, [props.value, props.circular, props.indeterminate]);
+    }, [finalProps.value, props.circular, props.indeterminate]);
 
     return (
       <Root
@@ -93,8 +106,8 @@ export const ProgressBar = UUIFunctionComponent(
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-valuenow={clamp(Math.round(props.value * 100), 0, 100)}
-        aria-valuetext={toPercentage(props.value)}
+        aria-valuenow={clamp(Math.round(finalProps.value * 100), 0, 100)}
+        aria-valuetext={toPercentage(finalProps.value)}
       >
         <Container>
           {!props.circular ? (

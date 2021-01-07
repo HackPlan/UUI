@@ -22,12 +22,12 @@ export const Layout2 = () => {
       <Layout>
         <Layout.Nav className="bg-red-500">
           {range(1, 100).map((i) => {
-            return <div>nav item {i}</div>
+            return <div key={i}>nav item {i}</div>
           })}
         </Layout.Nav>
         <Layout.Main className="bg-green-500">
           {range(1, 100).map((i) => {
-            return <div>content item {i}</div>
+            return <div key={i}>content item {i}</div>
           })}
         </Layout.Main>
       </Layout>

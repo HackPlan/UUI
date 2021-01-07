@@ -1,6 +1,7 @@
 import React from 'react';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface SegmentControlOption<T extends string | number> {
   label: React.ReactNode;
@@ -27,6 +28,19 @@ export interface SegmentControlFeatureProps<T extends string | number> {
   onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
+
+export const SegmentControlOptionPropTypes = createComponentPropTypes<SegmentControlOption<string | number>>({
+  label: PropTypes.node.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+})
+export const SegmentControlPropTypes = createComponentPropTypes<SegmentControlFeatureProps<string | number>>({
+  options: PropTypes.arrayOf(PropTypes.shape(SegmentControlOptionPropTypes)).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 const SegmentControlNodes = {
   Root: 'div',
   Container: 'div',
@@ -36,7 +50,8 @@ const SegmentControlNodes = {
 
 const BaseSegmentControl = UUIFunctionComponent({
   name: 'SegmentControl',
-  nodes: SegmentControlNodes
+  nodes: SegmentControlNodes,
+  propTypes: SegmentControlPropTypes,
 }, (props: SegmentControlFeatureProps<any>, { nodes, NodeDataProps }) => {
   const { Root, Container, Option, Thumb } = nodes;
 

@@ -4,17 +4,23 @@ import { SkeletonTitle } from './Title';
 import { SkeletonPicture } from './Picture';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 
 export interface SkeletonFeatureProps {
-  children?: React.ReactNode | string;
+  children?: React.ReactNode;
 }
+
+export const SkeletonPropTypes = createComponentPropTypes<SkeletonFeatureProps>({
+  children: PropTypes.node,
+})
 
 export const _Skeleton = UUIFunctionComponent({
   name: 'Skeleton',
   nodes: {
     Root: 'div'
-  }
+  },
+  propTypes: SkeletonPropTypes,
 }, (props: SkeletonFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (

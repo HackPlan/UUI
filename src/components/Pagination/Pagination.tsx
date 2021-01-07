@@ -10,6 +10,7 @@ import { PageSelector } from './PageSelector';
 import { PageJumper } from './PageJumper';
 import { PaginationContext } from './PaginationContext';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface PaginationFeatureProps {
   value: IPagination;
@@ -22,11 +23,25 @@ export interface PaginationFeatureProps {
   children: React.ReactNode;
 }
 
+export const IPaginationPropTypes = createComponentPropTypes<IPagination>({
+  offset: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+})
+
+export const PaginationPropTypes = createComponentPropTypes<PaginationFeatureProps>({
+  value: PropTypes.shape(IPaginationPropTypes).isRequired,
+  onChange: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+})
+
 export const _Pagination = UUIFunctionComponent({
   name: 'Pagination',
   nodes: {
     Root: 'div'
-  }
+  },
+  propTypes: PaginationPropTypes,
 }, (props: PaginationFeatureProps, { nodes, NodeDataProps }) => {
   const { Root } = nodes
 

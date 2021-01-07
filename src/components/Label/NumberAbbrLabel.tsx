@@ -1,7 +1,8 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { formatMoney } from '../../utils/moneyHelper';
-import { numberAbbr, NumberAbbrUnit } from '../../utils/numberHelper';
+import { numberAbbr, NumberAbbrUnit, NumberAbbrUnitValue } from '../../utils/numberHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 
 export interface NumberAbbrLabelFeatureProps {
@@ -18,11 +19,18 @@ export interface NumberAbbrLabelFeatureProps {
   maxPrecision?: number;
 }
 
+export const NumberAbbrLabelPropTypes = createComponentPropTypes<NumberAbbrLabelFeatureProps>({
+  value: PropTypes.number.isRequired,
+  unit: PropTypes.oneOf(Object.keys(NumberAbbrUnitValue)).isRequired,
+  maxPrecision: PropTypes.number,
+})
+
 export const NumberAbbrLabel = UUIFunctionComponent({
   name: 'NumberAbbrLabel',
   nodes: {
     Root: 'abbr',
-  }
+  },
+  propTypes: NumberAbbrLabelPropTypes,
 }, (props: NumberAbbrLabelFeatureProps, { nodes }) => {
   const { Root } = nodes
 

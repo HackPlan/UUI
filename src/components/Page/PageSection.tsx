@@ -1,5 +1,6 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface PageSectionFeatureProps {
   /**
@@ -8,11 +9,16 @@ export interface PageSectionFeatureProps {
   children?: React.ReactNode;
 }
 
+export const PageSectionPropTypes = createComponentPropTypes<PageSectionFeatureProps>({
+  children: PropTypes.node,
+})
+
 export const PageSection = UUIFunctionComponent({
   name: 'PageSection',
   nodes: {
     Root: 'div',
   },
+  propTypes: PageSectionPropTypes,
 }, (props: PageSectionFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (

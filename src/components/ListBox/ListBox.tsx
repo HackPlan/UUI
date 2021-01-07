@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface ListBoxItem {
   disabled?: boolean;
@@ -22,6 +23,22 @@ export interface ListBoxFeatureProps {
   onUnselect?: (id: string) => void;
 }
 
+export const ListBoxItemPropTypes = createComponentPropTypes<ListBoxItem>({
+  disabled: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  content: PropTypes.node.isRequired,
+})
+export const ListBoxPropTypes = createComponentPropTypes<ListBoxFeatureProps>({
+  loading: PropTypes.bool,
+  items: PropTypes.arrayOf(PropTypes.shape(ListBoxItemPropTypes)).isRequired,
+  disabled: PropTypes.bool,
+  multiple: PropTypes.bool,
+  selectedIds: PropTypes.arrayOf(PropTypes.string),
+  onSelected: PropTypes.func,
+  onSelect: PropTypes.func,
+  onUnselect: PropTypes.func,
+})
+
 export const ListBox = UUIFunctionComponent({
   name: 'ListBox',
   nodes: {
@@ -29,6 +46,7 @@ export const ListBox = UUIFunctionComponent({
     Box: 'ul',
     Item: 'li',
   },
+  propTypes: ListBoxPropTypes,
 }, (props: ListBoxFeatureProps, { nodes, NodeDataProps, options }) => {
   const { Root, Box, Item } = nodes
 

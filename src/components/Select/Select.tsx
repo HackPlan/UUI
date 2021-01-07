@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo, useCallback } from 'react';
-import { Popover as UUIPopover, PopoverPlacement } from '../Popover';
+import { Popover as UUIPopover, PopoverPlacement, PopoverPlacementPropTypes } from '../Popover';
 import { Tag as UUITag } from '../Tag';
 import { TextField as UUITextField } from '../Input';
 import { flatMap, compact } from 'lodash-es';
@@ -8,6 +8,7 @@ import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { ListBox as UUIListBox, ListBoxItem } from '../ListBox';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
 
 export interface SelectOption {
   key: string;
@@ -48,7 +49,7 @@ interface SelectValueProps<
   /**
    * Selected item.
    */
-  value: T;
+  value: T | null;
   /**
    * Callback invoked when an item is selected.
    */
@@ -108,6 +109,42 @@ interface BaseSelectFeatureProps {
 
 export type SelectFeatureProps<X extends true | false | boolean | undefined = undefined> = SelectValueProps<X> & SelectSectionOptionProps & BaseSelectFeatureProps
 
+export const SelectOptionPropTypes = createComponentPropTypes<SelectOption>({
+  key: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  content: PropTypes.node,
+  value: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  static: PropTypes.bool,
+})
+export const SelectPropTypes = createComponentPropTypes<SelectFeatureProps<any>>({
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
+  searchable: PropTypes.bool,
+  searchPlaceholder: PropTypes.string,
+  onSearch: PropTypes.func,
+  dropdownPlacement: PopoverPlacementPropTypes,
+  loading: PropTypes.bool,
+  usePortal: PropTypes.bool,
+  portalContainer: PropTypes.any,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+
+  options: PropTypes.arrayOf(PropTypes.shape(SelectOptionPropTypes)),
+  sections: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    label: PropTypes.node,
+    options: PropTypes.arrayOf(PropTypes.shape(SelectOptionPropTypes)).isRequired,
+  })),
+
+  value: ExtraPropTypes.nullable(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]).isRequired),
+  onChange: PropTypes.func.isRequired,
+  multiple: PropTypes.bool,
+})
+
 const SelectNodes = {
   Root: 'div',
   Activator: 'div',
@@ -132,6 +169,7 @@ const SelectNodes = {
 export const BaseSelect = UUIFunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
+  propTypes: SelectPropTypes,
 }, (props: SelectFeatureProps<boolean | undefined>, { nodes, NodeDataProps }) => {
   const {
     Root, Dropdown, DropdownIcon,

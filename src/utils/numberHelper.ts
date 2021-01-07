@@ -11,7 +11,9 @@ export function limitRange(value: number, min?: number, max?: number) {
 }
 
 export type NumberAbbrUnit = 'k' | 'K' | 'm' | 'M' | 'b' | 'B';
-export const NumberAbbrUnitValue = {
+export const NumberAbbrUnitValue: {
+  [key in NumberAbbrUnit]: number;
+} = {
   'k': 1000,
   'K': 1000,
   'm': 1000_000,

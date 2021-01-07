@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Checkbox } from './Checkbox';
 import { getValidTypeChildren } from '../../utils/componentHelper';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface CheckboxGroupFeatureProps {
   /**
@@ -26,11 +27,21 @@ export interface CheckboxGroupFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
+export const CheckboxGroupPropTypes = createComponentPropTypes<CheckboxGroupFeatureProps>({
+  name: PropTypes.string,
+  value: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onChange: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const CheckboxGroup = UUIFunctionComponent({
   name: "CheckboxGroup",
   nodes: {
     Root: 'div'
   },
+  propTypes: CheckboxGroupPropTypes,
 }, (props: CheckboxGroupFeatureProps, { nodes }) => {
   const { Root } = nodes
 

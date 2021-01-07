@@ -13,7 +13,7 @@ export interface AccordionPaneFeatureProps {
   disabled?: boolean;
 }
 
-const AccordionPaneFeaturePropTypes = createComponentPropTypes<AccordionPaneFeatureProps>({
+export const AccordionPanePropTypes = createComponentPropTypes<AccordionPaneFeatureProps>({
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
@@ -30,7 +30,7 @@ export const AccordionPane = UUIFunctionComponent({
     Collapse: Collapse,
     Content: 'div',
   },
-  propTypes: AccordionPaneFeaturePropTypes,
+  propTypes: AccordionPanePropTypes,
 }, (props: AccordionPaneFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Header, Icon, Title, Collapse, Content } = nodes
 

@@ -4,6 +4,7 @@ import { KeyCode } from '../../utils/keyboardHelper';
 import { getValidTypeChildren } from '../../utils/componentHelper';
 import { RadioGroupContext } from './RadioGroupContext';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface RadioGroupFeatureProps<T extends string | number> {
   /**
@@ -30,6 +31,15 @@ export interface RadioGroupFeatureProps<T extends string | number> {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
+export const RadioGroupPropTypes = createComponentPropTypes<RadioGroupFeatureProps<string | number>>({
+  name: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 const RadioGroupNodes = {
   Root: 'div'
 } as const
@@ -37,6 +47,7 @@ const RadioGroupNodes = {
 const BaseRadioGroup = UUIFunctionComponent({
   name: "RadioGroup",
   nodes: RadioGroupNodes,
+  propTypes: RadioGroupPropTypes,
 }, (props: RadioGroupFeatureProps<any>, { nodes }) => {
   const { Root } = nodes
 

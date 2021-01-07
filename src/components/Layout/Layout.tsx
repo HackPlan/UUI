@@ -6,6 +6,7 @@ import { LayoutHeaderProps, LayoutHeader } from './LayoutHeader';
 import { LayoutNavProps, LayoutNav } from './LayoutNav';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
 import { LayoutAside, LayoutAsideProps } from './LayoutAside';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface LayoutFeatureProps {
   /**
@@ -21,11 +22,16 @@ export interface LayoutFeatureProps {
     )[];
 }
 
+export const LayoutPropTypes = createComponentPropTypes<LayoutFeatureProps>({
+  children: PropTypes.node,
+})
+
 export const _Layout = UUIFunctionComponent({
   name: 'Layout',
   nodes: {
     Root: 'section',
   },
+  propTypes: LayoutPropTypes,
 }, (props: LayoutFeatureProps, { nodes, NodeDataProps }) => {
   const { Root } = nodes
 

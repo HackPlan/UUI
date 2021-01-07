@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { TabsContext } from './TabsContext';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface TabFeatureProps {
   /**
@@ -17,11 +18,18 @@ export interface TabFeatureProps {
   children: React.ReactNode;
 }
 
+export const TabPropTypes = createComponentPropTypes<TabFeatureProps>({
+  label: PropTypes.node.isRequired,
+  value: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+})
+
 export const Tab = UUIFunctionComponent({
   name: 'Tab',
   nodes: {
     Root: 'div',
   },
+  propTypes: TabPropTypes,
 }, (props: TabFeatureProps, { nodes, NodeDataProps }) => {
   const { Root } = nodes
 

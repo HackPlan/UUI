@@ -12,7 +12,7 @@ export interface AccordionFeatureProps {
   children: React.ReactElement<AccordionPaneProps>[];
 }
 
-const AccordionFeaturePropTypes = createComponentPropTypes<AccordionFeatureProps>({
+export const AccordionPropTypes = createComponentPropTypes<AccordionFeatureProps>({
   allowMultipleExpanded: PropTypes.bool,
   children: PropTypes.node.isRequired,
 })
@@ -24,7 +24,7 @@ const _Accordion = UUIFunctionComponent({
     Pane: 'div',
     Collapse: Collapse,
   },
-  propTypes: AccordionFeaturePropTypes,
+  propTypes: AccordionPropTypes,
 }, (props: AccordionFeatureProps, { nodes }) => {
   const { Root } = nodes
 

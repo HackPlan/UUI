@@ -3,6 +3,7 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useArrayCacheRender } from '../../hooks/useCacheRender';
 import { Checkbox as UUICheckbox } from '../Checkbox';
 import { LoadingCover } from '../Loading';
+import { createComponentPropTypes, ExtraPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface TableColumn<T> {
   key: string;
@@ -64,6 +65,25 @@ export interface TableFeatureProps<T> {
   cacheRowComparator?: (prev: T, next: T) => boolean;
 }
 
+export const TableColumnPropTypes = ExtraPropTypes.recursiveShape({
+  key: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
+  onRowRender: PropTypes.func,
+}, 'children')
+
+export const TablePropTypes = createComponentPropTypes<TableFeatureProps<any>>({
+  columns: PropTypes.arrayOf(TableColumnPropTypes).isRequired,
+  rows: PropTypes.array.isRequired,
+  onRowId: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  selectedRowIds: PropTypes.arrayOf(PropTypes.string),
+  onSelected: PropTypes.func,
+  hideHeader: PropTypes.bool,
+  emptyView: PropTypes.node,
+  cacheRowRender: PropTypes.bool,
+  cacheRowComparator: PropTypes.func,
+})
+
 export const TableNodes = {
   Root: 'div',
   LoadingCover: LoadingCover,
@@ -80,6 +100,7 @@ export const TableNodes = {
 export const Table = UUIFunctionComponent({
   name: 'Table',
   nodes: TableNodes,
+  propTypes: TablePropTypes,
 }, (props: TableFeatureProps<any>, { nodes, NodeDataProps }) => {
   const { Root, LoadingCover, Table, Head, Body, Row, HeadCell, DataCell, Checkbox, EmptyView } = nodes
 

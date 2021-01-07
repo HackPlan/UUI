@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { format, isValid } from 'date-fns';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface DatePickerFeatureProps {
   /**
@@ -20,12 +21,21 @@ export interface DatePickerFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
+export const DatePickerPropTypes = createComponentPropTypes<DatePickerFeatureProps>({
+  name: PropTypes.string,
+  value: PropTypes.instanceOf(Date),
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const DatePicker = UUIFunctionComponent({
   name: 'DatePicker',
   nodes: {
     Root: 'div',
     Input: 'input',
-  }
+  },
+  propTypes: DatePickerPropTypes,
 }, (props: DatePickerFeatureProps, { nodes }) => {
   const { Root, Input } = nodes
 

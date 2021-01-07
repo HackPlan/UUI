@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface ToastFeatureProps {
   /** Message to display in the body of the toast. */
@@ -19,12 +20,20 @@ export interface ToastFeatureProps {
 }
 export type IToast = ToastFeatureProps & { id: string }
 
+export const ToastPropTypes = createComponentPropTypes<IToast>({
+  message: PropTypes.oneOfType([PropTypes.node, PropTypes.number, PropTypes.string]).isRequired,
+  onDismiss: PropTypes.func,
+  timeout: PropTypes.number,
+  id: PropTypes.string,
+})
+
 export const Toast = UUIFunctionComponent({
   prefix: 'UUI',
   name: 'Toast',
   nodes: {
     Root: 'div',
-  }
+  },
+  propTypes: ToastPropTypes,
 }, (props: IToast, { nodes }) => {
   const { Root } = nodes
 

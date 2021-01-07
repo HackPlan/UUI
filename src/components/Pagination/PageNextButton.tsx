@@ -3,16 +3,20 @@ import { Button as UUIButton } from '../Button';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Icons } from '../../icons/Icons';
 import { PaginationContext } from './PaginationContext';
+import { createComponentPropTypes } from '../../utils/createPropTypes';
 
 export interface PageNextButtonFeatureProps {
 }
+
+export const PageNextButtonPropTypes = createComponentPropTypes<PageNextButtonFeatureProps>({})
 
 export const PageNextButton = UUIFunctionComponent({
   name: 'PageNextButton',
   nodes: {
     Root: UUIButton,
     NextIcon: Icons.ChevronRight,
-  }
+  },
+  propTypes: PageNextButtonPropTypes,
 }, (props: PageNextButtonFeatureProps, { nodes }) => {
   const { Root, NextIcon } = nodes
 

@@ -4,6 +4,7 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useEvent } from 'react-use';
 import { clamp, clone, inRange, isArray } from 'lodash-es';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface SliderRemark {
   value: number;
@@ -51,6 +52,26 @@ export interface SliderFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
+export const SliderRemarkPropTypes = createComponentPropTypes<SliderRemark>({
+  value: PropTypes.number.isRequired,
+  label: PropTypes.node.isRequired,
+})
+export const SliderPropTypes = createComponentPropTypes<SliderFeatureProps>({
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.arrayOf(PropTypes.number),
+  ]),
+  onChange: PropTypes.func,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  remarks: PropTypes.arrayOf(PropTypes.shape(SliderRemarkPropTypes)),
+  disabled: PropTypes.bool,
+  vertical: PropTypes.bool,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const Slider = UUIFunctionComponent({
   name: 'Slider',
   nodes: {
@@ -61,7 +82,8 @@ export const Slider = UUIFunctionComponent({
     Thumb: 'div',
     Remark: 'div',
     RemarkLabel: 'div',
-  }
+  },
+  propTypes: SliderPropTypes,
 }, (props: SliderFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Container, ActiveLine, InactiveLine, Thumb, Remark, RemarkLabel } = nodes
 
