@@ -48,13 +48,13 @@
     transition: transform 0.2s ease-in-out;
   }
 
-  &.STATE_active {
+  &[data-uui-active="true"] {
     .UUI-Cascader-DropdownIcon {
       transform: rotate(180deg);
     }
   }
 
-  &.STATE_searchable {
+  &[data-uui-searchable="true"] {
     .UUI-Cascader-Input, input {
       cursor: text;
     }
@@ -121,7 +121,7 @@
           justify-content: center;
           align-items: center;
 
-          &.STATE_hidden svg {
+          &[data-uui-hidden="true"] svg {
             opacity: 0;
           }
 

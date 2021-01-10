@@ -13,7 +13,7 @@ export const PagePrevButton = UUIFunctionComponent({
     Root: UUIButton,
     PrevIcon: Icons.ChevronLeft,
   }
-}, (props: PagePrevButtonFeatureProps, nodes) => {
+}, (props: PagePrevButtonFeatureProps, { nodes }) => {
   const { Root, PrevIcon } = nodes
 
   const context = useContext(PaginationContext)

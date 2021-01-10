@@ -14,7 +14,7 @@ export const PageSelector = UUIFunctionComponent({
     Root: 'div',
     Select: HTMLSelect,
   }
-}, (props: PageSelectorFeatureProps, nodes) => {
+}, (props: PageSelectorFeatureProps, { nodes }) => {
   const { Root, Select } = nodes
 
   const context = useContext(PaginationContext)

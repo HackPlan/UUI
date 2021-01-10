@@ -2,7 +2,6 @@ import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { limitPrecision, limitRange } from '../../utils/numberHelper';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
-import classNames from 'classnames';
 
 export interface NumberFieldFeatureProps {
   /**
@@ -64,18 +63,18 @@ export const NumberField = UUIFunctionComponent({
     Input: 'input',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: NumberFieldFeatureProps, nodes) => {
+}, (props: NumberFieldFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Input, LoadingSpinner } = nodes
 
   return (
     <Root
+      {...NodeDataProps({
+        'loading': !!props.loading,
+        'disabled': !!props.disabled,
+      })}
       role="input"
       aria-readonly={!!props.disabled}
       aria-placeholder={props.placeholder}
-      className={classNames({
-        'STATE_loading': props.loading,
-        'STATE_disabled': props.disabled,
-      })}
     >
       <Input
         placeholder={props.placeholder}

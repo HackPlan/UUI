@@ -3,7 +3,6 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Button } from '../Button';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
-import classNames from 'classnames';
 
 export interface TextFieldFeatureProps {
   /**
@@ -83,7 +82,7 @@ export const TextField = UUIFunctionComponent({
     HidePasswordIcon: Icons.EyeOff,
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: TextFieldFeatureProps, nodes) => {
+}, (props: TextFieldFeatureProps, { nodes, NodeDataProps }) => {
   const {
     Root, Input,
     LengthIndicator, TogglePasswordVisibleButton,
@@ -111,13 +110,13 @@ export const TextField = UUIFunctionComponent({
 
   return (
     <Root
+      {...NodeDataProps({
+        'loading': !!props.loading,
+        'disabled': !!props.disabled,
+      })}
       role="input"
       aria-readonly={!!props.disabled}
       aria-placeholder={props.placeholder}
-      className={classNames({
-        'STATE_disabled': props.disabled,
-        'STATE_loading': props.loading,
-      })}
     >
       <Input
         name={props.name}

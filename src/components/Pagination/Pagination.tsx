@@ -8,7 +8,6 @@ import { PagePrevButton } from './PagePrevButton';
 import { PageNextButton } from './PageNextButton';
 import { PageSelector } from './PageSelector';
 import { PageJumper } from './PageJumper';
-import classNames from 'classnames';
 import { PaginationContext } from './PaginationContext';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
 
@@ -28,7 +27,7 @@ export const _Pagination = UUIFunctionComponent({
   nodes: {
     Root: 'div'
   }
-}, (props: PaginationFeatureProps, nodes) => {
+}, (props: PaginationFeatureProps, { nodes, NodeDataProps }) => {
   const { Root } = nodes
 
   const pagination = usePagination(props.value, props.onChange)
@@ -37,8 +36,8 @@ export const _Pagination = UUIFunctionComponent({
     <PaginationContext.Provider value={{ pagination, loading: props.loading }}>
       <Root
         role="navigation"
-        className={classNames({
-          'STATE_loading': props.loading,
+        {...NodeDataProps({
+          'loading': !!props.loading,
         })}
       >
         {props.children}

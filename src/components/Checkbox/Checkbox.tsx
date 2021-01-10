@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import classNames from 'classnames';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { KeyCode } from '../../utils/keyboardHelper';
 
@@ -44,20 +43,21 @@ export const Checkbox = UUIFunctionComponent({
     Indicator: 'span',
     Label: 'span',
   }
-}, (props: CheckboxFeatureProps, nodes) => {
+}, (props: CheckboxFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Input, Indicator, Label } = nodes
 
   const ref = useRef<HTMLLabelElement | null>(null)
 
   return (
     <Root
+      {...NodeDataProps({
+        'checked': !!props.checked,
+        'disabled': !!props.disabled,
+      })}
+      aria-checked={!!props.checked}
       ref={ref}
       role="checkbox"
       tabIndex={0}
-      aria-checked={!!props.checked}
-      className={classNames({
-        'STATE_disabled': props.disabled,
-      })}
       onKeyDown={(event) => {
         switch (event.keyCode) {
           case KeyCode.Enter:
@@ -75,7 +75,7 @@ export const Checkbox = UUIFunctionComponent({
         type='checkbox'
         name={props.name}
         disabled={props.disabled}
-        checked={props.checked === undefined ? undefined : props.checked}
+        checked={props.checked}
         value={props.value}
         onChange={props.onChange === undefined ? undefined : (
           (event) => {
@@ -83,11 +83,7 @@ export const Checkbox = UUIFunctionComponent({
           }
         )}
       />
-      <Indicator
-        className={classNames({
-          'STATE_checked': props.value,
-        })}
-      ></Indicator>
+      <Indicator></Indicator>
       {props.label && <Label>{props.label}</Label>}
     </Root>
   )

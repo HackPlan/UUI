@@ -26,7 +26,7 @@ export const DatePicker = UUIFunctionComponent({
     Root: 'div',
     Input: 'input',
   }
-}, (props: DatePickerFeatureProps, nodes) => {
+}, (props: DatePickerFeatureProps, { nodes }) => {
   const { Root, Input } = nodes
 
   const dateValue = useMemo(() => {

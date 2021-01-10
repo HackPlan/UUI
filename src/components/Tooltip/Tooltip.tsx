@@ -28,7 +28,7 @@ export const Tooltip = UUIFunctionComponent({
     Tip: 'div',
     Arrow: 'div',
   },
-}, (props: TooltipFeatureProps, nodes) => {
+}, (props: TooltipFeatureProps, { nodes }) => {
   const { Root, Tip, Arrow } = nodes
 
   /**

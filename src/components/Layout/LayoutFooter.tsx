@@ -13,11 +13,10 @@ export const LayoutFooter = UUIFunctionComponent({
   nodes: {
     Root: 'footer',
   },
-}, (props: LayoutFooterFeatureProps, nodes) => {
+}, (props: LayoutFooterFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (
     <Root>
-
       {props.children}
     </Root>
   )

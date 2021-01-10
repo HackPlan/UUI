@@ -12,7 +12,7 @@
 .UUI-RightClickZone-ContextMenu {
   display: none;
 
-  &.active {
+  &[data-uui-active="true"] {
     display: inherit;
   }
 

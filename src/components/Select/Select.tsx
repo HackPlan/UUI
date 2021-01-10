@@ -3,7 +3,6 @@ import { Popover as UUIPopover, PopoverPlacement } from '../Popover';
 import { Tag as UUITag } from '../Tag';
 import { TextField as UUITextField } from '../Input';
 import { flatMap, compact } from 'lodash-es';
-import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import { KeyCode } from '../../utils/keyboardHelper';
@@ -133,7 +132,7 @@ const SelectNodes = {
 export const BaseSelect = UUIFunctionComponent({
   name: 'Select',
   nodes: SelectNodes,
-}, (props: SelectFeatureProps<boolean | undefined>, nodes) => {
+}, (props: SelectFeatureProps<boolean | undefined>, { nodes, NodeDataProps }) => {
   const {
     Root, Dropdown, DropdownIcon,
     Activator, Result, Placeholder,
@@ -309,11 +308,11 @@ export const BaseSelect = UUIFunctionComponent({
       ref={ref}
       role="select"
       tabIndex={finalProps.disabled ? -1 : 0}
-      className={classNames({
-        'STATE_disabled': finalProps.disabled,
-        'STATE_active': active,
-        'STATE_loading': props.loading,
-        'STATE_searchable': finalProps.searchable,
+      {...NodeDataProps({
+        'disabled': !!finalProps.disabled,
+        'active': !!active,
+        'loading': !!props.loading,
+        'searchable': !!finalProps.searchable,
       })}
       onKeyDown={(event) => {
         if (finalProps.disabled) return;

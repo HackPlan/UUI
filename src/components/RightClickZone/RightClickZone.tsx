@@ -2,7 +2,6 @@ import React, { useRef, useState, useMemo, useImperativeHandle, useCallback } fr
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { usePopper } from 'react-popper';
 import { Placement, Modifier } from '@popperjs/core';
-import classNames from 'classnames';
 import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
 import ReactHelper from '../../utils/ReactHelper';
 import ReactDOM from 'react-dom';
@@ -50,7 +49,7 @@ export const RightClickZone = UUIFunctionComponent({
     Portal: 'div',
     ContextMenu: 'div',
   }
-}, (props: RightClickZoneFeatureProps, nodes, ref) => {
+}, (props: RightClickZoneFeatureProps, { nodes, ref, NodeDataProps }) => {
   const { Root, Origin, ContextMenu, Portal } = nodes
 
   const rootRef = useRef<any | null>(null)
@@ -112,17 +111,19 @@ export const RightClickZone = UUIFunctionComponent({
      */
     if (!active) return null
 
-    const content = <ContextMenu
-      className={classNames({
-        'active': active,
-      })}
-      ref={popperRef}
-      style={{...styles.popper}}
-      {...attributes.popper}
-      onContextMenu={(event) => { event.stopPropagation() }}
-    >
-      {props.contextMenu}
-    </ContextMenu>
+    const content = (
+      <ContextMenu
+        {...NodeDataProps({
+          'active': active,
+        })}
+        ref={popperRef}
+        style={{...styles.popper}}
+        {...attributes.popper}
+        onContextMenu={(event) => { event.stopPropagation() }}
+      >
+        {props.contextMenu}
+      </ContextMenu>
+    )
 
     return (finalProps.usePortal && finalProps.portalContainer)
       ? ReactDOM.createPortal((

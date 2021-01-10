@@ -21,7 +21,7 @@
     padding: 1rem;
   }
 
-  &.STATE_opened {
+  &[data-uui-opened="true"] {
     pointer-events: inherit;
     opacity: 1;
   }

@@ -1,5 +1,4 @@
 import { Modifier, Placement } from '@popperjs/core';
-import classNames from 'classnames';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { usePopper } from 'react-popper';
@@ -74,7 +73,7 @@ export const Popover = UUIFunctionComponent({
     Portal: 'div',
     Content: 'div',
   },
-}, (props: PopoverFeatureProps, nodes) => {
+}, (props: PopoverFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Activator, Portal, Content } = nodes
 
   /**
@@ -147,7 +146,9 @@ export const Popover = UUIFunctionComponent({
       ? ReactDOM.createPortal((
         <Portal>
           <Content
-            className={classNames({ 'STATE_active': props.active })}
+            {...NodeDataProps({
+              'active': !!props.active,
+            })}
             ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
             style={{...styles.popper}} {...attributes.popper}
           >{props.children}</Content>
@@ -155,7 +156,9 @@ export const Popover = UUIFunctionComponent({
       ), finalProps.portalContainer)
       : (
         <Content
-          className={classNames({ 'STATE_active': props.active })}
+          {...NodeDataProps({
+            'active': !!props.active,
+          })}
           ref={(ref) => { setPopperElement(ref); popperRef.current = ref; }}
           style={{...styles.popper}} {...attributes.popper}
         >{props.children}</Content>
@@ -164,10 +167,15 @@ export const Popover = UUIFunctionComponent({
     props.lazy, props.active, finalProps.portalContainer, neverOpened,
     finalProps.usePortal, props.children,
     styles, attributes, setPopperElement,
+    NodeDataProps,
   ])
 
   return (
-    <Root className={classNames({ 'STATE_active': props.active })}>
+    <Root
+      {...NodeDataProps({
+        'active': !!props.active,
+      })}
+    >
       {activator}
       {content}
     </Root>

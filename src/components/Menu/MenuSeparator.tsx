@@ -8,7 +8,7 @@ export const MenuSeparator = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   }
-}, (props: MenuSeparatorFeatureProps, nodes) => {
+}, (props: MenuSeparatorFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   return (

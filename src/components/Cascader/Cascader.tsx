@@ -4,7 +4,6 @@ import { Popover, PopoverPlacement } from '../Popover';
 import { ListBox as UUIListBox, ListBoxItem } from '../ListBox';
 import { TextField as UUITextField } from '../Input';
 import { pick, clone } from 'lodash-es';
-import classNames from 'classnames';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
@@ -114,7 +113,7 @@ export const Cascader = UUIFunctionComponent({
     SearchMatched: 'span',
     LoadingSpinner: LoadingSpinner,
   },
-}, (props: CascaderFeatureProps, nodes) => {
+}, (props: CascaderFeatureProps, { nodes, NodeDataProps }) => {
   /**
    * Component Nodes Spread
    */
@@ -224,8 +223,8 @@ export const Cascader = UUIFunctionComponent({
             >
               <OptionLabel>{option.content || option.label}</OptionLabel>
               <OptionIcon
-                className={classNames({
-                  'STATE_hidden': !option.children,
+                {...NodeDataProps({
+                  'hidden': !option.children,
                 })}
                 svgrProps={{ strokeWidth: 1 }}
               />
@@ -260,7 +259,7 @@ export const Cascader = UUIFunctionComponent({
       }
       return { items, selectedIds, handleOnSelect }
     })
-  }, [levels, finalProps.expandTriggerType, finalProps.changeOnFinalSelect, innerValue, setInnerValue, props.options])
+  }, [levels, NodeDataProps, finalProps.expandTriggerType, finalProps.changeOnFinalSelect, innerValue, setInnerValue, props.options])
 
   const searchListData = useMemo(() => {
     if (!searchInputValue) return null
@@ -287,13 +286,13 @@ export const Cascader = UUIFunctionComponent({
 
   return (
     <Root
+      {...NodeDataProps({
+        'active': !!popoverActive,
+        'loading': !!props.loading,
+        'searchable': !!finalProps.searchable,
+      })}
       role="select"
       tabIndex={0}
-      className={classNames({
-        'STATE_active': popoverActive,
-        'STATE_loading': props.loading,
-        'STATE_searchable': finalProps.searchable,
-      })}
       onKeyDown={(event) => {
         switch (event.keyCode) {
           case KeyCode.Enter:

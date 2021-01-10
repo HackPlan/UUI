@@ -14,54 +14,54 @@
     opacity: 0;
     pointer-events: none;
 
-    &.PLACEMENT_left {
+    &[data-uui-placement="left"] {
       flex-direction: row;
       justify-content: flex-start;
     }
-    &.PLACEMENT_right {
+    &[data-uui-placement="right"] {
       flex-direction: row;
       justify-content: flex-end;
     }
-    &.PLACEMENT_top {
+    &[data-uui-placement="top"] {
       flex-direction: column;
       justify-content: flex-start;
     }
-    &.PLACEMENT_bottom {
+    &[data-uui-placement="bottom"] {
       flex-direction: column;
       justify-content: flex-end;
     }
-    &.PLACEMENT_left .UUI-Drawer-Content,
-    &.PLACEMENT_right .UUI-Drawer-Content {
+    &[data-uui-placement="left"] .UUI-Drawer-Content,
+    &[data-uui-placement="right"] .UUI-Drawer-Content {
       width: 400px;
     }
-    &.PLACEMENT_top .UUI-Drawer-Content,
-    &.PLACEMENT_bottom .UUI-Drawer-Content {
+    &[data-uui-placement="top"] .UUI-Drawer-Content,
+    &[data-uui-placement="bottom"] .UUI-Drawer-Content {
       width: 100%;
       min-height: 200px;
     }
 
-    &.PLACEMENT_left .UUI-Drawer-Content {
+    &[data-uui-placement="left"] .UUI-Drawer-Content {
       transform: translateX(-100%);
     }
-    &.PLACEMENT_right .UUI-Drawer-Content {
+    &[data-uui-placement="right"] .UUI-Drawer-Content {
       transform: translateX(100%);
     }
-    &.PLACEMENT_top .UUI-Drawer-Content {
+    &[data-uui-placement="top"] .UUI-Drawer-Content {
       transform: translateY(-100%);
     }
-    &.PLACEMENT_bottom .UUI-Drawer-Content {
+    &[data-uui-placement="bottom"] .UUI-Drawer-Content {
       transform: translateY(100%);
     }
-    &.STATE_active.PLACEMENT_left .UUI-Drawer-Content,
-    &.STATE_active.PLACEMENT_right .UUI-Drawer-Content {
+    &[data-uui-active="true"][data-uui-placement="left"] .UUI-Drawer-Content,
+    &[data-uui-active="true"][data-uui-placement="right"] .UUI-Drawer-Content {
       transform: translateX(0);
     }
-    &.STATE_active.PLACEMENT_top .UUI-Drawer-Content,
-    &.STATE_active.PLACEMENT_bottom .UUI-Drawer-Content {
+    &[data-uui-active="true"][data-uui-placement="top"] .UUI-Drawer-Content,
+    &[data-uui-active="true"][data-uui-placement="bottom"] .UUI-Drawer-Content {
       transform: translateY(0);
     }
 
-    &.STATE_active {
+    &[data-uui-active="true"] {
       pointer-events: auto;
       opacity: 1;
     }

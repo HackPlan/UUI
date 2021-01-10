@@ -4,7 +4,6 @@ import { Button } from '../../components/Button';
 import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
 import { Icons } from '../../icons/Icons';
-import classNames from 'classnames';
 import { KeyCode } from '../../utils/keyboardHelper';
 
 export interface StepperFeatureProps {
@@ -69,7 +68,7 @@ export const Stepper = UUIFunctionComponent({
     MinusDownIcon: Icons.ChevronDown,
     MinusLeftIcon: Icons.ChevronLeft,
   }
-}, (props: StepperFeatureProps, nodes) => {
+}, (props: StepperFeatureProps, { nodes, NodeDataProps }) => {
   const {
     Root, MinusButton, PlusButton, Input, RightControlsContainer,
     PlusUpIcon, PlusRightIcon, MinusDownIcon, MinusLeftIcon,
@@ -129,9 +128,8 @@ export const Stepper = UUIFunctionComponent({
       aria-valuemax={props.max}
       aria-valuemin={props.min}
       aria-valuenow={props.value || undefined}
-      className={classNames({
-        'POSITION_controlSeparate': finalProps.controlPosition === 'separate',
-        'POSITION_controlRight': finalProps.controlPosition === 'right',
+      {...NodeDataProps({
+        'position': finalProps.controlPosition,
       })}
       onKeyDown={(event) => {
         switch (event.keyCode) {

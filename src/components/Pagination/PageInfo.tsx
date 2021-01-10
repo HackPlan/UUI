@@ -14,7 +14,7 @@ export const PageInfo = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   }
-}, (props: PageInfoFeatureProps, nodes) => {
+}, (props: PageInfoFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const context = useContext(PaginationContext)

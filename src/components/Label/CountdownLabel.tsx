@@ -32,7 +32,7 @@ export const CountdownLabel = UUIFunctionComponent({
   nodes: {
     Root: 'label',
   }
-}, (props: CountdownLabelFeatureProps, nodes) => {
+}, (props: CountdownLabelFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const finalProps = {

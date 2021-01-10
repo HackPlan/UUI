@@ -18,7 +18,7 @@ const _Accordion = UUIFunctionComponent({
     Pane: 'div',
     Collapse: Collapse,
   },
-}, (props: AccordionFeatureProps, nodes) => {
+}, (props: AccordionFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const finalProps = {

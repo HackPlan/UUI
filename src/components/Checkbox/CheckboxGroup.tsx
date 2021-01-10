@@ -31,7 +31,7 @@ export const CheckboxGroup = UUIFunctionComponent({
   nodes: {
     Root: 'div'
   },
-}, (props: CheckboxGroupFeatureProps, nodes) => {
+}, (props: CheckboxGroupFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const children = useMemo(() => {

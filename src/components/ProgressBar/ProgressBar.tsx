@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import React, { useMemo } from "react";
 import { clamp } from "lodash-es";
 import { UUIFunctionComponent, UUIFunctionComponentProps } from "../../core";
@@ -40,7 +39,7 @@ export const ProgressBar = UUIFunctionComponent(
       CircularRight: "div",
     },
   },
-  (props: ProgressBarFeatureProps, nodes) => {
+  (props: ProgressBarFeatureProps, { nodes, NodeDataProps }) => {
     const {
       Root,
       Container,
@@ -86,16 +85,16 @@ export const ProgressBar = UUIFunctionComponent(
 
     return (
       <Root
+        {...NodeDataProps({
+          'disabled': !!props.disabled,
+          'circular': !!props.circular,
+          'indeterminate': !!props.indeterminate,
+        })}
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={clamp(Math.round(props.value * 100), 0, 100)}
         aria-valuetext={toPercentage(props.value)}
-        className={classNames({
-          'STATE_disabled': props.disabled,
-          'STATE_circular': props.circular,
-          'STATE_indeterminate': props.indeterminate,
-        })}
       >
         <Container>
           {!props.circular ? (

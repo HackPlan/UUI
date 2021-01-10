@@ -14,7 +14,7 @@ const TestComponent = UUIFunctionComponent({
     Node: 'div',
     ExtendTest: 'div',
   }
-}, (props: {}, nodes) => {
+}, (props: {}, { nodes }) => {
   const { Root, Node, ExtendTest } = nodes
   return (
     <Root className="root-base-classname" style={{
@@ -39,7 +39,7 @@ const TestUnionComponent = UUIFunctionComponent({
     Root: 'div',
     TestComponent: TestComponent,
   }
-}, (props: {}, nodes) => {
+}, (props: {}, { nodes }) => {
   const { Root, TestComponent } = nodes
   return (
     <Root>

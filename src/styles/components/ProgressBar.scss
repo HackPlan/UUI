@@ -76,7 +76,7 @@
     }
   }
 
-  &.STATE_disabled {
+  &[data-uui-disabled="true"] {
     .UUI-ProgressBar-BarFill {
       border-color: #7d7d7d;
     }
@@ -91,7 +91,7 @@
     }
   }
 
-  &:not(.STATE_circular) {
+  &[data-uui-circular="false"] {
     .UUI-ProgressBar-Container {
       border-radius: 5px;
       background-color: rgba(0, 0, 0, 0.05);
@@ -101,7 +101,7 @@
     }
   }
 
-  &.STATE_circular {
+  &[data-uui-circular="true"] {
     .UUI-ProgressBar-Container {
       width: 100%;
       position: relative;
@@ -118,8 +118,8 @@
     }
   }
 
-  &.STATE_indeterminate {
-    &.STATE_circular {
+  &[data-uui-indeterminate="true"] {
+    &[data-uui-circular="true"] {
       .UUI-ProgressBar-Container {
         .UUI-ProgressBar-CircularWrapper {
           transform-origin: center;
@@ -137,7 +137,7 @@
         }
       }
     }
-    &:not(.STATE_circular) {
+    &[data-uui-circular="false"] {
       .UUI-ProgressBar-Container {
         .UUI-ProgressBar-BarFill {
           width: 10%;

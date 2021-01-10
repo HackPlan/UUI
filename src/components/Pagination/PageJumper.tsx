@@ -17,7 +17,7 @@ export const PageJumper = UUIFunctionComponent({
     Label: 'div',
     NumberField: UUINumberField,
   }
-}, (props: PageJumperFeatureProps, nodes) => {
+}, (props: PageJumperFeatureProps, { nodes }) => {
   const { Root, Label, NumberField } = nodes
 
   const context = useContext(PaginationContext)

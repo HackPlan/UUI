@@ -12,7 +12,7 @@
 
   @include radius;
 
-  &, &.TYPE_default {
+  &, &[data-uui-type="default"] {
     color: $textDarkColor2;
     background-color: white;
     @include border;
@@ -28,7 +28,7 @@
     }
   }
 
-  &.TYPE_primary {
+  &[data-uui-type="primary"] {
     border: 1px solid $primaryColor;
     background-color: $primaryColor;
     color: $textLightColor;
@@ -43,7 +43,7 @@
     }
   }
 
-  &.TYPE_text {
+  &[data-uui-type="text"] {
     border: 1px solid transparent;
     color: $textDarkColor2;
     background-color: transparent;
@@ -57,20 +57,20 @@
     }
   }
 
-  &.STATE_disabled {
+  &[data-uui-disabled="true"] {
 
     background-color: $disabledBackgroundColor;
     color: $disabledTextColor;
     cursor: not-allowed;
 
-    &, &.TYPE_default {
+    &, &[data-uui-type="default"] {
       border-color: $borderColor;
       &:hover, &:active, &:focus-within {
         background-color: $disabledBackgroundColor;
         box-shadow: none;
       }
     }
-    &.TYPE_primary {
+    &[data-uui-type="primary"] {
       border-color: $disabledBackgroundColor;
       &:hover, &:active, &:focus-within {
         background-color: $disabledBackgroundColor;
@@ -78,7 +78,7 @@
         box-shadow: none;
       }
     }
-    &.TYPE_text {
+    &[data-uui-type="text"] {
       background-color: transparent;
       border-color: transparent;
       &:hover, &:active, &:focus-within {

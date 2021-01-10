@@ -1,7 +1,6 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
-import classNames from 'classnames';
 
 export interface TextAreaFeatureProps {
   /**
@@ -55,7 +54,7 @@ export const TextArea = UUIFunctionComponent({
     LengthIndicator: 'div',
     LoadingSpinner: LoadingSpinner,
   }
-}, (props: TextAreaFeatureProps, nodes) => {
+}, (props: TextAreaFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Textarea, Info, LengthIndicator, LoadingSpinner } = nodes
 
   const lengthIndicatorText = (`${props.value?.length || 0}`) + (props.maxLength ? `/${props.maxLength}` : '')
@@ -63,15 +62,15 @@ export const TextArea = UUIFunctionComponent({
   const hasCornerIndicator = !!props.loading || props.showLengthIndicator
   return (
     <Root
+      {...NodeDataProps({
+        'loading': !!props.loading,
+        'disabled': !!props.disabled,
+        'has-indicator': !!hasCornerIndicator,
+      })}
       role="input"
       aria-readonly={!!props.disabled}
       aria-placeholder={props.placeholder}
       aria-multiline
-      className={classNames({
-        'STATE_disabled': props.disabled,
-        'STATE_loading': props.loading,
-        'STATE_hasCornerIndicator': hasCornerIndicator,
-      })}
     >
       <Textarea
         name={props.name}

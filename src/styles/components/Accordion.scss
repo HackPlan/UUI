@@ -8,7 +8,7 @@
 
   .UUI-AccordionPane-Root {
 
-    &.STATE_disabled {
+    &[data-uui-disabled="true"] {
 
       .UUI-AccordionPane-Header {
         cursor: not-allowed;
@@ -27,7 +27,7 @@
       }
     }
 
-    &.STATE_expanded {
+    &[data-uui-expanded="true"] {
       .UUI-AccordionPane-Icon {
         transform: rotate(90deg);
       }

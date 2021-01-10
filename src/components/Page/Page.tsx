@@ -34,7 +34,7 @@ export const _Page = UUIFunctionComponent({
 
     Container: 'div',
   },
-}, (props: PageFeatureProps, nodes) => {
+}, (props: PageFeatureProps, { nodes }) => {
   const {
     Root,
     Thumbnail, Header, HeaderWrapper, InfoWrapper, TitleWrapper, Title, Description,

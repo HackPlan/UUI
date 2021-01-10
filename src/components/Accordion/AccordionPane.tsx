@@ -2,7 +2,6 @@ import React, { useContext, useMemo } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Collapse } from '../Collapse';
 import { Icons } from '../../icons/Icons';
-import classNames from 'classnames';
 import { AccordionContext } from './AccordionContext';
 import { KeyCode } from '../../utils/keyboardHelper';
 
@@ -23,7 +22,7 @@ export const AccordionPane = UUIFunctionComponent({
     Collapse: Collapse,
     Content: 'div',
   },
-}, (props: AccordionPaneFeatureProps, nodes) => {
+}, (props: AccordionPaneFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Header, Icon, Title, Collapse, Content } = nodes
 
   const finalProps = {
@@ -42,10 +41,10 @@ export const AccordionPane = UUIFunctionComponent({
 
   return (
     <Root
-      className={classNames({
-        [`ID_${props.id}`]: !!props.id,
-        'STATE_expanded': expanded,
-        'STATE_disabled': finalProps.disabled,
+      {...NodeDataProps({
+        'id': props.id,
+        'expanded': !!expanded,
+        'disabled': !!finalProps.disabled,
       })}
       role="button"
       aria-expanded={expanded}

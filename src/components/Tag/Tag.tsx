@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
 export interface TagFeatureProps {
@@ -21,12 +20,12 @@ export const TagNodes = {
 export const Tag = UUIFunctionComponent({
   name: 'Tag',
   nodes: TagNodes,
-}, (props: TagFeatureProps, nodes) => {
+}, (props: TagFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Content } = nodes
   return (
     <Root
-      className={classNames({
-        'STATE_interactive': !!props.onClick,
+      {...NodeDataProps({
+        'interactive': !!props.onClick,
       })}
       onClick={props.onClick ? (() => {
         props.onClick && props.onClick()

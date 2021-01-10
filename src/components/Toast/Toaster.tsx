@@ -2,7 +2,6 @@ import { IToast, Toast, ToastProps } from './Toast';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
-import classNames from 'classnames';
 import ReactHelper from '../../utils/ReactHelper';
 import { UUIClassComponent, UUIClassComponentProps } from '../../core';
 
@@ -107,10 +106,14 @@ export class Toaster extends UUIClassComponent({
   }
 
   render() {
-    const { Root } = this.state.nodes
+    const { Root } = this.helper.nodes
 
     return (
-      <Root className={classNames(`position-${this.props.position || ToasterPosition.Top}`)}>
+      <Root
+        {...this.helper.NodeDataProps({
+          'position': this.props.position || ToasterPosition.Top,
+        })}
+      >
         {this.state.toasts.map((toast) => {
           return (
             <Toast

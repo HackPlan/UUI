@@ -27,7 +27,7 @@ export const TimeLabel = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   }
-}, (props: TimeLabelFeatureProps<TimeFormatterLocale>, nodes) => {
+}, (props: TimeLabelFeatureProps<TimeFormatterLocale>, { nodes }) => {
   const { Root } = nodes
 
   const text = timeFormat(props.value, props.locale, props.kind)

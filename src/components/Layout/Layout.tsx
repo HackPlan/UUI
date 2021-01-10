@@ -4,7 +4,6 @@ import { LayoutMainProps, LayoutMain } from './LayoutMain';
 import { LayoutFooterProps, LayoutFooter } from './LayoutFooter';
 import { LayoutHeaderProps, LayoutHeader } from './LayoutHeader';
 import { LayoutNavProps, LayoutNav } from './LayoutNav';
-import classNames from 'classnames';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
 import { LayoutAside, LayoutAsideProps } from './LayoutAside';
 
@@ -27,7 +26,7 @@ export const _Layout = UUIFunctionComponent({
   nodes: {
     Root: 'section',
   },
-}, (props: LayoutFeatureProps, nodes) => {
+}, (props: LayoutFeatureProps, { nodes, NodeDataProps }) => {
   const { Root } = nodes
 
   const { nav, header, footer } = useMemo(() => {
@@ -39,11 +38,13 @@ export const _Layout = UUIFunctionComponent({
   }, [props.children])
 
   return (
-    <Root className={classNames({
-      'STATE_hasNav': !!nav,
-      'STATE_hasHeader': !!header,
-      'STATE_hasFooter': !!footer,
-    })}>
+    <Root
+      {...NodeDataProps({
+        'has-nav': !!nav,
+        'has-header': !!header,
+        'has-footer': !!footer,
+      })}
+    >
       {props.children}
     </Root>
   )

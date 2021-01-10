@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Icons } from '../../icons/Icons';
@@ -15,7 +14,7 @@ export const LoadingSpinner = UUIFunctionComponent({
     Root: 'div',
     Icon: Icons.Spinner,
   }
-}, (props: LoadingSpinnerFeatureProps, nodes) => {
+}, (props: LoadingSpinnerFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Icon } = nodes
 
   const finalProps = {
@@ -24,8 +23,8 @@ export const LoadingSpinner = UUIFunctionComponent({
 
   return (
     <Root
-      className={classNames({
-        'STATE_animate': finalProps.animate,
+      {...NodeDataProps({
+        'animate': finalProps.animate,
       })}
     >
       <Icon width={props.width} height={props.height} />

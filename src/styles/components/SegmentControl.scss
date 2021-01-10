@@ -54,7 +54,7 @@
 
     color: #666666;
 
-    &.STATE_active {
+    &[data-uui-active="true"] {
       color: $textDarkColor;
     }
 

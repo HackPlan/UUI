@@ -21,8 +21,8 @@
     padding: 0.75rem;
   }
 
-  .UUI-Table-HeadCell.COLUMN_selection,
-  .UUI-Table-DataCell.COLUMN_selection {
+  .UUI-Table-HeadCell[data-uui-column="selection"],
+  .UUI-Table-DataCell[data-uui-column="selection"] {
     width: 1px;
 
     .UUI-Checkbox-Root {
@@ -46,7 +46,7 @@
     justify-content: center;
   }
 
-  &.STATE_empty {
+  &[data-uui-empty="true"] {
     .UUI-Table-Row:hover, .UUI-Table-DataCell:hover {
       background-color: white;
     }

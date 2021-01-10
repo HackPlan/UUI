@@ -79,21 +79,27 @@ import { useState } from 'react';
             <Button
               className="mr-2 mb-2"
               onClick={() => { console.log('clicked!') }}
-              loading>
+              loading
+              disabled
+            >
                 loading
             </Button>
             <Button
               className="mr-2 mb-2"
               styling={{ type: 'primary' }}
               onClick={() => { console.log('clicked!') }}
-              loading>
+              loading
+              disabled
+            >
                 loading
             </Button>
             <Button
               className="mr-2 mb-2"
               styling={{ type: 'text' }}
               onClick={() => { console.log('clicked!') }}
-              loading>
+              loading
+              disabled
+            >
                 loading
             </Button>
           </div>
@@ -101,7 +107,9 @@ import { useState } from 'react';
             <Button
               className="mr-2 mb-2"
               onClick={() => { console.log('clicked!') }}
-              loading={loading}>
+              loading={loading}
+              disabled={loading}
+            >
                 {loading? null :'loading'}
             </Button>
             <Button
@@ -112,7 +120,9 @@ import { useState } from 'react';
                   setLoading2(false)
                 }, 3000)
               }}
-              loading={loading2}>
+              loading={loading2}
+              disabled={loading2}
+            >
                 click to loading
             </Button>
           </div>

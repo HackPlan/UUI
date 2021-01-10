@@ -33,7 +33,7 @@ export const MoneyLabel = UUIFunctionComponent({
   nodes: {
     Root: 'label',
   }
-}, (props: MoneyLabelFeatureProps, nodes) => {
+}, (props: MoneyLabelFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const finalProps = {

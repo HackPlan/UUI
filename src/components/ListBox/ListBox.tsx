@@ -1,5 +1,4 @@
 import React, { useState, useRef, useCallback } from 'react';
-import classNames from 'classnames';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 
@@ -30,7 +29,7 @@ export const ListBox = UUIFunctionComponent({
     Box: 'ul',
     Item: 'li',
   },
-}, (props: ListBoxFeatureProps, nodes) => {
+}, (props: ListBoxFeatureProps, { nodes, NodeDataProps, options }) => {
   const { Root, Box, Item } = nodes
 
   const [focusedId, setFocusedId] = useState<string | null>(null)
@@ -65,7 +64,7 @@ export const ListBox = UUIFunctionComponent({
 
   const scrollToFocusedItem = useCallback(() => {
     if (listRef.current) {
-      const focusedItem = listRef.current.querySelector('.UUI-ListBox-Item.STATE_focused') as HTMLLIElement | null
+      const focusedItem = listRef.current.querySelector(`.UUI-ListBox-Item[data-${options.prefix.toLowerCase()}-focused="true"]`) as HTMLLIElement | null
       if (focusedItem) {
         focusedItem.scrollIntoView({
           block: 'center',
@@ -74,7 +73,7 @@ export const ListBox = UUIFunctionComponent({
         })
       }
     }
-  }, [])
+  }, [options.prefix])
 
   const selectItem = useCallback((item: ListBoxItem) => {
     if (props.multiple) {
@@ -95,8 +94,8 @@ export const ListBox = UUIFunctionComponent({
 
   return (
     <Root
-      className={classNames({
-        'STATE_disabled': !!props.disabled,
+      {...NodeDataProps({
+        'disabled': !!props.disabled,
       })}
     >
       <Box
@@ -156,14 +155,14 @@ export const ListBox = UUIFunctionComponent({
           const disabled = !!item.disabled
           return (
             <Item
+              {...NodeDataProps({
+                'selected': !!selected,
+                'disabled': !!disabled,
+                'focused': focusedId === id,
+              })}
               role="option"
               aria-selected={selected}
               aria-disabled={disabled}
-              className={classNames({
-                'STATE_selected': selected,
-                'STATE_disabled': disabled,
-                'STATE_focused': focusedId === id,
-              })}
               key={id}
               onClick={() => {
                 if (!item.disabled) selectItem(item)

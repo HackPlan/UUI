@@ -6,18 +6,18 @@
     height: 100%;
     box-sizing: border-box;
 
-    &.STATE_hasNav {
+    &[data-uui-has-nav="true"] {
       flex-direction: row;
     }
-    &.STATE_hasNav > .UUI-LayoutMain-Root {
+    &[data-uui-has-nav="true"] > .UUI-LayoutMain-Root {
       margin-left: 200px;
     }
 
-    &.STATE_hasHeader > .UUI-LayoutMain-Root {
+    &[data-uui-has-header="true"] > .UUI-LayoutMain-Root {
       margin-top: 60px;
     }
 
-    &.STATE_hasFooter > .UUI-LayoutMain-Root {
+    &[data-uui-has-footer="true"] > .UUI-LayoutMain-Root {
       margin-bottom: 60px;
     }
   }

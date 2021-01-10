@@ -21,16 +21,16 @@
       padding: 0.5rem;
       cursor: pointer;
 
-      &.STATE_focused, &:hover {
+      &[data-uui-focused="true"], &:hover {
         background-color: $focusBackgroundColor;
       }
-      &.STATE_selected {
+      &[data-uui-selected="true"] {
         background-color: #dcf0ff;
       }
-      &.STATE_selected.STATE_focused, &.STATE_selected:hover {
+      &[data-uui-selected="true"][data-uui-focused="true"], &[data-uui-selected="true"] {
         background-color: #bfe4ff;
       }
-      &.STATE_disabled, &.STATE_disabled:hover {
+      &[data-uui-disabled="true"], &[data-uui-disabled="true"]:hover {
         cursor: inherit;
         background-color: inherit;
       }

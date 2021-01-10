@@ -49,7 +49,7 @@ export const Icon = UUIFunctionComponent({
     Root: 'div',
     Container: 'div',
   }
-}, (props: IconFeatureProps, nodes) => {
+}, (props: IconFeatureProps, { nodes }) => {
   const { Root, Container } = nodes
 
   const finalProps = {

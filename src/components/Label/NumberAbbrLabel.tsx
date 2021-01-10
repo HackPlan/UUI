@@ -23,7 +23,7 @@ export const NumberAbbrLabel = UUIFunctionComponent({
   nodes: {
     Root: 'abbr',
   }
-}, (props: NumberAbbrLabelFeatureProps, nodes) => {
+}, (props: NumberAbbrLabelFeatureProps, { nodes }) => {
   const { Root } = nodes
 
   const number = formatMoney(props.value, { symbol: '' })

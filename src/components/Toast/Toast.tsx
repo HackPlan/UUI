@@ -25,7 +25,7 @@ export const Toast = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   }
-}, (props: IToast, nodes) => {
+}, (props: IToast, { nodes }) => {
   const { Root } = nodes
 
   const finalProps = {

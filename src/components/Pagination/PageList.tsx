@@ -3,7 +3,6 @@ import { range } from 'lodash-es';
 import { Button as UUIButton } from '../Button';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
-import classNames from 'classnames';
 
 
 export interface PageListFeatureProps {
@@ -16,7 +15,7 @@ export const PageList = UUIFunctionComponent({
     Root: 'div',
     PageButton: UUIButton,
   }
-}, (props: PageListFeatureProps, nodes) => {
+}, (props: PageListFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, PageButton } = nodes
 
   const context = useContext(PaginationContext)
@@ -38,9 +37,9 @@ export const PageList = UUIFunctionComponent({
         const isEllipsis = item.type === 'ellipsis'
         return (
           <PageButton
-            className={classNames({
-              'STATE_active': isActive,
-              'STATE_ellipsis': isEllipsis,
+            {...NodeDataProps({
+              'active': !!isActive,
+              'ellipsis': !!isEllipsis,
             })}
             aria-current={isActive ? "true" : undefined}
             loading={loading && isActive}

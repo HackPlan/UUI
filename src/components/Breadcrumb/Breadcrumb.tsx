@@ -1,7 +1,6 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import ReactHelper from '../../utils/ReactHelper';
-import classNames from 'classnames';
 
 export interface BreadcrumbItem {
   key: string;
@@ -25,7 +24,7 @@ export const Breadcrumb = UUIFunctionComponent({
     Separator: 'li',
     ItemLink: 'a',
   }
-}, (props: BreadcrumbFeatureProps, nodes) => {
+}, (props: BreadcrumbFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, List, Item, ItemLink, Separator } = nodes
 
   const finalProps = {
@@ -41,12 +40,12 @@ export const Breadcrumb = UUIFunctionComponent({
           const interactive = !!i.path || !!i.onAction
           return (
             <Item
+              {...NodeDataProps({
+                'active': !!i.active,
+                'interactive': !!interactive,
+              })}
               tabIndex={0}
               key={i.key}
-              className={classNames({
-                'STATE_active': i.active,
-                'STATE_interactive': interactive,
-              })}
               onClick={() => {
                 if (i.onAction) i.onAction()
               }}

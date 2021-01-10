@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { TabsContext } from './TabsContext';
-import classNames from 'classnames';
 
 export interface TabFeatureProps {
   /**
@@ -23,7 +22,7 @@ export const Tab = UUIFunctionComponent({
   nodes: {
     Root: 'div',
   },
-}, (props: TabFeatureProps, nodes) => {
+}, (props: TabFeatureProps, { nodes, NodeDataProps }) => {
   const { Root } = nodes
 
   const context = useContext(TabsContext)
@@ -51,8 +50,8 @@ export const Tab = UUIFunctionComponent({
       role="tab"
       tabIndex={context.focusValue === props.value ? 0 : -1}
       aria-selected={isActive}
-      className={classNames({
-        'STATE_active': isActive,
+      {...NodeDataProps({
+        'active': !!isActive,
       })}
       onClick={() => { onChange(props.value) }}
     >

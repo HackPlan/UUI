@@ -16,7 +16,7 @@ export const MenuButton = UUIFunctionComponent({
     Root: 'div',
     Button: UUIButton,
   }
-}, (props: MenuButtonFeatureProps, nodes) => {
+}, (props: MenuButtonFeatureProps, { nodes }) => {
   const { Root, Button } = nodes
 
   return (

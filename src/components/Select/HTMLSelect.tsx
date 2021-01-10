@@ -1,7 +1,6 @@
 import React from 'react';
 import { isString } from 'lodash-es';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
-import classNames from 'classnames';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
 
 export interface HTMLSelectOption<T> {
@@ -53,14 +52,14 @@ const HTMLSelectNodes = {
 const BaseHTMLSelect = UUIFunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
-}, (props: HTMLSelectFeatureProps<any>, nodes) => {
+}, (props: HTMLSelectFeatureProps<any>, { nodes, NodeDataProps }) => {
   const { Root, Select, Option, LoadingSpinner } = nodes
   return (
     <Root
       role="select"
-      className={classNames({
-        'STATE_disabled': props.disabled,
-        'STATE_loading': props.loading,
+      {...NodeDataProps({
+        'disabled': !!props.disabled,
+        'loading': !!props.loading,
       })}
     >
       <Select
