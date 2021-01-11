@@ -2,6 +2,12 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.6.0
+
+- UUIComponent expose more data to WrappedComponent.
+- use HTML data-attributes to describe component's state and data instead of using className (such as TYPE_primary, STATE_opened).
+- use `prop-types` to do runtime props type check. More friendly to projects in Vanilla JavaScript environment.
+
 ### v0.5.14
 
 - hide raw input control of `Radio` in Safari

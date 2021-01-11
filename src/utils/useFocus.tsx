@@ -1,4 +1,5 @@
 import { useRef, useMemo, useCallback } from "react";
+import ReactHelper from "./ReactHelper";
 
 const tabbableNode = /input|select|textarea|button|object/
 export const focusSelector =
@@ -14,7 +15,7 @@ function hidden(el: HTMLElement) {
 function visible(element: HTMLElement) {
   let parentElement: HTMLElement = element
   while (parentElement) {
-    if (parentElement === document.body) break
+    if (parentElement === ReactHelper.document?.body) break
     if (hidden(parentElement)) return false
     parentElement = parentElement.parentNode as HTMLElement
   }

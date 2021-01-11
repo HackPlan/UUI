@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.6.0
+
+- UUIComponent 暴露出更多的数据供 WrappedComponent 使用
+- 使用 HTML 数据属性来描述组件的状态和相关数据，代替以前使用 className TYPE_primary, STATE_opened 的做法
+- 使用 `prop-types` 做运行时 Props 类型检查，对 Vanilla JavaScript 环境的项目更加友好
+
 ### v0.5.14
 
 - 在 Safari 隐藏单选框默认的组件样式
