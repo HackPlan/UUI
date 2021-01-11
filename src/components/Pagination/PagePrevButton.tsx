@@ -3,16 +3,20 @@ import { Button as UUIButton } from '../Button';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Icons } from '../../icons/Icons';
 import { PaginationContext } from './PaginationContext';
+import { createComponentPropTypes } from '../../utils/createPropTypes';
 
 export interface PagePrevButtonFeatureProps {
 }
+
+export const PagePrevButtonPropTypes = createComponentPropTypes<PagePrevButtonFeatureProps>({})
 
 export const PagePrevButton = UUIFunctionComponent({
   name: 'PagePrevButton',
   nodes: {
     Root: UUIButton,
     PrevIcon: Icons.ChevronLeft,
-  }
+  },
+  propTypes: PagePrevButtonPropTypes,
 }, (props: PagePrevButtonFeatureProps, { nodes }) => {
   const { Root, PrevIcon } = nodes
 

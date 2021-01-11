@@ -1,5 +1,6 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface LayoutAsideFeatureProps {
   /**
@@ -8,11 +9,16 @@ export interface LayoutAsideFeatureProps {
   children?: React.ReactNode;
 }
 
+export const LayoutAsidePropTypes = createComponentPropTypes<LayoutAsideFeatureProps>({
+  children: PropTypes.node,
+})
+
 export const LayoutAside = UUIFunctionComponent({
   name: 'LayoutAside',
   nodes: {
     Root: 'aside',
   },
+  propTypes: LayoutAsidePropTypes,
 }, (props: LayoutAsideFeatureProps, { nodes }) => {
   const { Root } = nodes
   return (

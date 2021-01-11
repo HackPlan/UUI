@@ -1,5 +1,6 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface PageAnnotatedSectionFeatureProps {
   title: string;
@@ -10,6 +11,12 @@ export interface PageAnnotatedSectionFeatureProps {
   children?: React.ReactNode;
 }
 
+export const PageAnnotatedSectionPropTypes = createComponentPropTypes<PageAnnotatedSectionFeatureProps>({
+  title: PropTypes.string,
+  description: PropTypes.string,
+  children: PropTypes.node,
+})
+
 export const PageAnnotatedSection = UUIFunctionComponent({
   name: 'PageAnnotatedSection',
   nodes: {
@@ -19,6 +26,7 @@ export const PageAnnotatedSection = UUIFunctionComponent({
     Description: 'p',
     Container: 'div',
   },
+  propTypes: PageAnnotatedSectionPropTypes,
 }, (props: PageAnnotatedSectionFeatureProps, { nodes }) => {
   const { Root, InfoWrapper, Title, Description, Container } = nodes
   return (

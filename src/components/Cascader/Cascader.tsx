@@ -9,6 +9,7 @@ import { usePendingValue } from '../../hooks/usePendingValue';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import ReactHelper from '../../utils/ReactHelper';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
 
 export interface CascaderOption {
   value: string;
@@ -52,12 +53,12 @@ export interface CascaderFeatureProps {
    * Indicate which type to trigger expand item list.
    * @default click
    */
-  expandTriggerType: 'click' | 'hover';
+  expandTriggerType?: 'click' | 'hover';
   /**
    * only invoke onChange when the final level option item select.
    * @default true
    */
-  changeOnFinalSelect: boolean;
+  changeOnFinalSelect?: boolean;
   /**
    * enable inputting text to search options.
    * @default false
@@ -90,6 +91,45 @@ export interface CascaderFeatureProps {
   portalContainer?: HTMLElement;
 }
 
+export const CascaderOptionPropTypes = ExtraPropTypes.recursiveShape({
+  value: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  content: PropTypes.node,
+  disabled: PropTypes.bool,
+}, 'children')
+
+export const CascaderPropTypes = createComponentPropTypes<CascaderFeatureProps>({
+  options: PropTypes.arrayOf(CascaderOptionPropTypes).isRequired,
+  placeholder: PropTypes.string,
+  value: ExtraPropTypes.nullable(PropTypes.arrayOf(PropTypes.string).isRequired),
+  onChange: PropTypes.func.isRequired,
+  expandTriggerType: PropTypes.oneOf(['click', 'hover']),
+  changeOnFinalSelect: PropTypes.bool,
+  searchable: PropTypes.bool,
+  searchPlaceholder: PropTypes.string,
+  onSearch: PropTypes.func,
+  dropdownPlacement: PropTypes.oneOf([
+    "auto",
+    "auto-start",
+    "auto-end",
+    "top",
+    "bottom",
+    "right",
+    "left",
+    "top-start",
+    "top-end",
+    "bottom-start",
+    "bottom-end",
+    "right-start",
+    "right-end",
+    "left-start",
+    "left-end"
+  ]),
+  loading: PropTypes.bool,
+  usePortal: PropTypes.bool,
+  portalContainer: PropTypes.element,
+})
+
 export const Cascader = UUIFunctionComponent({
   name: 'Cascader',
   nodes: {
@@ -113,6 +153,7 @@ export const Cascader = UUIFunctionComponent({
     SearchMatched: 'span',
     LoadingSpinner: LoadingSpinner,
   },
+  propTypes: CascaderPropTypes,
 }, (props: CascaderFeatureProps, { nodes, NodeDataProps }) => {
   /**
    * Component Nodes Spread

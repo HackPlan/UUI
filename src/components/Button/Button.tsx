@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { LoadingSpinner } from '../Loading';
 import { KeyCode } from '../../utils/keyboardHelper';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface ButtonStylingProps {
   styling?: {
@@ -18,6 +19,13 @@ export interface ButtonFeatureProps extends React.ButtonHTMLAttributes<HTMLButto
   loading?: boolean;
 }
 
+export const ButtonPropTypes = createComponentPropTypes<Pick<ButtonFeatureProps, 'loading'> & ButtonStylingProps>({
+  styling: PropTypes.shape({
+    type: PropTypes.oneOf(['default', 'primary', 'text']),
+  }),
+  loading: PropTypes.bool,
+})
+
 export const Button = UUIFunctionComponent({
   name: 'Button',
   nodes: {
@@ -25,6 +33,7 @@ export const Button = UUIFunctionComponent({
     LoadingSpinner: LoadingSpinner,
     Content: 'div',
   },
+  propTypes: ButtonPropTypes,
 }, (props: ButtonFeatureProps & ButtonStylingProps, { nodes, NodeDataProps }) => {
   const { Root, LoadingSpinner, Content } = nodes
 

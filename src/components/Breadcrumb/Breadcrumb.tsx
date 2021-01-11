@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import ReactHelper from '../../utils/ReactHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface BreadcrumbItem {
   key: string;
@@ -15,6 +16,17 @@ export interface BreadcrumbFeatureProps {
   items: BreadcrumbItem[];
 }
 
+export const BreadcrumbPropTypes = createComponentPropTypes<BreadcrumbFeatureProps>({
+  separator: PropTypes.node,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    active: PropTypes.bool,
+    label: PropTypes.node.isRequired,
+    path: PropTypes.string,
+    onAction: PropTypes.func,
+  })).isRequired,
+})
+
 export const Breadcrumb = UUIFunctionComponent({
   name: 'Breadcrumb',
   nodes: {
@@ -23,7 +35,8 @@ export const Breadcrumb = UUIFunctionComponent({
     Item: 'li',
     Separator: 'li',
     ItemLink: 'a',
-  }
+  },
+  propTypes: BreadcrumbPropTypes,
 }, (props: BreadcrumbFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, List, Item, ItemLink, Separator } = nodes
 

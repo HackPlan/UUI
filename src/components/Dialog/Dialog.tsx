@@ -6,6 +6,7 @@ import ReactHelper from '../../utils/ReactHelper';
 import { KeyCode } from '../../utils/keyboardHelper';
 import FocusTrap from 'focus-trap-react';
 import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface DialogFeatureProps {
   /**
@@ -44,8 +45,19 @@ export interface DialogFeatureProps {
   /**
    * The content of this dialog
    */
-  children?: React.ReactNode | string;
+  children?: React.ReactNode;
 }
+
+export const DialogPropTypes = createComponentPropTypes<DialogFeatureProps>({
+  open: PropTypes.bool.isRequired,
+  onClickAway: PropTypes.func,
+  onClose: PropTypes.func,
+  focusTrap: PropTypes.bool,
+  usePortal: PropTypes.bool,
+  portalContainer: PropTypes.element,
+  lockBodyScroll: PropTypes.bool,
+  children: PropTypes.node,
+})
 
 export const Dialog = UUIFunctionComponent({
   name: 'Dialog',
@@ -54,7 +66,8 @@ export const Dialog = UUIFunctionComponent({
     Portal: 'div',
     Backdrop: 'div',
     Content: 'div',
-  }
+  },
+  propTypes: DialogPropTypes,
 }, (props: DialogFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Portal, Backdrop, Content } = nodes
 

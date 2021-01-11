@@ -21,6 +21,7 @@ const config = [{
       'react': 'React',
       'react-dom': 'ReactDOM',
       'react-popper': 'ReactPopper',
+      'prop-types': 'PropTypes',
     },
   },
   {
@@ -31,7 +32,7 @@ const config = [{
     ],
   }],
   external: [
-    "react", "react-dom",
+    "react", "react-dom", "prop-types",
     "@popperjs/core", "react-popper",
   ],
   plugins: [

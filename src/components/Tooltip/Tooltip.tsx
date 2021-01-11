@@ -2,6 +2,8 @@ import { Placement } from '@popperjs/core';
 import React, { useState } from 'react';
 import { usePopper } from 'react-popper';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
+import { PopoverPlacementPropTypes } from '../Popover';
 
 export type TooltipPlacement = Exclude<Placement, ''>
 
@@ -21,6 +23,13 @@ export interface TooltipFeatureProps {
   placement?: TooltipPlacement;
 }
 
+export const TooltipPlacementPropTypes = PopoverPlacementPropTypes
+export const TooltipPropTypes = createComponentPropTypes<TooltipFeatureProps>({
+  label: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  placement: TooltipPlacementPropTypes,
+})
+
 export const Tooltip = UUIFunctionComponent({
   name: 'Tooltip',
   nodes: {
@@ -28,6 +37,7 @@ export const Tooltip = UUIFunctionComponent({
     Tip: 'div',
     Arrow: 'div',
   },
+  propTypes: TooltipPropTypes,
 }, (props: TooltipFeatureProps, { nodes }) => {
   const { Root, Tip, Arrow } = nodes
 

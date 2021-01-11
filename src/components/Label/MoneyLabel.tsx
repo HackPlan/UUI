@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { formatMoney } from '../../utils/moneyHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface MoneyLabelFeatureProps {
   /**
@@ -28,11 +29,20 @@ export interface MoneyLabelFeatureProps {
   decimal?: string;
 }
 
+export const MoneyLabelPropTypes = createComponentPropTypes<MoneyLabelFeatureProps>({
+  value: PropTypes.number.isRequired,
+  symbol: PropTypes.string,
+  precision: PropTypes.number,
+  thousand: PropTypes.string,
+  decimal: PropTypes.string,
+})
+
 export const MoneyLabel = UUIFunctionComponent({
   name: 'MoneyLabel',
   nodes: {
     Root: 'label',
-  }
+  },
+  propTypes: MoneyLabelPropTypes,
 }, (props: MoneyLabelFeatureProps, { nodes }) => {
   const { Root } = nodes
 

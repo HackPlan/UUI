@@ -6,6 +6,7 @@ import ReactHelper from '../../utils/ReactHelper';
 import { KeyCode } from '../../utils/keyboardHelper';
 import FocusTrap from 'focus-trap-react';
 import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export type DrawerPlacement = 'top' | 'right' | 'bottom' | 'left'
 
@@ -25,7 +26,7 @@ export interface DrawerFeatureProps {
   /**
    * The content elements of Drawer
    */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /**
    * Whether the content of Drawer should be rendered inside a `Portal` where appending inside `portalContainer`(if it provided) or `document.body`.
    * @default true
@@ -54,6 +55,18 @@ export interface DrawerFeatureProps {
   placement?: DrawerPlacement;
 }
 
+export const DrawerPropTypes = createComponentPropTypes<DrawerFeatureProps>({
+  active: PropTypes.bool.isRequired,
+  onClickAway: PropTypes.func,
+  onClose: PropTypes.func,
+  children: PropTypes.node,
+  usePortal: PropTypes.bool,
+  portalContainer: PropTypes.element,
+  lockBodyScroll: PropTypes.bool,
+  focusTrap: PropTypes.bool,
+  placement: PropTypes.oneOf(["top", "right", "bottom", "left"]),
+})
+
 export const Drawer = UUIFunctionComponent({
   name: 'Drawer',
   nodes: {
@@ -61,7 +74,8 @@ export const Drawer = UUIFunctionComponent({
     Portal: 'div',
     Backdrop: 'div',
     Content: 'div',
-  }
+  },
+  propTypes: DrawerPropTypes,
 }, (props: DrawerFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Portal, Backdrop, Content } = nodes
 

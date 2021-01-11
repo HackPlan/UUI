@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { v4 as uuidv4 } from 'uuid';
 import ReactHelper from '../../utils/ReactHelper';
 import { UUIClassComponent, UUIClassComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export enum ToasterPosition {
   Top = "top",
@@ -36,6 +37,12 @@ export interface ToasterState {
   toasts: IToast[];
 }
 
+export const ToasterPositionPropTypes = PropTypes.oneOf(Object.values(ToasterPosition))
+export const ToasterPropTypes = createComponentPropTypes<ToasterFeatureProps>({
+  position: ToasterPositionPropTypes,
+  maxToasts: PropTypes.number,
+})
+
 
 const ToasterPortalClassName = "UUI-Toaster-Portal"
 export class Toaster extends UUIClassComponent({
@@ -44,6 +51,7 @@ export class Toaster extends UUIClassComponent({
   nodes: {
     Root: 'div',
   },
+  propTypes: ToasterPropTypes,
 })<ToasterFeatureProps, ToasterState> {
   constructor(props: ToasterFeatureProps) {
     super(props)

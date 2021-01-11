@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface TextAreaFeatureProps {
   /**
@@ -45,6 +46,19 @@ export interface TextAreaFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLTextAreaElement>;
 }
 
+export const TextAreaPropTypes = createComponentPropTypes<TextAreaFeatureProps>({
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  maxLength: PropTypes.number,
+  showLengthIndicator: PropTypes.bool,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const TextArea = UUIFunctionComponent({
   name: 'TextArea',
   nodes: {
@@ -53,7 +67,8 @@ export const TextArea = UUIFunctionComponent({
     Info: 'div',
     LengthIndicator: 'div',
     LoadingSpinner: LoadingSpinner,
-  }
+  },
+  propTypes: TextAreaPropTypes,
 }, (props: TextAreaFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Textarea, Info, LengthIndicator, LoadingSpinner } = nodes
 

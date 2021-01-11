@@ -3,6 +3,7 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Button as UUIButton } from '../Button/Button';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export enum SwitchNodeName {
   Root = "switch",
@@ -30,6 +31,15 @@ export interface SwitchFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLButtonElement>;
 }
 
+export const SwitchPropTypes = createComponentPropTypes<SwitchFeatureProps>({
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  value: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const Switch = UUIFunctionComponent({
   name: 'Switch',
   nodes: {
@@ -37,7 +47,8 @@ export const Switch = UUIFunctionComponent({
     Button: UUIButton,
     Thumb: 'div',
     LoadingSpinner: LoadingSpinner,
-  }
+  },
+  propTypes: SwitchPropTypes,
 }, (props: SwitchFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Button, Thumb, LoadingSpinner } = nodes
 

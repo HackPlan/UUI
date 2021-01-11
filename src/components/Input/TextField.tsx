@@ -3,6 +3,7 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { Button } from '../Button';
 import { Icons } from '../../icons/Icons';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface TextFieldFeatureProps {
   /**
@@ -71,6 +72,23 @@ export interface TextFieldFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
+export const TextFieldPropTypes = createComponentPropTypes<TextFieldFeatureProps>({
+  name: PropTypes.string,
+  type: PropTypes.oneOf(['text', 'tel', 'url', 'email', 'password']),
+  placeholder: PropTypes.string,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  maxLength: PropTypes.number,
+  showLengthIndicator: PropTypes.bool,
+  showPasswordVisibleButton: PropTypes.bool,
+  passwordVisible: PropTypes.bool,
+  onPasswordVisibleChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const TextField = UUIFunctionComponent({
   name: 'TextField',
   nodes: {
@@ -81,7 +99,8 @@ export const TextField = UUIFunctionComponent({
     ShowPasswordIcon: Icons.Eye,
     HidePasswordIcon: Icons.EyeOff,
     LoadingSpinner: LoadingSpinner,
-  }
+  },
+  propTypes: TextFieldPropTypes,
 }, (props: TextFieldFeatureProps, { nodes, NodeDataProps }) => {
   const {
     Root, Input,

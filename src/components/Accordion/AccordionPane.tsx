@@ -4,6 +4,7 @@ import { Collapse } from '../Collapse';
 import { Icons } from '../../icons/Icons';
 import { AccordionContext } from './AccordionContext';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface AccordionPaneFeatureProps {
   id: string;
@@ -11,6 +12,13 @@ export interface AccordionPaneFeatureProps {
   children: React.ReactNode;
   disabled?: boolean;
 }
+
+export const AccordionPanePropTypes = createComponentPropTypes<AccordionPaneFeatureProps>({
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  disabled: PropTypes.bool,
+})
 
 export const AccordionPane = UUIFunctionComponent({
   name: 'AccordionPane',
@@ -22,6 +30,7 @@ export const AccordionPane = UUIFunctionComponent({
     Collapse: Collapse,
     Content: 'div',
   },
+  propTypes: AccordionPanePropTypes,
 }, (props: AccordionPaneFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Header, Icon, Title, Collapse, Content } = nodes
 

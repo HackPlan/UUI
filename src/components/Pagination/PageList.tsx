@@ -3,18 +3,21 @@ import { range } from 'lodash-es';
 import { Button as UUIButton } from '../Button';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
+import { createComponentPropTypes } from '../../utils/createPropTypes';
 
 
 export interface PageListFeatureProps {
 }
 
+export const PageListPropTypes = createComponentPropTypes<PageListFeatureProps>({})
 
 export const PageList = UUIFunctionComponent({
   name: 'PageList',
   nodes: {
     Root: 'div',
     PageButton: UUIButton,
-  }
+  },
+  propTypes: PageListPropTypes,
 }, (props: PageListFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, PageButton } = nodes
 

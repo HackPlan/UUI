@@ -3,6 +3,7 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PageAnnotatedSection } from './PageAnnotatedSection';
 import { PageSection } from './PageSection';
 import { createGroupedComponent } from '../../utils/createGroupedComponent';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface PageFeatureProps {
   title?: string;
@@ -15,6 +16,15 @@ export interface PageFeatureProps {
    */
   children?: React.ReactNode;
 }
+
+export const PagePropTypes = createComponentPropTypes<PageFeatureProps>({
+  title: PropTypes.string,
+  description: PropTypes.string,
+  thumbnail: PropTypes.node,
+  primaryActions: PropTypes.arrayOf(PropTypes.node),
+  secondaryActions: PropTypes.arrayOf(PropTypes.node),
+  children: PropTypes.node,
+})
 
 export const _Page = UUIFunctionComponent({
   name: 'Page',
@@ -34,6 +44,7 @@ export const _Page = UUIFunctionComponent({
 
     Container: 'div',
   },
+  propTypes: PagePropTypes,
 }, (props: PageFeatureProps, { nodes }) => {
   const {
     Root,

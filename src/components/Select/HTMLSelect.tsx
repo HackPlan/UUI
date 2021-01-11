@@ -2,6 +2,7 @@ import React from 'react';
 import { isString } from 'lodash-es';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface HTMLSelectOption<T> {
   label: string;
@@ -42,6 +43,21 @@ export interface HTMLSelectFeatureProps<T extends string | number> {
   onBlur?: React.FocusEventHandler<HTMLSelectElement>;
 }
 
+export const HTMLSelectOptionPropTypes = createComponentPropTypes<HTMLSelectOption<string | number>>({
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+})
+export const HTMLSelectPropTypes = createComponentPropTypes<HTMLSelectFeatureProps<string | number>>({
+  name: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.shape(HTMLSelectOptionPropTypes)).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onChange: PropTypes.func,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 const HTMLSelectNodes = {
   Root: 'div',
   Select: 'select',
@@ -52,6 +68,7 @@ const HTMLSelectNodes = {
 const BaseHTMLSelect = UUIFunctionComponent({
   name: "HTMLSelect",
   nodes: HTMLSelectNodes,
+  propTypes: HTMLSelectPropTypes,
 }, (props: HTMLSelectFeatureProps<any>, { nodes, NodeDataProps }) => {
   const { Root, Select, Option, LoadingSpinner } = nodes
   return (

@@ -5,6 +5,7 @@ import { ClassComponentNodeT, ComponentNode, FunctionComponentNodeT, IntrinsicNo
 import { compileProps } from "./utils/compileProps";
 import { UUIProviderContext, UUIProviderContextValue } from "../UUIProvider";
 import { mergeProviderCustomize } from './utils/mergeProviderCustomize';
+import { UUICommonPropTypes } from "./modules/UUIComponentPropTypes";
 
 export interface UUIComponentHelper<
   X extends { [key in string]?: keyof IntrinsicNodeT | FunctionComponentNodeT | ClassComponentNodeT },
@@ -52,6 +53,7 @@ export function UUIFunctionComponent<
     name: string;
     separator?: string;
     nodes: X;
+    propTypes?: { [key: string]: any };
   },
   WrappedComponent: (props: P, helper: UUIComponentHelper<X>) => React.ReactElement,
 ) {
@@ -80,6 +82,10 @@ export function UUIFunctionComponent<
     })
   });
   component.displayName = `<UUI> [Component] ${options.name}`
+  component.propTypes = {
+    ...options.propTypes,
+    ...UUICommonPropTypes,
+  } as any
   return component
 }
 
@@ -110,11 +116,17 @@ export function UUIClassComponent<
     name: string;
     separator?: string;
     nodes: X;
+    propTypes?: { [key: string]: any };
   },
 ) {
   return class WrappedComponent<P = {}, S = {}, SS = any> extends React.Component<P & UUIConvenienceProps & UUIMetaProps & Z, S, SS> {
     static displayName = `<UUI> [Component] ${options.name}`
     static contextType = UUIProviderContext
+
+    static propTypes = {
+      ...options.propTypes,
+      ...UUICommonPropTypes,
+    } as any
 
     state: S
     helper: UUIComponentHelper<X>

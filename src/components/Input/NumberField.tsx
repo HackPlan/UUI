@@ -2,6 +2,7 @@ import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { limitPrecision, limitRange } from '../../utils/numberHelper';
 import { LoadingSpinner } from '../Loading/LoadingSpinner';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface NumberFieldFeatureProps {
   /**
@@ -56,13 +57,29 @@ export interface NumberFieldFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
+export const NumberFieldPropTypes = createComponentPropTypes<NumberFieldFeatureProps>({
+  name: PropTypes.string,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  precision: PropTypes.number,
+  step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  placeholder: PropTypes.string,
+  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
+  value: PropTypes.number,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const NumberField = UUIFunctionComponent({
   name: 'NumberField',
   nodes: {
     Root: 'div',
     Input: 'input',
     LoadingSpinner: LoadingSpinner,
-  }
+  },
+  propTypes: NumberFieldPropTypes,
 }, (props: NumberFieldFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Input, LoadingSpinner } = nodes
 

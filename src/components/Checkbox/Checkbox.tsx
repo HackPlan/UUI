@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface CheckboxFeatureProps {
   /**
@@ -11,7 +12,7 @@ export interface CheckboxFeatureProps {
    * The label of checkbox.
    * @default none
    */
-  label?: React.ReactNode | string;
+  label?: React.ReactNode;
   /**
    * Whether this checkbox is selected.
    */
@@ -35,6 +36,17 @@ export interface CheckboxFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLLabelElement>;
 }
 
+export const CheckboxPropTypes = createComponentPropTypes<CheckboxFeatureProps>({
+  name: PropTypes.string,
+  label: PropTypes.node,
+  checked: PropTypes.bool,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const Checkbox = UUIFunctionComponent({
   name: 'Checkbox',
   nodes: {
@@ -42,7 +54,8 @@ export const Checkbox = UUIFunctionComponent({
     Input: 'input',
     Indicator: 'span',
     Label: 'span',
-  }
+  },
+  propTypes: CheckboxPropTypes,
 }, (props: CheckboxFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Input, Indicator, Label } = nodes
 

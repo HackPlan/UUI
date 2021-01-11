@@ -12,7 +12,7 @@ import { Icons } from '../../src/icons/Icons';
 <Canvas>
   <Story name="Accordion">
     <Accordion allowMultipleExpanded>
-      <Accordion.Pane id={'atomicity'} title={'原子性 Atomicity'}>
+      <Accordion.Pane id={'atomicity'} title={'原子性 Atomicity'} test={"asdasd"}>
         一个事务（transaction）中的所有操作，或者全部完成，或者全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。即，事务不可分割、不可约简。
       </Accordion.Pane>
       <Accordion.Pane id={'consistency'} title={'一致性 Consistency'}>

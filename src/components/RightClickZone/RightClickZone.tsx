@@ -5,6 +5,8 @@ import { Placement, Modifier } from '@popperjs/core';
 import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
 import ReactHelper from '../../utils/ReactHelper';
 import ReactDOM from 'react-dom';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
+import { PopoverPlacementPropTypes, PopoverStrategyPropTypes } from '../Popover/Popover';
 
 export type RightClickZonePlacement = Exclude<Placement, ''>
 export type RightClickZoneStrategy = 'absolute' | 'fixed'
@@ -41,6 +43,18 @@ export interface RightClickZoneFeatureProps {
   popperElement?: Element;
 }
 
+export const RightClickZonePropTypes = createComponentPropTypes<RightClickZoneFeatureProps>({
+  contextMenu: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
+  usePortal: PropTypes.bool,
+  portalContainer: PropTypes.element,
+  placement: PopoverPlacementPropTypes,
+  strategy: PopoverStrategyPropTypes,
+  modifiers: PropTypes.array,
+  referenceElement: PropTypes.any,
+  popperElement: PropTypes.any,
+})
+
 export const RightClickZone = UUIFunctionComponent({
   name: 'RightClickZone',
   nodes: {
@@ -48,7 +62,8 @@ export const RightClickZone = UUIFunctionComponent({
     Origin: 'div',
     Portal: 'div',
     ContextMenu: 'div',
-  }
+  },
+  propTypes: RightClickZonePropTypes,
 }, (props: RightClickZoneFeatureProps, { nodes, ref, NodeDataProps }) => {
   const { Root, Origin, ContextMenu, Portal } = nodes
 
@@ -132,7 +147,7 @@ export const RightClickZone = UUIFunctionComponent({
         </Portal>
       ), finalProps.portalContainer)
       : content
-  }, [active, styles.popper, attributes.popper, props.contextMenu, finalProps.usePortal, finalProps.portalContainer])
+  }, [active, NodeDataProps, styles.popper, attributes.popper, props.contextMenu, finalProps.usePortal, finalProps.portalContainer])
 
   return (
     <Root

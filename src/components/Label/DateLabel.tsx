@@ -1,6 +1,7 @@
 import React from 'react';
 import { DateFormatterLocale, DateFormatterLocaleKinds, dateFormat } from '../../utils/dateFormatter';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface DateLabelFeatureProps<T extends DateFormatterLocale> {
   /**
@@ -22,11 +23,18 @@ export interface DateLabelFeatureProps<T extends DateFormatterLocale> {
   kind: DateFormatterLocaleKinds[T][number];
 }
 
+export const DateLabelPropTypes = createComponentPropTypes<DateLabelFeatureProps<DateFormatterLocale>>({
+  value: PropTypes.instanceOf(Date).isRequired,
+  locale: PropTypes.string.isRequired,
+  kind: PropTypes.string.isRequired,
+})
+
 export const DateLabel = UUIFunctionComponent({
   name: 'DateLabel',
   nodes: {
     Root: 'label',
-  }
+  },
+  propTypes: DateLabelPropTypes,
 }, (props: DateLabelFeatureProps<DateFormatterLocale>, { nodes }) => {
   const { Root } = nodes
 

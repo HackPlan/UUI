@@ -4,6 +4,7 @@ import { getValidTypeChildren } from '../../utils/componentHelper';
 import { Tab } from './Tab';
 import { TabsContext } from './TabsContext';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 
 export interface TabsFeatureProps {
@@ -37,6 +38,15 @@ export interface TabsFeatureProps {
   toggleTabWhenFocusChange?: boolean;
 }
 
+export const TabsPropTypes = createComponentPropTypes<TabsFeatureProps>({
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  renderActiveTabOnly: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  position: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  toggleTabWhenFocusChange: PropTypes.bool,
+})
+
 export const Tabs = UUIFunctionComponent({
   name: 'Tabs',
   nodes: {
@@ -45,6 +55,7 @@ export const Tabs = UUIFunctionComponent({
     ContentBox: 'div',
     Content: 'div',
   },
+  propTypes: TabsPropTypes,
 }, (props: TabsFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, TabBox, ContentBox, Content } = nodes
 

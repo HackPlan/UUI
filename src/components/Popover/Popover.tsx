@@ -5,6 +5,7 @@ import { usePopper } from 'react-popper';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import ReactHelper from '../../utils/ReactHelper';
 import { useGlobalClickAway } from '../../hooks/useGlobalClickAway';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export type PopoverPlacement = Exclude<Placement, ''>
 export type PopoverStrategy = 'absolute' | 'fixed'
@@ -65,6 +66,23 @@ export interface PopoverFeatureProps {
   popperElement?: Element;
 }
 
+export const PopoverPlacementPropTypes = PropTypes.oneOf(["auto", "auto-start", "auto-end", "top", "bottom", "right", "left", "top-start", "top-end", "bottom-start", "bottom-end", "right-start", "right-end", "left-start", "left-end"])
+export const PopoverStrategyPropTypes = PropTypes.oneOf(["absolute", "fixed"])
+export const PopoverPropTypes = createComponentPropTypes<PopoverFeatureProps>({
+  active: PropTypes.bool.isRequired,
+  onClickAway: PropTypes.func,
+  activator: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
+  usePortal: PropTypes.bool,
+  portalContainer: PropTypes.element,
+  lazy: PropTypes.bool,
+  placement: PopoverPlacementPropTypes,
+  strategy: PopoverStrategyPropTypes,
+  modifiers: PropTypes.array,
+  referenceElement: PropTypes.any,
+  popperElement: PropTypes.any,
+})
+
 export const Popover = UUIFunctionComponent({
   name: 'Popover',
   nodes: {
@@ -73,6 +91,7 @@ export const Popover = UUIFunctionComponent({
     Portal: 'div',
     Content: 'div',
   },
+  propTypes: PopoverPropTypes,
 }, (props: PopoverFeatureProps, { nodes, NodeDataProps }) => {
   const { Root, Activator, Portal, Content } = nodes
 

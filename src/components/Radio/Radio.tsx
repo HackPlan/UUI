@@ -2,6 +2,7 @@ import React, { useContext, useMemo } from 'react';
 import { omit } from 'lodash-es';
 import { RadioGroupContext } from './RadioGroupContext';
 import { UUIFunctionComponent, UUIComponentProps, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 type InputHTMLAttributes = Pick<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -22,11 +23,21 @@ export interface RadioFeatureProps<T extends string | number> extends InputHTMLA
    * The label of radio.
    * @default none
    */
-  label?: string | React.ReactNode;
+  label?: React.ReactNode;
 
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
+
+export const RadioPropTypes = createComponentPropTypes<
+  Pick<RadioFeatureProps<string | number>, 'name' | 'value' | 'label' | 'onFocus' | 'onBlur'>
+>({
+  name: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  label: PropTypes.node,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
 
 const RadioNodes = {
   Root: 'label',
@@ -38,6 +49,7 @@ const RadioNodes = {
 const BaseRadio = UUIFunctionComponent({
   name: "Radio",
   nodes: RadioNodes,
+  propTypes: RadioPropTypes,
 }, (props: RadioFeatureProps<string | number>, { nodes, NodeDataProps }) => {
   const { Root, Input, Indicator, Label } = nodes
 

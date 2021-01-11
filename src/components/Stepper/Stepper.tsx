@@ -5,6 +5,7 @@ import { NumberField } from '../Input';
 import { limitRange } from '../../utils/numberHelper';
 import { Icons } from '../../icons/Icons';
 import { KeyCode } from '../../utils/keyboardHelper';
+import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
 
 export interface StepperFeatureProps {
   /**
@@ -55,6 +56,21 @@ export interface StepperFeatureProps {
   onBlur?: React.FocusEventHandler<HTMLDivElement>;
 }
 
+export const StepperPropTypes = createComponentPropTypes<StepperFeatureProps>({
+  value: ExtraPropTypes.nullable(PropTypes.number.isRequired),
+  onChange: PropTypes.func.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  precision: PropTypes.number,
+  controlPosition: PropTypes.oneOf(['separate', 'right']),
+  disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
+
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+})
+
 export const Stepper = UUIFunctionComponent({
   name: 'Stepper',
   nodes: {
@@ -67,7 +83,8 @@ export const Stepper = UUIFunctionComponent({
     PlusRightIcon: Icons.ChevronRight,
     MinusDownIcon: Icons.ChevronDown,
     MinusLeftIcon: Icons.ChevronLeft,
-  }
+  },
+  propTypes: StepperPropTypes,
 }, (props: StepperFeatureProps, { nodes, NodeDataProps }) => {
   const {
     Root, MinusButton, PlusButton, Input, RightControlsContainer,

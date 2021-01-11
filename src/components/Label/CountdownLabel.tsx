@@ -3,6 +3,7 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { useInterval } from 'react-use';
 import { format, differenceInMilliseconds } from 'date-fns';
 import { addHours, addMilliseconds } from 'date-fns/esm';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface CountdownLabelFeatureProps {
   /**
@@ -27,11 +28,19 @@ export interface CountdownLabelFeatureProps {
   allowNegative?: boolean;
 }
 
+export const CountdownLabelPropTypes = createComponentPropTypes<CountdownLabelFeatureProps>({
+  until: PropTypes.instanceOf(Date),
+  format: PropTypes.string,
+  frequency: PropTypes.number,
+  allowNegative: PropTypes.bool,
+})
+
 export const CountdownLabel = UUIFunctionComponent({
   name: 'CountdownLabel',
   nodes: {
     Root: 'label',
-  }
+  },
+  propTypes: CountdownLabelPropTypes,
 }, (props: CountdownLabelFeatureProps, { nodes }) => {
   const { Root } = nodes
 

@@ -3,17 +3,23 @@ import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { PaginationContext } from './PaginationContext';
 import { HTMLSelect } from '../Select';
 import { range } from 'lodash-es';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export interface PageSelectorFeatureProps {
   labelRender?: (currentPage: number, totalPage: number) => string;
 }
+
+export const PageSelectorPropTypes = createComponentPropTypes<PageSelectorFeatureProps>({
+  labelRender: PropTypes.func,
+})
 
 export const PageSelector = UUIFunctionComponent({
   name: 'PageSelector',
   nodes: {
     Root: 'div',
     Select: HTMLSelect,
-  }
+  },
+  propTypes: PageSelectorPropTypes,
 }, (props: PageSelectorFeatureProps, { nodes }) => {
   const { Root, Select } = nodes
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { isString } from 'lodash-es';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 
 export type SvgrComponentProps = React.SVGAttributes<SVGElement>
 export type SvgrComponent = React.StatelessComponent<SvgrComponentProps>
@@ -43,12 +44,22 @@ export interface IconAnyFeatureProps extends BaseIconFeatureProps {
 }
 export type IconFeatureProps = IconImageFeatureProps | IconSvgFeatureProps | IconAnyFeatureProps
 
+export const IconPropTypes = createComponentPropTypes<IconFeatureProps>({
+  mode: PropTypes.oneOf(['image', 'svg', 'any']).isRequired,
+  source: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.element, PropTypes.func]),
+  alt: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  svgrProps: PropTypes.any,
+})
+
 export const Icon = UUIFunctionComponent({
   name: 'Icon',
   nodes: {
     Root: 'div',
     Container: 'div',
-  }
+  },
+  propTypes: IconPropTypes,
 }, (props: IconFeatureProps, { nodes }) => {
   const { Root, Container } = nodes
 
