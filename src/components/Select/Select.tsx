@@ -240,7 +240,7 @@ export const BaseSelect = UUIFunctionComponent({
       : (
         <Placeholder>{finalProps.placeholder}</Placeholder>
       )
-  }, [allOptions, finalProps.placeholder, props])
+  }, [Placeholder, Result, Tag, TagInputContainer, allOptions, finalProps.placeholder, props])
 
   const optionListItems = useMemo<ListBoxItem[]>(() => {
     const getOptionData = (i: SelectOption) => ({
@@ -265,7 +265,7 @@ export const BaseSelect = UUIFunctionComponent({
     } else {
       return [] as any[]
     }
-  }, [props])
+  }, [Option, Section, props])
 
   const optionListSelectedIds = useMemo(() => {
     if (!props.value) return []
@@ -305,7 +305,7 @@ export const BaseSelect = UUIFunctionComponent({
         ),
       }
     })
-  }, [allOptions, props.onSearch, searchInputValue])
+  }, [Option, allOptions, props.onSearch, searchInputValue])
 
   const searchListSelectedIds = useMemo(() => {
     return optionListSelectedIds.filter((id) => {

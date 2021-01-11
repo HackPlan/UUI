@@ -98,40 +98,43 @@ export const Dialog = UUIFunctionComponent({
     }
   }, [props.open])
 
-  const backdrop = (
-    <FocusTrap active={props.open && finalProps.focusTrap}>
-      <Backdrop
-        {...NodeDataProps({
-          'opened': !!props.open,
-        })}
-      >
-        <Content
-          role="dialog"
-          aria-modal={props.open}
-          ref={contentRef}
-          tabIndex={0}
-          onKeyDown={(event) => {
-            switch (event.keyCode) {
-              case KeyCode.Escape:
-                if (props.open) {
-                  props.onClose && props.onClose()
-                }
-                break
-              default:
-                // do nothing
-            }
-          }}
+  const backdrop = useMemo(() => {
+    return (
+      <FocusTrap active={props.open && finalProps.focusTrap}>
+        <Backdrop
+          {...NodeDataProps({
+            'opened': !!props.open,
+          })}
         >
-          {props.children}
-        </Content>
-      </Backdrop>
-    </FocusTrap>
-  )
+          <Content
+            role="dialog"
+            aria-modal={props.open}
+            ref={contentRef}
+            tabIndex={0}
+            onKeyDown={(event) => {
+              switch (event.keyCode) {
+                case KeyCode.Escape:
+                  if (props.open) {
+                    props.onClose && props.onClose()
+                  }
+                  break
+                default:
+                  // do nothing
+              }
+            }}
+          >
+            {props.children}
+          </Content>
+        </Backdrop>
+      </FocusTrap>
+    )
+  }, [Backdrop, Content, NodeDataProps, finalProps.focusTrap, props])
+
   const wrappedBackdrop = useMemo(() => {
     return (finalProps.usePortal && finalProps.portalContainer)
     ? ReactDOM.createPortal(<Portal>{backdrop}</Portal>, finalProps.portalContainer)
     : <Portal>{backdrop}</Portal>
-  }, [backdrop, finalProps.portalContainer, finalProps.usePortal]);
+  }, [Portal, backdrop, finalProps.portalContainer, finalProps.usePortal]);
   return (
     <Root>
       {wrappedBackdrop}

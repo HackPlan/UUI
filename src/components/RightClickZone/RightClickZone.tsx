@@ -147,7 +147,7 @@ export const RightClickZone = UUIFunctionComponent({
         </Portal>
       ), finalProps.portalContainer)
       : content
-  }, [active, NodeDataProps, styles.popper, attributes.popper, props.contextMenu, finalProps.usePortal, finalProps.portalContainer])
+  }, [active, ContextMenu, NodeDataProps, styles.popper, attributes.popper, props.contextMenu, finalProps.usePortal, finalProps.portalContainer, Portal])
 
   return (
     <Root

@@ -92,7 +92,7 @@ export const Tabs = UUIFunctionComponent({
           key={`tab-${i.props.value}`}
         >{i.props.children}</Content>
       ))
-  }, [NodeDataProps, props.renderActiveTabOnly, props.value, tabs])
+  }, [Content, NodeDataProps, props.renderActiveTabOnly, props.value, tabs])
 
   const [focusValue, setFocusValue] = useState<string>(tabs[0]?.props.value)
 

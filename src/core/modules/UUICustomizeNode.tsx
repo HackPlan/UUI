@@ -150,7 +150,7 @@ export type ComponentNodeCustomizeProps<M extends string | number | symbol> = {
 }
 export type FunctionComponentNodeT = (props: any, ...args: any) => any
 export type ClassComponentNodeT = TypeWithArgs<React.Component<any, any, any>, any>
-export type ComponentNode<P extends any, N extends string | number | symbol, M extends string | number | symbol> = (Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: NodeCustomizeOptions) => (props: P) => JSX.Element
+export type ComponentNode<P extends any, N extends string | number | symbol> = (Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: NodeCustomizeOptions) => (props: P) => JSX.Element
 export function ComponentNode<P extends any, N extends string, M extends string>(Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: NodeCustomizeOptions) {
   const _Target = Target as any
   const Node = React.forwardRef((_props: P & UUIConvenienceProps & { customize?: ComponentNodeCustomizeProps<M> }, ref) => {
