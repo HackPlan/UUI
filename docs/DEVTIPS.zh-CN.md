@@ -91,4 +91,10 @@ UUI 是以 TypeScript 为基础来开发的，但是在生产打包之后，这�
 
 这里提一下，如果有新加入的 UUI 维护者/贡献者，在开发新组件或者给旧组件添加新参数的时候，要重点处理一下上述说到的情况。
 
-##
+开发组件功能时，如果有对 Props 的改动，应该遵循以下的流程：
+
+1. 先修改 TypeScript Interface 的 Props 类型
+2. 在 TypeScript Interface 内完善属性的注释
+3. 定义相关属性的 PropTypes，这些定义不一定要与 TypeScript 类型一致
+
+UUI 里以 TypeScript 类型为主（编译时），以 PropTypes 为辅助检查手段（运行时）。
