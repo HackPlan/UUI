@@ -1,6 +1,7 @@
 // rollup.config.js
 import typescript from 'rollup-plugin-typescript2';
 import * as path from 'path';
+import * as fs from 'fs';
 import pkg from './package.json';
 import sass from 'rollup-plugin-sass';
 import copy from 'rollup-plugin-copy';
@@ -46,6 +47,18 @@ const config = [{
       tsconfig: path.join(__dirname, 'tsconfig.json'),
       typescript: require("typescript"),
     }),
+    copy({
+      targets: [
+        { src: 'src/styles', dest: 'lib' },
+      ]
+    }),
+  ],
+}, {
+  input: 'src/styles/index.scss',
+  output: {
+    file: 'lib/style.tmp.js',
+  },
+  plugins: [
     sass({
       output: 'lib/index.css',
       runtime: require('sass'),
@@ -53,11 +66,14 @@ const config = [{
         fiber: require('fibers'),
       }
     }),
-    copy({
-      targets: [
-        { src: 'src/styles', dest: 'lib' },
-      ]
-    }),
+    (() => {
+      return {
+        name: 'cleaner',
+        writeBundle: (options, bundle) => {
+          fs.unlinkSync(path.join(__dirname, './lib/style.tmp.js'))
+        }
+      }
+    })(),
   ],
 }];
 

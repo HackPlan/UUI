@@ -1,27 +1,27 @@
-$primaryColor: #409EFF;
-$textLightColor: white;
-$textDarkColor: #333333;
-$textDarkColor2: #666666;
-$borderColor: #d9d9d9;
-$backgroundColor: #d9d9d9;
+$primaryColor: #409EFF !default;
+$textLightColor: white !default;
+$textDarkColor: #333333 !default;
+$textDarkColor2: #666666 !default;
+$borderColor: #d9d9d9 !default;
+$backgroundColor: #d9d9d9 !default;
 
-$hoverBackgroundColor: #f5f5f5;
-$activeBackgroundColor: lighten($primaryColor, 25%);
-$focusBackgroundColor: #f6f6f6;
+$hoverBackgroundColor: #f5f5f5 !default;
+$activeBackgroundColor: lighten($primaryColor, 25%) !default;
+$focusBackgroundColor: #f6f6f6 !default;
 
-$disabledBorderColor: #dadada;
-$disabledBackgroundColor: #f6f6f6;
-$disabledTextColor: rgba(0, 0, 0, 0.4);
+$disabledBorderColor: #dadada !default;
+$disabledBackgroundColor: #f6f6f6 !default;
+$disabledTextColor: rgba(0, 0, 0, 0.4) !default;
 
-$borderRadius: 0.25rem;
+$borderRadius: 0.25rem !default;
 
 
-$primaryDarken1: darken($primaryColor, 10%);
-$primaryDarken2: darken($primaryColor, 20%);
-$primaryDarken3: darken($primaryColor, 30%);
-$primaryDarken4: darken($primaryColor, 40%);
+$primaryDarken1: darken($primaryColor, 10%) !default;
+$primaryDarken2: darken($primaryColor, 20%) !default;
+$primaryDarken3: darken($primaryColor, 30%) !default;
+$primaryDarken4: darken($primaryColor, 40%) !default;
 
-$primaryLighten1: lighten($primaryColor, 10%);
-$primaryLighten2: lighten($primaryColor, 20%);
-$primaryLighten3: lighten($primaryColor, 30%);
-$primaryLighten4: lighten($primaryColor, 40%);
+$primaryLighten1: lighten($primaryColor, 10%) !default;
+$primaryLighten2: lighten($primaryColor, 20%) !default;
+$primaryLighten3: lighten($primaryColor, 30%) !default;
+$primaryLighten4: lighten($primaryColor, 40%) !default;
