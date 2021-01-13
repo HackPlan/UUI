@@ -248,7 +248,7 @@ export const Table = UUIFunctionComponent({
 
       </Row>
     )
-  }, [onRowId, NodeDataProps, selectedRowIds, dataColumns, onSelected, props])
+  }, [onRowId, Row, NodeDataProps, selectedRowIds, DataCell, Checkbox, dataColumns, onSelected, props])
 
   /**
    * data cells

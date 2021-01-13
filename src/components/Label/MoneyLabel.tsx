@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { formatMoney } from '../../utils/moneyHelper';
 import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
@@ -53,7 +53,7 @@ export const MoneyLabel = UUIFunctionComponent({
     precision: props.precision || 2,
   }
 
-  const text = useMemo(() => formatMoney(props.value, finalProps), [finalProps, props.value])
+  const text = formatMoney(props.value, finalProps)
 
   return (
     <Root>{text}</Root>

@@ -153,7 +153,7 @@ export const Popover = UUIFunctionComponent({
 
   const activator = useMemo(() => {
     return <Activator ref={setReferenceElement}>{props.activator}</Activator>
-  }, [props.activator, setReferenceElement])
+  }, [Activator, props.activator])
 
   const content = useMemo(() => {
     /**
@@ -183,6 +183,7 @@ export const Popover = UUIFunctionComponent({
         >{props.children}</Content>
       )
   }, [
+    Portal, Content,
     props.lazy, props.active, finalProps.portalContainer, neverOpened,
     finalProps.usePortal, props.children,
     styles, attributes, setPopperElement,

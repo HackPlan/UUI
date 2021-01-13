@@ -225,7 +225,7 @@ export const Cascader = UUIFunctionComponent({
         )}
       </Result>
     )
-  }, [])
+  }, [DisplayValue, DisplayValueSeparator, Result])
 
   const valueResult = useMemo(() => {
     if (!props.value || props.value.length === 0) return null
@@ -237,7 +237,7 @@ export const Cascader = UUIFunctionComponent({
     return props.value && props.value.length > 0
       ? valueResult
       : <Placeholder>{finalProps.placeholder}</Placeholder>
-  }, [finalProps.placeholder, props.value, valueResult])
+  }, [Placeholder, finalProps.placeholder, props.value, valueResult])
 
   /**
    * manage option ListBox data
@@ -300,7 +300,7 @@ export const Cascader = UUIFunctionComponent({
       }
       return { items, selectedIds, handleOnSelect }
     })
-  }, [levels, NodeDataProps, finalProps.expandTriggerType, finalProps.changeOnFinalSelect, innerValue, setInnerValue, props.options])
+  }, [levels, Option, OptionLabel, OptionIcon, NodeDataProps, finalProps.expandTriggerType, finalProps.changeOnFinalSelect, innerValue, setInnerValue, props.options])
 
   const searchListData = useMemo(() => {
     if (!searchInputValue) return null
@@ -323,7 +323,7 @@ export const Cascader = UUIFunctionComponent({
       setPopoverActive(false)
     }
     return { items, selectedIds, handleOnSelect }
-  }, [props.onSearch, props.options, renderValueResult, searchInputValue, setInnerValue])
+  }, [Option, props.onSearch, props.options, renderValueResult, searchInputValue, setInnerValue])
 
   return (
     <Root

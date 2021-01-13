@@ -136,13 +136,13 @@ export const Drawer = UUIFunctionComponent({
         </Backdrop>
       </FocusTrap>
     )
-  }, [props, finalProps.focusTrap, finalProps.placement, NodeDataProps])
+  }, [props, finalProps.focusTrap, finalProps.placement, Backdrop, NodeDataProps, Content])
 
   const portal = useMemo(() => {
     return (finalProps.usePortal && finalProps.portalContainer)
     ? ReactDOM.createPortal(<Portal>{content}</Portal>, finalProps.portalContainer)
     : <Portal>{content}</Portal>
-  }, [finalProps.usePortal, finalProps.portalContainer, content])
+  }, [finalProps.usePortal, finalProps.portalContainer, Portal, content])
 
   return (
     <Root role="dialog">
