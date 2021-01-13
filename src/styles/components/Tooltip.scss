@@ -17,7 +17,9 @@
       visibility: inherit;
     }
   }
-
+  .UUI-Tooltip-Arrow {
+    text-align: left;
+  }
   .UUI-Tooltip-Arrow,
   .UUI-Tooltip-Arrow::before {
     position: absolute;
@@ -34,21 +36,17 @@
 
   .UUI-Tooltip-Tip[data-popper-placement^="top"] > .UUI-Tooltip-Arrow {
     bottom: -4px;
-    left: calc(50% - 4px);
   }
 
   .UUI-Tooltip-Tip[data-popper-placement^="bottom"] > .UUI-Tooltip-Arrow {
     top: -4px;
-    left: calc(50% - 4px);
   }
 
   .UUI-Tooltip-Tip[data-popper-placement^="left"] > .UUI-Tooltip-Arrow {
     right: -4px;
-    top: calc(50% - 4px);
   }
 
   .UUI-Tooltip-Tip[data-popper-placement^="right"] > .UUI-Tooltip-Arrow {
     left: -4px;
-    top: calc(50% - 4px);
   }
 }
