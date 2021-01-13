@@ -1,7 +1,7 @@
 import { addParameters } from '@storybook/react';
 
-import '../stories/style/tailwind.css';
 import '../stories/style/uui.scss';
+import '../stories/style/tailwind.css';
 import '../stories/style/storybook.scss';
 
 addParameters({

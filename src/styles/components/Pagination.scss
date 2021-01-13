@@ -16,8 +16,8 @@
     margin-right: 0.25rem;
 
     &[data-uui-active="true"] {
-      border: 1px solid #4299e1;
-      color: #4299e1;
+      border: 1px solid $primaryColor;
+      color: $primaryColor;
     }
   }
 }

@@ -22,7 +22,7 @@
       color: $primaryColor;
     }
     &:active, &:focus-within {
-      color: $primaryDarken1;
+      color: darken($primaryColor, 10%);
     }
   }
 

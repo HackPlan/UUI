@@ -23,14 +23,12 @@
       &[data-uui-focused="true"], &:hover {
         background-color: $focusBackgroundColor;
       }
-      &[data-uui-selected="true"] {
-        background-color: #dcf0ff;
-      }
       &[data-uui-selected="true"][data-uui-focused="true"], &[data-uui-selected="true"] {
-        background-color: #bfe4ff;
+        background-color: rgba(lighten($primaryColor, 20%), 0.4);
       }
       &[data-uui-disabled="true"], &[data-uui-disabled="true"]:hover {
-        cursor: inherit;
+        cursor: not-allowed;
+        color: $disabledTextColor;
         background-color: inherit;
       }
     }

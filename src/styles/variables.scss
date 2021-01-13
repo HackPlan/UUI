@@ -14,14 +14,3 @@ $disabledBackgroundColor: #f6f6f6 !default;
 $disabledTextColor: rgba(0, 0, 0, 0.4) !default;
 
 $borderRadius: 0.25rem !default;
-
-
-$primaryDarken1: darken($primaryColor, 10%) !default;
-$primaryDarken2: darken($primaryColor, 20%) !default;
-$primaryDarken3: darken($primaryColor, 30%) !default;
-$primaryDarken4: darken($primaryColor, 40%) !default;
-
-$primaryLighten1: lighten($primaryColor, 10%) !default;
-$primaryLighten2: lighten($primaryColor, 20%) !default;
-$primaryLighten3: lighten($primaryColor, 30%) !default;
-$primaryLighten4: lighten($primaryColor, 40%) !default;

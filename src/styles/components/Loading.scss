@@ -30,12 +30,12 @@
     align-items: center;
 
     & > .UUI-LoadingCover-Spinner {
-      color: $primaryLighten1;
+      color: lighten($primaryColor, 10%);
     }
     & > .UUI-LoadingCover-Label {
       user-select: none;
       margin-left: 0.5rem;
-      color: $primaryLighten1;
+      color: lighten($primaryColor, 10%);
     }
   }
 

@@ -6,7 +6,7 @@
   cursor: pointer;
 
   &:focus-within .UUI-Checkbox-Indicator {
-    box-shadow: $primaryLighten3 0 0 0 3px;
+    box-shadow: lighten($primaryColor, 30%) 0 0 0 3px;
   }
 
   .UUI-Checkbox-Input {

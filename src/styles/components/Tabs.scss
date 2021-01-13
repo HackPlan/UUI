@@ -30,7 +30,7 @@
       color: $primaryColor;
     }
     &:focus {
-      background-color: #f5f7fa;
+      background-color: rgba($primaryColor, 0.06);
     }
   }
 
