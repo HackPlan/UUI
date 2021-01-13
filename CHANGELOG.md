@@ -2,6 +2,12 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.6.1
+
+- Support override Sass variables in compile time.
+- fix some components styles of primary color.
+- fix Tooltip arrow position.
+
 ### v0.6.0
 
 - UUIComponent expose more data to WrappedComponent.

@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.6.1
+
+- 支持在编译期覆盖修改 Sass 变量
+- 修复一些组件的主题色颜色样式
+- 修复 Tooltip 箭头的显示位置
+
 ### v0.6.0
 
 - UUIComponent 暴露出更多的数据供 WrappedComponent 使用
