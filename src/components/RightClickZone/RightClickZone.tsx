@@ -111,7 +111,7 @@ export const RightClickZone = UUIFunctionComponent({
     modifiers: finalProps.modifiers,
   });
 
-  useGlobalClickAway(active, popperRef, () => {
+  useGlobalClickAway(active, popperRef, (event) => {
     const paths: string[] | undefined = (event as any)['path']
     const activitorClick = paths?.some((i) => i === rootRef.current)
     if (activitorClick) return;
@@ -159,10 +159,10 @@ export const RightClickZone = UUIFunctionComponent({
           x: event.nativeEvent.offsetX,
           y: event.nativeEvent.offsetY,
         }
-        setImmediate(() => {
+        setTimeout(() => {
           openMenu(pos)
           updatePopper && updatePopper()
-        })
+        }, 0)
       }}
     >
       <Origin ref={referenceRef} style={{ top: originPosition.y, left: originPosition.x }} />

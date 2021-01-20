@@ -34,9 +34,9 @@ export function useGlobalClickAway(active: boolean, elementRef: any, onClickAway
   useClickAway(elementRef, (event) => {
     if (active) {
       if (elementRef.current && !isCurrentActiveElement(elementRef.current)) return;
-      setImmediate(() => {
+      setTimeout(() => {
         onClickAway && onClickAway(event)
-      })
+      }, 0)
     }
   })
 }
