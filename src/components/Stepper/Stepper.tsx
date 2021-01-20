@@ -129,6 +129,7 @@ export const Stepper = UUIFunctionComponent({
     </PlusButton>)
   const input = (
     <Input
+      placeholder={props.placeholder}
       step={props.step}
       min={props.min}
       max={props.max}
