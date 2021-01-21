@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.6.2
+
+- 修复 Stepper 占位字符串没有正确传入的问题
+- 改变 ProgressBar 节点（CircularBackground）的 DOM 顺序
+
 ### v0.6.1
 
 - 支持在编译期覆盖修改 Sass 变量

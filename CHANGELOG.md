@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.6.2
+
+- Fix issue that the placeholder string of Stepper is not passed in correctly
+- Change the DOM order of ProgressBar node (CircularBackground)
+
 ### v0.6.1
 
 - Support override Sass variables in compile time.
