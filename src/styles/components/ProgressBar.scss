@@ -32,6 +32,9 @@
         width: calc(100% - 2 * #{$barWidth});
         height: calc(100% - 2 * #{$barWidth});
         border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .UUI-ProgressBar-CircularRightWrapper {

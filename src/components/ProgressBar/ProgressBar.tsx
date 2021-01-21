@@ -114,13 +114,13 @@ export const ProgressBar = UUIFunctionComponent(
             <BarFill style={{ ...styles.BarFill }} />
           ) : (
             <CircularWrapper>
+              <CircularBackground />
               <CircularLeftWrapper>
                 <CircularLeft style={{ ...styles.CircularLeft }} />
               </CircularLeftWrapper>
               <CircularRightWrapper>
                 <CircularRight style={{ ...styles.CircularRight }} />
               </CircularRightWrapper>
-              <CircularBackground />
             </CircularWrapper>
           )}
         </Container>
