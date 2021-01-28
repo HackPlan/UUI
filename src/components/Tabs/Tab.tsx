@@ -50,7 +50,8 @@ export const Tab = UUIFunctionComponent({
         context.onChange(props.value)
       }
     }
-  }, [context, props.value])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context.focusValue, context.toggleTabWhenFocusChange, props.value])
 
   return (
     <Root
