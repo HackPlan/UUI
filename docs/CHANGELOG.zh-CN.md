@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.6.3
+
+- 修复 Tabs focus聚焦问题
+- useGlobalClickAway deactivateElement cleanup
+
 ### v0.6.2
 
 - 修复 Stepper 占位字符串没有正确传入的问题
