@@ -23,10 +23,15 @@ export function useGlobalClickAway(active: boolean, elementRef: any, onClickAway
 
   useEffect(() => {
     if (!elementRef.current) return;
+    const targetElement = elementRef.current
     if (active) {
-      activateElement(elementRef.current)
+      activateElement(targetElement)
     } else {
-      deactivateElement(elementRef.current)
+      deactivateElement(targetElement)
+    }
+
+    return () => {
+      deactivateElement(targetElement)
     }
   }, [activateElement, deactivateElement, active, elementRef])
 
