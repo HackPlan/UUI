@@ -10,6 +10,7 @@ export interface AppDialogOptions {
   cancelOnClose?: boolean;
   container?: HTMLElement;
   customize?: DialogProps['customize'];
+  DialogComponent?: React.ComponentType<DialogProps>;
 }
 
 export function AppDialog(ContentComponent: (props: {
@@ -51,10 +52,11 @@ export function AppDialog<T>(ContentComponent: (props: {
   setup()
 
   return new Promise((resolve) => {
+    const DialogComponent = options?.DialogComponent || Dialog
 
-    const DialogComponent = () => {
+    const RenderComponent = () => {
       return (
-        <Dialog
+        <DialogComponent
           open={true}
           usePortal={false}
           onClickAway={() => {
@@ -85,12 +87,12 @@ export function AppDialog<T>(ContentComponent: (props: {
               clearup()
             }}
           />
-        </Dialog>
+        </DialogComponent>
       )
     }
 
     ReactDOM.render(
-      <DialogComponent />,
+      <RenderComponent />,
       containerElement || null,
     );
   })
