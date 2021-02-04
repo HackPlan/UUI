@@ -8,8 +8,10 @@ export function usePendingValue<T>(initialValue: T, onFinalChange: (finalValue: 
 
   const innerValue = _innerValue
   const setInnerValue = useCallback((newValue: React.SetStateAction<T>, confirm = false) => {
-    if (confirm) onFinalChange((typeof newValue === 'function') ? (newValue as any)(newValue) : newValue)
     _setInnerValue((value) => {
+      if (confirm) {
+        onFinalChange((typeof newValue === 'function') ? (newValue as any)(value) : newValue)
+      }
       return (typeof newValue === 'function') ? (newValue as any)(value) : newValue
     })
   }, [onFinalChange])

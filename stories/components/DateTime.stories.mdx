@@ -1,7 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { DatePicker, DateRangePicker } from '../../src';
+import { DatePicker, DateRangePicker, TimePicker } from '../../src';
 import { useState } from 'react';
-import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from 'date-fns'
+import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, set } from 'date-fns'
 
 <Meta title="组件/日期时间选择 DateTime" component={DatePicker} />
 
@@ -53,6 +53,32 @@ import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, sta
   </Story>
 </Canvas>
 
+### 时间选择器 TimePicker
+
+<Canvas>
+  <Story name="TimePicker">
+    {() => {
+      const [selectedTime, setSelectedTime] = useState(null)
+      return (
+        <div>
+          <TimePicker
+            placeholder={"请选择时间"}
+            value={selectedTime}
+            onChange={(value) => { console.log('TimePicker onChange', value); setSelectedTime(value) }}
+            shortcuts={[
+              { label: '中午', value: () => set(new Date(0), { hours: 12 }) },
+              { label: '下午三点半', value: () => set(new Date(0), { hours: 15, minutes: 30 }) },
+              { label: '凌晨两点', value: () => set(new Date(0), { hours: 2 }) },
+            ]}
+            confirmLabel={"确认"}
+            cancelLabel={"取消"}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
 ### Props
 
-<ArgsTable components={{ DatePicker, DateRangePicker }} />
+<ArgsTable components={{ DatePicker, DateRangePicker, TimePicker }} />

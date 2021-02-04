@@ -281,3 +281,159 @@
     padding: 0.5rem;
   }
 }
+
+/**************************************
+ * TimeSelect
+ **************************************/
+
+.UUI-TimeSelect-Root {
+  --option-width: 40px;
+  --option-height: 30px;
+  --option-count: 7;
+  --option-list-height: calc(var(--option-count) * var(--option-height));
+
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  .UUI-TimeSelect-OptionList {
+    height: var(--option-list-height);
+    padding-top: calc(var(--option-list-height) / 2 - var(--option-height) / 2);
+    padding-bottom: calc(var(--option-list-height) / 2 - var(--option-height) / 2);
+    box-sizing: border-box;
+    flex: 1;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
+    .UUI-TimeSelect-Option {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: var(--option-height);
+      width: var(--option-width);
+      color: #797979;
+      margin: 0 auto;
+
+
+      &[data-uui-active="true"] {
+        color: #303133;
+        font-weight: 700;
+        cursor: default;
+      }
+      &[data-uui-active="false"] {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .UUI-TimeSelect-SelectZone {
+    position: absolute;
+    height: var(--option-height);
+    top: calc(var(--option-list-height) / 2 - var(--option-height) / 2 - 1px);
+    left: 8px;
+    right: 8px;
+    border-top: 1px solid #e4e7ed;
+    border-bottom: 1px solid #e4e7ed;
+    pointer-events: none;
+  }
+  .UUI-TimeSelect-Separator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #606266;
+  }
+}
+
+
+/**************************************
+ * PickerButtons
+ **************************************/
+
+.UUI-PickerButtons-Root {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-top: 1px solid #e4e7ed;
+  padding: 0.25rem;
+
+  .UUI-PickerButtons-ConfirmButton,
+  .UUI-PickerButtons-CancelButton {
+    padding: 0.5rem;
+    font-size: small;
+
+    @include borderless;
+  }
+  .UUI-PickerButtons-ConfirmButton {
+    color: $primaryColor;
+  }
+  .UUI-PickerButtons-CancelButton {
+    &:hover, &:active, &:focus, &:focus-within {
+      color: inherit;
+    }
+  }
+}
+
+/**************************************
+ * TimePicker
+ **************************************/
+
+.UUI-TimePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-TimePicker-CalendarIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-TimePicker-Activator {
+    display: flex;
+
+    .UUI-TimePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 140px;
+
+      input {
+        font-variant-numeric: tabular-nums;
+      }
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.UUI-TimePicker-Container {
+  display: flex;
+  flex-direction: row;
+  max-height: 300px;
+}
+
+.UUI-TimePicker-Main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.UUI-TimePicker-DateTimeShortcut {
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 120px;
+}
