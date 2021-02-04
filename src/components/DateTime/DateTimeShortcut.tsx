@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps, UUIComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 import { isArray } from 'lodash-es';

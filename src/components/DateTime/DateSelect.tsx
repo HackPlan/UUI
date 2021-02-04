@@ -1,53 +1,50 @@
-import React, { useMemo } from 'react';
-import { UUIFunctionComponent, UUIFunctionComponentProps, UUIComponentProps } from '../../core';
-import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
-import { getDay, startOfWeek, add, format, startOfMonth, set, getDate, isSameMonth, isAfter, isBefore, isSameDay } from 'date-fns';
+import React, { useMemo, useCallback } from 'react';
+import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
+import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
+import { getDay, startOfWeek, add, format, startOfMonth, set, getDate, isSameMonth, isSameDay, isAfter, isBefore } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
-import { range, isArray } from 'lodash-es';
+import { range } from 'lodash-es';
 
-export interface DateSelectFeatureProps<
-X extends true | false | boolean | undefined = undefined,
-Y = (X extends undefined ? Date : (X extends true ? [Date, Date] : Date)),
-T = Y | null,
-> {
+export interface DateSelectFeatureProps {
   year: number;
   month: number;
 
-  value: T;
-  onChange: (value: T) => void;
-  isRange?: X;
+  selectedDates: Date[];
+  onSelect: (date: Date) => void;
+  hoverDate?: Date;
+  onHoverDateChange?: (date: Date | undefined) => void;
 }
 
-export const DateSelectPropTypes = createComponentPropTypes<DateSelectFeatureProps<any>>({
+export const DateSelectPropTypes = createComponentPropTypes<DateSelectFeatureProps>({
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
-  value: ExtraPropTypes.nullable(PropTypes.oneOfType([
-    PropTypes.instanceOf(Date),
-    PropTypes.arrayOf(PropTypes.instanceOf(Date)),
-  ]).isRequired),
-  onChange: PropTypes.func.isRequired,
-  isRange: PropTypes.bool,
+  selectedDates: PropTypes.arrayOf(PropTypes.instanceOf(Date).isRequired),
+  onSelect: PropTypes.func.isRequired,
+  hoverDate: PropTypes.instanceOf(Date),
+  onHoverDateChange: PropTypes.func,
 })
 
-const DateSelectNodes = {
-  Root: 'div',
-  Calendar: 'div',
-  WeekGrid: 'div',
-  WeekItem: 'div',
-  DayGrid: 'div',
-  DayItem: 'div',
-} as const
-
-const BaseDateSelect = UUIFunctionComponent({
+export const DateSelect = UUIFunctionComponent({
   name: 'DateSelect',
-  nodes: DateSelectNodes,
+  nodes: {
+    Root: 'div',
+    Calendar: 'div',
+    WeekGrid: 'div',
+    WeekItem: 'div',
+    DayGrid: 'div',
+    DayItem: 'div',
+  },
   propTypes: DateSelectPropTypes,
-}, (props: DateSelectFeatureProps<boolean | undefined>, { nodes, NodeDataProps }) => {
+}, (props: DateSelectFeatureProps, { nodes, NodeDataProps }) => {
   const {
     Root, Calendar,
     WeekGrid, WeekItem,
     DayGrid, DayItem,
   } = nodes
+
+  const betweenIncludeDates = useCallback((date: Date, range: [Date, Date] | Date[]) => {
+    return !isBefore(date, range[0]) && !isAfter(date, range[1])
+  }, [])
 
   const dateInfo = useMemo(() => {
     const yearMonth = set(new Date, { year: props.year, month: props.month-1 })
@@ -71,21 +68,20 @@ const BaseDateSelect = UUIFunctionComponent({
       1 - weekdayOfFirstDayInMonth + 6*7,
     ).map((i) => {
       const date = add(firstDayInMonth, { days: i - 1 })
-      const selected = (() => {
-        if (isRangeValue(props.value) && props.value !== null) {
-          return isAfter(date, props.value[0]) && isBefore(date, props.value[1])
-        } else if (isSingleValue(props.value) && props.value !== null) {
-          return isSameDay(date, props.value)
+      const selected = props.selectedDates.findIndex((i) => isSameDay(date, i)) !== -1
+      const inSelectedRange = (() => {
+        if (props.selectedDates.length >= 2) {
+          return betweenIncludeDates(date, props.selectedDates)
         }
         return false;
       })()
-
       return {
         key: format(date, 'yyyy-MM-dd'),
         date: date,
         label: getDate(date),
         active: isSameMonth(yearMonth, date),
         selected: selected,
+        inSelectedRange: inSelectedRange,
       }
     })
 
@@ -94,7 +90,7 @@ const BaseDateSelect = UUIFunctionComponent({
       weekdays,
       days
     }
-  }, [props.year, props.month, props.value])
+  }, [props.year, props.month, props.selectedDates, betweenIncludeDates])
 
   return (
     <Root>
@@ -108,19 +104,37 @@ const BaseDateSelect = UUIFunctionComponent({
             );
           })}
         </WeekGrid>
-        <DayGrid>
+        <DayGrid
+          onMouseLeave={() => {
+            props.onHoverDateChange && props.onHoverDateChange(undefined)
+          }}
+        >
           {dateInfo.days.map((day) => {
+            const hovering = props.hoverDate ? isSameDay(day.date, props.hoverDate) : false
+            const inHoverRange = (() => {
+              if (props.selectedDates.length === 1 && props.hoverDate) {
+                return betweenIncludeDates(day.date, [props.selectedDates[0], props.hoverDate].sort((i, j) => Number(i) - Number(j)))
+              }
+              return false
+            })()
             return (
               <DayItem
                 {...NodeDataProps({
                   'active': day.active,
                   'selected': day.selected,
+                  'in-selected-range': day.inSelectedRange,
+                  'in-hover-range': inHoverRange,
+                  'hovering': hovering,
                 })}
                 key={day.key}
                 onClick={() => {
-                  if (isSingleValue(props.value)) {
-                    props.onChange(day.date)
-                  }
+                  props.onSelect(day.date)
+                }}
+                onMouseEnter={() => {
+                  props.onHoverDateChange && props.onHoverDateChange(day.date)
+                }}
+                onMouseLeave={() => {
+                  props.onHoverDateChange && props.onHoverDateChange(undefined)
                 }}
               >
                 {day.label}
@@ -133,16 +147,4 @@ const BaseDateSelect = UUIFunctionComponent({
   )
 })
 
-export function DateSelect<X extends true | false | boolean | undefined = undefined>(props: UUIComponentProps<DateSelectFeatureProps<X>, typeof DateSelectNodes>) {
-  const _BaseDateSelect = BaseDateSelect as any
-  return <_BaseDateSelect {...props} />
-}
-DateSelect.displayName = `<UUI> [GenericComponent] DateSelect`
 export type DateSelectProps = UUIFunctionComponentProps<typeof DateSelect>
-
-const isRangeValue = (value: any): value is DateSelectFeatureProps<true>['value'] => {
-  return isArray(value)
-}
-const isSingleValue = (value: any): value is DateSelectFeatureProps<false>['value'] => {
-  return !isArray(value)
-}

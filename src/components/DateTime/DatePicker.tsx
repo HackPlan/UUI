@@ -8,6 +8,7 @@ import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
 import { format, parseISO } from 'date-fns';
 import { DateTimeShortcutOption, DateTimeShortcutOptionPropTypes } from './DateTimeShortcut';
+import { Icons } from '../../icons/Icons';
 
 export type DatePickerShortCut = DateTimeShortcutOption<Date>;
 export interface DatePickerFeatureProps {
@@ -28,6 +29,7 @@ export const DatePicker = UUIFunctionComponent({
   name: 'DatePicker',
   nodes: {
     Root: 'div',
+    CalendarIcon: Icons.Calendar,
     Popover: UUIPopover,
     TextField: UUITextField,
     Activator: 'div',
@@ -41,7 +43,7 @@ export const DatePicker = UUIFunctionComponent({
   propTypes: DatePickerPropTypes,
 }, (props: DatePickerFeatureProps, { nodes }) => {
   const {
-    Root, Popover, TextField,
+    Root, CalendarIcon, Popover, TextField,
     Activator, Container, Toolbar, Main,
     YearMonthSelect, DateSelect, DateTimeShortcut,
   } = nodes
@@ -72,7 +74,7 @@ export const DatePicker = UUIFunctionComponent({
       setInput(formatDate(props.value))
     }
   }, [handleUserValueChange, input, props.value])
-  const handleOnChange = useCallback((value: Date | null) => {
+  const handleOnSelect = useCallback((value: Date) => {
     handleUserValueChange(value)
     setTimeout(() => {
       setActive(false)
@@ -82,6 +84,7 @@ export const DatePicker = UUIFunctionComponent({
   return (
     <Root>
       <Popover
+        placement={'bottom-start'}
         active={active}
         onClickAway={() => { setActive(false) }}
         activator={
@@ -108,6 +111,7 @@ export const DatePicker = UUIFunctionComponent({
                 }
               }}
             />
+            <CalendarIcon />
           </Activator>
         }
       >
@@ -116,7 +120,7 @@ export const DatePicker = UUIFunctionComponent({
             {props.shortcuts && (
               <DateTimeShortcut
                 options={props.shortcuts}
-                onSelect={handleOnChange}
+                onSelect={handleOnSelect}
               />
             )}
           </Toolbar>
@@ -128,8 +132,8 @@ export const DatePicker = UUIFunctionComponent({
             <DateSelect
               year={yearMonth.year}
               month={yearMonth.month}
-              value={props.value}
-              onChange={handleOnChange}
+              selectedDates={props.value ? [props.value] : []}
+              onSelect={handleOnSelect}
             />
           </Main>
         </Container>
