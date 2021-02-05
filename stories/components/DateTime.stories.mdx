@@ -1,5 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { DatePicker, DateRangePicker, TimePicker } from '../../src';
+import { DatePicker, DateRangePicker, TimePicker, TimeRangePicker } from '../../src';
 import { useState } from 'react';
 import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, set } from 'date-fns'
 
@@ -72,6 +72,30 @@ import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, sta
             ]}
             confirmLabel={"确认"}
             cancelLabel={"取消"}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 时间区间选择器 TimeRangePicker
+
+<Canvas>
+  <Story name="TimeRangePicker">
+    {() => {
+      const [selectedDates, setSelectedDates] = useState(null)
+      return (
+        <div>
+          <TimeRangePicker
+            startPlaceholder={"请选择开始时间"}
+            endPlaceholder={"请选择结束时间"}
+            value={selectedDates}
+            onChange={(value) => { setSelectedDates(value) }}
+            shortcuts={[
+              { label: '本周', value: () => [startOfWeek(new Date()), endOfWeek(new Date())] },
+              { label: '本月', value: () => [startOfMonth(new Date()), endOfMonth(new Date())] },
+            ]}
           />
         </div>
       )

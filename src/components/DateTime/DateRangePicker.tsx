@@ -253,7 +253,6 @@ export const DateRangePicker = UUIFunctionComponent({
               <DateTimeShortcut
                 options={props.shortcuts}
                 onSelect={(value) => {
-                  console.log('shortcut selected', value)
                   handleValueOnChange(value)
                   setActive(false)
                 }}

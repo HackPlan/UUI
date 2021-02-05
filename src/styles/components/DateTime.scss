@@ -392,7 +392,7 @@
   @include focusWithinShadow;
   @include focusWithinBorder;
 
-  .UUI-TimePicker-CalendarIcon {
+  .UUI-TimePicker-ClockIcon {
     color: lightgray;
     margin-right: 0.5rem;
   }
@@ -436,4 +436,81 @@
   overflow-y: auto;
   box-sizing: border-box;
   max-width: 120px;
+}
+
+/**************************************
+ * TimeRangePicker
+ **************************************/
+
+.UUI-TimeRangePicker-Container {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+}
+
+.UUI-TimeRangePicker-DateTimeShortcut {
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 120px;
+}
+
+.UUI-TimeRangePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-TimeRangePicker-ConnectIcon {
+    color: lightgray;
+  }
+  .UUI-TimeRangePicker-ClockIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-TimeRangePicker-Activator {
+    display: flex;
+
+    .UUI-TimeRangePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 140px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+
+      &:focus-within:after {
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        left: 0.5rem;
+        right: 0.5rem;
+        height: 2px;
+        background-color: $primaryColor;
+      }
+    }
+  }
+}
+.UUI-TimeRangePicker-Main {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+
+  .UUI-TimeRangePicker-StartSection {
+    display: flex;
+    flex-direction: column;
+    padding-right: 1rem;
+  }
+  .UUI-TimeRangePicker-EndSection {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+  }
 }

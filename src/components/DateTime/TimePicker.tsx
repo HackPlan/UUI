@@ -6,11 +6,10 @@ import { DateTimeShortcut as UUIDateTimeShortcut, DateTimeShortcutOption, DateTi
 import { PickerButtons as UUIPickerButtons } from './PickerButtons';
 import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
-import { format, set, parse } from 'date-fns';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
+import { getDateFromTimeValue, getTimeValue, formatTimeValue, tryParseTimeFromString } from './TimeUtils';
 
-const DEFAULT_FORMAT_TOKEN = "HH:mm:ss"
 
 export type TimePickerShortCut = DateTimeShortcutOption<Date>;
 export interface TimePickerFeatureProps {
@@ -39,7 +38,7 @@ export const TimePicker = UUIFunctionComponent({
   name: 'TimePicker',
   nodes: {
     Root: 'div',
-    CalendarIcon: Icons.Calendar,
+    ClockIcon: Icons.Clock,
     Popover: UUIPopover,
     TextField: UUITextField,
     Activator: 'div',
@@ -48,13 +47,12 @@ export const TimePicker = UUIFunctionComponent({
     Main: 'div',
     TimeSelect: UUITimeSelect,
     DateTimeShortcut: UUIDateTimeShortcut,
-    ButtonSection: 'div',
     PickerButtons: UUIPickerButtons,
   },
   propTypes: TimePickerPropTypes,
 }, (props: TimePickerFeatureProps, { nodes }) => {
   const {
-    Root, CalendarIcon, Popover, TextField,
+    Root, ClockIcon, Popover, TextField,
     Activator, Container, Toolbar, Main,
     DateTimeShortcut, TimeSelect, PickerButtons,
   } = nodes
@@ -146,7 +144,7 @@ export const TimePicker = UUIFunctionComponent({
                 }
               }}
             />
-            <CalendarIcon />
+            <ClockIcon />
           </Activator>
         }
       >
@@ -186,36 +184,12 @@ export const TimePicker = UUIFunctionComponent({
   )
 })
 
-function getTimeValue(date: Date | null): TimeSelectValue {
-  return {
-    hour: date?.getHours() || 0,
-    minute: date?.getMinutes() || 0,
-    second: date?.getSeconds() || 0,
-  }
-}
-function formatTimeFromDate(date: Date | null) {
-  if (date === null) return ''
-  return format(date, DEFAULT_FORMAT_TOKEN)
-}
-function getDateFromTimeValue(time: TimeSelectValue) {
-  return set(new Date(0), { hours: time.hour, minutes: time.minute, seconds: time.second })
-}
-function formatTimeValue(time: TimeSelectValue) {
-  const date = getDateFromTimeValue(time)
-  return formatTimeFromDate(date)
-}
-function getInnerValue(date: Date | null): TimePickerPendingValue {
+export function getInnerValue(date: Date | null): TimePickerPendingValue {
   const time = getTimeValue(date)
   return {
     ...time,
     input: date === null ? '' : formatTimeValue(time),
   }
-}
-
-function tryParseTimeFromString(dateString: string) {
-  const result = parse(dateString, DEFAULT_FORMAT_TOKEN, new Date(0))
-  if (isNaN(result.getTime())) throw new Error('time_string_parse_failed');
-  return result
 }
 
 export type TimePickerProps = UUIFunctionComponentProps<typeof TimePicker>

@@ -9,7 +9,7 @@ export interface TimeSelectValue {
   second: number;
 }
 export interface TimeSelectFeatureProps {
-  value: TimeSelectValue;
+  value: TimeSelectValue | null;
   onChange: (value: TimeSelectValue) => void;
 }
 
@@ -38,6 +38,10 @@ export const TimeSelect = UUIFunctionComponent({
     Root, SelectZone, Separator,
     OptionList, Option,
   } = nodes
+
+  const propsValue = useMemo(() => {
+    return props.value || { hour: 0, minute: 0, second: 0 }
+  }, [props.value])
 
   const allOptions = useMemo(() => {
     return {
@@ -94,13 +98,13 @@ export const TimeSelect = UUIFunctionComponent({
       const currentIndex = Math.round((scrollTop) / itemHeight)
 
       const newValue = options[currentIndex];
-      if (props.value[type] !== newValue) {
-        props.onChange({ ...props.value, [type]: newValue })
+      if (propsValue[type] !== newValue) {
+        props.onChange({ ...propsValue, [type]: newValue })
       }
 
       debouncedScrollTo.current(target, currentIndex * itemHeight)
     }
-  }, [allOptions, disableHandleScroll, getItemHeight, props])
+  }, [allOptions, disableHandleScroll, getItemHeight, props, propsValue])
 
   return (
     <Root>
@@ -116,7 +120,7 @@ export const TimeSelect = UUIFunctionComponent({
               onScroll={handleScroll(type)}
             >
               {allOptions[type].map((option) => {
-                const active = props.value[type] === option;
+                const active = propsValue[type] === option;
                 return (
                   <Option
                     {...NodeDataProps({
