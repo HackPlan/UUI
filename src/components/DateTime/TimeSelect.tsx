@@ -84,9 +84,17 @@ export const TimeSelect = UUIFunctionComponent({
     }
   })
 
-  const debouncedScrollTo = useRef(debounce((target: HTMLElement, top: number) => {
-    target.scrollTo({ top, behavior: "smooth" })
-  }, 300))
+  const debouncedScrollTo = useRef({
+    hour: debounce((target: HTMLElement, top: number) => {
+      target.scrollTo({ top, behavior: "smooth" })
+    }, 300),
+    minute: debounce((target: HTMLElement, top: number) => {
+      target.scrollTo({ top, behavior: "smooth" })
+    }, 300),
+    second: debounce((target: HTMLElement, top: number) => {
+      target.scrollTo({ top, behavior: "smooth" })
+    }, 300),
+})
 
   const handleScroll = useCallback((type: keyof TimeSelectValue) => {
     if (disableHandleScroll) return;
@@ -102,7 +110,7 @@ export const TimeSelect = UUIFunctionComponent({
         props.onChange({ ...propsValue, [type]: newValue })
       }
 
-      debouncedScrollTo.current(target, currentIndex * itemHeight)
+      debouncedScrollTo.current[type](target, currentIndex * itemHeight)
     }
   }, [allOptions, disableHandleScroll, getItemHeight, props, propsValue])
 
