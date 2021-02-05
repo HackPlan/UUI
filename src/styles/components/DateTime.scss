@@ -319,6 +319,7 @@
       width: var(--option-width);
       color: #797979;
       margin: 0 auto;
+      user-select: none;
 
 
       &[data-uui-active="true"] {

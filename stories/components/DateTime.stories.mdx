@@ -93,8 +93,8 @@ import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, sta
             value={selectedDates}
             onChange={(value) => { setSelectedDates(value) }}
             shortcuts={[
-              { label: '本周', value: () => [startOfWeek(new Date()), endOfWeek(new Date())] },
-              { label: '本月', value: () => [startOfMonth(new Date()), endOfMonth(new Date())] },
+              { label: '早餐时间', value: () => [set(new Date(0), { hours: 8 }), set(new Date(0), { hours: 8, minutes: 30 })] },
+              { label: '下午茶时间', value: () => [set(new Date(0), { hours: 16 }), set(new Date(0), { hours: 16, minutes: 30 })] },
             ]}
           />
         </div>

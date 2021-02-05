@@ -61,7 +61,7 @@ export const TimeSelect = UUIFunctionComponent({
     const optionHeightPx = styles.getPropertyValue('--option-height')
     return Number(optionHeightPx.replace('px', ''))
   }, [])
-  const scrollToValue = useCallback((type: keyof TimeSelectValue, value: number, animate = true) => {
+  const scrollToSingleValue = useCallback((type: keyof TimeSelectValue, value: number, animate = true) => {
     const ref = { hour: hourListRef, minute: minuteListRef, second: secondListRef }[type]
     if (ref.current) {
       const target = ref.current as HTMLElement
@@ -69,31 +69,30 @@ export const TimeSelect = UUIFunctionComponent({
       target.scrollTo({ top: value * itemHeight, behavior: animate ? "smooth" : "auto" })
     }
   }, [getItemHeight])
+  const scrollToValue = useCallback((value: TimeSelectValue, animate?: boolean) => {
+    setDisableHandleScroll(true)
+    scrollToSingleValue('hour', value.hour, animate)
+    scrollToSingleValue('minute', value.minute, animate)
+    scrollToSingleValue('second', value.second, animate)
+    setTimeout(() => {
+      setDisableHandleScroll(false)
+    }, 500)
+  }, [scrollToSingleValue])
 
   useImperativeHandle(ref, () => {
     return {
-      scrollToValue: (value: TimeSelectValue, animate?: boolean) => {
-        setDisableHandleScroll(true)
-        scrollToValue('hour', value.hour, animate)
-        scrollToValue('minute', value.minute, animate)
-        scrollToValue('second', value.second, animate)
-        setTimeout(() => {
-          setDisableHandleScroll(false)
-        }, 500)
-      }
+      scrollToValue: scrollToValue,
     }
   })
 
+  const scrollTo = useCallback((target: HTMLElement, top: number) => {
+    target.scrollTo({ top, behavior: "smooth" })
+  }, [])
+
   const debouncedScrollTo = useRef({
-    hour: debounce((target: HTMLElement, top: number) => {
-      target.scrollTo({ top, behavior: "smooth" })
-    }, 300),
-    minute: debounce((target: HTMLElement, top: number) => {
-      target.scrollTo({ top, behavior: "smooth" })
-    }, 300),
-    second: debounce((target: HTMLElement, top: number) => {
-      target.scrollTo({ top, behavior: "smooth" })
-    }, 300),
+    hour: debounce(scrollTo, 300),
+    minute: debounce(scrollTo, 300),
+    second: debounce(scrollTo, 300),
 })
 
   const handleScroll = useCallback((type: keyof TimeSelectValue) => {
@@ -135,6 +134,14 @@ export const TimeSelect = UUIFunctionComponent({
                       'active': active,
                     })}
                     key={option}
+                    onClick={() => {
+                      const newValue = Object.assign({}, {
+                        ...propsValue,
+                        [type]: option,
+                      })
+                      props.onChange(newValue)
+                      scrollToSingleValue(type, option)
+                    }}
                   >{padStart(String(option), 2, '0')}</Option>
                 )
               })}
