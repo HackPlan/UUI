@@ -4,10 +4,10 @@ import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes
 import { getDay, startOfWeek, add, format, startOfMonth, set, getDate, isSameMonth, isSameDay, isAfter, isBefore } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 import { range } from 'lodash-es';
+import { YearMonthSelectValue } from './YearMonthSelect';
 
 export interface DateSelectFeatureProps {
-  year: number;
-  month: number;
+  yearMonth: YearMonthSelectValue;
 
   selectedDates: Date[];
   onSelect: (date: Date) => void;
@@ -16,8 +16,10 @@ export interface DateSelectFeatureProps {
 }
 
 export const DateSelectPropTypes = createComponentPropTypes<DateSelectFeatureProps>({
-  year: PropTypes.number.isRequired,
-  month: PropTypes.number.isRequired,
+  yearMonth: PropTypes.shape({
+    year: PropTypes.number.isRequired,
+    month: PropTypes.number.isRequired,
+  }),
   selectedDates: PropTypes.arrayOf(PropTypes.instanceOf(Date).isRequired),
   onSelect: PropTypes.func.isRequired,
   hoverDate: PropTypes.instanceOf(Date),
@@ -47,7 +49,7 @@ export const DateSelect = UUIFunctionComponent({
   }, [])
 
   const dateInfo = useMemo(() => {
-    const yearMonth = set(new Date, { year: props.year, month: props.month-1 })
+    const yearMonth = set(new Date, { year: props.yearMonth.year, month: props.yearMonth.month-1 })
 
     const firstDayInMonth = startOfMonth(yearMonth)
     const weekdayOfFirstDayInMonth = getDay(firstDayInMonth)
@@ -90,7 +92,7 @@ export const DateSelect = UUIFunctionComponent({
       weekdays,
       days
     }
-  }, [props.year, props.month, props.selectedDates, betweenIncludeDates])
+  }, [props.yearMonth, props.selectedDates, betweenIncludeDates])
 
   return (
     <Root>

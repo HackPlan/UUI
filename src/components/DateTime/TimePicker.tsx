@@ -8,7 +8,7 @@ import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
-import { getDateFromTimeValue, getTimeValue, formatTimeValue, tryParseTimeFromString } from './TimeUtils';
+import { getDateFromTimeValue, getTimeValue, formatTimeValue, tryParseTimeFromString } from './utils/TimeUtils';
 
 
 export type TimePickerShortCut = DateTimeShortcutOption<Date>;
@@ -184,7 +184,7 @@ export const TimePicker = UUIFunctionComponent({
   )
 })
 
-export function getInnerValue(date: Date | null): TimePickerPendingValue {
+function getInnerValue(date: Date | null): TimePickerPendingValue {
   const time = getTimeValue(date)
   return {
     ...time,

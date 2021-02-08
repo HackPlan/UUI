@@ -1,7 +1,7 @@
 import { parse, format, set } from "date-fns"
-import { TimeSelectValue } from "./TimeSelect"
+import { TimeSelectValue } from "../TimeSelect"
 
-export const DEFAULT_FORMAT_TOKEN = "HH:mm:ss"
+export const DEFAULT_TIME_FORMAT_TOKEN = "HH:mm:ss"
 
 export function getTimeValue(date: Date | null): TimeSelectValue {
   return {
@@ -12,7 +12,7 @@ export function getTimeValue(date: Date | null): TimeSelectValue {
 }
 export function formatTimeFromDate(date: Date | null) {
   if (date === null) return ''
-  return format(date, DEFAULT_FORMAT_TOKEN)
+  return format(date, DEFAULT_TIME_FORMAT_TOKEN)
 }
 export function getDateFromTimeValue(time: TimeSelectValue) {
   return set(new Date(0), { hours: time.hour, minutes: time.minute, seconds: time.second })
@@ -23,7 +23,7 @@ export function formatTimeValue(time: TimeSelectValue | null) {
   return formatTimeFromDate(date)
 }
 export function tryParseTimeFromString(dateString: string) {
-  const result = parse(dateString, DEFAULT_FORMAT_TOKEN, new Date(0))
+  const result = parse(dateString, DEFAULT_TIME_FORMAT_TOKEN, new Date(0))
   if (isNaN(result.getTime())) throw new Error('time_string_parse_failed');
   return result
 }

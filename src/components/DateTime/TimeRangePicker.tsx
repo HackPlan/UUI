@@ -9,7 +9,7 @@ import { TextField as UUITextField } from '../Input/TextField';
 import { DateTimeShortcutOption, DateTimeShortcutOptionPropTypes } from './DateTimeShortcut';
 import { usePendingValue } from '../../hooks/usePendingValue';
 import { Icons } from '../../icons/Icons';
-import { getTimeValue, formatTimeFromDate, getDateFromTimeValue, tryParseTimeFromString, formatTimeValue } from './TimeUtils';
+import { getTimeValue, formatTimeFromDate, getDateFromTimeValue, tryParseTimeFromString, formatTimeValue } from './utils/TimeUtils';
 
 export type TimeRangePickerValue = [Date, Date];
 export type TimeRangePickerShortCut = DateTimeShortcutOption<TimeRangePickerValue>;

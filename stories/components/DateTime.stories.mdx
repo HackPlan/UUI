@@ -1,5 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { DatePicker, DateRangePicker, TimePicker, TimeRangePicker } from '../../src';
+import { DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker } from '../../src';
 import { useState } from 'react';
 import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, set } from 'date-fns'
 
@@ -103,6 +103,30 @@ import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, sta
   </Story>
 </Canvas>
 
+### 日期时间选择器 DateTimePicker
+
+<Canvas>
+  <Story name="DateTimePicker">
+    {() => {
+      const [selectedDate, setSelectedDate] = useState(null)
+      return (
+        <div>
+          <DateTimePicker
+            placeholder={"请选择日期和时间"}
+            value={selectedDate}
+            onChange={(value) => { console.log('onchange', value); setSelectedDate(value) }}
+            shortcuts={[
+              { label: '今天', value: () => startOfToday() },
+              { label: '明天', value: () => startOfTomorrow() },
+              { label: '下周一', value: () => setDay(add(new Date(), { weeks: 1 }), 1) },
+            ]}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
 ### Props
 
-<ArgsTable components={{ DatePicker, DateRangePicker, TimePicker }} />
+<ArgsTable components={{ DatePicker, DateRangePicker, TimePicker, DateTimePicker }} />

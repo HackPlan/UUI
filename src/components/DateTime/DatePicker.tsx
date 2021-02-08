@@ -130,8 +130,7 @@ export const DatePicker = UUIFunctionComponent({
               onChange={(value) => { setYearMonth(value) }}
             />
             <DateSelect
-              year={yearMonth.year}
-              month={yearMonth.month}
+              yearMonth={yearMonth}
               selectedDates={props.value ? [props.value] : []}
               onSelect={handleOnSelect}
             />

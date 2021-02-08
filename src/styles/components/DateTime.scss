@@ -74,7 +74,7 @@
  **************************************/
 
 .UUI-YearMonthSelect-Root {
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
 
   .UUI-YearMonthSelect-Container {
@@ -296,6 +296,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 
   .UUI-TimeSelect-OptionList {
     height: var(--option-list-height);
@@ -513,5 +514,83 @@
     display: flex;
     flex-direction: column;
     padding-left: 1rem;
+  }
+}
+
+/**************************************
+ * DateTimePicker
+ **************************************/
+
+.UUI-DateTimePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-DateTimePicker-CalendarIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-DateTimePicker-Activator {
+    display: flex;
+
+    .UUI-DateTimePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 180px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.UUI-DateTimePicker-Container {
+  display: flex;
+  flex-direction: column;
+
+  .UUI-DateTimePicker-Main {
+    display: flex;
+    flex-direction: row;
+    max-height: 300px;
+
+    .UUI-DateTimePicker-DateTimeShortcut {
+      height: 100%;
+      overflow-y: auto;
+      box-sizing: border-box;
+      max-width: 120px;
+    }
+
+    .UUI-DateTimePicker-SelectZone {
+      display: flex;
+      flex-direction: column;
+
+      .UUI-DateTimePicker-YearMonthSelect {
+        padding: 0.5rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .UUI-DateTimePicker-Section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .UUI-DateTimePicker-DateSelect {
+          padding: 0.5rem;
+          border-right: 1px solid #e4e7ed;
+        }
+        .UUI-DateTimePicker-TimeSelect {
+          margin: 0.5rem;
+        }
+      }
+    }
+
   }
 }

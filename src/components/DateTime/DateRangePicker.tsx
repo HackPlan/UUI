@@ -266,8 +266,7 @@ export const DateRangePicker = UUIFunctionComponent({
                 onChange={handleStartYearMonthSelect}
               />
               <DateSelect
-                year={innerValue.startYearMonth.year}
-                month={innerValue.startYearMonth.month}
+                yearMonth={innerValue.startYearMonth}
                 selectedDates={compact([innerValue.startValue, innerValue.endValue])}
                 onSelect={handleDateSelect}
                 hoverDate={hoverDate}
@@ -280,8 +279,7 @@ export const DateRangePicker = UUIFunctionComponent({
                 onChange={handleEndYearMonthSelect}
               />
               <DateSelect
-                year={innerValue.endYearMonth.year}
-                month={innerValue.endYearMonth.month}
+                yearMonth={innerValue.endYearMonth}
                 selectedDates={compact([innerValue.startValue, innerValue.endValue])}
                 onSelect={handleDateSelect}
                 hoverDate={hoverDate}
