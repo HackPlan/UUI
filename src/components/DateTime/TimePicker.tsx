@@ -1,14 +1,16 @@
-import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
-import { TimeSelect as UUITimeSelect, TimeSelectValue } from './TimeSelect';
+import { TimeSelect as UUITimeSelect } from './TimeSelect';
 import { DateTimeShortcut as UUIDateTimeShortcut, DateTimeShortcutOption, DateTimeShortcutOptionPropTypes } from './DateTimeShortcut';
 import { PickerButtons as UUIPickerButtons } from './PickerButtons';
 import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
-import { getDateFromTimeValue, getTimeValue, formatTimeValue, tryParseTimeFromString } from './utils/TimeUtils';
+import { tryParseTimeFromString, formatTime } from './utils/TimeUtils';
+import { set } from 'date-fns';
+import { getZeroDate } from './utils/DateTimeUtils';
 
 
 export type TimePickerShortCut = DateTimeShortcutOption<Date>;
@@ -30,7 +32,8 @@ export const TimePickerPropTypes = createComponentPropTypes<TimePickerFeaturePro
   cancelLabel: PropTypes.node,
 })
 
-interface TimePickerPendingValue extends TimeSelectValue {
+interface TimePickerInnerValue {
+  date: Date | null;
   input: string;
 }
 
@@ -61,65 +64,69 @@ export const TimePicker = UUIFunctionComponent({
   const [active, setActive] = useState(false)
 
   const initialInnerValue = useMemo(() => {
-    return getInnerValue(props.value)
+    return {
+      date: props.value,
+      input: props.value === null ? '' : formatTime(props.value),
+    }
   }, [props.value])
-  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<TimePickerPendingValue>(initialInnerValue, (value) => {
-    props.onChange(getDateFromTimeValue(value))
-  })
+  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<TimePickerInnerValue>(initialInnerValue, (value) => {
+    props.onChange(value.date)
+  }, { resetWhenInitialValueChanged: true })
 
-  useEffect(() => {
-    setInnerValue(getInnerValue(props.value))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.value])
-
-  const timeSelectScrollToValue = useCallback((value: TimeSelectValue, animate?: boolean) => {
+  const timeSelectScrollToValue = useCallback((value: Date, animate?: boolean) => {
     if (timeSelectRef.current) {
       timeSelectRef.current.scrollToValue(value, animate)
     }
   }, [])
   const openPopover = useCallback(() => { setActive(true) }, [])
-  const closePopover = useCallback(() => {
-    timeSelectScrollToValue(getTimeValue(props.value), false)
-    setActive(false)
-  }, [props.value, timeSelectScrollToValue])
+  const closePopover = useCallback(() => { setActive(false) }, [])
   const handleValueOnChange = useCallback((value: Date | null) => {
     props.onChange(value)
   }, [props])
   const handleInputOnSubmit = useCallback(() => {
-    const originalInput = formatTimeValue(innerValue)
+    const originalInput = formatTime(innerValue.date)
     const input = innerValue.input
     if (originalInput === input) return;
     try {
       if (input === '') {
         handleValueOnChange(null)
-        timeSelectScrollToValue(getTimeValue(null))
+        timeSelectScrollToValue(getZeroDate())
       } else {
         const result = tryParseTimeFromString(input)
         handleValueOnChange(result)
-        timeSelectScrollToValue(getTimeValue(result))
+        timeSelectScrollToValue(result)
       }
     } catch {
       resetInnerValue()
     }
   }, [handleValueOnChange, innerValue, resetInnerValue, timeSelectScrollToValue])
-  const handleTimeSelect = useCallback((value: TimeSelectValue) => {
-    setInnerValue((oldValue) => ({
-      ...oldValue,
-      ...value,
-      input: formatTimeValue(value),
-    }))
+  const handleTimeSelect = useCallback((value: Date) => {
+    setInnerValue((oldValue) => {
+      const newDate = set(oldValue.date || getZeroDate(), {
+        hours: value.getHours(),
+        minutes: value.getMinutes(),
+        seconds: value.getSeconds(),
+      })
+      const newInput = formatTime(newDate)
+      return { date: newDate, input: newInput }
+    })
   }, [setInnerValue])
   const handleShortcutSelect = useCallback((date: Date) => {
     props.onChange(date)
+    timeSelectScrollToValue(date || getZeroDate(), false)
     closePopover()
-  }, [closePopover, props])
+  }, [closePopover, props, timeSelectScrollToValue])
 
   return (
     <Root>
       <Popover
         placement={'bottom-start'}
         active={active}
-        onClickAway={() => { closePopover(); resetInnerValue(); }}
+        onClickAway={() => {
+          resetInnerValue();
+          timeSelectScrollToValue(props.value || getZeroDate(), false)
+          setTimeout(() => { closePopover() }, 10)
+        }}
         activator={
           <Activator>
             <TextField
@@ -160,21 +167,21 @@ export const TimePicker = UUIFunctionComponent({
           <Main>
             <TimeSelect
               ref={timeSelectRef}
-              value={innerValue}
+              value={innerValue.date || getZeroDate()}
               onChange={handleTimeSelect}
             />
             <PickerButtons
               confirmLabel={props.confirmLabel}
               cancelLabel={props.cancelLabel}
               onCancel={() => {
-                closePopover()
                 resetInnerValue()
+                timeSelectScrollToValue(props.value || getZeroDate(), false)
+                setTimeout(() => { closePopover() }, 10)
               }}
               onConfirm={() => {
                 setInnerValue((value) => value, true)
-                setTimeout(() => {
-                  closePopover()
-                }, 100)
+                timeSelectScrollToValue(innerValue.date || getZeroDate(), false)
+                setTimeout(() => { closePopover() }, 10)
               }}
             />
           </Main>
@@ -183,13 +190,5 @@ export const TimePicker = UUIFunctionComponent({
     </Root>
   )
 })
-
-function getInnerValue(date: Date | null): TimePickerPendingValue {
-  const time = getTimeValue(date)
-  return {
-    ...time,
-    input: date === null ? '' : formatTimeValue(time),
-  }
-}
 
 export type TimePickerProps = UUIFunctionComponentProps<typeof TimePicker>

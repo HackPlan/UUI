@@ -2,24 +2,18 @@ import React, { useCallback, useMemo, useRef, useState, useImperativeHandle } fr
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
 import { range, debounce, padStart } from 'lodash-es';
+import { set } from 'date-fns';
 
-export interface TimeSelectValue {
-  hour: number;
-  minute: number;
-  second: number;
-}
+const TimeSelectTypeArray = ['hours', 'minutes', 'seconds'] as const;
+type TimeSelectType = typeof TimeSelectTypeArray[number]
+
 export interface TimeSelectFeatureProps {
-  value: TimeSelectValue | null;
-  onChange: (value: TimeSelectValue) => void;
+  value: Date;
+  onChange: (value: Date) => void;
 }
 
-export const TimeSelectValuePropTypes = PropTypes.shape({
-  hour: PropTypes.number.isRequired,
-  minute: PropTypes.number.isRequired,
-  second: PropTypes.number.isRequired,
-})
 export const TimeSelectPropTypes = createComponentPropTypes<TimeSelectFeatureProps>({
-  value: TimeSelectValuePropTypes,
+  value: PropTypes.instanceOf(Date).isRequired,
   onChange: PropTypes.func.isRequired,
 })
 
@@ -39,17 +33,19 @@ export const TimeSelect = UUIFunctionComponent({
     OptionList, Option,
   } = nodes
 
-  const propsValue = useMemo(() => {
-    return props.value || { hour: 0, minute: 0, second: 0 }
-  }, [props.value])
-
   const allOptions = useMemo(() => {
     return {
-      hour: range(0, 24),
-      minute: range(0, 60),
-      second: range(0, 60),
+      hours: range(0, 24),
+      minutes: range(0, 60),
+      seconds: range(0, 60),
     }
   }, [])
+
+  const activeOptionValue = {
+    hours: props.value.getHours(),
+    minutes: props.value.getMinutes(),
+    seconds: props.value.getSeconds(),
+  }
 
   const [disableHandleScroll, setDisableHandleScroll] = useState(false)
   const hourListRef = useRef<HTMLDivElement | null>(null)
@@ -61,23 +57,26 @@ export const TimeSelect = UUIFunctionComponent({
     const optionHeightPx = styles.getPropertyValue('--option-height')
     return Number(optionHeightPx.replace('px', ''))
   }, [])
-  const scrollToSingleValue = useCallback((type: keyof TimeSelectValue, value: number, animate = true) => {
-    const ref = { hour: hourListRef, minute: minuteListRef, second: secondListRef }[type]
-    if (ref.current) {
+  const scrollToValue = useCallback((value: Date, animate?: boolean) => {
+    setDisableHandleScroll(true)
+    const targetScrollTo = (ref: React.MutableRefObject<HTMLDivElement | null>, value: number, animate?: boolean) => {
       const target = ref.current as HTMLElement
       const itemHeight = getItemHeight(target)
       target.scrollTo({ top: value * itemHeight, behavior: animate ? "smooth" : "auto" })
     }
-  }, [getItemHeight])
-  const scrollToValue = useCallback((value: TimeSelectValue, animate?: boolean) => {
-    setDisableHandleScroll(true)
-    scrollToSingleValue('hour', value.hour, animate)
-    scrollToSingleValue('minute', value.minute, animate)
-    scrollToSingleValue('second', value.second, animate)
+    if (props.value && props.value.getHours() !== value.getHours()) {
+      targetScrollTo(hourListRef, value.getHours(), animate)
+    }
+    if (props.value && props.value.getMinutes() !== value.getMinutes()) {
+      targetScrollTo(minuteListRef, value.getMinutes(), animate)
+    }
+    if (props.value && props.value.getSeconds() !== value.getSeconds()) {
+      targetScrollTo(secondListRef, value.getSeconds(), animate)
+    }
     setTimeout(() => {
       setDisableHandleScroll(false)
     }, 500)
-  }, [scrollToSingleValue])
+  }, [getItemHeight, props.value])
 
   useImperativeHandle(ref, () => {
     return {
@@ -89,13 +88,13 @@ export const TimeSelect = UUIFunctionComponent({
     target.scrollTo({ top, behavior: "smooth" })
   }, [])
 
-  const debouncedScrollTo = useRef({
-    hour: debounce(scrollTo, 300),
-    minute: debounce(scrollTo, 300),
-    second: debounce(scrollTo, 300),
-})
+  const debouncedScrollOnChange = useRef({
+    hours: debounce(scrollTo, 300),
+    minutes: debounce(scrollTo, 300),
+    seconds: debounce(scrollTo, 300),
+  })
 
-  const handleScroll = useCallback((type: keyof TimeSelectValue) => {
+  const handleScroll = useCallback((type: TimeSelectType) => {
     if (disableHandleScroll) return;
     const options = allOptions[type]
     return (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
@@ -105,13 +104,10 @@ export const TimeSelect = UUIFunctionComponent({
       const currentIndex = Math.round((scrollTop) / itemHeight)
 
       const newValue = options[currentIndex];
-      if (propsValue[type] !== newValue) {
-        props.onChange({ ...propsValue, [type]: newValue })
-      }
-
-      debouncedScrollTo.current[type](target, currentIndex * itemHeight)
+      props.onChange(set(props.value, { [type]: newValue }))
+      debouncedScrollOnChange.current[type](target, currentIndex * itemHeight)
     }
-  }, [allOptions, disableHandleScroll, getItemHeight, props, propsValue])
+  }, [allOptions, disableHandleScroll, getItemHeight, props])
 
   return (
     <Root>
@@ -127,20 +123,17 @@ export const TimeSelect = UUIFunctionComponent({
               onScroll={handleScroll(type)}
             >
               {allOptions[type].map((option) => {
-                const active = propsValue[type] === option;
+                const active = activeOptionValue[type] === option
                 return (
                   <Option
                     {...NodeDataProps({
                       'active': active,
                     })}
-                    key={option}
+                    key={`${type}-${option}`}
                     onClick={() => {
-                      const newValue = Object.assign({}, {
-                        ...propsValue,
-                        [type]: option,
-                      })
+                      const newValue = set(props.value, { [type]: option })
                       props.onChange(newValue)
-                      scrollToSingleValue(type, option)
+                      scrollToValue(newValue)
                     }}
                   >{padStart(String(option), 2, '0')}</Option>
                 )
@@ -153,7 +146,5 @@ export const TimeSelect = UUIFunctionComponent({
     </Root>
   )
 })
-
-const TimeSelectTypeArray = ['hour', 'minute', 'second'] as const;
 
 export type TimeSelectProps = UUIFunctionComponentProps<typeof TimeSelect>

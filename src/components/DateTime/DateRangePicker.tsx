@@ -1,16 +1,17 @@
-import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
-import { YearMonthSelect as UUIYearMonthSelect, YearMonthSelectValue } from './YearMonthSelect';
+import { YearMonthSelect as UUIYearMonthSelect } from './YearMonthSelect';
 import { DateSelect as UUIDateSelect } from './DateSelect';
 import { DateTimeShortcut as UUIDateTimeShortcut } from './DateTimeShortcut';
 import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
-import { format, parseISO, set, isAfter, startOfMonth, add, isBefore, isSameMonth } from 'date-fns';
+import { isAfter, startOfMonth, add, isBefore, isSameMonth } from 'date-fns';
 import { DateTimeShortcutOption, DateTimeShortcutOptionPropTypes } from './DateTimeShortcut';
 import { usePendingValue } from '../../hooks/usePendingValue';
 import { Icons } from '../../icons/Icons';
 import { compact } from 'lodash-es';
+import { formatDate, tryParseDateFromString } from './utils/DateUtils';
 
 export type DateRangePickerValue = [Date, Date];
 export type DateRangePickerShortCut = DateTimeShortcutOption<DateRangePickerValue>;
@@ -30,13 +31,14 @@ export const DateRangePickerPropTypes = createComponentPropTypes<DateRangePicker
   endPlaceholder: PropTypes.string,
 })
 
-interface DateRangePickerPendingValue {
-  startValue: Date | null;
-  endValue: Date | null;
+interface DateRangePickerInnerValue {
+  startYearMonth: Date;
+  endYearMonth: Date;
+  startDate: Date | null;
+  endDate: Date | null;
   startInput: string;
   endInput: string;
-  startYearMonth: YearMonthSelectValue;
-  endYearMonth: YearMonthSelectValue;
+
 }
 
 export const DateRangePicker = UUIFunctionComponent({
@@ -72,20 +74,32 @@ export const DateRangePicker = UUIFunctionComponent({
 
   const [hoverDate, setHoverDate] = useState<Date>()
 
-  const initialInnerValue = useMemo(() => {
-    return getInnerValue(props.value)
+  const initialInnerValue = useMemo<DateRangePickerInnerValue>(() => {
+    if (props.value === null) {
+      return {
+        startDate: null,
+        endDate: null,
+        startInput: '',
+        endInput: '',
+        startYearMonth: startOfMonth(new Date),
+        endYearMonth: add(startOfMonth(new Date), { months: 1 }),
+      }
+    }
+    return {
+      startDate: props.value[0],
+      endDate: props.value[1],
+      startInput: formatDate(props.value[0]),
+      endInput: formatDate(props.value[1]),
+      startYearMonth: startOfMonth(props.value[0]),
+      endYearMonth: isSameMonth(props.value[0], props.value[1]) ? add(startOfMonth(props.value[1]), { months: 1 }) : props.value[1],
+    }
   }, [props.value])
-  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<DateRangePickerPendingValue>(initialInnerValue, (value) => {
-    if (value.startValue && value.endValue) {
-      handleValueOnChange([value.startValue, value.endValue])
+  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<DateRangePickerInnerValue>(initialInnerValue, (value) => {
+    if (value.startDate && value.endDate) {
+      handleValueOnChange([value.startDate, value.endDate])
       setActive(false)
     }
-  })
-
-  useEffect(() => {
-    return setInnerValue(getInnerValue(props.value))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.value])
+  }, { resetWhenInitialValueChanged: true })
 
   const handleValueOnChange = useCallback((value: [Date, Date] | null) => {
     const sortedValue = value?.sort((i, j) => Number(i) - Number(j)) || null
@@ -95,7 +109,7 @@ export const DateRangePicker = UUIFunctionComponent({
    *
    */
   const handleInputOnSubmit = useCallback((type: 'start' | 'end') => {
-    if (innerValue.startValue && innerValue.endValue) {
+    if (innerValue.startDate && innerValue.endDate) {
       const originalInput = formatDate(props.value && (type === 'start' ? props.value[0] : props.value[1]))
       const input = type === 'start' ? innerValue.startInput : innerValue.endInput
       if (originalInput === input) return;
@@ -104,41 +118,41 @@ export const DateRangePicker = UUIFunctionComponent({
           handleValueOnChange(null)
         } else {
           const result = tryParseDateFromString(input)
-          handleValueOnChange(type === 'start' ? [result, innerValue.endValue] : [innerValue.startValue, result])
+          handleValueOnChange(type === 'start' ? [result, innerValue.endDate] : [innerValue.startDate, result])
         }
       } catch {
         resetInnerValue()
       }
     }
-  }, [handleValueOnChange, innerValue.endInput, innerValue.endValue, innerValue.startInput, innerValue.startValue, props.value, resetInnerValue])
+  }, [handleValueOnChange, innerValue.endInput, innerValue.endDate, innerValue.startInput, innerValue.startDate, props.value, resetInnerValue])
   /**
    * handle user change year or month in YearMonthSelect.
    */
-  const handleStartYearMonthSelect = useCallback((value: YearMonthSelectValue) => {
+  const handleStartYearMonthSelect = useCallback((value: Date) => {
     setInnerValue((oldValue) => {
-      const startYearMonthDate = getDateFromYearMonth(value)
-      let endYearMonthDate = getDateFromYearMonth(oldValue.endYearMonth)
+      const startYearMonthDate = value
+      let endYearMonthDate = oldValue.endYearMonth
       if (!isBefore(startYearMonthDate, endYearMonthDate)) {
         endYearMonthDate = add(startYearMonthDate, { months: 1 })
       }
       return {
         ...oldValue,
-        startYearMonth: getYearMonthFromDate(startYearMonthDate),
-        endYearMonth: getYearMonthFromDate(endYearMonthDate),
+        startYearMonth: startYearMonthDate,
+        endYearMonth: endYearMonthDate,
       }
     })
   }, [setInnerValue])
-  const handleEndYearMonthSelect = useCallback((value: YearMonthSelectValue) => {
+  const handleEndYearMonthSelect = useCallback((value: Date) => {
     setInnerValue((oldValue) => {
-      const endYearMonthDate = getDateFromYearMonth(value)
-      let startYearMonthDate = getDateFromYearMonth(oldValue.startYearMonth)
+      const endYearMonthDate = value
+      let startYearMonthDate = oldValue.startYearMonth
       if (!isAfter(endYearMonthDate, startYearMonthDate)) {
         startYearMonthDate = add(endYearMonthDate, { months: -1 })
       }
       return {
         ...oldValue,
-        startYearMonth: getYearMonthFromDate(startYearMonthDate),
-        endYearMonth: getYearMonthFromDate(endYearMonthDate),
+        startYearMonth: startYearMonthDate,
+        endYearMonth: endYearMonthDate,
       }
     })
   }, [setInnerValue])
@@ -147,8 +161,8 @@ export const DateRangePicker = UUIFunctionComponent({
    */
   const handleDateSelect = useCallback((value: Date) => {
     let shouldSubmit = false
-    let newStartValue = innerValue.startValue
-    let newEndValue = innerValue.endValue
+    let newStartValue = innerValue.startDate
+    let newEndValue = innerValue.endDate
     if (
       (newStartValue !== null && newEndValue !== null) ||
       (newStartValue === null && newEndValue === null)
@@ -173,13 +187,13 @@ export const DateRangePicker = UUIFunctionComponent({
     setInnerValue((oldValue) => {
       return {
         ...oldValue,
-        startValue: newStartValue,
+        startDate: newStartValue,
         startInput: formatDate(newStartValue),
-        endValue: newEndValue,
+        endDate: newEndValue,
         endInput: formatDate(newEndValue),
       }
     }, shouldSubmit)
-  }, [innerValue.endValue, innerValue.startValue, setInnerValue, whichFocusing])
+  }, [innerValue.endDate, innerValue.startDate, setInnerValue, whichFocusing])
 
   return (
     <Root>
@@ -267,7 +281,7 @@ export const DateRangePicker = UUIFunctionComponent({
               />
               <DateSelect
                 yearMonth={innerValue.startYearMonth}
-                selectedDates={compact([innerValue.startValue, innerValue.endValue])}
+                selectedDates={compact([innerValue.startDate, innerValue.endDate])}
                 onSelect={handleDateSelect}
                 hoverDate={hoverDate}
                 onHoverDateChange={(date) => { setHoverDate(date) }}
@@ -280,7 +294,7 @@ export const DateRangePicker = UUIFunctionComponent({
               />
               <DateSelect
                 yearMonth={innerValue.endYearMonth}
-                selectedDates={compact([innerValue.startValue, innerValue.endValue])}
+                selectedDates={compact([innerValue.startDate, innerValue.endDate])}
                 onSelect={handleDateSelect}
                 hoverDate={hoverDate}
                 onHoverDateChange={(date) => { setHoverDate(date) }}
@@ -292,42 +306,5 @@ export const DateRangePicker = UUIFunctionComponent({
     </Root>
   )
 })
-export type DateRangePickerProps = UUIFunctionComponentProps<typeof DateRangePicker>
 
-function getDateFromYearMonth(value: YearMonthSelectValue) {
-  return set(startOfMonth(new Date()), { year: value.year, month: value.month-1 })
-}
-function getYearMonthFromDate(date: Date | null) {
-  return {
-    year: (date || new Date()).getFullYear(),
-    month: (date || new Date()).getMonth()+1,
-  }
-}
-function formatDate(date: Date | null) {
-  return date === null ? '' : format(date, 'yyyy-MM-dd')
-}
-function tryParseDateFromString(dateString: string) {
-  const result = parseISO(dateString)
-  if (isNaN(result.getTime())) throw new Error('date_string_parse_failed');
-  return result
-}
-function getInnerValue(value: DateRangePickerValue | null): DateRangePickerPendingValue {
-  if (value === null) {
-    return {
-      startValue: null,
-      endValue: null,
-      startInput: '',
-      endInput: '',
-      startYearMonth: getYearMonthFromDate(startOfMonth(new Date)),
-      endYearMonth: getYearMonthFromDate(add(startOfMonth(new Date), { months: 1 })),
-    }
-  }
-  return {
-    startValue: value[0],
-    endValue: value[1],
-    startInput: formatDate(value[0]),
-    endInput: formatDate(value[1]),
-    startYearMonth: getYearMonthFromDate(startOfMonth(value[0])),
-    endYearMonth: getYearMonthFromDate(isSameMonth(value[0], value[1]) ? add(startOfMonth(value[1]), { months: 1 }) : value[1]),
-  }
-}
+export type DateRangePickerProps = UUIFunctionComponentProps<typeof DateRangePicker>

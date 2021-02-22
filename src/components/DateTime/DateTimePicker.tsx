@@ -1,18 +1,16 @@
-import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
-import { YearMonthSelect as UUIYearMonthSelect, YearMonthSelectValue } from './YearMonthSelect';
+import { YearMonthSelect as UUIYearMonthSelect } from './YearMonthSelect';
 import { DateSelect as UUIDateSelect } from './DateSelect';
-import { TimeSelect as UUITimeSelect, TimeSelectValue } from './TimeSelect';
+import { TimeSelect as UUITimeSelect } from './TimeSelect';
 import { DateTimeShortcut as UUIDateTimeShortcut } from './DateTimeShortcut';
 import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
 import { DateTimeShortcutOption, DateTimeShortcutOptionPropTypes } from './DateTimeShortcut';
 import { Icons } from '../../icons/Icons';
 import { usePendingValue } from '../../hooks/usePendingValue';
-import { formatDateTime, tryParseDateTimeFromString, getDay as getDate } from './utils/DateTimeUtils';
-import { getYearMonth } from './utils/YearMonthUtils';
-import { getTimeValue } from './utils/TimeUtils';
+import { formatDateTime, tryParseDateTimeFromString, getZeroDate } from './utils/DateTimeUtils';
 import { set } from 'date-fns';
 import { PickerButtons } from './PickerButtons';
 
@@ -31,8 +29,8 @@ export const DateTimePickerPropTypes = createComponentPropTypes<DateTimePickerFe
   placeholder: PropTypes.string,
 })
 
-type DateTimePickerPendingValue = TimeSelectValue & YearMonthSelectValue & {
-  date?: number;
+interface DateTimePickerInnerValue {
+  date: Date | null;
   input: string;
 }
 
@@ -64,38 +62,33 @@ export const DateTimePicker = UUIFunctionComponent({
 
   const timeSelectRef = useRef<any | null>(null)
   const [active, setActive] = useState(false)
-  const [yearMonth, setYearMonth] = useState<YearMonthSelectValue>(getYearMonth(props.value))
+  const [yearMonth, setYearMonth] = useState<Date>(props.value || new Date())
 
   const initialInnerValue = useMemo(() => {
-    return getInnerValue(props.value)
+    return {
+      date: props.value,
+      input: props.value === null ? '' : formatDateTime(props.value),
+    }
   }, [props.value])
-  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<DateTimePickerPendingValue>(initialInnerValue, (value) => {
-    props.onChange(getDateFromInnerValue(value))
-  })
+  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<DateTimePickerInnerValue>(initialInnerValue, (value) => {
+    props.onChange(value.date)
+  }, { resetWhenInitialValueChanged: true })
 
-  useEffect(() => {
-    setInnerValue(getInnerValue(props.value))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.value])
-
-  const timeSelectScrollToValue = useCallback((value: TimeSelectValue, animate?: boolean) => {
+  const timeSelectScrollToValue = useCallback((value: Date, animate?: boolean) => {
     if (timeSelectRef.current) {
       timeSelectRef.current.scrollToValue(value, animate)
     }
   }, [])
   const openPopover = useCallback(() => { setActive(true) }, [])
-  const closePopover = useCallback(() => {
-    timeSelectScrollToValue(getTimeValue(props.value), false)
-    setActive(false)
-  }, [props.value, timeSelectScrollToValue])
-  const handleUserValueChange = useCallback((date: Date | null) => {
-    props.onChange(date)
-    setYearMonth(getYearMonth(date))
+  const closePopover = useCallback(() => { setActive(false) }, [])
+  const handleUserValueChange = useCallback((value: Date | null) => {
+    props.onChange(value)
+    setYearMonth(value || new Date())
   }, [props])
   const handleUserInputChange = useCallback((value: string) => {
     if (value === '') {
       handleUserValueChange(null)
-      timeSelectScrollToValue(getTimeValue(null))
+      timeSelectScrollToValue(getZeroDate())
     } else {
       setInnerValue((oldValue) => ({ ...oldValue, input: value }))
     }
@@ -103,47 +96,55 @@ export const DateTimePicker = UUIFunctionComponent({
   const handleUserInputCommit = useCallback(() => {
     const input = innerValue.input
     if (input === '') return;
-    const originalInput = formatDateTime(getDateFromInnerValue(innerValue))
+    const originalInput = formatDateTime(innerValue.date)
     if (originalInput === input) return;
     try {
       const result = tryParseDateTimeFromString(input)
       handleUserValueChange(result)
-      timeSelectScrollToValue(getTimeValue(result))
+      timeSelectScrollToValue(result)
     } catch {
       resetInnerValue()
     }
   }, [handleUserValueChange, innerValue, resetInnerValue, timeSelectScrollToValue])
   const handleDateSelect = useCallback((value: Date) => {
     setInnerValue((oldValue) => {
-      const newValue = {
-        ...oldValue,
-        ...getYearMonth(value),
-        date: getDate(value),
-      }
-      const newInput = formatDateTime(getDateFromInnerValue(newValue))
-      return { ...newValue, input: newInput }
+      const newDate = set(oldValue.date || new Date(), {
+        year: value.getFullYear(),
+        month: value.getMonth(),
+        date: value.getDate(),
+      })
+      const newInput = formatDateTime(newDate)
+      return { date: newDate, input: newInput }
     })
   }, [setInnerValue])
-  const handleTimeSelect = useCallback((value: TimeSelectValue) => {
+  const handleTimeSelect = useCallback((value: Date) => {
     setInnerValue((oldValue) => {
-      const newValue = { ...oldValue, ...value, }
-      return {
-        ...newValue,
-        input: formatDateTime(getDateFromInnerValue(newValue)),
-      }
+      const newDate = set(oldValue.date || new Date(), {
+        hours: value.getHours(),
+        minutes: value.getMinutes(),
+        seconds: value.getSeconds(),
+        milliseconds: value.getMilliseconds(),
+      })
+      const newInput = formatDateTime(newDate)
+      return { date: newDate, input: newInput }
     })
   }, [setInnerValue])
   const handleShortcutSelect = useCallback((date: Date) => {
     props.onChange(date)
-    closePopover()
-  }, [closePopover, props])
+    timeSelectScrollToValue(date || getZeroDate(), false)
+    setTimeout(() => { closePopover() }, 10)
+  }, [closePopover, props, timeSelectScrollToValue])
 
   return (
     <Root>
       <Popover
         placement={'bottom-start'}
         active={active}
-        onClickAway={() => { closePopover(); resetInnerValue(); }}
+        onClickAway={() => {
+          resetInnerValue();
+          timeSelectScrollToValue(props.value || getZeroDate(), false)
+          setTimeout(() => { closePopover() }, 10)
+        }}
         activator={
           <Activator>
             <TextField
@@ -188,12 +189,12 @@ export const DateTimePicker = UUIFunctionComponent({
               <Section>
                 <DateSelect
                   yearMonth={yearMonth}
-                  selectedDates={[getDateFromInnerValue(innerValue)]}
+                  selectedDates={innerValue.date ? [innerValue.date] : []}
                   onSelect={handleDateSelect}
                 />
                 <TimeSelect
                   ref={timeSelectRef}
-                  value={innerValue}
+                  value={innerValue.date || getZeroDate()}
                   onChange={handleTimeSelect}
                 />
               </Section>
@@ -203,14 +204,14 @@ export const DateTimePicker = UUIFunctionComponent({
             // confirmLabel={props.confirmLabel}
             // cancelLabel={props.cancelLabel}
             onCancel={() => {
-              closePopover()
               resetInnerValue()
+              timeSelectScrollToValue(props.value || getZeroDate(), false)
+              setTimeout(() => { closePopover() }, 10)
             }}
             onConfirm={() => {
               setInnerValue((value) => value, true)
-              setTimeout(() => {
-                closePopover()
-              }, 100)
+              timeSelectScrollToValue(innerValue.date || getZeroDate(), false)
+              setTimeout(() => { closePopover() }, 10)
             }}
           />
         </Container>
@@ -218,27 +219,5 @@ export const DateTimePicker = UUIFunctionComponent({
     </Root>
   )
 })
-
-function getInnerValue(date: Date | null): DateTimePickerPendingValue {
-  const yearMonth = getYearMonth(date)
-  const day = getDate(date)
-  const time = getTimeValue(date)
-  return {
-    ...yearMonth,
-    ...time,
-    date: day,
-    input: date === null ? '' : formatDateTime(date),
-  }
-}
-function getDateFromInnerValue(innerValue: DateTimePickerPendingValue) {
-  return set(new Date(0), {
-    year: innerValue.year,
-    month: innerValue.month-1,
-    date: innerValue.date,
-    hours: innerValue.hour,
-    minutes: innerValue.minute,
-    seconds: innerValue.second,
-  })
-}
 
 export type DateTimePickerProps = UUIFunctionComponentProps<typeof DateTimePicker>

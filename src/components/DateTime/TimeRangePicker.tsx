@@ -1,15 +1,18 @@
-import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
 import { DateTimeShortcut as UUIDateTimeShortcut } from './DateTimeShortcut';
-import { TimeSelect as UUITimeSelect, TimeSelectValue } from './TimeSelect';
+import { TimeSelect as UUITimeSelect } from './TimeSelect';
 import { PickerButtons as UUIPickerButtons } from './PickerButtons';
 import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
 import { DateTimeShortcutOption, DateTimeShortcutOptionPropTypes } from './DateTimeShortcut';
 import { usePendingValue } from '../../hooks/usePendingValue';
 import { Icons } from '../../icons/Icons';
-import { getTimeValue, formatTimeFromDate, getDateFromTimeValue, tryParseTimeFromString, formatTimeValue } from './utils/TimeUtils';
+import { formatTime, tryParseTimeFromString } from './utils/TimeUtils';
+import { set, isAfter } from 'date-fns';
+import { getZeroDate } from './utils/DateTimeUtils';
+import ReactHelper from '../../utils/ReactHelper';
 
 export type TimeRangePickerValue = [Date, Date];
 export type TimeRangePickerShortCut = DateTimeShortcutOption<TimeRangePickerValue>;
@@ -33,9 +36,9 @@ export const TimeRangePickerPropTypes = createComponentPropTypes<TimeRangePicker
   cancelLabel: PropTypes.node,
 })
 
-interface TimeRangePickerPendingValue {
-  startValue: TimeSelectValue | null;
-  endValue: TimeSelectValue | null;
+interface TimeRangePickerInnerValue {
+  startDate: Date | null;
+  endDate: Date | null;
   startInput: string;
   endInput: string;
 }
@@ -73,21 +76,29 @@ export const TimeRangePicker = UUIFunctionComponent({
   const [active, setActive] = useState(false)
 
   const initialInnerValue = useMemo(() => {
-    return getInnerValue(props.value)
+    if (props.value === null) {
+      return {
+        startDate: null,
+        endDate: null,
+        startInput: '',
+        endInput: '',
+      }
+    }
+    return {
+      startDate: props.value[0],
+      endDate: props.value[1],
+      startInput: formatTime(props.value[0]),
+      endInput: formatTime(props.value[1]),
+    }
   }, [props.value])
-  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<TimeRangePickerPendingValue>(initialInnerValue, (value) => {
-    if (value.startValue && value.endValue) {
-      handleValueOnChange([getDateFromTimeValue(value.startValue), getDateFromTimeValue(value.endValue)])
+  const [innerValue, setInnerValue, resetInnerValue] = usePendingValue<TimeRangePickerInnerValue>(initialInnerValue, (value) => {
+    if (value.startDate && value.endDate) {
+      handleValueOnChange([value.startDate, value.endDate])
       closePopover()
     }
-  })
+  }, { resetWhenInitialValueChanged: true })
 
-  useEffect(() => {
-    return setInnerValue(getInnerValue(props.value))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.value])
-
-  const timeSelectScrollToValue = useCallback((type: 'start' | 'end', value: TimeSelectValue, animate?: boolean) => {
+  const timeSelectScrollToValue = useCallback((type: 'start' | 'end', value: Date, animate?: boolean) => {
     if (type === 'start' && startTimeSelectRef.current) {
       startTimeSelectRef.current.scrollToValue(value, animate)
     }
@@ -96,21 +107,18 @@ export const TimeRangePicker = UUIFunctionComponent({
     }
   }, [])
   const openPopover = useCallback(() => { setActive(true) }, [])
-  const closePopover = useCallback(() => {
-    timeSelectScrollToValue('start', getTimeValue(props.value ? props.value[0] : null), false)
-    timeSelectScrollToValue('end', getTimeValue(props.value ? props.value[1] : null), false)
-    setActive(false)
-  }, [props.value, timeSelectScrollToValue])
-  const handleValueOnChange = useCallback((value: [Date, Date] | null) => {
+  const closePopover = useCallback(() => { setActive(false) }, [])
+  const handleValueOnChange = useCallback((value: TimeRangePickerValue | null) => {
     const sortedValue = value?.sort((i, j) => Number(i) - Number(j)) || null
     props.onChange(sortedValue)
   }, [props])
+
   /**
    *
    */
   const handleInputOnSubmit = useCallback((type: 'start' | 'end') => {
-    if (innerValue.startValue && innerValue.endValue) {
-      const originalInput = formatTimeValue(type === 'start' ? innerValue.startValue : innerValue.endValue)
+    if (innerValue.startDate && innerValue.endDate) {
+      const originalInput = formatTime(type === 'start' ? innerValue.startDate : innerValue.endDate)
       const input = type === 'start' ? innerValue.startInput : innerValue.endInput
       if (originalInput === input) return;
       try {
@@ -118,28 +126,35 @@ export const TimeRangePicker = UUIFunctionComponent({
           handleValueOnChange(null)
         } else {
           const result = tryParseTimeFromString(input)
-          handleValueOnChange(type === 'start' ? [result, getDateFromTimeValue(innerValue.endValue)] : [getDateFromTimeValue(innerValue.startValue), result])
+          handleValueOnChange(type === 'start' ? [result, innerValue.endDate] : [innerValue.startDate, result])
         }
       } catch {
         resetInnerValue()
       }
     }
-  }, [handleValueOnChange, innerValue.endInput, innerValue.endValue, innerValue.startInput, innerValue.startValue, resetInnerValue])
+  }, [handleValueOnChange, innerValue.endInput, innerValue.endDate, innerValue.startInput, innerValue.startDate, resetInnerValue])
   /**
    * handle user select date in TimeSelect.
    */
   const handleTimeSelect = useCallback((type: 'start' | 'end') => {
-    return (value: TimeSelectValue) => {
+    return (value: Date) => {
       setInnerValue((oldValue) => {
+        const oldDate = type === 'start' ? oldValue.startDate : oldValue.endDate
+        const newDate = set(oldDate || getZeroDate(), {
+          hours: value.getHours(),
+          minutes: value.getMinutes(),
+          seconds: value.getSeconds(),
+        })
+        const newInput = formatTime(newDate)
         return {
           ...oldValue,
           ...(type === 'start' ? {
-            startValue: value,
-            startInput: formatTimeValue(value),
+            startDate: newDate,
+            startInput: newInput,
           } : {}),
           ...(type === 'end' ? {
-            endValue: value,
-            endInput: formatTimeValue(value),
+            endDate: newDate,
+            endInput: newInput,
           } : {}),
         }
       })
@@ -151,12 +166,19 @@ export const TimeRangePicker = UUIFunctionComponent({
       <Popover
         placement={'bottom-start'}
         active={active}
-        onClickAway={() => { closePopover(); resetInnerValue(); }}
+        onClickAway={() => {
+          resetInnerValue();
+          timeSelectScrollToValue('start', props.value ? props.value[0] : getZeroDate(), false)
+          timeSelectScrollToValue('end', props.value ? props.value[1] : getZeroDate(), false)
+          setTimeout(() => { closePopover() }, 10)
+        }}
         activator={
           <Activator
             onClick={() => {
               openPopover()
               setTimeout(() => {
+                const focusedElement = ReactHelper.document?.activeElement
+                if (startInputRef.current === focusedElement || endInputRef.current === focusedElement) return;
                 if (startInputRef.current) {
                   startInputRef.current.focus()
                 }
@@ -212,6 +234,8 @@ export const TimeRangePicker = UUIFunctionComponent({
                   options={props.shortcuts}
                   onSelect={(value) => {
                     handleValueOnChange(value)
+                    timeSelectScrollToValue('start', value ? value[0] : getZeroDate(), false)
+                    timeSelectScrollToValue('end', value ? value[1] : getZeroDate(), false)
                     closePopover()
                   }}
                 />
@@ -220,14 +244,14 @@ export const TimeRangePicker = UUIFunctionComponent({
             <StartSection>
               <TimeSelect
                 ref={startTimeSelectRef}
-                value={innerValue.startValue}
+                value={innerValue.startDate || getZeroDate()}
                 onChange={handleTimeSelect('start')}
               />
             </StartSection>
             <EndSection>
               <TimeSelect
                 ref={endTimeSelectRef}
-                value={innerValue.endValue}
+                value={innerValue.endDate || getZeroDate()}
                 onChange={handleTimeSelect('end')}
               />
             </EndSection>
@@ -236,14 +260,25 @@ export const TimeRangePicker = UUIFunctionComponent({
             confirmLabel={props.confirmLabel}
             cancelLabel={props.cancelLabel}
             onCancel={() => {
-              closePopover()
               resetInnerValue()
+              timeSelectScrollToValue('start', props.value ? props.value[0] : getZeroDate(), false)
+              timeSelectScrollToValue('end', props.value ? props.value[1] : getZeroDate(), false)
+              setTimeout(() => { closePopover() }, 10)
             }}
             onConfirm={() => {
               setInnerValue((value) => value, true)
-              setTimeout(() => {
-                closePopover()
-              }, 100)
+              if (innerValue.startDate && innerValue.endDate) {
+                let data = [innerValue.startDate, innerValue.endDate]
+                if (isAfter(innerValue.startDate, innerValue.endDate)) {
+                  data = data.reverse()
+                }
+                timeSelectScrollToValue('start', data[0], false)
+                timeSelectScrollToValue('end', data[1], false)
+              } else {
+                timeSelectScrollToValue('start', getZeroDate(), false)
+                timeSelectScrollToValue('end', getZeroDate(), false)
+              }
+              setTimeout(() => { closePopover() }, 10)
             }}
           />
         </Container>
@@ -251,21 +286,5 @@ export const TimeRangePicker = UUIFunctionComponent({
     </Root>
   )
 })
-export type TimeRangePickerProps = UUIFunctionComponentProps<typeof TimeRangePicker>
 
-function getInnerValue(value: TimeRangePickerValue | null): TimeRangePickerPendingValue {
-  if (value === null) {
-    return {
-      startValue: null,
-      endValue: null,
-      startInput: '',
-      endInput: '',
-    }
-  }
-  return {
-    startValue: getTimeValue(value[0]),
-    endValue: getTimeValue(value[1]),
-    startInput: formatTimeFromDate(value[0]),
-    endInput: formatTimeFromDate(value[1]),
-  }
-}
+export type TimeRangePickerProps = UUIFunctionComponentProps<typeof TimeRangePicker>

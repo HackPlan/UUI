@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes, ExtraPropTypes } from '../../utils/createPropTypes';
-import { YearMonthSelect as UUIYearMonthSelect, YearMonthSelectValue } from './YearMonthSelect';
+import { YearMonthSelect as UUIYearMonthSelect } from './YearMonthSelect';
 import { DateSelect as UUIDateSelect } from './DateSelect';
 import { DateTimeShortcut as UUIDateTimeShortcut } from './DateTimeShortcut';
 import { Popover as UUIPopover } from '../Popover/Popover';
 import { TextField as UUITextField } from '../Input/TextField';
-import { format, parseISO } from 'date-fns';
 import { DateTimeShortcutOption, DateTimeShortcutOptionPropTypes } from './DateTimeShortcut';
 import { Icons } from '../../icons/Icons';
+import { formatDate, tryParseDateFromString } from './utils/DateUtils';
 
 export type DatePickerShortCut = DateTimeShortcutOption<Date>;
 export interface DatePickerFeatureProps {
@@ -49,16 +49,16 @@ export const DatePicker = UUIFunctionComponent({
   } = nodes
 
   const [active, setActive] = useState(false)
-  const [yearMonth, setYearMonth] = useState<YearMonthSelectValue>(getYearMonth(props.value))
+  const [yearMonth, setYearMonth] = useState<Date>(props.value || new Date())
 
   const [input, setInput] = useState(formatDate(props.value))
   useEffect(() => {
     setInput(formatDate(props.value))
   }, [props.value])
 
-  const handleUserValueChange = useCallback((date: Date | null) => {
-    props.onChange(date)
-    setYearMonth(getYearMonth(date))
+  const handleUserValueChange = useCallback((value: Date | null) => {
+    props.onChange(value)
+    setYearMonth(value || new Date())
   }, [props])
   const handleUserInputCommit = useCallback(() => {
     const originalInput = formatDate(props.value)
@@ -140,20 +140,5 @@ export const DatePicker = UUIFunctionComponent({
     </Root>
   )
 })
-
-function getYearMonth(date: Date | null) {
-  return {
-    year: (date || new Date()).getFullYear(),
-    month: (date || new Date()).getMonth()+1,
-  }
-}
-function formatDate(date: Date | null) {
-  return date === null ? '' : format(date, 'yyyy-MM-dd')
-}
-function tryParseDateFromString(dateString: string) {
-  const result = parseISO(dateString)
-  if (isNaN(result.getTime())) throw new Error('date_string_parse_failed');
-  return result
-}
 
 export type DatePickerProps = UUIFunctionComponentProps<typeof DatePicker>

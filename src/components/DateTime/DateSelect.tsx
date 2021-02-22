@@ -1,13 +1,12 @@
 import React, { useMemo, useCallback } from 'react';
 import { UUIFunctionComponent, UUIFunctionComponentProps } from '../../core';
 import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes';
-import { getDay, startOfWeek, add, format, startOfMonth, set, getDate, isSameMonth, isSameDay, isAfter, isBefore } from 'date-fns';
+import { getDay, startOfWeek, add, format, startOfMonth, getDate, isSameMonth, isSameDay, isAfter, isBefore } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 import { range } from 'lodash-es';
-import { YearMonthSelectValue } from './YearMonthSelect';
 
 export interface DateSelectFeatureProps {
-  yearMonth: YearMonthSelectValue;
+  yearMonth: Date;
 
   selectedDates: Date[];
   onSelect: (date: Date) => void;
@@ -16,10 +15,7 @@ export interface DateSelectFeatureProps {
 }
 
 export const DateSelectPropTypes = createComponentPropTypes<DateSelectFeatureProps>({
-  yearMonth: PropTypes.shape({
-    year: PropTypes.number.isRequired,
-    month: PropTypes.number.isRequired,
-  }),
+  yearMonth: PropTypes.instanceOf(Date).isRequired,
   selectedDates: PropTypes.arrayOf(PropTypes.instanceOf(Date).isRequired),
   onSelect: PropTypes.func.isRequired,
   hoverDate: PropTypes.instanceOf(Date),
@@ -49,13 +45,11 @@ export const DateSelect = UUIFunctionComponent({
   }, [])
 
   const dateInfo = useMemo(() => {
-    const yearMonth = set(new Date, { year: props.yearMonth.year, month: props.yearMonth.month-1 })
-
-    const firstDayInMonth = startOfMonth(yearMonth)
+    const firstDayInMonth = startOfMonth(props.yearMonth)
     const weekdayOfFirstDayInMonth = getDay(firstDayInMonth)
 
     const weekdays = range(0, 7).map((i) => {
-      let date = new Date(yearMonth)
+      let date = new Date(props.yearMonth)
       date = startOfWeek(date)
       date = add(date, { days: i })
       return {
@@ -81,14 +75,13 @@ export const DateSelect = UUIFunctionComponent({
         key: format(date, 'yyyy-MM-dd'),
         date: date,
         label: getDate(date),
-        active: isSameMonth(yearMonth, date),
+        active: isSameMonth(props.yearMonth, date),
         selected: selected,
         inSelectedRange: inSelectedRange,
       }
     })
 
     return {
-      yearMonth,
       weekdays,
       days
     }
