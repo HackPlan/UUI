@@ -64,19 +64,13 @@ export const TimeSelect = UUIFunctionComponent({
       const itemHeight = getItemHeight(target)
       target.scrollTo({ top: value * itemHeight, behavior: animate ? "smooth" : "auto" })
     }
-    if (props.value && props.value.getHours() !== value.getHours()) {
-      targetScrollTo(hourListRef, value.getHours(), animate)
-    }
-    if (props.value && props.value.getMinutes() !== value.getMinutes()) {
-      targetScrollTo(minuteListRef, value.getMinutes(), animate)
-    }
-    if (props.value && props.value.getSeconds() !== value.getSeconds()) {
-      targetScrollTo(secondListRef, value.getSeconds(), animate)
-    }
+    targetScrollTo(hourListRef, value.getHours(), animate)
+    targetScrollTo(minuteListRef, value.getMinutes(), animate)
+    targetScrollTo(secondListRef, value.getSeconds(), animate)
     setTimeout(() => {
       setDisableHandleScroll(false)
     }, 500)
-  }, [getItemHeight, props.value])
+  }, [getItemHeight])
 
   useImperativeHandle(ref, () => {
     return {

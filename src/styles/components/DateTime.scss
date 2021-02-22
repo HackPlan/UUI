@@ -594,3 +594,91 @@
 
   }
 }
+
+/**************************************
+ * DateTimeRangePicker
+ **************************************/
+
+.UUI-DateTimeRangePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-DateTimeRangePicker-ConnectIcon {
+    color: lightgray;
+  }
+  .UUI-DateTimeRangePicker-CalendarIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-DateTimeRangePicker-Activator {
+    display: flex;
+
+    .UUI-DateTimeRangePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 180px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+
+      &:focus-within:after {
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        left: 0.5rem;
+        right: 0.5rem;
+        height: 2px;
+        background-color: $primaryColor;
+      }
+    }
+  }
+}
+
+.UUI-DateTimeRangePicker-Container {
+  display: flex;
+  flex-direction: column;
+
+  .UUI-DateTimeRangePicker-Main {
+    display: flex;
+    flex-direction: row;
+
+    .UUI-DateTimeRangePicker-StartSection {
+      display: flex;
+      flex-direction: column;
+      padding-right: 1rem;
+    }
+    .UUI-DateTimeRangePicker-EndSection {
+      display: flex;
+      flex-direction: column;
+      padding-left: 1rem;
+    }
+
+    .UUI-DateTimeRangePicker-YearMonthSelect {
+      padding: 0.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .UUI-DateTimeRangePicker-Section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .UUI-DateTimePicker-DateSelect {
+        padding: 0.5rem;
+        border-right: 1px solid #e4e7ed;
+      }
+      .UUI-DateTimePicker-TimeSelect {
+        margin: 0.5rem;
+      }
+    }
+  }
+}
