@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.6.5
+
+- 修复循环依赖问题
+- AppDialog 支持使用外部自定义Dialog组件
+
 ### v0.6.4
 
 - 新组件：日期时间选择器

@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.6.5
+
+- fix circular dependencies issue
+- AppDialog external component
+
 ### v0.6.4
 
 - new components: Date Time Pickers
