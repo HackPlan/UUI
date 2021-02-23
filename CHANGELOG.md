@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.6.4
+
+- new components: Date Time Pickers
+
 ### v0.6.3
 
 - fix Tabs focus issue
