@@ -1,0 +1,156 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { DatePicker, DateRangePicker, TimePicker, TimeRangePicker, DateTimePicker, DateTimeRangePicker } from '../../src';
+import { useState } from 'react';
+import { startOfToday, startOfTomorrow, add, setDay, startOfWeek, endOfWeek, startOfMonth, endOfMonth, set } from 'date-fns'
+
+<Meta title="组件/日期时间选择 DateTime" component={DatePicker} />
+
+### 日期选择器 DatePicker
+
+<Canvas>
+  <Story name="DatePicker">
+    {() => {
+      const [selectedDate, setSelectedDate] = useState(null)
+      return (
+        <div>
+          <DatePicker
+            placeholder={"请选择日期"}
+            value={selectedDate}
+            onChange={(value) => { setSelectedDate(value) }}
+            shortcuts={[
+              { label: '今天', value: () => startOfToday() },
+              { label: '明天', value: () => startOfTomorrow() },
+              { label: '下周一', value: () => setDay(add(new Date(), { weeks: 1 }), 1) },
+            ]}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 日期区间选择器 DateRangePicker
+
+<Canvas>
+  <Story name="DateRangePicker">
+    {() => {
+      const [selectedDates, setSelectedDates] = useState(null)
+      return (
+        <div>
+          <DateRangePicker
+            startPlaceholder={"请选择开始日期"}
+            endPlaceholder={"请选择结束日期"}
+            value={selectedDates}
+            onChange={(value) => { setSelectedDates(value) }}
+            shortcuts={[
+              { label: '本周', value: () => [startOfWeek(new Date()), endOfWeek(new Date())] },
+              { label: '本月', value: () => [startOfMonth(new Date()), endOfMonth(new Date())] },
+            ]}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 时间选择器 TimePicker
+
+<Canvas>
+  <Story name="TimePicker">
+    {() => {
+      const [selectedTime, setSelectedTime] = useState(null)
+      return (
+        <div>
+          <TimePicker
+            placeholder={"请选择时间"}
+            value={selectedTime}
+            onChange={(value) => { console.log('TimePicker onChange', value); setSelectedTime(value) }}
+            shortcuts={[
+              { label: '中午', value: () => set(new Date(0), { hours: 12 }) },
+              { label: '下午三点半', value: () => set(new Date(0), { hours: 15, minutes: 30 }) },
+              { label: '凌晨两点', value: () => set(new Date(0), { hours: 2 }) },
+            ]}
+            confirmLabel={"确认"}
+            cancelLabel={"取消"}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 时间区间选择器 TimeRangePicker
+
+<Canvas>
+  <Story name="TimeRangePicker">
+    {() => {
+      const [selectedDates, setSelectedDates] = useState(null)
+      return (
+        <div>
+          <TimeRangePicker
+            startPlaceholder={"请选择开始时间"}
+            endPlaceholder={"请选择结束时间"}
+            value={selectedDates}
+            onChange={(value) => { setSelectedDates(value) }}
+            shortcuts={[
+              { label: '早餐时间', value: () => [set(new Date(0), { hours: 8 }), set(new Date(0), { hours: 8, minutes: 30 })] },
+              { label: '下午茶时间', value: () => [set(new Date(0), { hours: 16 }), set(new Date(0), { hours: 16, minutes: 30 })] },
+            ]}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 日期时间选择器 DateTimePicker
+
+<Canvas>
+  <Story name="DateTimePicker">
+    {() => {
+      const [selectedDate, setSelectedDate] = useState(null)
+      return (
+        <div>
+          <DateTimePicker
+            placeholder={"请选择日期和时间"}
+            value={selectedDate}
+            onChange={(value) => { console.log('onchange', value); setSelectedDate(value) }}
+            shortcuts={[
+              { label: '今天', value: () => startOfToday() },
+              { label: '明天', value: () => startOfTomorrow() },
+              { label: '下周一', value: () => setDay(add(new Date(), { weeks: 1 }), 1) },
+            ]}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### 日期时间区间选择器 DateTimeRangePicker
+
+<Canvas>
+  <Story name="DateTimeRangePicker">
+    {() => {
+      const [selectedDates, setSelectedDates] = useState(null)
+      return (
+        <div>
+          <DateTimeRangePicker
+            startPlaceholder={"请选择开始日期和时间"}
+            endPlaceholder={"请选择结束日期和时间"}
+            value={selectedDates}
+            onChange={(value) => { setSelectedDates(value) }}
+            shortcuts={[
+              { label: '本周', value: () => [startOfWeek(new Date()), endOfWeek(new Date())] },
+              { label: '本月', value: () => [startOfMonth(new Date()), endOfMonth(new Date())] },
+            ]}
+          />
+        </div>
+      )
+    }}
+  </Story>
+</Canvas>
+
+### Props
+
+<ArgsTable components={{ DatePicker, DateRangePicker, TimePicker, DateTimePicker, DateTimeRangePicker }} />

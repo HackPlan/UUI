@@ -20,6 +20,9 @@
     width: 100%;
     padding: .5rem;
     flex: 1;
+    &::placeholder {
+      color: lightgray;
+    }
   }
 
   .UUI-TextField-LoadingSpinner, .UUI-TextField-LengthIndicator {

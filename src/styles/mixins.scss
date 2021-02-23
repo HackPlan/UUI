@@ -36,3 +36,12 @@
   }
   transition: box-shadow 0.2s ease-in-out;
 }
+
+@mixin borderless {
+  border: none;
+
+  &:hover, &:focus, &:focus-within {
+    border: none;
+    box-shadow: none;
+  }
+}

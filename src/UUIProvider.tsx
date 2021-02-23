@@ -8,7 +8,7 @@ import type { ButtonProps } from './components/Button/Button';
 import type { CascaderProps } from './components/Cascader/Cascader';
 import type { CheckboxProps } from './components/Checkbox/Checkbox';
 import type { CollapseProps } from './components/Collapse/Collapse';
-import type { DatePickerProps } from './components/DatePicker/DatePicker';
+import type { DatePickerProps } from './components/DateTime/DatePicker';
 import type { DialogProps } from './components/Dialog/Dialog';
 import type { DrawerProps } from './components/Drawer/Drawer';
 import type { IconProps } from './components/Icon/Icon';

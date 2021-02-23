@@ -1,0 +1,684 @@
+/**************************************
+ * DateSelect
+ **************************************/
+
+.UUI-DateSelect-Root {
+  display: inline-block;
+  .UUI-DateSelect-Calendar {
+
+    .UUI-DateSelect-WeekGrid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+
+      .UUI-DateSelect-WeekItem {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 400;
+        color: #7D7D7D;
+        width: 22px;
+        height: 22px;
+        padding: 6px;
+        user-select: none;
+      }
+    }
+
+    .UUI-DateSelect-DayGrid {
+      flex: 1;
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+    .UUI-DateSelect-DayItem {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 22px;
+      height: 22px;
+      padding: 6px;
+      user-select: none;
+
+      &:hover {
+        background-color: #f5f5f5;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+
+      &[data-uui-active="false"] {
+        color: rgba(0,0,0,.25);
+      }
+      &[data-uui-active="true"] {
+        &[data-uui-in-selected-range="true"] {
+          background-color: lighten($primaryColor, 45%);
+        }
+        &[data-uui-in-hover-range="true"] {
+          background-color: lighten($primaryColor, 40%);
+        }
+        &[data-uui-hovering="true"],
+        &[data-uui-selected="true"] {
+          background-color: $primaryColor;
+          border-radius: 2px;
+          color: white;
+        }
+
+      }
+    }
+  }
+}
+
+/**************************************
+ * YearMonthSelect
+ **************************************/
+
+.UUI-YearMonthSelect-Root {
+  display: flex;
+  justify-content: space-between;
+
+  .UUI-YearMonthSelect-Container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .UUI-YearMonthSelect-Button {
+      padding: 0.25rem;
+      border: none;
+      height: inherit;
+      &:hover {
+        border: none;
+      }
+      &:focus, &:focus-within, &:active {
+        outline: none;
+        box-shadow: none;
+      }
+
+      .UUI-YearMonthSelect-ChevronsLeftIcon,
+      .UUI-YearMonthSelect-ChevronLeftIcon,
+      .UUI-YearMonthSelect-ChevronsRightIcon,
+      .UUI-YearMonthSelect-ChevronRightIcon {
+        color: rgba(0,0,0,.25);
+        &:hover {
+          color: rgba(0,0,0,.85);
+        }
+      }
+    }
+
+    .UUI-YearMonthSelect-MonthLabel {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+/**************************************
+ * DateTimeShortcut
+ **************************************/
+
+.UUI-DateTimeShortcut-Root {
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+  padding: 0.5rem;
+  border-right: 1px solid #f0f0f0;
+
+  .UUI-DateTimeShortcut-Option {
+    padding: 0.25rem;
+    &:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  }
+}
+
+/**************************************
+ * DatePicker
+ **************************************/
+
+.UUI-DatePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-DatePicker-CalendarIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-DatePicker-Activator {
+    display: flex;
+
+    .UUI-DatePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 140px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.UUI-DatePicker-Container {
+  display: flex;
+  flex-direction: row;
+  max-height: 300px;
+}
+
+.UUI-DatePicker-DateTimeShortcut {
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 120px;
+}
+
+.UUI-DatePicker-Main {
+  display: flex;
+  flex-direction: column;
+
+  .UUI-DatePicker-YearMonthSelect {
+    padding: 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .UUI-DatePicker-DateSelect {
+    padding: 0.5rem;
+  }
+}
+
+/**************************************
+ * DateRangePicker
+ **************************************/
+
+.UUI-DateRangePicker-Container {
+  display: flex;
+  flex-direction: row;
+  max-height: 300px;
+}
+
+.UUI-DateRangePicker-DateTimeShortcut {
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 120px;
+}
+
+.UUI-DateRangePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-DateRangePicker-ConnectIcon {
+    color: lightgray;
+  }
+  .UUI-DateRangePicker-CalendarIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-DateRangePicker-Activator {
+    display: flex;
+
+    .UUI-DateRangePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 140px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+
+      &:focus-within:after {
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        left: 0.5rem;
+        right: 0.5rem;
+        height: 2px;
+        background-color: $primaryColor;
+      }
+    }
+  }
+}
+.UUI-DateRangePicker-Main {
+  display: flex;
+  flex-direction: row;
+
+  .UUI-DateRangePicker-StartSection {
+    display: flex;
+    flex-direction: column;
+    .UUI-DateRangePicker-YearMonthSelect,
+    .UUI-DateRangePicker-DateSelect {
+      padding-right: 1rem;
+    }
+  }
+  .UUI-DateRangePicker-EndSection {
+    display: flex;
+    flex-direction: column;
+    .UUI-DateRangePicker-YearMonthSelect,
+    .UUI-DateRangePicker-DateSelect {
+      padding-left: 1rem;
+    }
+  }
+
+  .UUI-DateRangePicker-YearMonthSelect {
+    padding: 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .UUI-DateRangePicker-DateSelect {
+    padding: 0.5rem;
+  }
+}
+
+/**************************************
+ * TimeSelect
+ **************************************/
+
+.UUI-TimeSelect-Root {
+  --option-width: 40px;
+  --option-height: 30px;
+  --option-count: 7;
+  --option-list-height: calc(var(--option-count) * var(--option-height));
+
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  .UUI-TimeSelect-OptionList {
+    height: var(--option-list-height);
+    padding-top: calc(var(--option-list-height) / 2 - var(--option-height) / 2);
+    padding-bottom: calc(var(--option-list-height) / 2 - var(--option-height) / 2);
+    box-sizing: border-box;
+    flex: 1;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
+    .UUI-TimeSelect-Option {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: var(--option-height);
+      width: var(--option-width);
+      color: #797979;
+      margin: 0 auto;
+      user-select: none;
+
+
+      &[data-uui-active="true"] {
+        color: #303133;
+        font-weight: 700;
+        cursor: default;
+      }
+      &[data-uui-active="false"] {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .UUI-TimeSelect-SelectZone {
+    position: absolute;
+    height: var(--option-height);
+    top: calc(var(--option-list-height) / 2 - var(--option-height) / 2 - 1px);
+    left: 8px;
+    right: 8px;
+    border-top: 1px solid #e4e7ed;
+    border-bottom: 1px solid #e4e7ed;
+    pointer-events: none;
+  }
+  .UUI-TimeSelect-Separator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #606266;
+  }
+}
+
+
+/**************************************
+ * PickerButtons
+ **************************************/
+
+.UUI-PickerButtons-Root {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-top: 1px solid #e4e7ed;
+  padding: 0.25rem;
+
+  .UUI-PickerButtons-ConfirmButton,
+  .UUI-PickerButtons-CancelButton {
+    padding: 0.5rem;
+    font-size: small;
+
+    @include borderless;
+  }
+  .UUI-PickerButtons-ConfirmButton {
+    color: $primaryColor;
+  }
+  .UUI-PickerButtons-CancelButton {
+    &:hover, &:active, &:focus, &:focus-within {
+      color: inherit;
+    }
+  }
+}
+
+/**************************************
+ * TimePicker
+ **************************************/
+
+.UUI-TimePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-TimePicker-ClockIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-TimePicker-Activator {
+    display: flex;
+
+    .UUI-TimePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 140px;
+
+      input {
+        font-variant-numeric: tabular-nums;
+      }
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.UUI-TimePicker-Container {
+  display: flex;
+  flex-direction: row;
+  max-height: 300px;
+}
+
+.UUI-TimePicker-Main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+}
+
+.UUI-TimePicker-DateTimeShortcut {
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 120px;
+}
+
+/**************************************
+ * TimeRangePicker
+ **************************************/
+
+.UUI-TimeRangePicker-Container {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px;
+}
+
+.UUI-TimeRangePicker-DateTimeShortcut {
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  max-width: 120px;
+}
+
+.UUI-TimeRangePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-TimeRangePicker-ConnectIcon {
+    color: lightgray;
+  }
+  .UUI-TimeRangePicker-ClockIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-TimeRangePicker-Activator {
+    display: flex;
+
+    .UUI-TimeRangePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 140px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+
+      &:focus-within:after {
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        left: 0.5rem;
+        right: 0.5rem;
+        height: 2px;
+        background-color: $primaryColor;
+      }
+    }
+  }
+}
+.UUI-TimeRangePicker-Main {
+  display: flex;
+  flex-direction: row;
+  padding: 0.5rem;
+
+  .UUI-TimeRangePicker-StartSection {
+    display: flex;
+    flex-direction: column;
+    padding-right: 1rem;
+  }
+  .UUI-TimeRangePicker-EndSection {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+  }
+}
+
+/**************************************
+ * DateTimePicker
+ **************************************/
+
+.UUI-DateTimePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-DateTimePicker-CalendarIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-DateTimePicker-Activator {
+    display: flex;
+
+    .UUI-DateTimePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 180px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.UUI-DateTimePicker-Container {
+  display: flex;
+  flex-direction: column;
+
+  .UUI-DateTimePicker-Main {
+    display: flex;
+    flex-direction: row;
+    max-height: 300px;
+
+    .UUI-DateTimePicker-DateTimeShortcut {
+      height: 100%;
+      overflow-y: auto;
+      box-sizing: border-box;
+      max-width: 120px;
+    }
+
+    .UUI-DateTimePicker-SelectZone {
+      display: flex;
+      flex-direction: column;
+
+      .UUI-DateTimePicker-YearMonthSelect {
+        padding: 0.5rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .UUI-DateTimePicker-Section {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .UUI-DateTimePicker-DateSelect {
+          padding: 0.5rem;
+          border-right: 1px solid #e4e7ed;
+        }
+        .UUI-DateTimePicker-TimeSelect {
+          margin: 0.5rem;
+        }
+      }
+    }
+
+  }
+}
+
+/**************************************
+ * DateTimeRangePicker
+ **************************************/
+
+.UUI-DateTimeRangePicker-Root {
+  display: inline-block;
+
+  @include border;
+  @include radius;
+  @include hoverBorder;
+  @include focusWithinShadow;
+  @include focusWithinBorder;
+
+  .UUI-DateTimeRangePicker-ConnectIcon {
+    color: lightgray;
+  }
+  .UUI-DateTimeRangePicker-CalendarIcon {
+    color: lightgray;
+    margin-right: 0.5rem;
+  }
+
+  .UUI-DateTimeRangePicker-Activator {
+    display: flex;
+
+    .UUI-DateTimeRangePicker-TextField {
+      border: none;
+      box-shadow: none;
+      position: relative;
+      width: 180px;
+
+      &:hover, &:focus, &:focus-within {
+        border: none;
+        box-shadow: none;
+      }
+
+      &:focus-within:after {
+        content: ' ';
+        position: absolute;
+        bottom: 0;
+        left: 0.5rem;
+        right: 0.5rem;
+        height: 2px;
+        background-color: $primaryColor;
+      }
+    }
+  }
+}
+
+.UUI-DateTimeRangePicker-Container {
+  display: flex;
+  flex-direction: column;
+
+  .UUI-DateTimeRangePicker-Main {
+    display: flex;
+    flex-direction: row;
+
+    .UUI-DateTimeRangePicker-StartSection {
+      display: flex;
+      flex-direction: column;
+      padding-right: 1rem;
+    }
+    .UUI-DateTimeRangePicker-EndSection {
+      display: flex;
+      flex-direction: column;
+      padding-left: 1rem;
+    }
+
+    .UUI-DateTimeRangePicker-YearMonthSelect {
+      padding: 0.5rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .UUI-DateTimeRangePicker-Section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .UUI-DateTimePicker-DateSelect {
+        padding: 0.5rem;
+        border-right: 1px solid #e4e7ed;
+      }
+      .UUI-DateTimePicker-TimeSelect {
+        margin: 0.5rem;
+      }
+    }
+  }
+}
