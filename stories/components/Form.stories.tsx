@@ -141,12 +141,13 @@ export const FormUncontrolledMode = () => {
           <Radio name={'gender'} label={'其他'} value={'other'} className={"mr-2"}></Radio>
         </Control>
       </LabeledControl>
-      <LabeledControl>
+      {/* TODO: HTMLDatePicker support uncontrolled mode */}
+      {/* <LabeledControl>
         <Label>生日</Label>
         <Control>
           <DatePicker name={'birthday'} />
         </Control>
-      </LabeledControl>
+      </LabeledControl> */}
       <LabeledControl>
         <Label>学校</Label>
         <Control>
