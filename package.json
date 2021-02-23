@@ -27,6 +27,7 @@
     "build": "NODE_ENV=production rollup -c",
     "cleanbuild": "rimraf lib && yarn build",
     "pack:uui": "yarn cleanbuild && yarn pack",
+    "check:uui": "yarn lint && yarn test && yarn cleanbuild",
     "publish:uui": "yarn cleanbuild && yarn publish",
     "storybook": "start-storybook -p 6006",
     "build:storybook": "build-storybook",
