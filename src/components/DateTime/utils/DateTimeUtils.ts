@@ -1,8 +1,5 @@
 import { format, parse, set } from "date-fns";
-import { DEFAULT_TIME_FORMAT_TOKEN } from "./TimeUtils";
-import { DEFAULT_DATE_FORMAT_TOKEN } from "./DateUtils";
-
-export const DEFAULT_DATETIME_FORMAT_TOKEN = `${DEFAULT_DATE_FORMAT_TOKEN} ${DEFAULT_TIME_FORMAT_TOKEN}`
+import { DEFAULT_DATETIME_FORMAT_TOKEN } from "./DateTimeDefaults";
 
 export function formatDateTime(date: Date | null) {
   return date === null ? '' : format(date, 'yyyy-MM-dd HH:mm:ss')

@@ -1,7 +1,7 @@
 import { parse, format } from "date-fns"
 import { getZeroDate } from "./DateTimeUtils"
+import { DEFAULT_TIME_FORMAT_TOKEN } from "./DateTimeDefaults"
 
-export const DEFAULT_TIME_FORMAT_TOKEN = "HH:mm:ss"
 
 export function formatTime(date: Date | null) {
   if (date === null) return ''
