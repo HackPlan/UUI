@@ -101,6 +101,10 @@ export const DateRangePicker = UUIFunctionComponent({
     }
   }, { resetWhenInitialValueChanged: true })
 
+  const selectedDates = useMemo(() => {
+    return compact([innerValue.startDate, innerValue.endDate])
+  }, [innerValue.endDate, innerValue.startDate])
+
   const handleValueOnChange = useCallback((value: [Date, Date] | null) => {
     const sortedValue = value?.sort((i, j) => Number(i) - Number(j)) || null
     props.onChange(sortedValue)
@@ -281,7 +285,7 @@ export const DateRangePicker = UUIFunctionComponent({
               />
               <DateSelect
                 yearMonth={innerValue.startYearMonth}
-                selectedDates={compact([innerValue.startDate, innerValue.endDate])}
+                selectedDates={selectedDates}
                 onSelect={handleDateSelect}
                 hoverDate={hoverDate}
                 onHoverDateChange={(date) => { setHoverDate(date) }}
@@ -294,7 +298,7 @@ export const DateRangePicker = UUIFunctionComponent({
               />
               <DateSelect
                 yearMonth={innerValue.endYearMonth}
-                selectedDates={compact([innerValue.startDate, innerValue.endDate])}
+                selectedDates={selectedDates}
                 onSelect={handleDateSelect}
                 hoverDate={hoverDate}
                 onHoverDateChange={(date) => { setHoverDate(date) }}

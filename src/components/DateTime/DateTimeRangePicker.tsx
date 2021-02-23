@@ -111,6 +111,10 @@ export const DateTimeRangePicker = UUIFunctionComponent({
     }
   }, { resetWhenInitialValueChanged: true })
 
+  const selectedDates = useMemo(() => {
+    return compact([innerValue.startDate, innerValue.endDate])
+  }, [innerValue.endDate, innerValue.startDate])
+
   const timeSelectScrollToValue = useCallback((type: 'start' | 'end', value: Date, animate?: boolean) => {
     if (type === 'start' && startTimeSelectRef.current) {
       startTimeSelectRef.current.scrollToValue(value, animate)
@@ -335,7 +339,7 @@ export const DateTimeRangePicker = UUIFunctionComponent({
               <Section>
                 <DateSelect
                   yearMonth={innerValue.startYearMonth}
-                  selectedDates={compact([innerValue.startDate, innerValue.endDate])}
+                  selectedDates={selectedDates}
                   onSelect={handleDateSelect}
                   hoverDate={hoverDate}
                   onHoverDateChange={(date) => { setHoverDate(date) }}
@@ -355,7 +359,7 @@ export const DateTimeRangePicker = UUIFunctionComponent({
               <Section>
                 <DateSelect
                   yearMonth={innerValue.endYearMonth}
-                  selectedDates={compact([innerValue.startDate, innerValue.endDate])}
+                  selectedDates={selectedDates}
                   onSelect={handleDateSelect}
                   hoverDate={hoverDate}
                   onHoverDateChange={(date) => { setHoverDate(date) }}

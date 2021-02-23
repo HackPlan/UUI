@@ -21,6 +21,7 @@
         height: 22px;
         padding: 6px;
         user-select: none;
+        box-sizing: content-box;
       }
     }
 
@@ -40,6 +41,7 @@
       height: 22px;
       padding: 6px;
       user-select: none;
+      box-sizing: content-box;
 
       &:hover {
         background-color: #f5f5f5;
