@@ -146,6 +146,10 @@
   @include focusWithinShadow;
   @include focusWithinBorder;
 
+  .UUI-DatePicker-Popover {
+    width: 100%;
+  }
+
   .UUI-DatePicker-CalendarIcon {
     color: lightgray;
     margin-right: 0.5rem;
@@ -159,6 +163,7 @@
       box-shadow: none;
       position: relative;
       width: 140px;
+      flex: 1;
 
       &:hover, &:focus, &:focus-within {
         border: none;
@@ -214,6 +219,10 @@
 .UUI-DateRangePicker-Root {
   display: inline-block;
 
+  .UUI-DateRangePicker-Popover {
+    width: 100%;
+  }
+
   @include border;
   @include radius;
   @include hoverBorder;
@@ -236,6 +245,7 @@
       box-shadow: none;
       position: relative;
       width: 140px;
+      flex: 1;
 
       &:hover, &:focus, &:focus-within {
         border: none;
@@ -390,6 +400,10 @@
 .UUI-TimePicker-Root {
   display: inline-block;
 
+  .UUI-TimePicker-Popover {
+    width: 100%;
+  }
+
   @include border;
   @include radius;
   @include hoverBorder;
@@ -409,6 +423,7 @@
       box-shadow: none;
       position: relative;
       width: 140px;
+      flex: 1;
 
       input {
         font-variant-numeric: tabular-nums;
@@ -462,6 +477,10 @@
 .UUI-TimeRangePicker-Root {
   display: inline-block;
 
+  .UUI-TimeRangePicker-Popover {
+    width: 100%;
+  }
+
   @include border;
   @include radius;
   @include hoverBorder;
@@ -484,6 +503,7 @@
       box-shadow: none;
       position: relative;
       width: 140px;
+      flex: 1;
 
       &:hover, &:focus, &:focus-within {
         border: none;
@@ -526,6 +546,10 @@
 .UUI-DateTimePicker-Root {
   display: inline-block;
 
+  .UUI-DateTimePicker-Popover {
+    width: 100%;
+  }
+
   @include border;
   @include radius;
   @include hoverBorder;
@@ -545,6 +569,7 @@
       box-shadow: none;
       position: relative;
       width: 180px;
+      flex: 1;
 
       &:hover, &:focus, &:focus-within {
         border: none;
@@ -604,6 +629,10 @@
 .UUI-DateTimeRangePicker-Root {
   display: inline-block;
 
+  .UUI-DateTimeRangePicker-Popover {
+    width: 100%;
+  }
+
   @include border;
   @include radius;
   @include hoverBorder;
@@ -626,6 +655,7 @@
       box-shadow: none;
       position: relative;
       width: 180px;
+      flex: 1;
 
       &:hover, &:focus, &:focus-within {
         border: none;
