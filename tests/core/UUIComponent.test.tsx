@@ -125,7 +125,7 @@ it('UUIComponentHOC - customize', () => {
     const { Root, Y } = nodes
     return (
       <Root>
-        <Y className="TestFuncYInner" style={{ color: 'red' }}>
+        <Y id="TestYInnerId" className="TestFuncYInner" style={{ color: 'red' }}>
           UUITestFunctionComponent
         </Y>
       </Root>
@@ -143,7 +143,7 @@ it('UUIComponentHOC - customize', () => {
       const { Root, X } = this.helper.nodes
       return (
         <Root>
-          <X className="TestFuncXInner" style={{ color: 'red' }}>
+          <X id="TestXInnerId" className="TestFuncXInner" style={{ color: 'red' }}>
             UUITestClassComponent
           </X>
         </Root>
@@ -178,6 +178,7 @@ it('UUIComponentHOC - customize', () => {
         <FunctionComponent
           customize={{
             Y: {
+              overrideId: 'UnionFuncInnerId',
               extendStyle: {
                 width: 300,
               }
@@ -193,6 +194,7 @@ it('UUIComponentHOC - customize', () => {
               extendClassName: 'UnionInnerExtendClassName',
             },
             X: {
+              overrideId: 'UnionClassXInnerId',
               extendStyle: {
                 width: 400,
               },
@@ -215,6 +217,7 @@ it('UUIComponentHOC - customize', () => {
           extendClassName: 'UnionOutterExtendClassName'
         },
         Y: {
+          overrideId: 'UnionOutterId',
           extendStyle: {
             height: 200,
           }
@@ -492,10 +495,10 @@ it('UUIComponent customize [className, style, children]', () => {
 });
 
 /**
- * UUI Component [convenience][className, style]
- * 测试 props.className, props.style 会不会被拼接合并到 Root 节点。
+ * UUI Component [convenience][id, className, style]
+ * 测试 props.id, props.className, props.style 会不会被拼接合并到 Root 节点。
  */
-it('UUIComponent customize [convenience][className, style]', () => {
+it('UUIComponent customize [id][convenience][className, style]', () => {
   const UUITestComponent = UUIFunctionComponent({
     name: 'UUITestComponent',
     nodes: {
@@ -506,6 +509,7 @@ it('UUIComponent customize [convenience][className, style]', () => {
     const { Root, Child } = nodes
     return (
       <Root
+        id="InnerId"
         className="InnerRootClassName"
         style={{
           color: 'red',
@@ -521,6 +525,7 @@ it('UUIComponent customize [convenience][className, style]', () => {
   const tree1 = renderer
     .create(
       <UUITestComponent
+        id="ConvenienceId"
         className="ConvenienceClassName"
         style={{
           color: 'black',
@@ -814,37 +819,6 @@ it('UUIComponent [ariaAttributes]', () => {
         },
       }}
     />
-  )
-  .toJSON();
-
-  expect(tree).toMatchSnapshot();
-})
-
-/**
- * UUI Component id
- *
- * 测试 props.id 是否被正确传入 Root Node
- */
-it('UUIComponent [id]', () => {
-
-  const UUITestComponent = UUIFunctionComponent({
-    name: 'UUITestComponent',
-    nodes: {
-      Root: 'div',
-      Node: 'div',
-    }
-  }, (props: {}, { nodes }) => {
-    const { Root, Node } = nodes
-    return (
-      <Root>
-        <Node />
-      </Root>
-    )
-  })
-
-  const tree = renderer
-  .create(
-    <UUITestComponent id={"test-component-id-sadgfuiasdgfui"} />
   )
   .toJSON();
 

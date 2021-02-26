@@ -47,7 +47,7 @@ export type UUIComponentCustomizeProps<
    */
   customize?: {
     [key in keyof X]?: X[key] extends keyof IntrinsicNodeT
-      ? NodeCustomizeProps & Partial<JSX.IntrinsicElements[X[key]]>
+      ? NodeCustomizeProps & Partial<Omit<JSX.IntrinsicElements[X[key]], 'className' | 'style' | 'id'>>
       : (
         X[key] extends FunctionComponentNodeT
         ? NonNullable<Parameters<X[key]>[0]['customize']>

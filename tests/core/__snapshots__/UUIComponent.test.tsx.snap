@@ -50,17 +50,6 @@ exports[`UUIComponent [dataAttributes] 1`] = `
 </div>
 `;
 
-exports[`UUIComponent [id] 1`] = `
-<div
-  className="UUI-UUITestComponent-Root"
-  id="test-component-id-sadgfuiasdgfui"
->
-  <div
-    className="UUI-UUITestComponent-Node"
-  />
-</div>
-`;
-
 exports[`UUIComponent [special IntrinsicNodes children] 1`] = `
 <div
   className="UUI-UUITestComponent-Root"
@@ -152,9 +141,10 @@ exports[`UUIComponent customize [className, style, children] 2`] = `
 </div>
 `;
 
-exports[`UUIComponent customize [convenience][className, style] 1`] = `
+exports[`UUIComponent customize [id][convenience][className, style] 1`] = `
 <div
   className="UUI-UUITestComponent-Root InnerRootClassName ConvenienceClassName ExtendClassName"
+  id="ConvenienceId"
   style={
     Object {
       "backgroundColor": "orange",
@@ -260,6 +250,7 @@ exports[`UUIComponentHOC - customize 1`] = `
   >
     <div
       className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      id="UnionOutterId"
       style={
         Object {
           "color": "red",
@@ -276,6 +267,7 @@ exports[`UUIComponentHOC - customize 1`] = `
   >
     <div
       className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      id="UnionOutterId"
       style={
         Object {
           "color": "red",
@@ -292,6 +284,7 @@ exports[`UUIComponentHOC - customize 1`] = `
   >
     <div
       className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      id="UnionOutterId"
       style={
         Object {
           "color": "red",
@@ -307,6 +300,7 @@ exports[`UUIComponentHOC - customize 1`] = `
   >
     <div
       className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      id="UnionOutterId"
       style={
         Object {
           "color": "red",
@@ -322,6 +316,7 @@ exports[`UUIComponentHOC - customize 1`] = `
   >
     <div
       className="UUI-UUITestFunctionComponent-Y TestFuncYInner"
+      id="UnionOutterId"
       style={
         Object {
           "color": "red",
@@ -337,6 +332,7 @@ exports[`UUIComponentHOC - customize 1`] = `
   >
     <div
       className="UUI-UUITestClassComponent-X TestFuncXInner"
+      id="UnionClassXInnerId"
       style={
         Object {
           "color": "red",
@@ -365,6 +361,7 @@ exports[`UUIComponentHOC - customize 1`] = `
   >
     <div
       className="UUI-UUITestClassComponent-X TestFuncXInner"
+      id="TestXInnerId"
       style={
         Object {
           "color": "red",

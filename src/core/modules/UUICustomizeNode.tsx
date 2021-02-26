@@ -1,12 +1,14 @@
 import React from "react";
 import { mergeRefs } from "../utils/mergeRefs";
 import { mapKeys, uniq, omit, merge, isEmpty, pickBy } from "lodash-es";
-import { UUIConvenienceProps } from "./UUIComponentProps";
 import { mergeCustomize } from "../utils/mergeCustomize";
 import classNames from "classnames";
 import { TypeWithArgs } from "../utils/typeHelper";
 import { UUICustomizeAriaAttributes } from "./UUICustomizeAriaAttributes";
 
+export interface NodeCustomizeIdProps {
+  overrideId?: string;
+}
 export interface NodeCustomizeClassNameProps {
   overrideClassName?: string;
   extendClassName?: string;
@@ -30,6 +32,7 @@ export interface NodeCustomizeAriaAttributesProps {
   ariaAttributes?: UUICustomizeAriaAttributes;
 }
 export type NodeCustomizeProps =
+  & NodeCustomizeIdProps
   & NodeCustomizeClassNameProps
   & NodeCustomizeStyleProps
   & NodeCustomizeChildrenProps
@@ -51,7 +54,7 @@ export function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends s
 
   const Node = React.forwardRef((innerProps: JSX.IntrinsicElements[T], _ref) => {
     const { customize } = (Node as any)['CustomizeProps'] as Readonly<{ customize?: IntrinsicNodeCustomizeProps }>
-    const id = (customize as any | undefined)?.id || innerProps.id
+    const id = customize?.overrideId || innerProps.id
     const className = (() => {
       if (customize?.overrideClassName) return customize.overrideClassName
       const innerClassName = innerProps.className
@@ -131,13 +134,12 @@ export function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends s
     })()
 
     return React.createElement(tagName, {
-      id,
       ...omit(innerProps, 'children', 'ref', 'className', 'style'),
       ...mergedCallbackFunctions,
       ...dataAttributes,
       ...ariaAttributes,
       ref,
-      className, style,
+      id, className, style,
     }, children)
   })
   Node.displayName = `<UUI> [IntrinsicNode] ${nodeName}`
@@ -153,7 +155,7 @@ export type ClassComponentNodeT = TypeWithArgs<React.Component<any, any, any>, a
 export type ComponentNode<P extends any, N extends string | number | symbol> = (Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: NodeCustomizeOptions) => (props: P) => JSX.Element
 export function ComponentNode<P extends any, N extends string, M extends string>(Target: React.FunctionComponent<P> | React.ComponentType<P>, nodeName: N, options: NodeCustomizeOptions) {
   const _Target = Target as any
-  const Node = React.forwardRef((_props: P & UUIConvenienceProps & { customize?: ComponentNodeCustomizeProps<M> }, ref) => {
+  const Node = React.forwardRef((_props: P & { customize?: ComponentNodeCustomizeProps<M> }, ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as Readonly<{ customize?: ComponentNodeCustomizeProps<M> }>
     const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
 
@@ -173,7 +175,6 @@ export function ComponentNode<P extends any, N extends string, M extends string>
       prefix={options.prefix}
       separator={options.separator}
       ref={ref}
-      className={_props.className}
       customize={finalCustomize}
     />
   })
