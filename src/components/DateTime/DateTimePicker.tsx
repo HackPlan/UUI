@@ -108,7 +108,7 @@ export const DateTimePicker = UUIFunctionComponent({
   }, [handleUserValueChange, innerValue, resetInnerValue, timeSelectScrollToValue])
   const handleDateSelect = useCallback((value: Date) => {
     setInnerValue((oldValue) => {
-      const newDate = set(oldValue.date || new Date(), {
+      const newDate = set(oldValue.date || getZeroDate(), {
         year: value.getFullYear(),
         month: value.getMonth(),
         date: value.getDate(),
