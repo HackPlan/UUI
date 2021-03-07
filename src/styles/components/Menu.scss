@@ -5,7 +5,7 @@
   .UUI-MenuItem-Root {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     justify-content: center;
     min-height: 1.75rem;
     padding: 0 1rem;
@@ -21,7 +21,7 @@
       border-radius: inherit;
       box-shadow: none;
       color: #333333;
-      justify-content: start;
+      justify-content: flex-start;
 
       &:hover, &:focus {
         color: #333333;

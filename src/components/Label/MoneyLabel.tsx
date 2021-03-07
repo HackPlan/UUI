@@ -50,7 +50,7 @@ export const MoneyLabel = UUIFunctionComponent({
     symbol: props.symbol || '$',
     thousand: props.thousand || ',',
     decimal: props.decimal || '.',
-    precision: props.precision || 2,
+    precision: props.precision === undefined ? undefined : 2,
   }
 
   const text = formatMoney(props.value, finalProps)

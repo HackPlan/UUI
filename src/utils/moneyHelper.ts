@@ -14,6 +14,6 @@ export function formatMoney(value: number, options?: {
   let result = value.toFixed(Math.max(0, ~~finalOptions.precision))
   result = finalOptions.decimal ? result.replace('.', finalOptions.decimal) : result
   result = result.replace(new RegExp(regex, 'g'), `$&${finalOptions.thousand}`)
-  result = `${finalOptions.symbol} ${result}`
+  result = `${finalOptions.symbol}${result}`
   return result
 }
