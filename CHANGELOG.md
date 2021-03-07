@@ -2,6 +2,13 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.6.6
+
+- fix Date Time Pickers style
+- fix id customize feature - overrideId & fix customize props type
+- fix DateTimePicker date value reset issue
+- fix minor issues
+
 ### v0.6.5
 
 - fix circular dependencies issue
