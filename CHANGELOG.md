@@ -6,6 +6,7 @@ English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGE
 
 - fix RightClickZone left-click-dismiss issue
 - fix UUIProvider re-render issue
+- fix MoneyLabel precision props not work issue
 
 ### v0.6.6
 
