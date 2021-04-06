@@ -8,7 +8,7 @@ export function formatMoney(value: number, options?: {
     symbol: options?.symbol === undefined ? '$' : options?.symbol,
     thousand: options?.thousand || ',',
     decimal: options?.decimal || '.',
-    precision: options?.precision || 2,
+    precision: options?.precision === undefined ? 2 : options.precision,
   }
   const regex = `\\d(?=(\\d{${3}})+${finalOptions.precision > 0 ? '\\D' : '$'})`
   let result = value.toFixed(Math.max(0, ~~finalOptions.precision))
