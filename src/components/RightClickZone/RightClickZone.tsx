@@ -113,7 +113,7 @@ export const RightClickZone = UUIFunctionComponent({
 
   useGlobalClickAway(active, popperRef, (event) => {
     const paths: string[] | undefined = (event as any)['path']
-    const activitorClick = paths?.some((i) => i === rootRef.current)
+    const activitorClick = paths?.some((i) => i === referenceRef.current)
     if (activitorClick) return;
     if (active) {
       closeMenu()
