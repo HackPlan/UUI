@@ -2,6 +2,12 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.6.7
+
+- 修复 RightClickZone 在区域内左键点击dismiss的问题
+- 修复 UUIProvider 导致组件重渲染的问题
+- 修复 MoneyLabel precision props 失效的问题
+
 ### v0.6.6
 
 - 修复 Date Time Pickers 样式
