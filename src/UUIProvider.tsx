@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { UUIComponentNames } from './components/UUIComponentNames';
 import type { AccordionProps } from './components/Accordion/Accordion';
@@ -139,11 +139,14 @@ export interface UUIProviderProps<C extends UUIProviderExtraCustomizeT> extends 
   children: React.ReactNode;
 }
 export function UUIProvider<C extends UUIProviderExtraCustomizeT>(props: UUIProviderProps<C>) {
-  return (
-    <UUIProviderContext.Provider value={{
+  const value = useMemo(() => {
+    return {
       customize: props.customize,
       options: props.options,
-    }}>
+    }
+  }, [props.customize, props.options])
+  return (
+    <UUIProviderContext.Provider value={value}>
       {props.children}
     </UUIProviderContext.Provider>
   );
