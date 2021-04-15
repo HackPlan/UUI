@@ -8,14 +8,14 @@ import { createComponentPropTypes, PropTypes } from '../../utils/createPropTypes
 
 export interface AccordionPaneFeatureProps {
   id: string;
-  title: string;
+  title: React.ReactNode;
   children: React.ReactNode;
   disabled?: boolean;
 }
 
 export const AccordionPanePropTypes = createComponentPropTypes<AccordionPaneFeatureProps>({
   id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
 })
