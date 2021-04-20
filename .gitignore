@@ -13,6 +13,9 @@ package
 #vs code
 .vscode
 
+#idea
+.idea/
+
 # dependencies
 node_modules
 /.pnp
