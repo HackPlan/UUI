@@ -15,7 +15,7 @@ export interface ProgressBarFeatureProps {
   disabled?: boolean;
   /**
    * Whether this ProgressBar is shown in the circular style or not.
-   * @default fales
+   * @default false
    */
   circular?: boolean;
   /**
