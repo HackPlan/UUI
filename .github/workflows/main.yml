@@ -14,15 +14,6 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Read .nvmrc and setup node version
-    - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-      id: nvm
-    - name: Use Node.js (.nvmrc)
-      uses: actions/setup-node@v1
-      with:
-        node-version: "${{ steps.nvm.outputs.NVMRC }}"
-
     # Cache NPM dependencies
     - name: Cache NPM dependencies
       uses: actions/cache@v1
@@ -46,15 +37,6 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-        # Read .nvmrc and setup node version
-    - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-      id: nvm
-    - name: Use Node.js (.nvmrc)
-      uses: actions/setup-node@v1
-      with:
-        node-version: "${{ steps.nvm.outputs.NVMRC }}"
 
     # Cache NPM dependencies
     - name: Cache NPM dependencies
@@ -83,15 +65,6 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Read .nvmrc and setup node version
-    - name: Read .nvmrc
-      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
-      id: nvm
-    - name: Use Node.js (.nvmrc)
-      uses: actions/setup-node@v1
-      with:
-        node-version: "${{ steps.nvm.outputs.NVMRC }}"
-
     # Cache NPM dependencies
     - name: Cache NPM dependencies
       uses: actions/cache@v1
@@ -105,8 +78,6 @@ jobs:
     - name: Install
       run: yarn install
 
-    - uses: mattallty/jest-github-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: artiomtr/jest-coverage-report-action@v1.2
       with:
-        test-command: "yarn test"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
