@@ -2,6 +2,11 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.6.8
+
+- fix AccordionPaneProps
+- fix Dialog.onClickAway event
+
 ### v0.6.7
 
 - fix RightClickZone left-click-dismiss issue

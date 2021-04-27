@@ -2,6 +2,11 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.6.8
+
+- 更新 AccordionPaneProps 类型
+- 修复 Dialog.onClickAway 事件触发
+
 ### v0.6.7
 
 - 修复 RightClickZone 在区域内左键点击dismiss的问题
