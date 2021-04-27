@@ -43,7 +43,7 @@ export function useGlobalClickAway(active: boolean, elementRef: any, onClickAway
         onClickAway && onClickAway(event)
       }, 0)
     }
-  })
+  }, ['mouseup', 'touchend'])
 }
 
 const GlobalActiveElements: any[] = [];

@@ -17,11 +17,11 @@ export interface DialogFeatureProps {
   /**
    * Callback invoked when user click outside of content view.
    */
-  onClickAway?: () => void;
+  onClickAway?: (event: Event) => void;
   /**
    * Callback invoked when user close dialog
    */
-  onClose?: () => void;
+  onClose?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
   /**
    * Whether lock focus on the backdrop element while Dialog is active
    * @default true
@@ -115,7 +115,7 @@ export const Dialog = UUIFunctionComponent({
               switch (event.keyCode) {
                 case KeyCode.Escape:
                   if (props.open) {
-                    props.onClose && props.onClose()
+                    props.onClose && props.onClose(event)
                   }
                   break
                 default:
