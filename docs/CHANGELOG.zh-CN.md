@@ -2,6 +2,10 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
+### v0.5.9
+
+- 性能优化
+
 ### v0.6.8
 
 - 更新 AccordionPaneProps 类型

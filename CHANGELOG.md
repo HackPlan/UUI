@@ -2,6 +2,10 @@
 
 English | [简体中文](https://github.com/HackPlan/UUI/blob/master/docs/CHANGELOG.zh-CN.md)
 
+### v0.5.9
+
+- optimize performance
+
 ### v0.6.8
 
 - fix AccordionPaneProps
