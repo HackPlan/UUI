@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { mergeRefs } from "../utils/mergeRefs";
 import { mapKeys, uniq, omit, merge, isEmpty, pickBy } from "lodash-es";
 import { mergeCustomize } from "../utils/mergeCustomize";
@@ -53,7 +53,7 @@ export function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends s
   const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
 
   const Node = React.forwardRef((innerProps: JSX.IntrinsicElements[T], _ref) => {
-    const { customize } = (Node as any)['CustomizeProps'] as Readonly<{ customize?: IntrinsicNodeCustomizeProps }>
+    const { customize } = (MemoNode as any)['CustomizeProps'] as Readonly<{ customize?: IntrinsicNodeCustomizeProps }>
     const id = customize?.overrideId || innerProps.id
     const className = (() => {
       if (customize?.overrideClassName) return customize.overrideClassName
@@ -142,8 +142,9 @@ export function IntrinsicNode<T extends keyof JSX.IntrinsicElements, N extends s
       id, className, style,
     }, children)
   })
-  Node.displayName = `<UUI> [IntrinsicNode] ${nodeName}`
-  return Node
+  const MemoNode = React.memo(Node)
+  MemoNode.type.displayName = `<UUI> [IntrinsicNode] ${nodeName}`
+  return MemoNode
 }
 
 
@@ -157,21 +158,24 @@ export function ComponentNode<P extends any, N extends string, M extends string>
   const _Target = Target as any
   const Node = React.forwardRef((_props: P & { customize?: ComponentNodeCustomizeProps<M> }, ref) => {
     const customizeProps = (Node as any)['CustomizeProps'] as Readonly<{ customize?: ComponentNodeCustomizeProps<M> }>
-    const nodeClassName = [options.prefix, options.name, nodeName].join(options.separator)
+    const nodeClassName = useMemo(() => {
+      return [options.prefix, options.name, nodeName].join(options.separator)
+    }, [])
 
-    const finalCustomize = mergeCustomize(
-      _props.customize,
-      {
-        Root: {
-          extendClassName: nodeClassName,
-        }
-      } as any,
-      undefined,
-      customizeProps.customize,
-    )
+    const finalCustomize = useMemo(() => {
+      return mergeCustomize(
+        _props.customize,
+        {
+          Root: {
+            extendClassName: nodeClassName,
+          }
+        } as any,
+        customizeProps.customize,
+      )
+    }, [nodeClassName, _props.customize, customizeProps.customize])
 
     return <_Target
-      {...omit(_props, 'customize', 'ref')}
+      {..._props}
       prefix={options.prefix}
       separator={options.separator}
       ref={ref}

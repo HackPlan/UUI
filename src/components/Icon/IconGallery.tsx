@@ -1,6 +1,6 @@
 import React from "react"
 import { Icon, IconProps, IconImageFeatureProps, IconSvgFeatureProps, IconAnyFeatureProps, IconFeatureProps } from "./Icon"
-import { mapValues } from "lodash-es"
+import { mapValues, isEqual } from "lodash-es"
 
 export type LoadedIcon<T> = (props: Omit<IconProps, 'mode' | 'source'> & Omit<T, 'mode' | 'source'>) => JSX.Element
 
@@ -29,14 +29,10 @@ export function IconGallery<
   }
 >(initials: P, options?: O): V {
   return mapValues(initials, (value) => {
-    return (props: IconProps) => {
-      const finalProps = {
-        ...options,
-        ...props,
-        ...value,
-        mode: value.mode || (options && options.mode)
-      } as any
-      return <Icon {...finalProps}></Icon>
-    }
+    const MemoIcon = React.memo((props: IconProps) => {
+      return <Icon {...options} {...value} {...props}></Icon>
+    }, isEqual);
+    (MemoIcon.type as React.SFC).displayName = `<UUI> IconGallery WrappedIcon`;
+    return MemoIcon;
   }) as any
 }
