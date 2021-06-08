@@ -2,7 +2,7 @@
 
 [English](https://github.com/HackPlan/UUI/blob/master/CHANGELOG.md) | 简体中文
 
-### v0.5.9
+### v0.6.9
 
 - 性能优化
 
