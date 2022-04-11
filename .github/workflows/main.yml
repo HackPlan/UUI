@@ -11,17 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    # Cache NPM dependencies
-    - name: Cache NPM dependencies
-      uses: actions/cache@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
       with:
-        path: node_modules
-        key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.OS }}-yarn-cache-
+        node-version: '14'
+        cache: 'yarn'
+        node-version-file: '.nvmrc'
 
     # yarn install
     - name: Install
@@ -35,17 +30,13 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
 
-    # Cache NPM dependencies
-    - name: Cache NPM dependencies
-      uses: actions/cache@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
       with:
-        path: node_modules
-        key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.OS }}-yarn-cache-
+        node-version: '14'
+        cache: 'yarn'
+        node-version-file: '.nvmrc'
 
     # yarn install
     - name: Install
@@ -62,22 +53,15 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
 
-    # Cache NPM dependencies
-    - name: Cache NPM dependencies
-      uses: actions/cache@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
       with:
-        path: node_modules
-        key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.OS }}-yarn-cache-
+        node-version: '14'
+        cache: 'yarn'
+        node-version-file: '.nvmrc'
 
-    # yarn install
-    - name: Install
-      run: yarn install
-
-    - uses: artiomtr/jest-coverage-report-action@v1.2
+    - uses: ArtiomTr/jest-coverage-report-action@v2
       with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        package-manager: yarn
