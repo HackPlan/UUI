@@ -50,6 +50,8 @@ jobs:
         check-name: eslint
 
   test:
+    permissions:
+      issues: read|write
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
@@ -63,5 +65,5 @@ jobs:
 
     - uses: ArtiomTr/jest-coverage-report-action@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.SECRET_TOKEN }}
         package-manager: yarn
